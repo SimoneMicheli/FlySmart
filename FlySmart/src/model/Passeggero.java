@@ -1,16 +1,22 @@
 package model;
 
+import java.io.Serializable;
 
 
-public class Passeggero{
-	private int id;
+
+public class Passeggero implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6370829625592709820L;
+	private Integer id;
 	private String nome;
 	private String cognome;
-	private int eta;
-	private char sesso;
-	private double pesoBagagli;
-	private int idVolo;
-	private int posto;
+	private Integer eta;
+	private Character sesso;
+	private Double pesoBagagli;
+	private Integer idVolo;
+	private Integer posto;
 	
 	
 	
@@ -110,6 +116,11 @@ public class Passeggero{
 
 	public void setEta(int eta) {
 		this.eta = eta;
+	}
+	
+	@Override
+	public String toString() {
+		return nome + " " + cognome;
 	}
 	
 	

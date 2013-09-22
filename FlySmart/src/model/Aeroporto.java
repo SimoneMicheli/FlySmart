@@ -1,6 +1,10 @@
 package model;
 
-public class Aeroporto {
+import java.io.Serializable;
+
+public class Aeroporto implements Serializable{
+	
+	private static final long serialVersionUID = -5578527938970594682L;
 	private int id;
 	private String citta;
 	private double prezzoCarburante;
@@ -37,5 +41,10 @@ public class Aeroporto {
 	}
 	public void setTasse(double tasse) {
 		this.tasse = tasse;
+	}
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return id +" "+citta+ " "+prezzoCarburante+ " "+tasse;
 	}
 }

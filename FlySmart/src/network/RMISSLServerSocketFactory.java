@@ -10,6 +10,9 @@ import javax.net.ssl.SSLServerSocketFactory;
 public class RMISSLServerSocketFactory implements RMIServerSocketFactory {
 
 	@Override
+	/**
+	 * restituisce il socket da utilizzare per la comunicazione su SSL per il server
+	 */
 	public ServerSocket createServerSocket(int port) throws IOException {
 		// TODO Auto-generated method stub
 		ServerSocketFactory factory = SSLServerSocketFactory.getDefault();
