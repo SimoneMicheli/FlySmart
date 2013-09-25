@@ -27,11 +27,25 @@ public class PrenotazioneController{
 
 	public PrenotazioneController(ServerInterface serv){
 		view= new PrenotazioneView();
-		serv=this.serv;
+		this.serv=serv;
 		view.setVisible(true);
+		initController();
 		registraController();
 	}
-
+	
+	public void initController(){
+		List<Aeroporto> aeroporti=null;
+		try {
+			aeroporti = serv.getAirports();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		view.setPasseggeriAeroporti(aeroporti);
+		
+	}
+	
+	
 	public void registraController() {
 
 		//file->esci

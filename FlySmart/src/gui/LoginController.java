@@ -21,7 +21,7 @@ public class LoginController implements Controller{
 	 */
 	LoginView view;
 	PrenotazioneController p;
-	
+	ServerInterface serv;
 	
 	
 
@@ -78,8 +78,16 @@ public class LoginController implements Controller{
 			String url = "rmi://"+ view.ip.getText().toString() +":"+ view.port.getText().toString() +"/FlySmartServer";
 			System.out.println(url);
 			try {
-				ServerInterface serv = (ServerInterface) Naming.lookup(url);
-				//System.out.println(serv.getAirports());
+				serv = (ServerInterface) Naming.lookup(url);
+				
+				
+				
+				
+				System.out.println(serv.getAirports());
+				
+				
+				
+				
 				view.dispose();  //elimino la vecchia view
 				p = new PrenotazioneController(serv); //creo il nuovo controller (che creerà la nuova view)
 			} catch (MalformedURLException e) {

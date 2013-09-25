@@ -1,6 +1,8 @@
 package xml;
 
 import model.*;
+
+import java.lang.reflect.Field;
 import java.sql.Date;
 import java.util.*;
 import org.w3c.dom.*;
@@ -22,6 +24,8 @@ public class XMLToObj{
 				if (firstNode.getNodeType() == Node.ELEMENT_NODE)
 				{
 					String cognome, eta, id , idVolo, nome, pesoBagagli, posto, sesso;
+					
+					
 					
 					Element firstElement = (Element)firstNode;
 					NodeList firstNameElementLst = firstElement.getElementsByTagName("Cognome");
@@ -92,6 +96,15 @@ public class XMLToObj{
 				if (firstNode.getNodeType() == Node.ELEMENT_NODE)
 				{
 					String citta, id, prezzoCarburante, tasse;
+					
+					/*Field[] fields = Aeroporto.class.getDeclaredFields();
+					for(Field f:fields){
+						String name = f.getName();
+						//f.getType()
+						Element firstElement = (Element)firstNode;
+						NodeList firstNameElementLst = firstElement.getElementsByTagName(name);
+						new 
+					}*/
 					
 					Element firstElement = (Element)firstNode;
 					NodeList firstNameElementLst = firstElement.getElementsByTagName("Citta");

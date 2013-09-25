@@ -7,7 +7,10 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -23,6 +26,8 @@ import javax.swing.JProgressBar;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
+
+import model.Aeroporto;
 
 
 @SuppressWarnings("serial")
@@ -81,7 +86,7 @@ public class PrenotazioneView extends View {
 	protected ArrayList<JComboBox<String>> giornoNascitaPasseggeri = new ArrayList<JComboBox<String>>();
 	protected ArrayList<JComboBox<String>> meseNascitaPasseggeri = new ArrayList<JComboBox<String>>();
 	protected ArrayList<JComboBox<String>> annoNascitaPasseggeri = new ArrayList<JComboBox<String>>();
-	
+
 	//dati dei pallet
 	protected JTextField textFieldTargaPallet = new JTextField();
 	protected JTextField textFieldPesoPallet = new JTextField();
@@ -107,7 +112,7 @@ public class PrenotazioneView extends View {
 		setCardEsterne(); //creo le card esterne (passeggeri/pallett)
 		setCardPasseggeri(); //creo le card interne dell'applicazione passeggeri (aeroporti/voli/passeggeri)
 		setCardPallet(); //creo le card interne dell'applicazione pallet (aeroporti/voli/pallet)
-		setPasseggeriAeroporti(); //riempio livello 3aa
+		//setPasseggeriAeroporti(); //riempio livello 3aa
 		//setPasseggeriVoli(); //riempio livello 3ab
 		//setPasseggeriPasseggeri(); //riempio livello 3ac
 		setPalletAeroporti(); //riempio livello 3ba
@@ -174,42 +179,48 @@ public class PrenotazioneView extends View {
 		panelPallet.add(panelPalletPallet,"panelPalletPallet");
 	}
 
-	private void setPasseggeriAeroporti(){
+	public void setPasseggeriAeroporti(List<Aeroporto> aeroporti){
 
 		JLabel labelTipoPrenotazione = new JLabel("Selezionare aeroporto di partenza e di arrivo");
 		labelTipoPrenotazione.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		labelTipoPrenotazione.setBounds(8, 8, 482, 25);
 		panelPasseggeriAeroporti.add(labelTipoPrenotazione);
 
+		
+
+
 
 		JLabel labelAeroportoPartenza = new JLabel("Aereporto Partenza");
 		labelAeroportoPartenza.setBounds(141, 110, 112, 14);
 		panelPasseggeriAeroporti.add(labelAeroportoPartenza);
 
+		
 		comboPasseggeriAeroportoPartenza.setBounds(141, 127, 220, 20);
 		comboPasseggeriAeroportoPartenza.addItem("");
-		comboPasseggeriAeroportoPartenza.addItem("Orio al Serio");
-		comboPasseggeriAeroportoPartenza.addItem("Linate");
-		comboPasseggeriAeroportoPartenza.addItem("Malpensa");
-		comboPasseggeriAeroportoPartenza.addItem("Fiumicino");
+		comboPasseggeriAeroportoArrivo.setBounds(141, 177, 220, 20);
+		comboPasseggeriAeroportoArrivo.addItem("");
+		
+		Iterator i = aeroporti.iterator();
+		while(i.hasNext()) {
+			Aeroporto element = (Aeroporto) i.next();
+			comboPasseggeriAeroportoPartenza.addItem(element.getCitta());
+			comboPasseggeriAeroportoArrivo.addItem(element.getCitta());
+		}
+
+		panelPasseggeriAeroporti.add(comboPasseggeriAeroportoArrivo);
 		panelPasseggeriAeroporti.add(comboPasseggeriAeroportoPartenza);
 
+		
+		
 		JLabel labelAeroportoArrivo = new JLabel("Aereporto Arrivo");
 		labelAeroportoArrivo.setBounds(141, 160, 112, 14);
 		panelPasseggeriAeroporti.add(labelAeroportoArrivo);
 
-		comboPasseggeriAeroportoArrivo.setBounds(141, 177, 220, 20);
-		comboPasseggeriAeroportoArrivo.addItem("");
-		comboPasseggeriAeroportoArrivo.addItem("Orio al Serio");
-		comboPasseggeriAeroportoArrivo.addItem("Linate");
-		comboPasseggeriAeroportoArrivo.addItem("Malpensa");
-		comboPasseggeriAeroportoArrivo.addItem("Fiumicino");
-		panelPasseggeriAeroporti.add(comboPasseggeriAeroportoArrivo);
-
+		
 		buttonPasseggeriPasseggeriCercaVoli = new JButton("Cerca Voli");
 		buttonPasseggeriPasseggeriCercaVoli.setBounds(141, 215, 220, 23);
 		panelPasseggeriAeroporti.add(buttonPasseggeriPasseggeriCercaVoli);
-		
+
 		JProgressBar progressBar = new JProgressBar();
 		progressBar.setBounds(10, 360, 482, 26);
 		panelPasseggeriAeroporti.add(progressBar);
@@ -247,7 +258,7 @@ public class PrenotazioneView extends View {
 		buttonPasseggeriAnnullaVolo = new JButton("Annulla");
 		buttonPasseggeriAnnullaVolo.setBounds(266, 327, 89, 23);
 		panelPasseggeriVoli.add(buttonPasseggeriAnnullaVolo);
-		
+
 		JProgressBar progressBar = new JProgressBar();
 		progressBar.setBounds(10, 360, 482, 26);
 		panelPasseggeriVoli.add(progressBar);
@@ -284,7 +295,7 @@ public class PrenotazioneView extends View {
 		buttonPasseggeriConfermaPrenotazione = new JButton("Conferma");
 		buttonPasseggeriConfermaPrenotazione.setBounds(167, 327, 89, 23);
 		panelPasseggeriPasseggeri.add(buttonPasseggeriConfermaPrenotazione);
-		
+
 		JProgressBar progressBar = new JProgressBar();
 		progressBar.setBounds(10, 360, 482, 26);
 		panelPasseggeriPasseggeri.add(progressBar);
@@ -326,7 +337,7 @@ public class PrenotazioneView extends View {
 		buttonPalletPasseggeriCercaVoli = new JButton("Cerca Voli");
 		buttonPalletPasseggeriCercaVoli.setBounds(141, 215, 220, 23);
 		panelPalletAeroporti.add(buttonPalletPasseggeriCercaVoli);
-		
+
 		JProgressBar progressBar = new JProgressBar();
 		progressBar.setBounds(10, 360, 482, 26);
 		panelPalletAeroporti.add(progressBar);
@@ -364,8 +375,8 @@ public class PrenotazioneView extends View {
 		buttonPalletAnnullaVolo = new JButton("Annulla");
 		buttonPalletAnnullaVolo.setBounds(266, 327, 89, 23);
 		panelPalletVoli.add(buttonPalletAnnullaVolo);
-		
-		
+
+
 		JProgressBar progressBar = new JProgressBar();
 		progressBar.setBounds(10, 360, 482, 26);
 		panelPalletVoli.add(progressBar);
@@ -387,7 +398,7 @@ public class PrenotazioneView extends View {
 		JLabel lblTarga = new JLabel("Targa del pallet");
 		lblTarga.setBounds(141, 110, 112, 14);
 		panelPalletPallet.add(lblTarga);
-		
+
 		textFieldTargaPallet.setBounds(141, 127, 220, 20);
 		panelPalletPallet.add(textFieldTargaPallet);
 		textFieldTargaPallet.setColumns(10);
@@ -399,7 +410,7 @@ public class PrenotazioneView extends View {
 		textFieldPesoPallet.setBounds(141, 177, 220, 20);
 		panelPalletPallet.add(textFieldPesoPallet);
 		textFieldPesoPallet.setColumns(10);
-		
+
 
 		buttonPalletConfermaPrenotazione = new JButton("Conferma");
 		buttonPalletConfermaPrenotazione.setBounds(167, 327, 89, 23);
@@ -408,13 +419,13 @@ public class PrenotazioneView extends View {
 		buttonPalletAnnullaPrenotazione = new JButton("Annulla");
 		buttonPalletAnnullaPrenotazione.setBounds(266, 327, 89, 23);
 		panelPalletPallet.add(buttonPalletAnnullaPrenotazione);
-		
-		
+
+
 		JProgressBar progressBar = new JProgressBar();
 		progressBar.setBounds(10, 360, 482, 26);
 		panelPalletPallet.add(progressBar);
 		progressBar.setValue(90);
-		
+
 		repaint();
 	}
 

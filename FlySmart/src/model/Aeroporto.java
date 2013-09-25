@@ -47,4 +47,7 @@ public class Aeroporto implements Serializable{
 		// TODO Auto-generated method stub
 		return id +" "+citta+ " "+prezzoCarburante+ " "+tasse;
 	}
+	public static long getSerialVersionUID() {
+		return serialVersionUID;
+	}
 }

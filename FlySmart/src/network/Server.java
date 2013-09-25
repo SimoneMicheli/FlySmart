@@ -5,9 +5,12 @@ package network;
 
 import java.rmi.RemoteException;
 import java.rmi.server.*;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Logger;
+
+import xml.XMLToObj;
 
 import model.Aeroporto;
 import model.Passeggero;
@@ -30,11 +33,13 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 	protected Server(RMISSLClientSocketFactory clientFactory, RMISSLServerSocketFactory serverFactory) throws RemoteException {
 		super(0, clientFactory, serverFactory);
 		
+		
+		/*
 		//carica elenco aeroporti
 		elencoAeroporti = new LinkedList<Aeroporto>();
 		elencoAeroporti.add(new Aeroporto(0, "Malpensa", 20, 20));
 		elencoAeroporti.add(new Aeroporto(0, "Bergamo", 50, 10));
-		elencoAeroporti.add(new Aeroporto(0, "Fiumicino", 100, 40));
+		elencoAeroporti.add(new Aeroporto(0, "Fiumicino", 100, 40));*/
 		
 	}
 
@@ -44,6 +49,11 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 	@Override
 	public List<Aeroporto> getAirports() throws RemoteException {
 		// TODO Auto-generated method stub
+		XMLToObj instance = new XMLToObj();
+		elencoAeroporti = new ArrayList<Aeroporto>();
+		elencoAeroporti = instance.createAeroportoList("aeroporti.xml");
+
+		System.out.println("***** "+elencoAeroporti);
 		return elencoAeroporti;
 	}
 

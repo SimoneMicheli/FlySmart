@@ -20,8 +20,8 @@ public class TestXML {
 		
 		ArrayList<Passeggero> elenco = new ArrayList<Passeggero>();
 		
-		elenco.add(new Passeggero( 1 , "Gianluigi","Buffon", 42, "mmm".charAt(0), 100.1 , 100 , 1000));		
-		elenco.add(new Passeggero( 12 , "Marco","Amelia", 29, "mmm".charAt(0), 120.12 , 120 , 2000));	
+		elenco.add(new Passeggero( 1 , "Gianluigi","Buffon", 42, 'm', 100.1 , 100 , 1000));		
+		elenco.add(new Passeggero( 12 , "Marco","Amelia", 29, 'm', 120.12 , 120 , 2000));	
 		XMLCreate<Passeggero> instance = new XMLCreate<Passeggero>();
 		Document d = instance.createFlySmartDocument(elenco);
 		instance.printDocument(d,"down");
