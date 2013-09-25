@@ -12,7 +12,6 @@ public class Volo {
 	private int palletDisponibili;
 	
 	
-	
 	public Volo(int id, Date dataora, int aeroportoPartenza, int aeroportoDestinazione, int aereo, int postiDisponibili, int palletDisponibili) {
 		this.id = id;
 		this.dataora = dataora;

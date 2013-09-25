@@ -5,9 +5,11 @@ package network;
 
 import java.rmi.RemoteException;
 import java.rmi.server.*;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.logging.Logger;
+
+import comparator.AeroportoComparator;
 
 import model.Aeroporto;
 import model.Passeggero;
@@ -18,6 +20,10 @@ import model.Passeggero;
  *
  */
 public class Server extends UnicastRemoteObject implements ServerInterface {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1112973689097758070L;
 	public List<Passeggero> list;
 	private List<Aeroporto> elencoAeroporti;
 	
@@ -32,10 +38,12 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 		
 		//carica elenco aeroporti
 		elencoAeroporti = new LinkedList<Aeroporto>();
-		elencoAeroporti.add(new Aeroporto(0, "Malpensa", 20, 20));
-		elencoAeroporti.add(new Aeroporto(0, "Bergamo", 50, 10));
-		elencoAeroporti.add(new Aeroporto(0, "Fiumicino", 100, 40));
+		elencoAeroporti.add(new Aeroporto(5, "Malpensa", 20, 20));
+		elencoAeroporti.add(new Aeroporto(1, "Bergamo", 50, 10));
+		elencoAeroporti.add(new Aeroporto(8, "Fiumicino", 100, 40));
 		
+		Collections.sort(elencoAeroporti, AeroportoComparator.ID_ORDER);
+		System.out.println(elencoAeroporti);
 	}
 
 	/* (non-Javadoc)
