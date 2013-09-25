@@ -5,6 +5,10 @@ package network;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.List;
+
+import model.Aeroporto;
+import model.Passeggero;
 
 /**
  * interfaccia server, definisce i metodi eseguibili dai client
@@ -18,5 +22,7 @@ public interface ServerInterface extends Remote {
 	 * @return
 	 * @throws RemoteException
 	 */
-	public String getAirports() throws RemoteException;
+	public List<Aeroporto> getAirports() throws RemoteException;
+	
+	public List<Passeggero> getPassengers() throws RemoteException;
 }

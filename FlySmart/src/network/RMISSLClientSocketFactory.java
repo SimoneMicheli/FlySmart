@@ -11,6 +11,9 @@ import javax.net.ssl.SSLSocketFactory;
 public class RMISSLClientSocketFactory implements RMIClientSocketFactory, Serializable {
 
 	@Override
+	/**
+	 * restituisce il socket da utilizzare per la comunicazione su SSL per il client
+	 */
 	public Socket createSocket(String host, int port) throws IOException {
 		SocketFactory factory = SSLSocketFactory.getDefault();
 		return factory.createSocket(host, port);

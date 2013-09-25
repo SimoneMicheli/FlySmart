@@ -3,10 +3,14 @@
  */
 package network;
 
+import java.awt.List;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+
+import model.Aeroporto;
+import model.Passeggero;
 
 /**
  * @author Demarinis - Micheli - Scarpellini
@@ -25,9 +29,13 @@ public class ClientTest {
 		try {
 			ServerInterface serv = (ServerInterface) Naming.lookup("rmi://localhost/FlySmartServer");
 			
-			String s = serv.getAirports();
+			java.util.List<Aeroporto> s = serv.getAirports();
 			
 			System.out.println(s);
+			
+			java.util.List<Passeggero> list = serv.getPassengers();
+			
+			System.out.println(list);
 			
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
