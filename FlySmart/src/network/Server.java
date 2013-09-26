@@ -6,12 +6,10 @@ package network;
 import java.rmi.RemoteException;
 import java.rmi.server.*;
 import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.Collections;
 import java.util.List;
-import java.util.logging.Logger;
-
 import xml.XMLToObj;
-
+import comparator.AeroportoComparator;
 import model.Aeroporto;
 import model.Passeggero;
 
@@ -21,6 +19,10 @@ import model.Passeggero;
  *
  */
 public class Server extends UnicastRemoteObject implements ServerInterface {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1112973689097758070L;
 	public List<Passeggero> list;
 	private List<Aeroporto> elencoAeroporti;
 	
@@ -32,15 +34,6 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 	 */
 	protected Server(RMISSLClientSocketFactory clientFactory, RMISSLServerSocketFactory serverFactory) throws RemoteException {
 		super(0, clientFactory, serverFactory);
-		
-		
-		/*
-		//carica elenco aeroporti
-		elencoAeroporti = new LinkedList<Aeroporto>();
-		elencoAeroporti.add(new Aeroporto(0, "Malpensa", 20, 20));
-		elencoAeroporti.add(new Aeroporto(0, "Bergamo", 50, 10));
-		elencoAeroporti.add(new Aeroporto(0, "Fiumicino", 100, 40));*/
-		
 	}
 
 	/* (non-Javadoc)
@@ -53,6 +46,8 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 		elencoAeroporti = new ArrayList<Aeroporto>();
 		elencoAeroporti = instance.createAeroportoList("aeroporti.xml");
 
+		Collections.sort(elencoAeroporti, AeroportoComparator.ID_ORDER);
+		
 		System.out.println("***** "+elencoAeroporti);
 		return elencoAeroporti;
 	}

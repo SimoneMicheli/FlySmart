@@ -202,8 +202,8 @@ public class PrenotazioneView extends View {
 		Iterator i = aeroporti.iterator();
 		while(i.hasNext()) {
 			Aeroporto element = (Aeroporto) i.next();
-			comboPasseggeriAeroportoPartenza.addItem(element.getCitta());
-			comboPasseggeriAeroportoArrivo.addItem(element.getCitta());
+			comboPasseggeriAeroportoPartenza.addItem(element.getNome());
+			comboPasseggeriAeroportoArrivo.addItem(element.getNome());
 		}
 
 		panelPasseggeriAeroporti.add(comboPasseggeriAeroportoArrivo, BorderLayout.SOUTH);

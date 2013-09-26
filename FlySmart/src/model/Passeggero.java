@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 
 
-public class Passeggero implements Serializable{
+public class Passeggero implements Serializable, Comparable<Passeggero>{
 	/**
 	 * 
 	 */
@@ -17,9 +17,6 @@ public class Passeggero implements Serializable{
 	private Double pesoBagagli;
 	private Integer idVolo;
 	private Integer posto;
-	
-	
-	
 	
 	
 	public Passeggero(Integer id, String nome, String cognome, Integer eta, Character sesso, Double pesoBagagli, Integer idVolo, Integer posto) {
@@ -121,6 +118,14 @@ public class Passeggero implements Serializable{
 	@Override
 	public String toString() {
 		return nome + " " + cognome;
+	}
+
+	@Override
+	public int compareTo(Passeggero o) {
+		int cmp = this.cognome.compareTo(o.cognome);
+		if (cmp == 0)
+			cmp = this.nome.compareTo(o.nome);
+		return cmp;
 	}
 	
 	
