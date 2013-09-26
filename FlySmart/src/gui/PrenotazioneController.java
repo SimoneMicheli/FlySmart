@@ -265,10 +265,10 @@ public class PrenotazioneController{
 				//fase di controllo
 				Iterator<JTextField> iterNomi = view.nomiPasseggeri.iterator();
 				Iterator<JTextField> iterCognomi = view.cognomiPasseggeri.iterator();
-				Iterator<JComboBox<String>> iterGiorno = view.giornoNascitaPasseggeri.iterator();
-				Iterator<JComboBox<String>> iterMese = view.meseNascitaPasseggeri.iterator();
-				Iterator<JComboBox<String>> iterAnno = view.annoNascitaPasseggeri.iterator();
-				Iterator<JComboBox<String>> iterSesso = view.sessoPasseggeri.iterator();
+				Iterator<JComboBox> iterGiorno = view.giornoNascitaPasseggeri.iterator();
+				Iterator<JComboBox> iterMese = view.meseNascitaPasseggeri.iterator();
+				Iterator<JComboBox> iterAnno = view.annoNascitaPasseggeri.iterator();
+				Iterator<JComboBox> iterSesso = view.sessoPasseggeri.iterator();
 				boolean completo=true; //mi dice se il modulo e incompleto
 				boolean first=true; //mi dice se l'iterator è al primo passeggero
 				while (iterNomi.hasNext() && iterCognomi.hasNext() && iterGiorno.hasNext() && iterMese.hasNext() && iterAnno.hasNext() && iterSesso.hasNext()) {
