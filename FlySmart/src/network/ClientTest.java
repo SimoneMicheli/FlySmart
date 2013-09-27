@@ -36,7 +36,10 @@ public class ClientTest {
 			java.util.List<Passeggero> list = serv.getPassengers();
 			
 			System.out.println(list);
+			System.out.println(s);
 			
+			//s = serv.getAirports();
+			System.out.println(s);
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
