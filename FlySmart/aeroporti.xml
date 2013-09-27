@@ -3,21 +3,21 @@
     <Aeroporto>
         <SerialVersionUID>-5578527938970594682</SerialVersionUID>
         <Id>1</Id>
-        <Citta>Malpensa</Citta>
+        <NomeAeroporto>Malpensa</NomeAeroporto>
         <PrezzoCarburante>20.0</PrezzoCarburante>
         <Tasse>20.0</Tasse>
     </Aeroporto>
     <Aeroporto>
         <SerialVersionUID>-5578527938970594682</SerialVersionUID>
         <Id>2</Id>
-        <Citta>Bergamo</Citta>
+        <NomeAeroporto>Bergamo</NomeAeroporto>
         <PrezzoCarburante>50.0</PrezzoCarburante>
         <Tasse>10.0</Tasse>
     </Aeroporto>
     <Aeroporto>
         <SerialVersionUID>-5578527938970594682</SerialVersionUID>
         <Id>3</Id>
-        <Citta>Fiumicino</Citta>
+        <NomeAeroporto>Fiumicino</NomeAeroporto>
         <PrezzoCarburante>100.0</PrezzoCarburante>
         <Tasse>40.0</Tasse>
     </Aeroporto>
