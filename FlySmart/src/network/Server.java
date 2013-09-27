@@ -8,6 +8,9 @@ import java.rmi.server.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import javax.swing.plaf.SliderUI;
+
 import xml.XMLToObj;
 import comparator.AeroportoComparator;
 import fileLock.FileLock;
@@ -27,6 +30,9 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 	private static final long serialVersionUID = -1112973689097758070L;
 	public List<Passeggero> list;
 	private List<Aeroporto> elencoAeroporti;
+	
+	private List<String> strs = new ArrayList<String>();
+	
 	FileLock airportLock;
 	
 	/**
@@ -69,6 +75,24 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 	public List<Passeggero> getPassengers() throws RemoteException {
 		// TODO Auto-generated method stub
 		return list;
+	}
+
+	@Override
+	public List<String> setString(String s) throws RemoteException {
+		airportLock.acquireWriteLock();
+		System.out.println("scrivo stringa: "+s);
+		try { Thread.sleep(250); } catch (InterruptedException e) {}
+		airportLock.releaseWriteLock();
+		return null;
+	}
+
+	@Override
+	public List<String> getString() throws RemoteException {
+		airportLock.acquireReadLock();
+		System.out.println("lettura");
+		try { Thread.sleep(50); } catch (InterruptedException e) {}
+		airportLock.releaseReadLock();
+		return null;
 	}
 
 }

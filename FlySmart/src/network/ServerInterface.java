@@ -25,4 +25,8 @@ public interface ServerInterface extends Remote {
 	public List<Aeroporto> getAirports() throws RemoteException;
 	
 	public List<Passeggero> getPassengers() throws RemoteException;
+	
+	public List<String> setString(String s)  throws RemoteException;
+	
+	public List<String> getString() throws RemoteException;
 }

@@ -18,15 +18,18 @@ public class FileLockImpl implements FileLock {
 	 */
 	@Override
 	public synchronized void acquireReadLock() {
+		System.out.println(writers_wait+" "+writing+" "+readers_wait+" "+readers_counter);
 		readers_wait++;
 		//se ci sono scrittori in attesa o in fase di scrittura attendi
 		while(writers_wait > 0 || writing == true){
 			try {
+				System.out.println("sospendo lettore");
 				wait();
 			} catch (InterruptedException e) {}
 		}
 		readers_wait--;
 		readers_counter++;
+		System.out.println("leggo: "+readers_counter);
 	}
 
 	/* (non-Javadoc)
@@ -34,15 +37,18 @@ public class FileLockImpl implements FileLock {
 	 */
 	@Override
 	public synchronized void acquireWriteLock() {
+		System.out.println(writers_wait+" "+writing+" "+readers_wait+" "+readers_counter);
 		writers_wait++;
 		//se ci sono lettori o scrittori attivi sospendi
 		while(readers_counter > 0 || writing == true){
 			try {
+				System.out.println("sospendo scrittore");
 				wait();
 			} catch (InterruptedException e) {}
 		}
 		writers_wait--;
 		writing = true;
+		System.out.println("scrivo");
 	}
 
 	/* (non-Javadoc)
