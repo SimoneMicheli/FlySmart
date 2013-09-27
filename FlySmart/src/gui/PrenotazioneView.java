@@ -64,10 +64,11 @@ public class PrenotazioneView extends View {
 	JMenuItem mntmAboutUs = new JMenuItem("About Us");
 
 	//scelte
-	JComboBox<String> comboPasseggeriAeroportoPartenza= new JComboBox<String>();
-	JComboBox<String> comboPasseggeriAeroportoArrivo = new JComboBox<String>();
-	JComboBox<String> comboPalletAeroportoPartenza= new JComboBox<String>();
-	JComboBox<String> comboPalletAeroportoArrivo = new JComboBox<String>();
+	JComboBox comboPasseggeriAeroportoPartenza= new JComboBox();
+	//add(comboPasseggeriAeroportoPartenza, BorderLayout.NORTH);
+	JComboBox comboPasseggeriAeroportoArrivo = new JComboBox();
+	JComboBox comboPalletAeroportoPartenza= new JComboBox();
+	JComboBox comboPalletAeroportoArrivo = new JComboBox();
 
 	//button 1 livello
 	protected JButton buttonPasseggeriPasseggeriCercaVoli;
@@ -82,10 +83,10 @@ public class PrenotazioneView extends View {
 	//arraylist per i dati dei passeggeri
 	protected ArrayList<JTextField> nomiPasseggeri = new ArrayList<JTextField>();
 	protected ArrayList<JTextField> cognomiPasseggeri = new ArrayList<JTextField>();
-	protected ArrayList<JComboBox<String>> sessoPasseggeri = new ArrayList<JComboBox<String>>();
-	protected ArrayList<JComboBox<String>> giornoNascitaPasseggeri = new ArrayList<JComboBox<String>>();
-	protected ArrayList<JComboBox<String>> meseNascitaPasseggeri = new ArrayList<JComboBox<String>>();
-	protected ArrayList<JComboBox<String>> annoNascitaPasseggeri = new ArrayList<JComboBox<String>>();
+	protected ArrayList<JComboBox> sessoPasseggeri = new ArrayList<JComboBox>();
+	protected ArrayList<JComboBox> giornoNascitaPasseggeri = new ArrayList<JComboBox>();
+	protected ArrayList<JComboBox> meseNascitaPasseggeri = new ArrayList<JComboBox>();
+	protected ArrayList<JComboBox> annoNascitaPasseggeri = new ArrayList<JComboBox>();
 
 	//dati dei pallet
 	protected JTextField textFieldTargaPallet = new JTextField();
@@ -150,6 +151,7 @@ public class PrenotazioneView extends View {
 		Container contentPane = getContentPane();
 		contentPane.add(panelCardLayoutEsterno,BorderLayout.CENTER);
 		panelCardLayoutEsterno.setLayout(cardEsterno);
+		
 		//pannello passeggeri
 		panelPasseggeri.setLayout(cardPasseggeri);
 		panelCardLayoutEsterno.add(panelPasseggeri,"panelPasseggeri");
@@ -186,9 +188,6 @@ public class PrenotazioneView extends View {
 		labelTipoPrenotazione.setBounds(8, 8, 482, 25);
 		panelPasseggeriAeroporti.add(labelTipoPrenotazione);
 
-		
-
-
 
 		JLabel labelAeroportoPartenza = new JLabel("Aereporto Partenza");
 		labelAeroportoPartenza.setBounds(141, 110, 112, 14);
@@ -203,12 +202,12 @@ public class PrenotazioneView extends View {
 		Iterator i = aeroporti.iterator();
 		while(i.hasNext()) {
 			Aeroporto element = (Aeroporto) i.next();
-			comboPasseggeriAeroportoPartenza.addItem(element.getCitta());
-			comboPasseggeriAeroportoArrivo.addItem(element.getCitta());
+			comboPasseggeriAeroportoPartenza.addItem(element.getNome());
+			comboPasseggeriAeroportoArrivo.addItem(element.getNome());
 		}
 
-		panelPasseggeriAeroporti.add(comboPasseggeriAeroportoArrivo);
-		panelPasseggeriAeroporti.add(comboPasseggeriAeroportoPartenza);
+		panelPasseggeriAeroporti.add(comboPasseggeriAeroportoArrivo, BorderLayout.SOUTH);
+		panelPasseggeriAeroporti.add(comboPasseggeriAeroportoPartenza, BorderLayout.NORTH);
 
 		
 		
@@ -461,7 +460,7 @@ public class PrenotazioneView extends View {
 		labelPasseggeriSesso.setBounds(210, 21+(numeroPasseggeri*75), 46, 14);
 		panelPasseggeriPasseggeriInterno.add(labelPasseggeriSesso);
 
-		JComboBox<String> comboBoxSesso = new JComboBox<String>();
+		JComboBox comboBoxSesso = new JComboBox();
 		comboBoxSesso.addItem("");
 		comboBoxSesso.addItem("Uomo");
 		comboBoxSesso.addItem("Donna");
@@ -475,7 +474,7 @@ public class PrenotazioneView extends View {
 
 
 		//giorni di nascita
-		JComboBox<String> comboBoxGiorno = new JComboBox<String>();
+		JComboBox comboBoxGiorno = new JComboBox();
 		comboBoxGiorno.addItem("");
 		for(int i=1;i<31;i++){
 			comboBoxGiorno.addItem(""+i);
@@ -485,7 +484,7 @@ public class PrenotazioneView extends View {
 		giornoNascitaPasseggeri.add(comboBoxGiorno); //lo aggiungo all'arraylist
 
 		//mese di nascita
-		JComboBox<String> comboBoxMese = new JComboBox<String>();
+		JComboBox comboBoxMese = new JComboBox();
 		comboBoxMese.addItem("");
 		for(int i=1;i<12;i++){
 			comboBoxMese.addItem(""+i);
@@ -495,7 +494,7 @@ public class PrenotazioneView extends View {
 		meseNascitaPasseggeri.add(comboBoxMese); //lo aggiungo all'arraylist
 
 		//anno di nascita
-		JComboBox<String> comboBoxAnno = new JComboBox<String>();
+		JComboBox comboBoxAnno = new JComboBox();
 		comboBoxAnno.addItem("");
 		for(int i=2013;i>1900;i--){
 			comboBoxAnno.addItem(""+i);

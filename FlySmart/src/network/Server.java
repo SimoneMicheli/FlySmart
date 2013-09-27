@@ -6,12 +6,12 @@ package network;
 import java.rmi.RemoteException;
 import java.rmi.server.*;
 import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.Collections;
 import java.util.List;
-import java.util.logging.Logger;
-
 import xml.XMLToObj;
-
+import comparator.AeroportoComparator;
+import fileLock.FileLock;
+import fileLock.FileLockImpl;
 import model.Aeroporto;
 import model.Passeggero;
 
@@ -21,26 +21,26 @@ import model.Passeggero;
  *
  */
 public class Server extends UnicastRemoteObject implements ServerInterface {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1112973689097758070L;
 	public List<Passeggero> list;
 	private List<Aeroporto> elencoAeroporti;
+	FileLock airportLock;
 	
 	/**
-	 * costruttore dell'oggetto server
+	 * costruttore dell'oggetto server, crea i lock necessari a garantire l'accesso
+	 * ai file xml
 	 * @param clientFactory
 	 * @param serverFactory
 	 * @throws RemoteException
 	 */
-	protected Server(RMISSLClientSocketFactory clientFactory, RMISSLServerSocketFactory serverFactory) throws RemoteException {
+	protected Server(RMISSLClientSocketFactory clientFactory, RMISSLServerSocketFactory serverFactory, FileLock ... locks) throws RemoteException {
 		super(0, clientFactory, serverFactory);
 		
-		
-		/*
-		//carica elenco aeroporti
-		elencoAeroporti = new LinkedList<Aeroporto>();
-		elencoAeroporti.add(new Aeroporto(0, "Malpensa", 20, 20));
-		elencoAeroporti.add(new Aeroporto(0, "Bergamo", 50, 10));
-		elencoAeroporti.add(new Aeroporto(0, "Fiumicino", 100, 40));*/
-		
+		//lock per accesso al file aeroporti.xml
+		airportLock = new FileLockImpl();
 	}
 
 	/* (non-Javadoc)
@@ -49,11 +49,19 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 	@Override
 	public List<Aeroporto> getAirports() throws RemoteException {
 		// TODO Auto-generated method stub
+		System.out.println("entro sezione critica");
+		airportLock.acquireReadLock();
+		System.out.println("nella sezione critica");
 		XMLToObj instance = new XMLToObj();
 		elencoAeroporti = new ArrayList<Aeroporto>();
 		elencoAeroporti = instance.createAeroportoList("aeroporti.xml");
 
+		Collections.sort(elencoAeroporti, AeroportoComparator.ID_ORDER);
+		
 		System.out.println("***** "+elencoAeroporti);
+		System.out.println("esco sezione critica");
+		airportLock.releaseReadLock();
+		System.out.println("fuori sezione critica");
 		return elencoAeroporti;
 	}
 
