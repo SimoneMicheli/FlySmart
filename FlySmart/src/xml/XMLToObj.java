@@ -107,7 +107,7 @@ public class XMLToObj{
 					}*/
 					
 					Element firstElement = (Element)firstNode;
-					NodeList firstNameElementLst = firstElement.getElementsByTagName("NomeAeroporto");
+					NodeList firstNameElementLst = firstElement.getElementsByTagName("Nome");
 					Element firstNameElement = (Element)firstNameElementLst.item(0);
 					NodeList firstName = firstNameElement.getChildNodes();
 					citta = ((Node)firstName.item(0)).getNodeValue();
