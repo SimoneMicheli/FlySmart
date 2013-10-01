@@ -22,6 +22,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JRadioButton;
@@ -114,7 +115,7 @@ public class PrenotazioneView extends View {
 	protected ButtonGroup buttonGroupPasseggeriVoli = new ButtonGroup();
 	protected ButtonGroup buttonGroupPalletVoli = new ButtonGroup();
 	JLabel labelTipoPrenotazione= new JLabel();
-
+	JLabel labelPasseggeriNumero = new JLabel("1");
 
 
 
@@ -292,7 +293,67 @@ public class PrenotazioneView extends View {
 		//panelPasseggeriPasseggeriInterno.setBorder(lineaSpessa);
 		panelPasseggeriPasseggeri.add(panelPasseggeriPasseggeriInterno);
 
-		addPasseggero();
+		JLabel labelPasseggeriNome = new JLabel("Nome");
+		labelPasseggeriNome.setBounds(10, 21+(75), 72, 14);
+		panelPasseggeriPasseggeriInterno.add(labelPasseggeriNome);
+
+
+		textPasseggeriNome.setBounds(70, 18+(75), 130, 20);
+		panelPasseggeriPasseggeriInterno.add(textPasseggeriNome);
+		textPasseggeriNome.setColumns(10);
+
+		JLabel labelPasseggeriCognome = new JLabel("Cognome");
+		labelPasseggeriCognome.setBounds(10, 49+(75), 46, 14);
+		panelPasseggeriPasseggeriInterno.add(labelPasseggeriCognome);
+
+
+		textPasseggeriCognome.setBounds(70, 46+(75), 130, 20);
+		panelPasseggeriPasseggeriInterno.add(textPasseggeriCognome);
+		textPasseggeriCognome.setColumns(10);
+
+
+
+		labelPasseggeriNumero.setBounds(210, 21, 46, 14);
+		panelPasseggeriPasseggeriInterno.add(labelPasseggeriNumero);
+
+		JLabel labelPasseggeriSesso = new JLabel("Sesso");
+		labelPasseggeriSesso.setBounds(210, 21+(75), 46, 14);
+		panelPasseggeriPasseggeriInterno.add(labelPasseggeriSesso);
+
+		comboBoxSesso.addItem("");
+		comboBoxSesso.addItem("Uomo");
+		comboBoxSesso.addItem("Donna");
+		comboBoxSesso.setBounds(260, 18+(75), 72, 20);
+		panelPasseggeriPasseggeriInterno.add(comboBoxSesso);
+
+		JLabel labelPasseggeriEta = new JLabel("Nato il");
+		labelPasseggeriEta.setBounds(210, 49+(75), 46, 14);
+		panelPasseggeriPasseggeriInterno.add(labelPasseggeriEta);
+
+
+		//giorni di nascita
+		comboBoxGiorno.addItem("");
+		for(int i=1;i<31;i++){
+			comboBoxGiorno.addItem(""+i);
+		}
+		comboBoxGiorno.setBounds(260, 46+(75), 42, 20);
+		panelPasseggeriPasseggeriInterno.add(comboBoxGiorno);
+
+		//mese di nascita
+		comboBoxMese.addItem("");
+		for(int i=1;i<12;i++){
+			comboBoxMese.addItem(""+i);
+		}
+		comboBoxMese.setBounds(310, 46+(75), 42, 20);
+		panelPasseggeriPasseggeriInterno.add(comboBoxMese);
+
+		//anno di nascita
+		comboBoxAnno.addItem("");
+		for(int i=2013;i>1900;i--){
+			comboBoxAnno.addItem(""+i);
+		}
+		comboBoxAnno.setBounds(360, 46+(75), 55, 20);
+		panelPasseggeriPasseggeriInterno.add(comboBoxAnno);
 
 		buttonPasseggeriProssimo = new JButton(">");
 		buttonPasseggeriProssimo.setBounds(167, 297, 188, 23);
@@ -459,9 +520,18 @@ public class PrenotazioneView extends View {
 	}
 
 
+	protected boolean controllaCampi(){
+		return !(textPasseggeriNome.getText().equals("") || 
+				textPasseggeriCognome.getText().equals("") || 
+				comboBoxSesso.getSelectedIndex()==0 ||
+				comboBoxGiorno.getSelectedIndex()==0 ||
+				comboBoxMese.getSelectedIndex()==0 ||
+				comboBoxAnno.getSelectedIndex()==0
+				);
+	}
 
-	protected void successivoPasseggero(){
-		if(true){ //se è tutto ok
+	protected void passeggeroSuccessivo(){
+		if(controllaCampi()){ 
 
 			if(passeggeroCorrente != null){ //riaggiorno il passeggero esistete
 				save(passeggeroCorrente);
@@ -476,37 +546,41 @@ public class PrenotazioneView extends View {
 				lastIndex++;
 			}
 			currentIndex++;
-			System.out.println("dopo: "+currentIndex+"--"+lastIndex);
-		}
 
-		if(lastIndex==currentIndex){
-			//lo azzero
-			textPasseggeriNome.setText("");
-			textPasseggeriCognome.setText("");
-			comboBoxSesso.setSelectedIndex(0);
-			comboBoxGiorno.setSelectedIndex(0);
-			comboBoxMese.setSelectedIndex(0);
-			comboBoxAnno.setSelectedIndex(0);
-			passeggeroCorrente=null;
+
+			if(lastIndex==currentIndex){
+				//lo azzero
+				textPasseggeriNome.setText("");
+				textPasseggeriCognome.setText("");
+				comboBoxSesso.setSelectedIndex(0);
+				comboBoxGiorno.setSelectedIndex(0);
+				comboBoxMese.setSelectedIndex(0);
+				comboBoxAnno.setSelectedIndex(0);
+				passeggeroCorrente=null;
+			}else{
+				passeggeroCorrente = listaPasseggeri.get(currentIndex);
+				mostraPasseggero(passeggeroCorrente);
+			}
+			labelPasseggeriNumero.setText(currentIndex+1+"");
 		}else{
-			passeggeroCorrente = listaPasseggeri.get(currentIndex);
-			showPasseggero(passeggeroCorrente);
+			JOptionPane.showMessageDialog(null,"Campi non validi","Errore", 1);
 		}
-
 	}
 
-	protected void precedentePasseggero(){
+	protected void passeggeroPrecedente(){
 		if(currentIndex!=lastIndex){
 			save(passeggeroCorrente);
 		}
 		currentIndex--;
 		passeggeroCorrente = listaPasseggeri.get(currentIndex);
-		showPasseggero(passeggeroCorrente);
+		mostraPasseggero(passeggeroCorrente);
+
+		labelPasseggeriNumero.setText(currentIndex+1+"");
 
 	}
 
 
-	protected void showPasseggero(Passeggero p){
+	protected void mostraPasseggero(Passeggero p){
 
 		textPasseggeriNome.setText(p.getNome());
 		textPasseggeriCognome.setText(p.getCognome());
@@ -522,71 +596,4 @@ public class PrenotazioneView extends View {
 
 
 
-
-
-
-
-	protected void addPasseggero(){
-
-		JLabel labelPasseggeriNome = new JLabel("Nome");
-		labelPasseggeriNome.setBounds(10, 21+(75), 72, 14);
-		panelPasseggeriPasseggeriInterno.add(labelPasseggeriNome);
-
-
-		textPasseggeriNome.setBounds(70, 18+(75), 130, 20);
-		panelPasseggeriPasseggeriInterno.add(textPasseggeriNome);
-		textPasseggeriNome.setColumns(10);
-
-		JLabel labelPasseggeriCognome = new JLabel("Cognome");
-		labelPasseggeriCognome.setBounds(10, 49+(75), 46, 14);
-		panelPasseggeriPasseggeriInterno.add(labelPasseggeriCognome);
-
-
-		textPasseggeriCognome.setBounds(70, 46+(75), 130, 20);
-		panelPasseggeriPasseggeriInterno.add(textPasseggeriCognome);
-		textPasseggeriCognome.setColumns(10);
-
-
-		JLabel labelPasseggeriSesso = new JLabel("Sesso");
-		labelPasseggeriSesso.setBounds(210, 21+(75), 46, 14);
-		panelPasseggeriPasseggeriInterno.add(labelPasseggeriSesso);
-
-		comboBoxSesso.addItem("");
-		comboBoxSesso.addItem("Uomo");
-		comboBoxSesso.addItem("Donna");
-		comboBoxSesso.setBounds(260, 18+(75), 72, 20);
-		panelPasseggeriPasseggeriInterno.add(comboBoxSesso);
-
-		JLabel labelPasseggeriEta = new JLabel("Nato il");
-		labelPasseggeriEta.setBounds(210, 49+(75), 46, 14);
-		panelPasseggeriPasseggeriInterno.add(labelPasseggeriEta);
-
-
-		//giorni di nascita
-		comboBoxGiorno.addItem("");
-		for(int i=1;i<31;i++){
-			comboBoxGiorno.addItem(""+i);
-		}
-		comboBoxGiorno.setBounds(260, 46+(75), 42, 20);
-		panelPasseggeriPasseggeriInterno.add(comboBoxGiorno);
-
-		//mese di nascita
-		comboBoxMese.addItem("");
-		for(int i=1;i<12;i++){
-			comboBoxMese.addItem(""+i);
-		}
-		comboBoxMese.setBounds(310, 46+(75), 42, 20);
-		panelPasseggeriPasseggeriInterno.add(comboBoxMese);
-
-		//anno di nascita
-		comboBoxAnno.addItem("");
-		for(int i=2013;i>1900;i--){
-			comboBoxAnno.addItem(""+i);
-		}
-		comboBoxAnno.setBounds(360, 46+(75), 55, 20);
-		panelPasseggeriPasseggeriInterno.add(comboBoxAnno);
-
-
-		repaint();
-	}
 }

@@ -44,6 +44,7 @@ public class XMLCreate<E> {
 						String attributeName = f.getName(); 
 						attributeName = attributeName.substring(0, 1).toUpperCase() + attributeName.substring(1);
 						Method m = elem.getClass().getMethod("get"+attributeName, null); // Ottengo il Metodo 
+						System.out.println(m.toString());
 						String s = m.invoke(elem, null).toString();// Invoco il metodo
 						childToAdd = d.createElement(attributeName); // Costruisco l'albero degli elementi, che successivamente inserirò del documento
 						childToAdd.setTextContent(s);

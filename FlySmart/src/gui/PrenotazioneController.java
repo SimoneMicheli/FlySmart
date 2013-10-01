@@ -4,6 +4,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
@@ -11,12 +12,16 @@ import java.rmi.RemoteException;
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
+import org.w3c.dom.*;
 
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
+import xml.XMLCreate;
+
 import model.Aeroporto;
+import model.Passeggero;
 import network.ServerInterface;
 
 
@@ -149,9 +154,6 @@ public class PrenotazioneController{
 		});
 
 
-		//file reset fa contentpanel.removeall e poi init().. forse serve repaint
-
-
 	}
 
 
@@ -243,7 +245,7 @@ public class PrenotazioneController{
 		view.buttonPasseggeriProssimo.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				view.successivoPasseggero(); //lo aggiungo all'arraylist
+				view.passeggeroSuccessivo(); //lo aggiungo all'arraylist
 				
 			}
 
@@ -255,7 +257,7 @@ public class PrenotazioneController{
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
 				if(view.currentIndex!=0){
-					view.precedentePasseggero(); //lo aggiungo all'arraylist
+					view.passeggeroPrecedente(); //lo aggiungo all'arraylist
 				}
 			}
 
@@ -270,60 +272,21 @@ public class PrenotazioneController{
 		view.buttonPasseggeriConfermaPrenotazione.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				//fase di controllo
-				Iterator<JTextField> iterNomi = view.nomiPasseggeri.iterator();
-				Iterator<JTextField> iterCognomi = view.cognomiPasseggeri.iterator();
-				Iterator<JComboBox> iterGiorno = view.giornoNascitaPasseggeri.iterator();
-				Iterator<JComboBox> iterMese = view.meseNascitaPasseggeri.iterator();
-				Iterator<JComboBox> iterAnno = view.annoNascitaPasseggeri.iterator();
-				Iterator<JComboBox> iterSesso = view.sessoPasseggeri.iterator();
-				boolean completo=true; //mi dice se il modulo e incompleto
-				boolean first=true; //mi dice se l'iterator è al primo passeggero
-				while (iterNomi.hasNext() && iterCognomi.hasNext() && iterGiorno.hasNext() && iterMese.hasNext() && iterAnno.hasNext() && iterSesso.hasNext()) {
-					String nome = iterNomi.next().getText();
-					String cognome = iterCognomi.next().getText();
-					String giorno = iterGiorno.next().getSelectedItem().toString();
-					String mese = iterMese.next().getSelectedItem().toString();
-					String anno = iterAnno.next().getSelectedItem().toString();
-					String sesso = iterSesso.next().getSelectedItem().toString();
-					if(nome.compareTo("")==0 || cognome.compareTo("")==0 || sesso.compareTo("")==0 || giorno.compareTo("")==0 || mese.compareTo("")==0 || anno.compareTo("")==0 ){
-						if(first || !(nome.compareTo("")==0 && cognome.compareTo("")==0 && sesso.compareTo("")==0 && giorno.compareTo("")==0 && mese.compareTo("")==0 && anno.compareTo("")==0)){ //se, dopo aver trovato uno spazio vuoto, siamo al primo oppure ha tutti gli spazi vuoti 
-							completo=false;
-							break;
-						}
-					}
-					first=false;
+				
+				view.passeggeroSuccessivo();
+				System.out.println(view.listaPasseggeri);
+				
+				//creo la lista passeggeri xml
+				
+				XMLCreate<Passeggero> xml = new XMLCreate<Passeggero>();
+				Document d = xml.createFlySmartDocument(view.listaPasseggeri);
+				try {
+					xml.printDocument(d, "passeggeri");
+				} catch (IOException e) {
+					e.printStackTrace();
 				}
-
-
-				//fase di invio
-				if(completo){
-					iterNomi = view.nomiPasseggeri.iterator();
-					iterCognomi = view.cognomiPasseggeri.iterator();
-					iterGiorno = view.giornoNascitaPasseggeri.iterator();
-					iterMese = view.meseNascitaPasseggeri.iterator();
-					iterAnno = view.annoNascitaPasseggeri.iterator();
-					iterSesso = view.sessoPasseggeri.iterator();
-					String testo="";
-					while (iterNomi.hasNext()) {
-						String nome = iterNomi.next().getText();
-						String cognome = iterCognomi.next().getText();
-						String giorno = iterGiorno.next().getSelectedItem().toString();
-						String mese = iterMese.next().getSelectedItem().toString();
-						String anno = iterAnno.next().getSelectedItem().toString();
-						String sesso = iterSesso.next().getSelectedItem().toString();
-						if(nome.compareTo("")!=0){
-							testo += "Nome: "+nome+"        Cognome: "+cognome+"        Età:"+"        Sesso:"+sesso+"\n";
-						}
-					}
-					//mettere conferma annulla
-					JOptionPane.showMessageDialog(null,testo,"Confermare la prenotazione?", 1);
-
-				}
-
+				
 			}
-			// creo oggetto, valido con metodo nella classe stessa.. 
-
 		});
 
 
