@@ -12,6 +12,7 @@ import xml.XMLToObj;
 
 import model.Aeroporto;
 import model.Passeggero;
+import model.AeroportoTest;
 
 public class Creator {
 
@@ -22,17 +23,15 @@ public class Creator {
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
 
-		List<Aeroporto> elencoAeroporti;
+		ArrayList<Aeroporto> elencoAeroporti;
 
 
 
 		//carica elenco aeroporti
-		elencoAeroporti = new LinkedList<Aeroporto>();
+		elencoAeroporti = new ArrayList<Aeroporto>();
 		elencoAeroporti.add(new Aeroporto(1, "Malpensa", 20, 20));
 		elencoAeroporti.add(new Aeroporto(2, "Bergamo", 50, 10));
 		elencoAeroporti.add(new Aeroporto(3, "Fiumicino", 100, 40));
-		
-		
 		
 		XMLCreate<Aeroporto> instance = new XMLCreate<Aeroporto>();
 		

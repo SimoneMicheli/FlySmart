@@ -1,26 +1,17 @@
 package model;
 
-import java.io.Serializable;
 
-public class Aeroporto implements Serializable{
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -5654644415727177592L;
-	
-	public static long getSerialVersionUID() {
-		return serialVersionUID;
-	}
-	private int id;
-	private String nome;
-	private double prezzoCarburante;
-	private double tasse;
+public class AeroportoTest {
 	
 	
-	public Aeroporto(int id, String nome, double prezzoCarburante, double tasse) {
+	public int id;
+	public String citta;
+	public double prezzoCarburante;
+	public double tasse;
+	
+	public AeroportoTest(int id, String citta, double prezzoCarburante, double tasse) {
 		this.id = id;
-		this.nome = nome;
+		this.citta = citta;
 		this.prezzoCarburante = prezzoCarburante;
 		this.tasse = tasse;
 	}
@@ -31,11 +22,11 @@ public class Aeroporto implements Serializable{
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getNome() {
-		return nome;
+	public String getCitta() {
+		return citta;
 	}
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setCitta(String citta) {
+		this.citta = citta;
 	}
 	public double getPrezzoCarburante() {
 		return prezzoCarburante;
@@ -52,7 +43,7 @@ public class Aeroporto implements Serializable{
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return id +" "+nome+ " "+prezzoCarburante+ " "+tasse;
+		return id +" "+citta+ " "+prezzoCarburante+ " "+tasse;
 	}
 
 }
