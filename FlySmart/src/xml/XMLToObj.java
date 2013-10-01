@@ -7,8 +7,8 @@ import org.w3c.dom.*;
 
 public class XMLToObj{
 	
-	public ArrayList<Passeggero> createPasseggeroList(String path){
-		ArrayList<Passeggero> list = new ArrayList<Passeggero>();
+	public List<Passeggero> createPasseggeroList(String path){
+		List<Passeggero> list = new ArrayList<Passeggero>();
 		try {
 			XMLLoad instance = new XMLLoad();
 			Document d = instance.loadDocument(path);
@@ -30,9 +30,10 @@ public class XMLToObj{
 						Element firstNameElement = (Element)firstNameElementLst.item(0);
 						NodeList firstName = firstNameElement.getChildNodes();
 						map.put(name, ((Node)firstName.item(0)).getNodeValue());
+						System.err.println(name);
 					}
 					
-					Passeggero toAdd = new Passeggero(Integer.parseInt(map.get("id")), Integer.parseInt(map.get("idGruppo")), map.get("nome"), map.get("cognome"), Integer.parseInt(map.get("eta")), map.get("sesso").charAt(0), Double.parseDouble(map.get("pesoBadagli")), Integer.parseInt(map.get("idVolo")), Integer.parseInt(map.get("posto")), Integer.parseInt(map.get("giorno")), Integer.parseInt(map.get("mese")), Integer.parseInt(map.get("anno")));
+					Passeggero toAdd = new Passeggero(Integer.parseInt(map.get("id")), Integer.parseInt(map.get("idGruppo")), map.get("nome"), map.get("cognome"), Integer.parseInt(map.get("eta")), (Character) map.get("sesso").charAt(0), Double.parseDouble(map.get("pesoBagagli")), Integer.parseInt(map.get("idVolo")), Integer.parseInt(map.get("posto")), Integer.parseInt(map.get("giorno")), Integer.parseInt(map.get("mese")), Integer.parseInt(map.get("anno")));
 					list.add(toAdd);
 
 				}
