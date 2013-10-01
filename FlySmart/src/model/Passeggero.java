@@ -1,6 +1,7 @@
 package model;
 
 import java.io.Serializable;
+import java.util.Calendar;
 
 
 
@@ -13,12 +14,15 @@ public class Passeggero implements Serializable, Comparable<Passeggero>{
 	private String nome;
 	private String cognome;
 	private Integer eta;
+	private Integer giorno;
+	private Integer mese;
+	private Integer anno;
 	private Character sesso;
 	private Double pesoBagagli;
 	private Integer idVolo;
 	private Integer posto;
-	
-	
+
+
 	public Passeggero(Integer id, String nome, String cognome, Integer eta, Character sesso, Double pesoBagagli, Integer idVolo, Integer posto) {
 		this.id = id;
 		this.nome = nome;
@@ -30,11 +34,38 @@ public class Passeggero implements Serializable, Comparable<Passeggero>{
 		this.posto = posto;
 	}
 	
-	
-	public Passeggero(String nome, String cognome, Integer eta, Character sesso) {
-		this(null, nome,  cognome,  eta,  sesso,  null,  null,  null);
+	public Passeggero() {
+	}
+
+
+
+	public Passeggero(String nome, String cognome, String giorno, String mese, String anno, Character sesso) {
+		this(null, nome,  cognome,  calcolaEta(giorno, mese, anno),  sesso,  null,  null,  null);
+		this.giorno= Integer.parseInt(giorno);
+		this.mese= Integer.parseInt(mese);
+		this.anno= Integer.parseInt(anno);
+	}
+
+	//calcola l'età a partire da una data di nascita
+	protected static int calcolaEta(String g, String m, String a){
+		Calendar c = Calendar.getInstance();
+		int anni = c.get(Calendar.YEAR)-Integer.parseInt(a);
+		if(Integer.parseInt(m)>1+c.get(Calendar.MONTH) || (Integer.parseInt(m)==1+c.get(Calendar.MONTH) && Integer.parseInt(g)>=c.get(Calendar.DAY_OF_MONTH))){ //1+ perche gennaio è lo zero
+			return anni-1;
+		}
+		return anni;
 	}
 	
+	
+	public void calcolaEta(){
+		Calendar c = Calendar.getInstance();
+		int anni = c.get(Calendar.YEAR)-anno;
+		if(mese>1+c.get(Calendar.MONTH) || (mese==1+c.get(Calendar.MONTH) && giorno>=c.get(Calendar.DAY_OF_MONTH))){ //1+ perche gennaio è lo zero
+			eta = anni-1;
+		}else{
+			eta = anni;
+		}
+	}
 
 	public int getId() {
 		return id;
@@ -114,7 +145,7 @@ public class Passeggero implements Serializable, Comparable<Passeggero>{
 	public void setEta(int eta) {
 		this.eta = eta;
 	}
-	
+
 	@Override
 	public String toString() {
 		return nome + " " + cognome;
@@ -127,7 +158,37 @@ public class Passeggero implements Serializable, Comparable<Passeggero>{
 			cmp = this.nome.compareTo(o.nome);
 		return cmp;
 	}
-	
-	
-	
+
+
+	public Integer getGiorno() {
+		return giorno;
+	}
+
+
+	public void setGiorno(Integer giorno) {
+		this.giorno = giorno;
+	}
+
+
+	public Integer getMese() {
+		return mese;
+	}
+
+
+	public void setMese(Integer mese) {
+		this.mese = mese;
+	}
+
+
+	public Integer getAnno() {
+		return anno;
+	}
+
+
+	public void setAnno(Integer anno) {
+		this.anno = anno;
+	}
+
+
+
 }

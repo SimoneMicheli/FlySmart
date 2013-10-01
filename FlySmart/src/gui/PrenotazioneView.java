@@ -9,6 +9,7 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 
@@ -28,6 +29,8 @@ import javax.swing.JTextField;
 import javax.swing.border.Border;
 
 import model.Aeroporto;
+import model.Passeggero;
+import model.SessoIndex;
 
 
 @SuppressWarnings("serial")
@@ -70,6 +73,15 @@ public class PrenotazioneView extends View {
 	JComboBox comboPalletAeroportoPartenza= new JComboBox();
 	JComboBox comboPalletAeroportoArrivo = new JComboBox();
 
+
+
+	JTextField textPasseggeriNome = new JTextField();
+	JTextField textPasseggeriCognome = new JTextField();
+	JComboBox comboBoxSesso = new JComboBox();
+	JComboBox comboBoxGiorno = new JComboBox();
+	JComboBox comboBoxMese = new JComboBox();
+	JComboBox comboBoxAnno = new JComboBox();
+
 	//button 1 livello
 	protected JButton buttonPasseggeriPasseggeriCercaVoli;
 	protected JButton buttonPalletPasseggeriCercaVoli;
@@ -77,7 +89,7 @@ public class PrenotazioneView extends View {
 	protected JButton buttonPasseggeriConfermaVolo,buttonPasseggeriAnnullaVolo;
 	protected JButton buttonPalletConfermaVolo,buttonPalletAnnullaVolo;
 	//button 3 livello
-	protected JButton buttonPasseggeriAnnullaPrenotazione,buttonPasseggeriConfermaPrenotazione,buttonPasseggeriAggiungiPasseggero;
+	protected JButton buttonPasseggeriAnnullaPrenotazione,buttonPasseggeriConfermaPrenotazione,buttonPasseggeriProssimo,buttonPasseggeriPrecedente;
 	protected JButton buttonPalletAnnullaPrenotazione,buttonPalletConfermaPrenotazione;
 
 	//arraylist per i dati dei passeggeri
@@ -87,6 +99,7 @@ public class PrenotazioneView extends View {
 	protected ArrayList<JComboBox> giornoNascitaPasseggeri = new ArrayList<JComboBox>();
 	protected ArrayList<JComboBox> meseNascitaPasseggeri = new ArrayList<JComboBox>();
 	protected ArrayList<JComboBox> annoNascitaPasseggeri = new ArrayList<JComboBox>();
+	protected ArrayList<Passeggero> listaPasseggeri = new ArrayList<Passeggero>();
 
 	//dati dei pallet
 	protected JTextField textFieldTargaPallet = new JTextField();
@@ -94,7 +107,6 @@ public class PrenotazioneView extends View {
 
 
 	//varie variabili
-	int numeroPasseggeri=0;
 	Dimension dimensioneFinestra = new Dimension(508,440);
 	protected CardLayout cardEsterno = new CardLayout();
 	protected CardLayout cardPasseggeri = new CardLayout();
@@ -151,7 +163,7 @@ public class PrenotazioneView extends View {
 		Container contentPane = getContentPane();
 		contentPane.add(panelCardLayoutEsterno,BorderLayout.CENTER);
 		panelCardLayoutEsterno.setLayout(cardEsterno);
-		
+
 		//pannello passeggeri
 		panelPasseggeri.setLayout(cardPasseggeri);
 		panelCardLayoutEsterno.add(panelPasseggeri,"panelPasseggeri");
@@ -181,6 +193,7 @@ public class PrenotazioneView extends View {
 		panelPallet.add(panelPalletPallet,"panelPalletPallet");
 	}
 
+	@SuppressWarnings("unchecked")
 	public void setPasseggeriAeroporti(List<Aeroporto> aeroporti){
 
 		JLabel labelTipoPrenotazione = new JLabel("Selezionare aeroporto di partenza e di arrivo");
@@ -193,12 +206,12 @@ public class PrenotazioneView extends View {
 		labelAeroportoPartenza.setBounds(141, 110, 112, 14);
 		panelPasseggeriAeroporti.add(labelAeroportoPartenza);
 
-		
+
 		comboPasseggeriAeroportoPartenza.setBounds(141, 127, 220, 20);
 		comboPasseggeriAeroportoPartenza.addItem("");
 		comboPasseggeriAeroportoArrivo.setBounds(141, 177, 220, 20);
 		comboPasseggeriAeroportoArrivo.addItem("");
-		
+
 		Iterator i = aeroporti.iterator();
 		while(i.hasNext()) {
 			Aeroporto element = (Aeroporto) i.next();
@@ -209,13 +222,13 @@ public class PrenotazioneView extends View {
 		panelPasseggeriAeroporti.add(comboPasseggeriAeroportoArrivo, BorderLayout.SOUTH);
 		panelPasseggeriAeroporti.add(comboPasseggeriAeroportoPartenza, BorderLayout.NORTH);
 
-		
-		
+
+
 		JLabel labelAeroportoArrivo = new JLabel("Aereporto Arrivo");
 		labelAeroportoArrivo.setBounds(141, 160, 112, 14);
 		panelPasseggeriAeroporti.add(labelAeroportoArrivo);
 
-		
+
 		buttonPasseggeriPasseggeriCercaVoli = new JButton("Cerca Voli");
 		buttonPasseggeriPasseggeriCercaVoli.setBounds(141, 215, 220, 23);
 		panelPasseggeriAeroporti.add(buttonPasseggeriPasseggeriCercaVoli);
@@ -282,9 +295,13 @@ public class PrenotazioneView extends View {
 
 		addPasseggero();
 
-		buttonPasseggeriAggiungiPasseggero = new JButton("Aggiungi passeggero");
-		buttonPasseggeriAggiungiPasseggero.setBounds(167, 297, 188, 23);
-		panelPasseggeriPasseggeri.add(buttonPasseggeriAggiungiPasseggero);
+		buttonPasseggeriProssimo = new JButton(">");
+		buttonPasseggeriProssimo.setBounds(167, 297, 188, 23);
+		panelPasseggeriPasseggeri.add(buttonPasseggeriProssimo);
+
+		buttonPasseggeriPrecedente = new JButton("<");
+		buttonPasseggeriPrecedente.setBounds(167, 257, 188, 23);
+		panelPasseggeriPasseggeri.add(buttonPasseggeriPrecedente);
 
 
 		buttonPasseggeriAnnullaPrenotazione = new JButton("Annulla");
@@ -316,9 +333,6 @@ public class PrenotazioneView extends View {
 		comboPalletAeroportoPartenza.setBounds(141, 127, 220, 20);
 		comboPalletAeroportoPartenza.addItem("");
 		comboPalletAeroportoPartenza.addItem("Orio al Serio");
-		comboPalletAeroportoPartenza.addItem("Linate");
-		comboPalletAeroportoPartenza.addItem("Malpensa");
-		comboPalletAeroportoPartenza.addItem("Fiumicino");
 		panelPalletAeroporti.add(comboPalletAeroportoPartenza);
 
 		JLabel labelAeroportoArrivo = new JLabel("Aereporto Arrivo");
@@ -328,9 +342,6 @@ public class PrenotazioneView extends View {
 		comboPalletAeroportoArrivo.setBounds(141, 177, 220, 20);
 		comboPalletAeroportoArrivo.addItem("");
 		comboPalletAeroportoArrivo.addItem("Orio al Serio");
-		comboPalletAeroportoArrivo.addItem("Linate");
-		comboPalletAeroportoArrivo.addItem("Malpensa");
-		comboPalletAeroportoArrivo.addItem("Fiumicino");
 		panelPalletAeroporti.add(comboPalletAeroportoArrivo);
 
 		buttonPalletPasseggeriCercaVoli = new JButton("Cerca Voli");
@@ -366,7 +377,6 @@ public class PrenotazioneView extends View {
 		rdbtnNewRadioButton_1.setBounds(6, 30, 490, 23);
 		panelPalletVoliInterno.add(rdbtnNewRadioButton_1);
 
-
 		buttonPalletConfermaVolo = new JButton("Conferma");
 		buttonPalletConfermaVolo.setBounds(167, 327, 89, 23);
 		panelPalletVoli.add(buttonPalletConfermaVolo);
@@ -388,7 +398,6 @@ public class PrenotazioneView extends View {
 		labelTipoPrenotazione.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		labelTipoPrenotazione.setBounds(8, 8, 482, 25);
 		panelPalletPallet.add(labelTipoPrenotazione);
-
 
 		JLabel lblIstruzioni = new JLabel("Inserire gli ultimi dati");
 		lblIstruzioni.setBounds(8, 60, 100, 14);
@@ -429,82 +438,156 @@ public class PrenotazioneView extends View {
 	}
 
 
+
+
+	int lastIndex=0;
+	int currentIndex=0;
+
+	Passeggero passeggeroCorrente=null;
+
+	protected void save(Passeggero p){
+		Character sex = null;
+		if(comboBoxSesso.getSelectedIndex()==1) sex='m';
+		else sex='f';
+
+		p.setNome(textPasseggeriNome.getText());
+		p.setCognome(textPasseggeriCognome.getText());
+		p.setSesso(sex);
+		p.setGiorno(Integer.parseInt(comboBoxGiorno.getSelectedItem().toString()));
+		p.setMese(Integer.parseInt(comboBoxMese.getSelectedItem().toString()));
+		p.setAnno(Integer.parseInt(comboBoxAnno.getSelectedItem().toString()));
+		p.calcolaEta();
+	}
+
+
+
+	protected void successivoPasseggero(){
+		if(true){ //se è tutto ok
+
+			if(passeggeroCorrente != null){ //riaggiorno il passeggero esistete
+				save(passeggeroCorrente);
+			}
+			else{ //creo uno nuovo
+				Passeggero nuovoPasseggero = new Passeggero();
+				save(nuovoPasseggero);
+				listaPasseggeri.add(nuovoPasseggero);
+			}
+
+			if(currentIndex==lastIndex){
+				lastIndex++;
+			}
+			currentIndex++;
+			System.out.println("dopo: "+currentIndex+"--"+lastIndex);
+		}
+
+		if(lastIndex==currentIndex){
+			//lo azzero
+			textPasseggeriNome.setText("");
+			textPasseggeriCognome.setText("");
+			comboBoxSesso.setSelectedIndex(0);
+			comboBoxGiorno.setSelectedIndex(0);
+			comboBoxMese.setSelectedIndex(0);
+			comboBoxAnno.setSelectedIndex(0);
+			passeggeroCorrente=null;
+		}else{
+			passeggeroCorrente = listaPasseggeri.get(currentIndex);
+			showPasseggero(passeggeroCorrente);
+		}
+
+	}
+
+	protected void precedentePasseggero(){
+		if(currentIndex!=lastIndex){
+			save(passeggeroCorrente);
+		}
+		currentIndex--;
+		passeggeroCorrente = listaPasseggeri.get(currentIndex);
+		showPasseggero(passeggeroCorrente);
+
+	}
+
+
+	protected void showPasseggero(Passeggero p){
+
+		textPasseggeriNome.setText(p.getNome());
+		textPasseggeriCognome.setText(p.getCognome());
+		if(p.getSesso()=='m'){
+			comboBoxSesso.setSelectedIndex(1);
+		}else{
+			comboBoxSesso.setSelectedIndex(2);
+		}
+		comboBoxGiorno.setSelectedIndex(p.getGiorno());
+		comboBoxMese.setSelectedIndex(p.getMese());
+		comboBoxAnno.setSelectedIndex(2013-p.getAnno()+1);
+	}
+
+
+
+
+
+
+
 	protected void addPasseggero(){
 
-		JLabel labelPasseggeroNumero = new JLabel("Passeggero "+(numeroPasseggeri+1));
-		labelPasseggeroNumero.setBounds(5, 3+(numeroPasseggeri*75), 150, 14);
-		panelPasseggeriPasseggeriInterno.add(labelPasseggeroNumero);
-
 		JLabel labelPasseggeriNome = new JLabel("Nome");
-		labelPasseggeriNome.setBounds(10, 21+(numeroPasseggeri*75), 72, 14);
+		labelPasseggeriNome.setBounds(10, 21+(75), 72, 14);
 		panelPasseggeriPasseggeriInterno.add(labelPasseggeriNome);
 
-		JTextField textPasseggeriNome = new JTextField();
-		textPasseggeriNome.setBounds(70, 18+(numeroPasseggeri*75), 130, 20);
+
+		textPasseggeriNome.setBounds(70, 18+(75), 130, 20);
 		panelPasseggeriPasseggeriInterno.add(textPasseggeriNome);
 		textPasseggeriNome.setColumns(10);
-		nomiPasseggeri.add(textPasseggeriNome); //lo aggiungo all'arraylist
 
 		JLabel labelPasseggeriCognome = new JLabel("Cognome");
-		labelPasseggeriCognome.setBounds(10, 49+(numeroPasseggeri*75), 46, 14);
+		labelPasseggeriCognome.setBounds(10, 49+(75), 46, 14);
 		panelPasseggeriPasseggeriInterno.add(labelPasseggeriCognome);
 
-		JTextField textPasseggeriCognome = new JTextField();
-		textPasseggeriCognome.setBounds(70, 46+(numeroPasseggeri*75), 130, 20);
+
+		textPasseggeriCognome.setBounds(70, 46+(75), 130, 20);
 		panelPasseggeriPasseggeriInterno.add(textPasseggeriCognome);
 		textPasseggeriCognome.setColumns(10);
-		cognomiPasseggeri.add(textPasseggeriCognome); //lo aggiungo all'arraylist
 
 
 		JLabel labelPasseggeriSesso = new JLabel("Sesso");
-		labelPasseggeriSesso.setBounds(210, 21+(numeroPasseggeri*75), 46, 14);
+		labelPasseggeriSesso.setBounds(210, 21+(75), 46, 14);
 		panelPasseggeriPasseggeriInterno.add(labelPasseggeriSesso);
 
-		JComboBox comboBoxSesso = new JComboBox();
 		comboBoxSesso.addItem("");
 		comboBoxSesso.addItem("Uomo");
 		comboBoxSesso.addItem("Donna");
-		comboBoxSesso.setBounds(260, 18+(numeroPasseggeri*75), 72, 20);
+		comboBoxSesso.setBounds(260, 18+(75), 72, 20);
 		panelPasseggeriPasseggeriInterno.add(comboBoxSesso);
-		sessoPasseggeri.add(comboBoxSesso);  //lo aggiungo all'arraylist
 
 		JLabel labelPasseggeriEta = new JLabel("Nato il");
-		labelPasseggeriEta.setBounds(210, 49+(numeroPasseggeri*75), 46, 14);
+		labelPasseggeriEta.setBounds(210, 49+(75), 46, 14);
 		panelPasseggeriPasseggeriInterno.add(labelPasseggeriEta);
 
 
 		//giorni di nascita
-		JComboBox comboBoxGiorno = new JComboBox();
 		comboBoxGiorno.addItem("");
 		for(int i=1;i<31;i++){
 			comboBoxGiorno.addItem(""+i);
 		}
-		comboBoxGiorno.setBounds(260, 46+(numeroPasseggeri*75), 42, 20);
+		comboBoxGiorno.setBounds(260, 46+(75), 42, 20);
 		panelPasseggeriPasseggeriInterno.add(comboBoxGiorno);
-		giornoNascitaPasseggeri.add(comboBoxGiorno); //lo aggiungo all'arraylist
 
 		//mese di nascita
-		JComboBox comboBoxMese = new JComboBox();
 		comboBoxMese.addItem("");
 		for(int i=1;i<12;i++){
 			comboBoxMese.addItem(""+i);
 		}
-		comboBoxMese.setBounds(310, 46+(numeroPasseggeri*75), 42, 20);
+		comboBoxMese.setBounds(310, 46+(75), 42, 20);
 		panelPasseggeriPasseggeriInterno.add(comboBoxMese);
-		meseNascitaPasseggeri.add(comboBoxMese); //lo aggiungo all'arraylist
 
 		//anno di nascita
-		JComboBox comboBoxAnno = new JComboBox();
 		comboBoxAnno.addItem("");
 		for(int i=2013;i>1900;i--){
 			comboBoxAnno.addItem(""+i);
 		}
-		comboBoxAnno.setBounds(360, 46+(numeroPasseggeri*75), 55, 20);
+		comboBoxAnno.setBounds(360, 46+(75), 55, 20);
 		panelPasseggeriPasseggeriInterno.add(comboBoxAnno);
-		annoNascitaPasseggeri.add(comboBoxAnno); //lo aggiungo all'arraylist
 
 
 		repaint();
-		numeroPasseggeri++;
 	}
 }

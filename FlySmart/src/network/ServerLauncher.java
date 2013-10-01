@@ -46,9 +46,9 @@ public class ServerLauncher {
 			//*************only for testing*********************
 			java.util.List<Passeggero> pass = new ArrayList<Passeggero>();
 		
-			pass.add(new Passeggero("mario", "rossi", 56, 'M'));
-			pass.add(new Passeggero("andrea", "bainchi", 20, 'M'));
-			pass.add(new Passeggero("paola", "verdi", 30, 'F'));
+			pass.add(new Passeggero("mario", "rossi", "2","3","1990", 'M'));
+			pass.add(new Passeggero("dsf", "bianchiu", "25","36","19890", 'M'));
+			pass.add(new Passeggero("gh", "asd", "2","33","19970", 'M'));
 			
 			s.list = pass;
 			
