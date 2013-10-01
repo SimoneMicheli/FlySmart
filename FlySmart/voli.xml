@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<FlySmart>
+    <Volo>
+        <SerialVersionUID>1</SerialVersionUID>
+        <Id>1</Id>
+        <DataOra>Wed Nov 20 15:00:35 CET 2013</DataOra>
+        <AeroportoPartenza>1</AeroportoPartenza>
+        <AeroportoDestinazione>2</AeroportoDestinazione>
+        <Aereo>767</Aereo>
+        <PostiDisponibili>100</PostiDisponibili>
+        <PalletDisponibili>15</PalletDisponibili>
+    </Volo>
+    <Volo>
+        <SerialVersionUID>1</SerialVersionUID>
+        <Id>2</Id>
+        <DataOra>Sat May 10 04:10:35 CEST 2014</DataOra>
+        <AeroportoPartenza>1</AeroportoPartenza>
+        <AeroportoDestinazione>2</AeroportoDestinazione>
+        <Aereo>767</Aereo>
+        <PostiDisponibili>100</PostiDisponibili>
+        <PalletDisponibili>15</PalletDisponibili>
+    </Volo>
+    <Volo>
+        <SerialVersionUID>1</SerialVersionUID>
+        <Id>3</Id>
+        <DataOra>Sat Jan 25 13:00:35 CET 2014</DataOra>
+        <AeroportoPartenza>1</AeroportoPartenza>
+        <AeroportoDestinazione>2</AeroportoDestinazione>
+        <Aereo>767</Aereo>
+        <PostiDisponibili>100</PostiDisponibili>
+        <PalletDisponibili>15</PalletDisponibili>
+    </Volo>
+    <Volo>
+        <SerialVersionUID>1</SerialVersionUID>
+        <Id>4</Id>
+        <DataOra>Sun Dec 29 02:00:35 CET 2013</DataOra>
+        <AeroportoPartenza>1</AeroportoPartenza>
+        <AeroportoDestinazione>2</AeroportoDestinazione>
+        <Aereo>767</Aereo>
+        <PostiDisponibili>100</PostiDisponibili>
+        <PalletDisponibili>15</PalletDisponibili>
+    </Volo>
+</FlySmart>

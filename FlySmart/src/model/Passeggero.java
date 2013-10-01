@@ -181,4 +181,3 @@ public class Passeggero implements Serializable, Comparable<Passeggero>{
 	}
 
 }
-

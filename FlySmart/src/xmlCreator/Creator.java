@@ -2,14 +2,12 @@ package xmlCreator;
 
 import java.io.IOException;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
 import org.w3c.dom.Document;
 
 import xml.XMLCreate;
-import xml.XMLToObj;
 import model.*;
 
 public class Creator {
@@ -20,7 +18,6 @@ public class Creator {
 	 */
 	public static void main(String[] args)  {
 		// TODO Auto-generated method stub
-
 		try {
 			creaAeroporti();
 			creaVoli();
@@ -40,7 +37,6 @@ public class Creator {
 		elencoAeroporti.add(new Aeroporto(3, "Fiumicino", 100, 40));
 
 		XMLCreate<Aeroporto> XMLAeroporti = new XMLCreate<Aeroporto>();
-		
 		Document d = XMLAeroporti.createFlySmartDocument(elencoAeroporti);
 		XMLAeroporti.printDocument(d,"aeroporti");
 	}

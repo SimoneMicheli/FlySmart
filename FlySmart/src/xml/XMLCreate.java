@@ -8,16 +8,14 @@ import org.w3c.dom.ls.*;      //Interfacce Load&Save di DOM
 import java.util.*;
 
 
-
 public class XMLCreate<E> {
 	
-
 
 	public Document createFlySmartDocument(List<E> list){
 		Document d = this.createDocument();
 		return this.createFlySmartDocument(d, list);
-		
 	}
+	
 	public Document createFlySmartDocument(Document d, List<E> list)	
 		{
 
@@ -27,7 +25,7 @@ public class XMLCreate<E> {
 		//cioè l' elemento principale: tutti gli altri elementi 
 		//devono essere nidificati al loro interno. 
 		// A questo elemento è stato assegnato il nome di "FlySmart"
-		Element upperRoot = d.createElement("FlySmart");
+		Element upperRoot = d.createElement("flySmart");
 		//Element radice = d.getDocumentElement();  //versione con DTD
 		
 		for (E elem: list)
@@ -37,15 +35,14 @@ public class XMLCreate<E> {
 					Field fieldArray[] = elem.getClass().getDeclaredFields(); // Recupero la lista dei Campi della Classe
 					@SuppressWarnings("rawtypes")
 					Class myObjectClass = elem.getClass();   // Ottengo l'oggetto Class relativo all'elemento della lista
-					String simpleClassName = myObjectClass.getSimpleName(); //ottengo il nome della classe (nome "incompleto")
-					root = d.createElement(simpleClassName); //creo la radice, ovvero l'elemento con la tag uguale al nome della Classe
-					for(Field f : fieldArray) // Visualizzo i dati di Ciascun Campo
+					String simpleClassName = myObjectClass.getSimpleName(); //ottengo il nome della classe e in minuscolo
+					root = d.createElement(simpleClassName.substring(0, 1).toLowerCase() + simpleClassName.substring(1) ); //creo la radice, ovvero l'elemento con la tag uguale al nome della Classe
+					for(Field f : fieldArray) // Visualizzo i dati di ciascun campo
 					{
-						String attributeName = f.getName(); 
-						attributeName = attributeName.substring(0, 1).toUpperCase() + attributeName.substring(1);
-						Method m = elem.getClass().getMethod("get"+attributeName, null); // Ottengo il Metodo 
-						System.out.println(m.toString());
-						String s = m.invoke(elem, null).toString();// Invoco il metodo
+						String attributeName = f.getName();
+						String attributeNameMaiusc = attributeName.substring(0, 1).toUpperCase() + attributeName.substring(1);
+						Method m = elem.getClass().getMethod("get"+attributeNameMaiusc); // Ottengo il Metodo 
+						String s = m.invoke(elem).toString();// Invoco il metodo
 						childToAdd = d.createElement(attributeName); // Costruisco l'albero degli elementi, che successivamente inserirò del documento
 						childToAdd.setTextContent(s);
 						root.appendChild(childToAdd);

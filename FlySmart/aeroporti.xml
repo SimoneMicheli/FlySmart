@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<FlySmart>
+    <Aeroporto>
+        <SerialVersionUID>-5578527938970594682</SerialVersionUID>
+        <Id>1</Id>
+        <Nome>Malpensa</Nome>
+        <PrezzoCarburante>20.0</PrezzoCarburante>
+        <Tasse>20.0</Tasse>
+    </Aeroporto>
+    <Aeroporto>
+        <SerialVersionUID>-5578527938970594682</SerialVersionUID>
+        <Id>2</Id>
+        <Nome>Bergamo</Nome>
+        <PrezzoCarburante>50.0</PrezzoCarburante>
+        <Tasse>10.0</Tasse>
+    </Aeroporto>
+    <Aeroporto>
+        <SerialVersionUID>-5578527938970594682</SerialVersionUID>
+        <Id>3</Id>
+        <Nome>Fiumicino</Nome>
+        <PrezzoCarburante>100.0</PrezzoCarburante>
+        <Tasse>40.0</Tasse>
+    </Aeroporto>
+</FlySmart>
