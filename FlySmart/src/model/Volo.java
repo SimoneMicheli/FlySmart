@@ -1,10 +1,12 @@
 package model;
 
-import java.sql.Date;
+import java.io.Serializable;
+import java.util.Date;
 
-public class Volo {
+public class Volo implements Serializable{
+	private static final long serialVersionUID = 1L;
 	private int id;
-	private Date dataora;
+	private Date dataOra;
 	private int aeroportoPartenza;
 	private int aeroportoDestinazione;
 	private int aereo;
@@ -12,9 +14,9 @@ public class Volo {
 	private int palletDisponibili;
 	
 	
-	public Volo(int id, Date dataora, int aeroportoPartenza, int aeroportoDestinazione, int aereo, int postiDisponibili, int palletDisponibili) {
+	public Volo(int id, Date dataOra, int aeroportoPartenza, int aeroportoDestinazione, int aereo, int postiDisponibili, int palletDisponibili) {
 		this.id = id;
-		this.dataora = dataora;
+		this.dataOra = dataOra;
 		this.aeroportoPartenza = aeroportoPartenza;
 		this.aeroportoDestinazione = aeroportoDestinazione;
 		this.aereo = aereo;
@@ -36,14 +38,20 @@ public class Volo {
 
 
 
-	public Date getDataora() {
-		return dataora;
+	public Date getDataOra() {
+		return dataOra;
 	}
 
 
 
-	public void setDataora(Date dataora) {
-		this.dataora = dataora;
+	public void setDataoOra(Date dataOra) {
+		this.dataOra = dataOra;
+	}
+
+
+
+	public static long getSerialVersionUID() {
+		return serialVersionUID;
 	}
 
 

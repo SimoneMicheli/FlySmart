@@ -79,15 +79,7 @@ public class LoginController implements Controller{
 			System.out.println(url);
 			try {
 				serv = (ServerInterface) Naming.lookup(url);
-				
-				
-				
-				
-				System.out.println(serv.getAirports());
-				
-				
-				
-				
+			
 				view.dispose();  //elimino la vecchia view
 				p = new PrenotazioneController(serv); //creo il nuovo controller (che creerà la nuova view)
 			} catch (MalformedURLException e) {

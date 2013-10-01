@@ -29,17 +29,10 @@ public class ClientTest {
 		try {
 			ServerInterface serv = (ServerInterface) Naming.lookup("rmi://localhost/FlySmartServer");
 			
-			java.util.List<Aeroporto> s = serv.getAirports();
+			java.util.List<Aeroporto> s = serv.getAeroporti();
 			
 			System.out.println(s);
 			
-			java.util.List<Passeggero> list = serv.getPassengers();
-			
-			System.out.println(list);
-			System.out.println(s);
-			
-			//s = serv.getAirports();
-			System.out.println(s);
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

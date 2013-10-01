@@ -32,20 +32,20 @@ public class PrenotazioneController{
 		initController();
 		registraController();
 	}
-	
+
 	public void initController(){
 		List<Aeroporto> aeroporti=null;
 		try {
-			aeroporti = serv.getAirports();
+			aeroporti = serv.getAeroporti();
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		view.setPasseggeriAeroporti(aeroporti);
-		
+
 	}
-	
-	
+
+
 	public void registraController() {
 
 		//file->esci
@@ -221,7 +221,6 @@ public class PrenotazioneController{
 			public void mouseReleased(MouseEvent arg0) {
 				view.cardPasseggeri.show(view.panelPasseggeri,"panelPasseggeriAeroporti");
 				view.panelPasseggeriPasseggeriInterno.removeAll();
-				view.numeroPasseggeri=0;
 				view.nomiPasseggeri.clear();
 				view.cognomiPasseggeri.clear();
 				view.giornoNascitaPasseggeri.clear();
@@ -240,14 +239,23 @@ public class PrenotazioneController{
 
 
 
-		// aggiungi passeggero
-		view.buttonPasseggeriAggiungiPasseggero.addMouseListener(new MouseAdapter() {
+		// prossimo passeggero
+		view.buttonPasseggeriProssimo.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				if(view.numeroPasseggeri<3){
-					view.addPasseggero();
-				}else{
-					JOptionPane.showMessageDialog(null, "Numero massimo di passeggeri: 3","Hai superato il numero massimo di passeggeri", 1);
+				view.successivoPasseggero(); //lo aggiungo all'arraylist
+				
+			}
+
+		});
+
+
+		//precedente
+		view.buttonPasseggeriPrecedente.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				if(view.currentIndex!=0){
+					view.precedentePasseggero(); //lo aggiungo all'arraylist
 				}
 			}
 
@@ -305,7 +313,7 @@ public class PrenotazioneController{
 						String anno = iterAnno.next().getSelectedItem().toString();
 						String sesso = iterSesso.next().getSelectedItem().toString();
 						if(nome.compareTo("")!=0){
-							testo += "Nome: "+nome+"        Cognome: "+cognome+"        Età:"+calcolaEta(giorno, mese, anno)+"        Sesso:"+sesso+"\n";
+							testo += "Nome: "+nome+"        Cognome: "+cognome+"        Età:"+"        Sesso:"+sesso+"\n";
 						}
 					}
 					//mettere conferma annulla
@@ -345,15 +353,7 @@ public class PrenotazioneController{
 	}
 
 
-	//calcola l'età a partire da una data di nascita						 spostare su modello
-	private int calcolaEta(String g, String m, String a){
-		Calendar c = Calendar.getInstance();
-		int anni = c.get(Calendar.YEAR)-Integer.parseInt(a);
-		if(Integer.parseInt(m)>1+c.get(Calendar.MONTH) || (Integer.parseInt(m)==1+c.get(Calendar.MONTH) && Integer.parseInt(g)>=c.get(Calendar.DAY_OF_MONTH))){ //1+ perche gennaio è lo zero
-			return anni-1;
-		}
-		return anni;
-	}
+
 
 
 }
