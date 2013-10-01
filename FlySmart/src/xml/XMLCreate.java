@@ -42,6 +42,7 @@ public class XMLCreate<E> {
 						String attributeName = f.getName();
 						String attributeNameMaiusc = attributeName.substring(0, 1).toUpperCase() + attributeName.substring(1);
 						Method m = elem.getClass().getMethod("get"+attributeNameMaiusc); // Ottengo il Metodo 
+						System.err.println(m.toString());
 						String s = m.invoke(elem).toString();// Invoco il metodo
 						childToAdd = d.createElement(attributeName); // Costruisco l'albero degli elementi, che successivamente inserirò del documento
 						childToAdd.setTextContent(s);

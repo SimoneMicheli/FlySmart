@@ -32,7 +32,7 @@ public class XMLToObj{
 						map.put(name, ((Node)firstName.item(0)).getNodeValue());
 					}
 					
-					Passeggero toAdd = new Passeggero(Integer.parseInt(map.get("id")), Integer.parseInt(map.get("idGruppo")), map.get("nome"), map.get("cognome"), Integer.parseInt(map.get("eta")), map.get("sesso").charAt(0), Double.parseDouble(map.get("pesoBadagli")), Integer.parseInt(map.get("idVolo")), Integer.parseInt(map.get("posto")));
+					Passeggero toAdd = new Passeggero(Integer.parseInt(map.get("id")), Integer.parseInt(map.get("idGruppo")), map.get("nome"), map.get("cognome"), Integer.parseInt(map.get("eta")), map.get("sesso").charAt(0), Double.parseDouble(map.get("pesoBadagli")), Integer.parseInt(map.get("idVolo")), Integer.parseInt(map.get("posto")), Integer.parseInt(map.get("giorno")), Integer.parseInt(map.get("mese")), Integer.parseInt(map.get("anno")));
 					list.add(toAdd);
 
 				}
