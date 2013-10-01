@@ -2,18 +2,14 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
-import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
-import java.rmi.RemoteException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -27,7 +23,6 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
-import javax.swing.border.Border;
 
 import model.Aeroporto;
 import model.Passeggero;
@@ -193,7 +188,6 @@ public class PrenotazioneView extends View {
 		panelPallet.add(panelPalletPallet,"panelPalletPallet");
 	}
 
-	@SuppressWarnings("unchecked")
 	public void setPasseggeriAeroporti(List<Aeroporto> aeroporti){
 
 		JLabel labelTipoPrenotazione = new JLabel("Selezionare aeroporto di partenza e di arrivo");
@@ -212,7 +206,7 @@ public class PrenotazioneView extends View {
 		comboPasseggeriAeroportoArrivo.setBounds(141, 177, 220, 20);
 		comboPasseggeriAeroportoArrivo.addItem("");
 
-		Iterator i = aeroporti.iterator();
+		Iterator<Aeroporto> i = aeroporti.iterator();
 		while(i.hasNext()) {
 			Aeroporto element = (Aeroporto) i.next();
 			comboPasseggeriAeroportoPartenza.addItem(element.getNome());
