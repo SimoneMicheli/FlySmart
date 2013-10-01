@@ -517,6 +517,13 @@ public class PrenotazioneView extends View {
 		p.setMese(Integer.parseInt(comboBoxMese.getSelectedItem().toString()));
 		p.setAnno(Integer.parseInt(comboBoxAnno.getSelectedItem().toString()));
 		p.calcolaEta();
+		//per test XML: la classe XMLCreate non va se non ho settato tutti i parametri
+		p.setId(0);
+		p.setIdGruppo(0);
+		p.setPesoBagagli(10.0);
+		p.setPosto(2);
+		p.setIdVolo(5);
+		
 	}
 
 
