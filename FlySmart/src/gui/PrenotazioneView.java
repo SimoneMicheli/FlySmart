@@ -275,87 +275,93 @@ public class PrenotazioneView extends View {
 
 	protected void setPasseggeriPasseggeri(){
 
+
+
+
 		JLabel labelTipoPrenotazione = new JLabel("Inserire i dati dei passeggeri");
 		labelTipoPrenotazione.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		labelTipoPrenotazione.setBounds(8, 8, 482, 25);
 		panelPasseggeriPasseggeri.add(labelTipoPrenotazione);
 
 
-		panelPasseggeriPasseggeriInterno.setBounds(10, 40, 450, 241);
-		panelPasseggeriPasseggeriInterno.setLayout(null);
-		//Border lineaSpessa=BorderFactory.createLineBorder(Color.blue,5);
-		//panelPasseggeriPasseggeriInterno.setBorder(lineaSpessa);
-		panelPasseggeriPasseggeri.add(panelPasseggeriPasseggeriInterno);
-
 		JLabel labelPasseggeriNome = new JLabel("Nome");
-		labelPasseggeriNome.setBounds(10, 21+(75), 72, 14);
-		panelPasseggeriPasseggeriInterno.add(labelPasseggeriNome);
+		labelPasseggeriNome.setBounds(165, 76, 72, 14);
+
+		panelPasseggeriPasseggeri.add(labelPasseggeriNome);
 
 
-		textPasseggeriNome.setBounds(70, 18+(75), 130, 20);
-		panelPasseggeriPasseggeriInterno.add(textPasseggeriNome);
+		textPasseggeriNome.setBounds(225, 74, 152, 20);
+		panelPasseggeriPasseggeri.add(textPasseggeriNome);
 		textPasseggeriNome.setColumns(10);
 
 		JLabel labelPasseggeriCognome = new JLabel("Cognome");
-		labelPasseggeriCognome.setBounds(10, 49+(75), 46, 14);
-		panelPasseggeriPasseggeriInterno.add(labelPasseggeriCognome);
+		labelPasseggeriCognome.setBounds(165, 104, 46, 14);
+		panelPasseggeriPasseggeri.add(labelPasseggeriCognome);
 
 
-		textPasseggeriCognome.setBounds(70, 46+(75), 130, 20);
-		panelPasseggeriPasseggeriInterno.add(textPasseggeriCognome);
+		textPasseggeriCognome.setBounds(225, 101, 152, 20);
+		panelPasseggeriPasseggeri.add(textPasseggeriCognome);
 		textPasseggeriCognome.setColumns(10);
 
 
 
-		labelPasseggeriNumero.setBounds(210, 21, 46, 14);
-		panelPasseggeriPasseggeriInterno.add(labelPasseggeriNumero);
+		labelPasseggeriNumero.setBounds(25, 75, 46, 14);
+		labelPasseggeriNumero.setFont(new Font("Tahoma", Font.BOLD, 20));
+		panelPasseggeriPasseggeri.add(labelPasseggeriNumero);
 
 		JLabel labelPasseggeriSesso = new JLabel("Sesso");
-		labelPasseggeriSesso.setBounds(210, 21+(75), 46, 14);
-		panelPasseggeriPasseggeriInterno.add(labelPasseggeriSesso);
+		labelPasseggeriSesso.setBounds(165, 135, 46, 14);
+		panelPasseggeriPasseggeri.add(labelPasseggeriSesso);
 
+		comboBoxSesso.removeAllItems();
 		comboBoxSesso.addItem("");
 		comboBoxSesso.addItem("Uomo");
 		comboBoxSesso.addItem("Donna");
-		comboBoxSesso.setBounds(260, 18+(75), 72, 20);
-		panelPasseggeriPasseggeriInterno.add(comboBoxSesso);
+		comboBoxSesso.setBounds(225, 135, 72, 20);
+		panelPasseggeriPasseggeri.add(comboBoxSesso);
+
 
 		JLabel labelPasseggeriEta = new JLabel("Nato il");
-		labelPasseggeriEta.setBounds(210, 49+(75), 46, 14);
-		panelPasseggeriPasseggeriInterno.add(labelPasseggeriEta);
+		labelPasseggeriEta.setBounds(165, 166, 46, 14);
+		panelPasseggeriPasseggeri.add(labelPasseggeriEta);
 
 
 		//giorni di nascita
+		comboBoxGiorno.removeAllItems();
 		comboBoxGiorno.addItem("");
 		for(int i=1;i<31;i++){
 			comboBoxGiorno.addItem(""+i);
 		}
-		comboBoxGiorno.setBounds(260, 46+(75), 42, 20);
-		panelPasseggeriPasseggeriInterno.add(comboBoxGiorno);
+		comboBoxGiorno.setBounds(225, 164, 42, 20);
+		panelPasseggeriPasseggeri.add(comboBoxGiorno);
 
 		//mese di nascita
+		comboBoxMese.removeAllItems();
 		comboBoxMese.addItem("");
 		for(int i=1;i<12;i++){
 			comboBoxMese.addItem(""+i);
 		}
-		comboBoxMese.setBounds(310, 46+(75), 42, 20);
-		panelPasseggeriPasseggeriInterno.add(comboBoxMese);
+		comboBoxMese.setBounds(275, 164, 42, 20);
+		panelPasseggeriPasseggeri.add(comboBoxMese);
 
 		//anno di nascita
+		comboBoxAnno.removeAllItems();
 		comboBoxAnno.addItem("");
 		for(int i=2013;i>1900;i--){
 			comboBoxAnno.addItem(""+i);
 		}
-		comboBoxAnno.setBounds(360, 46+(75), 55, 20);
-		panelPasseggeriPasseggeriInterno.add(comboBoxAnno);
-
-		buttonPasseggeriProssimo = new JButton(">");
-		buttonPasseggeriProssimo.setBounds(167, 297, 188, 23);
-		panelPasseggeriPasseggeri.add(buttonPasseggeriProssimo);
+		comboBoxAnno.setBounds(325, 164, 55, 20);
+		panelPasseggeriPasseggeri.add(comboBoxAnno);
 
 		buttonPasseggeriPrecedente = new JButton("<");
-		buttonPasseggeriPrecedente.setBounds(167, 257, 188, 23);
+		buttonPasseggeriPrecedente.setBounds(165, 220, 78, 23);
 		panelPasseggeriPasseggeri.add(buttonPasseggeriPrecedente);
+
+
+		buttonPasseggeriProssimo = new JButton(">");
+		buttonPasseggeriProssimo.setBounds(305, 220, 78, 23);
+		panelPasseggeriPasseggeri.add(buttonPasseggeriProssimo);
+
 
 
 		buttonPasseggeriAnnullaPrenotazione = new JButton("Annulla");
@@ -370,6 +376,20 @@ public class PrenotazioneView extends View {
 		progressBar.setBounds(10, 360, 482, 26);
 		panelPasseggeriPasseggeri.add(progressBar);
 		progressBar.setValue(90);
+
+
+		//azzeramento dati passeggeri
+		listaPasseggeri.clear();
+		textPasseggeriNome.setText("");
+		textPasseggeriCognome.setText("");
+		/*comboBoxSesso.setSelectedIndex(0);
+		comboBoxGiorno.setSelectedIndex(0);
+		comboBoxMese.setSelectedIndex(0);
+		comboBoxAnno.setSelectedIndex(0);*/
+		passeggeroCorrente=null;
+		currentIndex=0;
+		lastIndex=0;
+		labelPasseggeriNumero.setText(currentIndex+1+"");
 	}
 
 
@@ -517,7 +537,7 @@ public class PrenotazioneView extends View {
 		p.setPesoBagagli(10.0);
 		p.setPosto(2);
 		p.setIdVolo(5);
-		
+
 	}
 
 
@@ -531,9 +551,10 @@ public class PrenotazioneView extends View {
 				);
 	}
 
-	protected void passeggeroSuccessivo(){
+	protected void updateOrSavePasseggero(){
 		if(controllaCampi()){ 
 
+			System.out.println(listaPasseggeri);
 			if(passeggeroCorrente != null){ //riaggiorno il passeggero esistete
 				save(passeggeroCorrente);
 			}
@@ -547,8 +568,13 @@ public class PrenotazioneView extends View {
 				lastIndex++;
 			}
 			currentIndex++;
+		}
+	}
 
 
+	protected void passeggeroSuccessivo(){
+		if(controllaCampi()){ 
+			updateOrSavePasseggero();
 			if(lastIndex==currentIndex){
 				//lo azzero
 				textPasseggeriNome.setText("");

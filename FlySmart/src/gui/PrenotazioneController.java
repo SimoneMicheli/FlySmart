@@ -222,15 +222,11 @@ public class PrenotazioneController{
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
 				view.cardPasseggeri.show(view.panelPasseggeri,"panelPasseggeriAeroporti");
-				view.panelPasseggeriPasseggeriInterno.removeAll();
-				view.nomiPasseggeri.clear();
-				view.cognomiPasseggeri.clear();
-				view.giornoNascitaPasseggeri.clear();
-				view.meseNascitaPasseggeri.clear();
-				view.annoNascitaPasseggeri.clear();
-				view.nomiPasseggeri.clear();
-				view.sessoPasseggeri.clear();
-				view.setPasseggeriPasseggeri();
+				//view.setPasseggeriPasseggeri();
+				
+				
+				
+				
 			}
 
 		});
@@ -273,11 +269,11 @@ public class PrenotazioneController{
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
 				
-				view.passeggeroSuccessivo();
-				System.out.println(view.listaPasseggeri);
+				view.updateOrSavePasseggero();
 				
-				//creo la lista passeggeri xml
 				
+				
+				//creo la lista passeggeri xml per prova
 				XMLCreate<Passeggero> xml = new XMLCreate<Passeggero>();
 				Document d = xml.createFlySmartDocument(view.listaPasseggeri);
 				try {
