@@ -5,9 +5,6 @@ import java.io.Serializable;
 
 
 public class Passeggero implements Serializable, Comparable<Passeggero>{
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -6370829625592709820L;
 	private Integer id;
 	private String nome;

@@ -1,6 +1,9 @@
 package model;
 
-public class Pallet {
+import java.io.Serializable;
+
+public class Pallet implements Serializable{
+	private static final long serialVersionUID = -5555020451242189950L;
 	private int id;
 	private double peso;
 	private String targa;
