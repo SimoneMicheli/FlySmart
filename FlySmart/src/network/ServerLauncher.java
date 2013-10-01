@@ -6,8 +6,6 @@ package network;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import java.util.ArrayList;
-import model.Passeggero;
 
 /**
  * @author Demarinis - Micheli - Scarpellini
@@ -44,15 +42,15 @@ public class ServerLauncher {
 			System.out.println("FlySmart RMI server STARTED");
 			
 			//*************only for testing*********************
-			java.util.List<Passeggero> pass = new ArrayList<Passeggero>();
+			/*java.util.List<Passeggero> pass = new ArrayList<Passeggero>();
 		
-			pass.add(new Passeggero("mario", "rossi", "2","3","1990", 'M'));
-			pass.add(new Passeggero("dsf", "bianchiu", "25","36","19890", 'M'));
-			pass.add(new Passeggero("gh", "asd", "2","33","19970", 'M'));
+			pass.add(new Passeggero("mario", "rossi", 56, 'M'));
+			pass.add(new Passeggero("andrea", "bainchi", 20, 'M'));
+			pass.add(new Passeggero("paola", "verdi", 30, 'F'));
 			
 			s.list = pass;
 			
-			System.out.println(pass);
+			//System.out.println(pass);*/
 			
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
@@ -60,5 +58,4 @@ public class ServerLauncher {
 		}
 
 	}
-
 }

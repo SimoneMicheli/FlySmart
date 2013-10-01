@@ -26,7 +26,7 @@ public enum VoloComparator implements Comparator<Volo> {
 	DATA_ORDER{
 		@Override
 		public int compare(Volo o1, Volo o2) {
-			return o1.getDataora().compareTo(o2.getDataora());
+			return o1.getDataOra().compareTo(o2.getDataOra());
 		}
 	},
 	POSTI_ORDER{
