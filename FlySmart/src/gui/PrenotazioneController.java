@@ -36,7 +36,7 @@ public class PrenotazioneController{
 	public void initController(){
 		List<Aeroporto> aeroporti=null;
 		try {
-			aeroporti = serv.getAirports();
+			aeroporti = serv.getAeroporti();
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

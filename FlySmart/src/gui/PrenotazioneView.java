@@ -30,7 +30,6 @@ import javax.swing.border.Border;
 
 import model.Aeroporto;
 import model.Passeggero;
-import model.SessoIndex;
 
 
 @SuppressWarnings("serial")
