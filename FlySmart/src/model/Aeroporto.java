@@ -52,7 +52,7 @@ public class Aeroporto implements Serializable{
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return id +" "+nome+ " "+prezzoCarburante+ " "+tasse;
+		return nome;
 	}
 
 }

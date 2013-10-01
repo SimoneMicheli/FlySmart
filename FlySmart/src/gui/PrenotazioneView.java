@@ -209,8 +209,8 @@ public class PrenotazioneView extends View {
 		Iterator<Aeroporto> i = aeroporti.iterator();
 		while(i.hasNext()) {
 			Aeroporto element = (Aeroporto) i.next();
-			comboPasseggeriAeroportoPartenza.addItem(element.getNome());
-			comboPasseggeriAeroportoArrivo.addItem(element.getNome());
+			comboPasseggeriAeroportoPartenza.addItem(element);
+			comboPasseggeriAeroportoArrivo.addItem(element);
 		}
 
 		panelPasseggeriAeroporti.add(comboPasseggeriAeroportoArrivo, BorderLayout.SOUTH);
@@ -282,47 +282,58 @@ public class PrenotazioneView extends View {
 		labelTipoPrenotazione.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		labelTipoPrenotazione.setBounds(8, 8, 482, 25);
 		panelPasseggeriPasseggeri.add(labelTipoPrenotazione);
+		
+		buttonPasseggeriPrecedente = new JButton("<");
+		buttonPasseggeriPrecedente.setFont(new Font("Tahoma", Font.BOLD, 10));
+		buttonPasseggeriPrecedente.setBounds(155, 70, 40, 23);
+		panelPasseggeriPasseggeri.add(buttonPasseggeriPrecedente);
 
+		labelPasseggeriNumero.setBounds(263, 70, 40, 23);
+		labelPasseggeriNumero.setFont(new Font("Tahoma", Font.BOLD, 18));
+		panelPasseggeriPasseggeri.add(labelPasseggeriNumero);
+
+		buttonPasseggeriProssimo = new JButton(">");
+		buttonPasseggeriProssimo.setFont(new Font("Tahoma", Font.BOLD, 10));
+		buttonPasseggeriProssimo.setBounds(333, 70, 40, 23);
+		panelPasseggeriPasseggeri.add(buttonPasseggeriProssimo);
+		
 
 		JLabel labelPasseggeriNome = new JLabel("Nome");
-		labelPasseggeriNome.setBounds(165, 76, 72, 14);
+		labelPasseggeriNome.setBounds(155, 136, 72, 14);
 
 		panelPasseggeriPasseggeri.add(labelPasseggeriNome);
 
 
-		textPasseggeriNome.setBounds(225, 74, 152, 20);
+		textPasseggeriNome.setBounds(215, 134, 152, 20);
 		panelPasseggeriPasseggeri.add(textPasseggeriNome);
 		textPasseggeriNome.setColumns(10);
 
 		JLabel labelPasseggeriCognome = new JLabel("Cognome");
-		labelPasseggeriCognome.setBounds(165, 104, 46, 14);
+		labelPasseggeriCognome.setBounds(155, 164, 46, 14);
 		panelPasseggeriPasseggeri.add(labelPasseggeriCognome);
 
 
-		textPasseggeriCognome.setBounds(225, 101, 152, 20);
+		textPasseggeriCognome.setBounds(215, 161, 152, 20);
 		panelPasseggeriPasseggeri.add(textPasseggeriCognome);
 		textPasseggeriCognome.setColumns(10);
 
 
 
-		labelPasseggeriNumero.setBounds(25, 75, 46, 14);
-		labelPasseggeriNumero.setFont(new Font("Tahoma", Font.BOLD, 20));
-		panelPasseggeriPasseggeri.add(labelPasseggeriNumero);
 
 		JLabel labelPasseggeriSesso = new JLabel("Sesso");
-		labelPasseggeriSesso.setBounds(165, 135, 46, 14);
+		labelPasseggeriSesso.setBounds(155, 195, 46, 14);
 		panelPasseggeriPasseggeri.add(labelPasseggeriSesso);
 
 		comboBoxSesso.removeAllItems();
 		comboBoxSesso.addItem("");
 		comboBoxSesso.addItem("Uomo");
 		comboBoxSesso.addItem("Donna");
-		comboBoxSesso.setBounds(225, 135, 72, 20);
+		comboBoxSesso.setBounds(215, 195, 72, 20);
 		panelPasseggeriPasseggeri.add(comboBoxSesso);
 
 
 		JLabel labelPasseggeriEta = new JLabel("Nato il");
-		labelPasseggeriEta.setBounds(165, 166, 46, 14);
+		labelPasseggeriEta.setBounds(155, 230, 46, 14);
 		panelPasseggeriPasseggeri.add(labelPasseggeriEta);
 
 
@@ -332,7 +343,7 @@ public class PrenotazioneView extends View {
 		for(int i=1;i<31;i++){
 			comboBoxGiorno.addItem(""+i);
 		}
-		comboBoxGiorno.setBounds(225, 164, 42, 20);
+		comboBoxGiorno.setBounds(215, 230, 42, 20);
 		panelPasseggeriPasseggeri.add(comboBoxGiorno);
 
 		//mese di nascita
@@ -341,7 +352,7 @@ public class PrenotazioneView extends View {
 		for(int i=1;i<12;i++){
 			comboBoxMese.addItem(""+i);
 		}
-		comboBoxMese.setBounds(275, 164, 42, 20);
+		comboBoxMese.setBounds(265, 230, 42, 20);
 		panelPasseggeriPasseggeri.add(comboBoxMese);
 
 		//anno di nascita
@@ -350,17 +361,10 @@ public class PrenotazioneView extends View {
 		for(int i=2013;i>1900;i--){
 			comboBoxAnno.addItem(""+i);
 		}
-		comboBoxAnno.setBounds(325, 164, 55, 20);
+		comboBoxAnno.setBounds(315, 230, 55, 20);
 		panelPasseggeriPasseggeri.add(comboBoxAnno);
 
-		buttonPasseggeriPrecedente = new JButton("<");
-		buttonPasseggeriPrecedente.setBounds(165, 220, 78, 23);
-		panelPasseggeriPasseggeri.add(buttonPasseggeriPrecedente);
-
-
-		buttonPasseggeriProssimo = new JButton(">");
-		buttonPasseggeriProssimo.setBounds(305, 220, 78, 23);
-		panelPasseggeriPasseggeri.add(buttonPasseggeriProssimo);
+		
 
 
 
@@ -382,10 +386,6 @@ public class PrenotazioneView extends View {
 		listaPasseggeri.clear();
 		textPasseggeriNome.setText("");
 		textPasseggeriCognome.setText("");
-		/*comboBoxSesso.setSelectedIndex(0);
-		comboBoxGiorno.setSelectedIndex(0);
-		comboBoxMese.setSelectedIndex(0);
-		comboBoxAnno.setSelectedIndex(0);*/
 		passeggeroCorrente=null;
 		currentIndex=0;
 		lastIndex=0;
@@ -553,9 +553,7 @@ public class PrenotazioneView extends View {
 
 	protected void updateOrSavePasseggero(){
 		if(controllaCampi()){ 
-
-			System.out.println(listaPasseggeri);
-			if(passeggeroCorrente != null){ //riaggiorno il passeggero esistete
+			if(passeggeroCorrente != null){ //riaggiorno il passeggero esistente
 				save(passeggeroCorrente);
 			}
 			else{ //creo uno nuovo
@@ -564,6 +562,7 @@ public class PrenotazioneView extends View {
 				listaPasseggeri.add(nuovoPasseggero);
 			}
 
+			System.out.println(listaPasseggeri);
 			if(currentIndex==lastIndex){
 				lastIndex++;
 			}
@@ -590,7 +589,7 @@ public class PrenotazioneView extends View {
 			}
 			labelPasseggeriNumero.setText(currentIndex+1+"");
 		}else{
-			JOptionPane.showMessageDialog(null,"Campi non validi","Errore", 1);
+			JOptionPane.showMessageDialog(null,"Completare prima il passeggero corrente","Errore", 1);
 		}
 	}
 
@@ -622,5 +621,8 @@ public class PrenotazioneView extends View {
 	}
 
 
+	
+	
+	// Quando seleziono febbraio, togliere i giorni invalidi eccetera
 
 }

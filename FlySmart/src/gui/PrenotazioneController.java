@@ -129,6 +129,7 @@ public class PrenotazioneController{
 		view.buttonPasseggeriPasseggeriCercaVoli.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
+				JOptionPane.showMessageDialog(null,"Hai scelto di partire da "+((Aeroporto)view.comboPasseggeriAeroportoPartenza.getSelectedItem()).getId()+" e arrivare a "+((Aeroporto)view.comboPasseggeriAeroportoArrivo.getSelectedItem()).getId(),"Errore", 1);
 				if(view.comboPasseggeriAeroportoArrivo.getSelectedItem().toString()!="" && view.comboPasseggeriAeroportoPartenza.getSelectedItem().toString()!=""){
 					view.setPasseggeriVoli(); //da fare per ricaricare tutto
 					registraControllerFase2Passeggeri();
@@ -268,11 +269,12 @@ public class PrenotazioneController{
 		view.buttonPasseggeriConfermaPrenotazione.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				
-				view.updateOrSavePasseggero();
-				
-				
-				
+				if(view.controllaCampi()){
+					view.updateOrSavePasseggero();
+					view.cardPasseggeri.show(view.panelPasseggeri,"panelPasseggeriAeroporti");
+					JOptionPane.showMessageDialog(null,view.listaPasseggeri.toString(),"Dato", 1);
+				}
+			
 				//creo la lista passeggeri xml per prova
 				XMLCreate<Passeggero> xml = new XMLCreate<Passeggero>();
 				Document d = xml.createFlySmartDocument(view.listaPasseggeri);
@@ -281,6 +283,9 @@ public class PrenotazioneController{
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
+				
+			
+				
 				
 			}
 		});
