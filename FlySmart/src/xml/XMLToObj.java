@@ -32,8 +32,8 @@ public class XMLToObj{
 						map.put(name, ((Node)firstName.item(0)).getNodeValue());
 					}
 					
-					//Passeggero toAdd = new Passeggero(Integer.parseInt(map.get("id")), map.get("citta"), Double.parseDouble(map.get("prezzoCarburante")), Double.parseDouble(map.get("tasse")));
-					//list.add(toAdd);
+					Passeggero toAdd = new Passeggero(Integer.parseInt(map.get("id")), Integer.parseInt(map.get("idGruppo")), map.get("nome"), map.get("cognome"), Integer.parseInt(map.get("eta")), map.get("sesso").charAt(0), Double.parseDouble(map.get("pesoBadagli")), Integer.parseInt(map.get("idVolo")), Integer.parseInt(map.get("posto")));
+					list.add(toAdd);
 
 				}
 			}
@@ -108,8 +108,8 @@ public class XMLToObj{
 						map.put(name, ((Node)firstName.item(0)).getNodeValue());
 					}
 					
-					// Pallet toAdd = new Pallet( Integer.parseInt(map.get("id")), Double.parseDouble(map.get("peso")), map.get("targa"), Integer.parseInt(map.get("idVolo")));
-					// list.add(toAdd);
+					Pallet toAdd = new Pallet( Integer.parseInt(map.get("id")), Double.parseDouble(map.get("peso")), map.get("targa"), Integer.parseInt(map.get("idVolo")));
+					list.add(toAdd);
 
 				}
 			}

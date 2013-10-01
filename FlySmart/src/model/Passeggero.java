@@ -8,6 +8,7 @@ import java.util.Calendar;
 public class Passeggero implements Serializable, Comparable<Passeggero>{
 	private static final long serialVersionUID = -6370829625592709820L;
 	private Integer id;
+	private Integer idGruppo;
 	private String nome;
 	private String cognome;
 	private Integer eta;
@@ -20,8 +21,9 @@ public class Passeggero implements Serializable, Comparable<Passeggero>{
 	private Integer posto;
 
 
-	public Passeggero(Integer id, String nome, String cognome, Integer eta, Character sesso, Double pesoBagagli, Integer idVolo, Integer posto) {
+	public Passeggero(Integer id, Integer idGruppo, String nome, String cognome, Integer eta, Character sesso, Double pesoBagagli, Integer idVolo, Integer posto) {
 		this.id = id;
+		this.idGruppo = idGruppo;
 		this.nome = nome;
 		this.cognome = cognome;
 		this.eta = eta;
@@ -36,7 +38,7 @@ public class Passeggero implements Serializable, Comparable<Passeggero>{
 
 
 	public Passeggero(String nome, String cognome,String giorno, String mese, String anno, Character sesso) {
-		this(null, nome,  cognome,  calcolaEta(giorno, mese, anno),  sesso,  null,  null,  null);
+		this(null, null, nome,  cognome,  calcolaEta(giorno, mese, anno),  sesso,  null,  null,  null);
 		this.giorno= Integer.parseInt(giorno);
 		this.mese= Integer.parseInt(mese);
 		this.anno= Integer.parseInt(anno);
@@ -179,6 +181,14 @@ public class Passeggero implements Serializable, Comparable<Passeggero>{
 
 	public void setAnno(Integer anno) {
 		this.anno = anno;
+	}
+	
+	public Integer getIdGruppo() {
+		return idGruppo;
+	}
+	
+	public void setIdGruppo(Integer idGruppo) {
+		this.idGruppo = idGruppo;
 	}
 
 }

@@ -27,7 +27,7 @@ public class TestXML {
 		elenco2 = instance2.createAeroportoList("aeroporti.xml");
 		XMLCreate<Aeroporto> instance3 = new XMLCreate<Aeroporto>();
 		Document d2 = instance3.createFlySmartDocument(elenco2);
-		instance3.printDocument(d2, "down2");
+		instance3.printDocument(d2, "provafinale");
 		
 	}
 

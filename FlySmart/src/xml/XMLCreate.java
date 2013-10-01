@@ -11,12 +11,12 @@ import java.util.*;
 public class XMLCreate<E> {
 	
 
-	public Document createFlySmartDocument(ArrayList<E> list){
+	public Document createFlySmartDocument(List<E> list){
 		Document d = this.createDocument();
 		return this.createFlySmartDocument(d, list);
 	}
 	
-	public Document createFlySmartDocument(Document d, ArrayList<E> list)	
+	public Document createFlySmartDocument(Document d, List<E> list)	
 		{
 
 		Element root = null; // senza DTD
