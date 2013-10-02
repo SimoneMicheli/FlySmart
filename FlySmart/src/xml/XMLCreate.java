@@ -135,7 +135,7 @@ public class XMLCreate<E> {
 	public boolean printDocument(Document d, String name_file) throws IOException
 	{
 		try {
-			this.saveDocument(d, new FileWriter(name_file + ".xml"));
+			this.saveDocument(d, new FileWriter(name_file));
 			return true;
 			} catch (IOException ex) {
 				ex.printStackTrace();	{

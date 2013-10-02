@@ -2,6 +2,9 @@ package xml;
 
 import model.*;
 import java.lang.reflect.Field;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import org.w3c.dom.*;
 
@@ -30,7 +33,6 @@ public class XMLToObj{
 						Element firstNameElement = (Element)firstNameElementLst.item(0);
 						NodeList firstName = firstNameElement.getChildNodes();
 						map.put(name, ((Node)firstName.item(0)).getNodeValue());
-						System.err.println(name);
 					}
 					
 					Passeggero toAdd = new Passeggero(Integer.parseInt(map.get("id")), Integer.parseInt(map.get("idGruppo")), map.get("nome"), map.get("cognome"), Integer.parseInt(map.get("eta")), (Character) map.get("sesso").charAt(0), Double.parseDouble(map.get("pesoBagagli")), Integer.parseInt(map.get("idVolo")), Integer.parseInt(map.get("posto")), Integer.parseInt(map.get("giorno")), Integer.parseInt(map.get("mese")), Integer.parseInt(map.get("anno")));
@@ -46,8 +48,8 @@ public class XMLToObj{
 		return list;
 	}
 	
-	public ArrayList<Aeroporto> createAeroportoList(String path){
-		ArrayList<Aeroporto> list = new ArrayList<Aeroporto>();
+	public List<Aeroporto> createAeroportoList(String path){
+		List<Aeroporto> list = new ArrayList<Aeroporto>();
 		try {
 			XMLLoad instance = new XMLLoad();
 			Document d = instance.loadDocument(path);
@@ -84,8 +86,8 @@ public class XMLToObj{
 		return list;
 	}
 		
-	public ArrayList<Pallet> createPalletList(String path){
-		ArrayList<Pallet> list = new ArrayList<Pallet>();
+	public List<Pallet> createPalletList(String path){
+		List<Pallet> list = new ArrayList<Pallet>();
 		try {
 			XMLLoad instance = new XMLLoad();
 			Document d = instance.loadDocument(path);
@@ -123,8 +125,8 @@ public class XMLToObj{
 	}
 	
 
-	public ArrayList<Volo> createVoloList(String path){
-		ArrayList<Volo> list = new ArrayList<Volo>();
+	public List<Volo> createVoloList(String path){
+		List<Volo> list = new ArrayList<Volo>();
 		try {
 			XMLLoad instance = new XMLLoad();
 			Document d = instance.loadDocument(path);
@@ -148,8 +150,16 @@ public class XMLToObj{
 						map.put(name, ((Node)firstName.item(0)).getNodeValue());
 					}
 					
-					//Volo toAdd = new Volo( Integer.parseInt(map.get("id")), Date.parse(map.get("peso")), map.get("targa"), Integer.parseInt(map.get("idVolo")));
-					//list.add(toAdd);
+					DateFormat df = new SimpleDateFormat("EEE MMM d HH:mm:ss z yyyy", Locale.ROOT);
+					Date dt=new Date();
+					try {
+						dt=df.parse(map.get("dataOra"));
+					} catch (ParseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					Volo toAdd = new Volo( Integer.parseInt(map.get("id")), dt, Integer.parseInt(map.get("aeroportoPartenza")) , Integer.parseInt(map.get("aeroportoDestinazione")), Integer.parseInt(map.get("aereo")), Integer.parseInt(map.get("postiDisponibili")), Integer.parseInt(map.get("palletDisponibili")));
+					list.add(toAdd);
 
 				}
 			}
