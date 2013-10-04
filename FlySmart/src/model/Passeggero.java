@@ -6,6 +6,7 @@ import java.util.Calendar;
 
 
 public class Passeggero implements Serializable, Comparable<Passeggero>{
+	// private static final long serialVersionUID = -6370829625592709820L;
 	private Integer id;
 	private Integer idGruppo;
 	private String nome;
@@ -20,9 +21,9 @@ public class Passeggero implements Serializable, Comparable<Passeggero>{
 	private Integer posto;
 
 
-	public Passeggero(Integer id, Integer idGruppo, String nome, String cognome, Integer eta, Character sesso, Double pesoBagagli, Integer idVolo, Integer posto) {
+	public Passeggero(Integer id, Integer idGruppo, String nome, String cognome, Integer eta, Character sesso, Double pesoBagagli, Integer idVolo, Integer posto, Integer giorno, Integer mese, Integer anno) {
 		this.id = id;
-		this.setIdGruppo(idGruppo);
+		this.idGruppo = idGruppo;
 		this.nome = nome;
 		this.cognome = cognome;
 		this.eta = eta;
@@ -30,6 +31,9 @@ public class Passeggero implements Serializable, Comparable<Passeggero>{
 		this.pesoBagagli = pesoBagagli;
 		this.idVolo = idVolo;
 		this.posto = posto;
+		this.giorno = giorno;
+		this.mese = mese;
+		this.anno = anno;
 	}
 
 	public Passeggero() {
@@ -37,10 +41,7 @@ public class Passeggero implements Serializable, Comparable<Passeggero>{
 
 
 	public Passeggero(String nome, String cognome,String giorno, String mese, String anno, Character sesso) {
-		this(null, null, nome,  cognome,  calcolaEta(giorno, mese, anno),  sesso,  null,  null,  null);
-		this.giorno= Integer.parseInt(giorno);
-		this.mese= Integer.parseInt(mese);
-		this.anno= Integer.parseInt(anno);
+		this(null, null, nome,  cognome,  calcolaEta(giorno, mese, anno),  sesso,  null,  null,  null, Integer.parseInt(giorno), Integer.parseInt(mese), Integer.parseInt(anno));
 	}
 
 
@@ -181,13 +182,15 @@ public class Passeggero implements Serializable, Comparable<Passeggero>{
 	public void setAnno(Integer anno) {
 		this.anno = anno;
 	}
-
+	
 	public Integer getIdGruppo() {
 		return idGruppo;
 	}
-
+	
 	public void setIdGruppo(Integer idGruppo) {
 		this.idGruppo = idGruppo;
 	}
 
 }
+
+>>>>>>> refs/heads/xml
