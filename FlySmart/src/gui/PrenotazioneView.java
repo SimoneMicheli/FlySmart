@@ -26,6 +26,7 @@ import javax.swing.JTextField;
 
 import model.Aeroporto;
 import model.Passeggero;
+import model.Volo;
 
 
 @SuppressWarnings("serial")
@@ -233,7 +234,7 @@ public class PrenotazioneView extends View {
 		progressBar.setValue(2);
 	}
 
-	public void setPasseggeriVoli(){
+	public void setPasseggeriVoli(List<Volo> voli){
 
 		JLabel labelTipoPrenotazione = new JLabel("Selezionare un volo:");
 		labelTipoPrenotazione.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -246,6 +247,21 @@ public class PrenotazioneView extends View {
 
 		panelPasseggeriVoliInterno.removeAll();
 
+		Iterator<Volo> i = voli.iterator();
+		int x = 10;
+		while(i.hasNext()) {
+			Volo element = (Volo) i.next();
+			//comboPasseggeriAeroportoPartenza.addItem(element);
+			//comboPasseggeriAeroportoArrivo.addItem(element);
+			/*JRadioButton rdbtnNewRadioButton = new JRadioButton("cc"+element.getAeroportoDestinazione());
+			buttonGroupPasseggeriVoli.add(rdbtnNewRadioButton);
+			rdbtnNewRadioButton.setBounds(6, x, 480, 23);
+			panelPasseggeriVoliInterno.add(rdbtnNewRadioButton);
+			x=x+20;*/
+			System.out.println("<sasdf"+element.getAeroportoDestinazione());
+		}
+		/*
+		
 		JRadioButton rdbtnNewRadioButton = new JRadioButton(Double.toString(Math.random()));
 		buttonGroupPasseggeriVoli.add(rdbtnNewRadioButton);
 		rdbtnNewRadioButton.setBounds(6, 10, 480, 23);
@@ -255,7 +271,8 @@ public class PrenotazioneView extends View {
 		buttonGroupPasseggeriVoli.add(rdbtnNewRadioButton_1);
 		rdbtnNewRadioButton_1.setBounds(6, 30, 480, 23);
 		panelPasseggeriVoliInterno.add(rdbtnNewRadioButton_1);
-
+		 */
+		
 
 		buttonPasseggeriConfermaVolo = new JButton("Conferma");
 		buttonPasseggeriConfermaVolo.setBounds(167, 327, 89, 23);

@@ -22,6 +22,7 @@ import xml.XMLCreate;
 
 import model.Aeroporto;
 import model.Passeggero;
+import model.Volo;
 import network.ServerInterface;
 
 
@@ -129,9 +130,19 @@ public class PrenotazioneController{
 		view.buttonPasseggeriPasseggeriCercaVoli.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				JOptionPane.showMessageDialog(null,"Hai scelto di partire da "+((Aeroporto)view.comboPasseggeriAeroportoPartenza.getSelectedItem()).getId()+" e arrivare a "+((Aeroporto)view.comboPasseggeriAeroportoArrivo.getSelectedItem()).getId(),"Errore", 1);
+				int p = ((Aeroporto)view.comboPasseggeriAeroportoPartenza.getSelectedItem()).getId();
+				int a = ((Aeroporto)view.comboPasseggeriAeroportoArrivo.getSelectedItem()).getId();
+				JOptionPane.showMessageDialog(null,"Hai scelto di partire da "+p+" e arrivare a "+a,"Errore", 1);
 				if(view.comboPasseggeriAeroportoArrivo.getSelectedItem().toString()!="" && view.comboPasseggeriAeroportoPartenza.getSelectedItem().toString()!=""){
-					view.setPasseggeriVoli(); //da fare per ricaricare tutto
+					List<Volo> voli=null;
+					try {
+						voli = serv.getVoli(p,a);
+					} catch (RemoteException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					System.out.println(voli);
+					view.setPasseggeriVoli(voli);
 					registraControllerFase2Passeggeri();
 					view.cardPasseggeri.show(view.panelPasseggeri,"panelPasseggeriVoli");
 				}
