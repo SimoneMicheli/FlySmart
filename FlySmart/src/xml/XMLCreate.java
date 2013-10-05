@@ -2,13 +2,17 @@ package xml;
 
 import java.io.*;
 import java.lang.reflect.*;
+
 import javax.xml.parsers.*;   //XML parsers
+
+import model.GetFields;
+
 import org.w3c.dom.*;         //Interfacce di DOM 
 import org.w3c.dom.ls.*;      //Interfacce Load&Save di DOM
 import java.util.*;
 
 
-public class XMLCreate<E> {
+public class XMLCreate<E extends GetFields> {
 	
 
 	public Document createFlySmartDocument(List<E> list){
@@ -32,7 +36,8 @@ public class XMLCreate<E> {
 			{
 				try
 				{
-					Field fieldArray[] = elem.getClass().getDeclaredFields(); // Recupero la lista dei Campi della Classe
+					
+					List<Field> fieldArray = elem.getFields(); // Recupero la lista dei Campi della Classe
 					@SuppressWarnings("rawtypes")
 					Class myObjectClass = elem.getClass();   // Ottengo l'oggetto Class relativo all'elemento della lista
 					String simpleClassName = myObjectClass.getSimpleName(); //ottengo il nome della classe e in minuscolo

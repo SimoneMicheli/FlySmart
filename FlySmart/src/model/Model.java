@@ -3,11 +3,17 @@
  */
 package model;
 
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  * @author simone
  *
  */
-public abstract class Model implements SortableList<Integer>{
+public abstract class Model implements SortableList<Integer>, GetFields{
 
 	protected  int id;
 
@@ -32,5 +38,14 @@ public abstract class Model implements SortableList<Integer>{
 		if (id == 0)
 			return 0;
 		return 1;
+	}
+	
+	@Override
+	public List<Field> getFields() {
+		Field[] currentFields = Model.class.getDeclaredFields();
+		List<Field> fields = new LinkedList<Field>();
+		for (Field f : currentFields)
+			fields.add(f);
+		return fields;
 	}
 }

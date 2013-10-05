@@ -80,8 +80,8 @@ public class PrenotazioneView extends View {
 	//111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
 	
 	
-	JComboBox<Serializable> comboPasseggeriAeroportoPartenza= new JComboBox<Serializable>();
-	//JComboBox comboPasseggeriAeroportoPartenza= new JComboBox();
+	//JComboBox<Serializable> comboPasseggeriAeroportoPartenza= new JComboBox<Serializable>();
+	JComboBox comboPasseggeriAeroportoPartenza= new JComboBox();
 	
 	
 	JComboBox comboPasseggeriAeroportoArrivo = new JComboBox();

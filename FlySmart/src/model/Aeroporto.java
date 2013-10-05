@@ -1,6 +1,10 @@
 package model;
 
 import java.io.Serializable;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Aeroporto extends Model implements Serializable{
 	
@@ -48,4 +52,12 @@ public class Aeroporto extends Model implements Serializable{
 		return nome;
 	}
 
+	@Override
+	public List<Field> getFields() {
+		List<Field>  fields = super.getFields();
+		Field[] currentFields = Aeroporto.class.getDeclaredFields();
+		for(Field f : currentFields)
+			fields.add(f);
+		return  fields;
+	}
 }

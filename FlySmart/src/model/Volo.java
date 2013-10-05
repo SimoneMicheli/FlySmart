@@ -1,11 +1,13 @@
 package model;
 
 import java.io.Serializable;
+import java.lang.reflect.Field;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 public class Volo extends Model implements Serializable{
 	private static final long serialVersionUID = 1L;
-	private Integer  id;
 	private Date dataOra;
 	private Integer  aeroportoPartenza;
 	private Integer  aeroportoDestinazione;
@@ -123,7 +125,14 @@ public class Volo extends Model implements Serializable{
 	}
 	
 
-	
+	@Override
+	public List<Field> getFields() {
+		List<Field>  fields = super.getFields();
+		Field[] currentFields = Volo.class.getDeclaredFields();
+		for(Field f : currentFields)
+			fields.add(f);
+		return  fields;
+	}
 	
 
 }

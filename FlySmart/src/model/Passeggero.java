@@ -1,7 +1,10 @@
 package model;
 
 import java.io.Serializable;
+import java.lang.reflect.Field;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.List;
 
 public class Passeggero extends Model implements Serializable{
 	private Integer idGruppo;
@@ -166,6 +169,15 @@ public class Passeggero extends Model implements Serializable{
 
 	public void setIdGruppo(Integer idGruppo) {
 		this.idGruppo = idGruppo;
+	}
+	
+	@Override
+	public List<Field> getFields() {
+		List<Field>  fields = super.getFields();
+		Field[] currentFields = Passeggero.class.getDeclaredFields();
+		for(Field f : currentFields)
+			fields.add(f);
+		return  fields;
 	}
 
 }
