@@ -194,7 +194,7 @@ public class PrenotazioneController{
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
 				if(view.buttonGroupPasseggeriVoli.getSelection()!=null){
-					System.out.println(getSelectedButtonText(view.buttonGroupPasseggeriVoli));
+					System.out.println(view.getSelectedButtonText(view.buttonGroupPasseggeriVoli));
 					view.setPasseggeriPasseggeri();
 					registraControllerFase3Passeggeri();
 					view.cardPasseggeri.show(view.panelPasseggeri,"panelPasseggeriPasseggeri");
@@ -207,18 +207,7 @@ public class PrenotazioneController{
 	}
 
 	
-	//dato un button group mi restituisce il nome
-	public String getSelectedButtonText(ButtonGroup buttonGroup) {
-		for (Enumeration<AbstractButton> buttons = buttonGroup.getElements(); buttons.hasMoreElements();) {
-			AbstractButton button = buttons.nextElement();
-
-			if (button.isSelected()) {
-				return button.getText();
-			}
-		}
-
-		return null;
-	}
+	
 	
 
 	private void registraControllerFase2Pallet() {

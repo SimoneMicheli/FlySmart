@@ -7,9 +7,11 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -110,6 +112,7 @@ public class PrenotazioneView extends View {
 	protected boolean passeggeri; //true: sono nel pannello passeggeri; false: sono nel pannello pallet
 	protected ButtonGroup buttonGroupPasseggeriVoli = new ButtonGroup();
 	protected ButtonGroup buttonGroupPalletVoli = new ButtonGroup();
+	protected ButtonGroup buttonGroupSesso = new ButtonGroup();
 	JLabel labelTipoPrenotazione= new JLabel();
 	JLabel labelPasseggeriNumero = new JLabel("1");
 
@@ -283,38 +286,38 @@ public class PrenotazioneView extends View {
 		labelTipoPrenotazione.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		labelTipoPrenotazione.setBounds(8, 8, 482, 25);
 		panelPasseggeriPasseggeri.add(labelTipoPrenotazione);
-		
+
 		buttonPasseggeriPrecedente = new JButton("<");
 		buttonPasseggeriPrecedente.setFont(new Font("Tahoma", Font.BOLD, 10));
-		buttonPasseggeriPrecedente.setBounds(155, 70, 40, 23);
+		buttonPasseggeriPrecedente.setBounds(155, 260, 40, 23);
 		panelPasseggeriPasseggeri.add(buttonPasseggeriPrecedente);
 
-		labelPasseggeriNumero.setBounds(263, 70, 40, 23);
+		labelPasseggeriNumero.setBounds(20, 80, 40, 23);
 		labelPasseggeriNumero.setFont(new Font("Tahoma", Font.BOLD, 18));
 		panelPasseggeriPasseggeri.add(labelPasseggeriNumero);
 
 		buttonPasseggeriProssimo = new JButton(">");
 		buttonPasseggeriProssimo.setFont(new Font("Tahoma", Font.BOLD, 10));
-		buttonPasseggeriProssimo.setBounds(333, 70, 40, 23);
+		buttonPasseggeriProssimo.setBounds(200, 260, 40, 23);
 		panelPasseggeriPasseggeri.add(buttonPasseggeriProssimo);
-		
+
 
 		JLabel labelPasseggeriNome = new JLabel("Nome");
-		labelPasseggeriNome.setBounds(155, 136, 72, 14);
+		labelPasseggeriNome.setBounds(20, 136, 72, 14);
 
 		panelPasseggeriPasseggeri.add(labelPasseggeriNome);
 
 
-		textPasseggeriNome.setBounds(215, 134, 152, 20);
+		textPasseggeriNome.setBounds(80, 134, 163, 20);
 		panelPasseggeriPasseggeri.add(textPasseggeriNome);
 		textPasseggeriNome.setColumns(10);
 
 		JLabel labelPasseggeriCognome = new JLabel("Cognome");
-		labelPasseggeriCognome.setBounds(155, 164, 46, 14);
+		labelPasseggeriCognome.setBounds(20, 164, 46, 14);
 		panelPasseggeriPasseggeri.add(labelPasseggeriCognome);
 
 
-		textPasseggeriCognome.setBounds(215, 161, 152, 20);
+		textPasseggeriCognome.setBounds(80, 161, 163, 20);
 		panelPasseggeriPasseggeri.add(textPasseggeriCognome);
 		textPasseggeriCognome.setColumns(10);
 
@@ -322,19 +325,34 @@ public class PrenotazioneView extends View {
 
 
 		JLabel labelPasseggeriSesso = new JLabel("Sesso");
-		labelPasseggeriSesso.setBounds(155, 195, 46, 14);
+		labelPasseggeriSesso.setBounds(20, 195, 46, 14);
 		panelPasseggeriPasseggeri.add(labelPasseggeriSesso);
 
+
+		JRadioButton rdbtnNewRadioButton_uomo = new JRadioButton("Uomo");
+		rdbtnNewRadioButton_uomo.setSelected(true);
+		rdbtnNewRadioButton_uomo.setBounds(70, 195, 72, 20);
+		buttonGroupSesso.add(rdbtnNewRadioButton_uomo);
+		panelPasseggeriPasseggeri.add(rdbtnNewRadioButton_uomo);
+		
+		JRadioButton rdbtnNewRadioButton_donna = new JRadioButton("Donna");
+		rdbtnNewRadioButton_donna.setBounds(150, 195, 72, 20);
+		buttonGroupSesso.add(rdbtnNewRadioButton_donna);
+		panelPasseggeriPasseggeri.add(rdbtnNewRadioButton_donna);
+		
+		
+		/*
 		comboBoxSesso.removeAllItems();
+		
 		comboBoxSesso.addItem("");
 		comboBoxSesso.addItem("Uomo");
 		comboBoxSesso.addItem("Donna");
 		comboBoxSesso.setBounds(215, 195, 72, 20);
 		panelPasseggeriPasseggeri.add(comboBoxSesso);
-
+*/
 
 		JLabel labelPasseggeriEta = new JLabel("Nato il");
-		labelPasseggeriEta.setBounds(155, 230, 46, 14);
+		labelPasseggeriEta.setBounds(20, 230, 46, 14);
 		panelPasseggeriPasseggeri.add(labelPasseggeriEta);
 
 
@@ -344,7 +362,7 @@ public class PrenotazioneView extends View {
 		for(int i=1;i<31;i++){
 			comboBoxGiorno.addItem(""+i);
 		}
-		comboBoxGiorno.setBounds(215, 230, 42, 20);
+		comboBoxGiorno.setBounds(70, 230, 42, 20);
 		panelPasseggeriPasseggeri.add(comboBoxGiorno);
 
 		//mese di nascita
@@ -353,7 +371,7 @@ public class PrenotazioneView extends View {
 		for(int i=1;i<12;i++){
 			comboBoxMese.addItem(""+i);
 		}
-		comboBoxMese.setBounds(265, 230, 42, 20);
+		comboBoxMese.setBounds(130, 230, 42, 20);
 		panelPasseggeriPasseggeri.add(comboBoxMese);
 
 		//anno di nascita
@@ -362,10 +380,10 @@ public class PrenotazioneView extends View {
 		for(int i=2013;i>1900;i--){
 			comboBoxAnno.addItem(""+i);
 		}
-		comboBoxAnno.setBounds(315, 230, 55, 20);
+		comboBoxAnno.setBounds(190, 230, 55, 20);
 		panelPasseggeriPasseggeri.add(comboBoxAnno);
 
-		
+
 
 
 
@@ -513,6 +531,17 @@ public class PrenotazioneView extends View {
 	}
 
 
+	//dato un button group mi restituisce il nome
+		public String getSelectedButtonText(ButtonGroup buttonGroup) {
+			for (Enumeration<AbstractButton> buttons = buttonGroup.getElements(); buttons.hasMoreElements();) {
+				AbstractButton button = buttons.nextElement();
+
+				if (button.isSelected()) {
+					return button.getText();
+				}
+			}
+			return null;
+		}
 
 
 	int lastIndex=0;
@@ -522,7 +551,7 @@ public class PrenotazioneView extends View {
 
 	protected void save(Passeggero p){
 		Character sex = null;
-		if(comboBoxSesso.getSelectedIndex()==1) sex='m';
+		if(getSelectedButtonText(buttonGroupSesso).compareTo("Uomo")==0) sex='m'; 
 		else sex='f';
 
 		p.setNome(textPasseggeriNome.getText());
@@ -579,7 +608,6 @@ public class PrenotazioneView extends View {
 				//lo azzero
 				textPasseggeriNome.setText("");
 				textPasseggeriCognome.setText("");
-				comboBoxSesso.setSelectedIndex(0);
 				comboBoxGiorno.setSelectedIndex(0);
 				comboBoxMese.setSelectedIndex(0);
 				comboBoxAnno.setSelectedIndex(0);
@@ -612,7 +640,7 @@ public class PrenotazioneView extends View {
 		textPasseggeriNome.setText(p.getNome());
 		textPasseggeriCognome.setText(p.getCognome());
 		if(p.getSesso()=='m'){
-			comboBoxSesso.setSelectedIndex(1);
+			comboBoxSesso.setSelectedIndex(1);  //sistemare mettere globali variabili uomo donna
 		}else{
 			comboBoxSesso.setSelectedIndex(2);
 		}
@@ -622,8 +650,8 @@ public class PrenotazioneView extends View {
 	}
 
 
-	
-	
+
+
 	// Quando seleziono febbraio, togliere i giorni invalidi eccetera
 
 }
