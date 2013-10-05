@@ -27,6 +27,10 @@ public class Volo extends Model implements Serializable{
 		this.setPrezzo(prezzo);
 		
 	}
+	
+	public Volo(){
+		
+	}
 
 	public Date getDataOra() {
 		return dataOra;

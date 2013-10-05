@@ -15,7 +15,7 @@ import java.util.List;
  */
 public abstract class Model implements SortableList<Integer>, GetFields{
 
-	protected  int id;
+	protected  Integer id;
 
 	/**
 	 * @return the id
@@ -27,7 +27,7 @@ public abstract class Model implements SortableList<Integer>, GetFields{
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

@@ -27,6 +27,10 @@ public class Aeroporto extends Model implements Serializable{
 		this.prezzoCarburante = prezzoCarburante;
 		this.tasse = tasse;
 	}
+	
+	public Aeroporto(){
+		this(null, "", 0.0, 0.0);
+	}
 
 	public String getNome() {
 		return nome;

@@ -22,6 +22,9 @@ public class Pallet extends Model implements Serializable{
 	public Pallet(Double peso, String targa, Integer idVolo) {
 		this(null, peso,  targa,  idVolo);
 	}
+	
+	public Pallet(){
+	}
 
 	public double getPeso() {
 		return peso;

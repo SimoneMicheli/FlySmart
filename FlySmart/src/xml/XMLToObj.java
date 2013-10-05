@@ -1,11 +1,13 @@
 package xml;
 
 import model.*;
+
 import java.lang.reflect.Field;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+
 import org.w3c.dom.*;
 
 public class XMLToObj{
@@ -24,7 +26,7 @@ public class XMLToObj{
 
 				if (firstNode.getNodeType() == Node.ELEMENT_NODE)
 				{	
-					Field[] fields = Passeggero.class.getDeclaredFields();
+					List<Field> fields = (new Passeggero()).getFields();
 					for(Field f:fields)
 					{
 						String name = f.getName();
@@ -62,7 +64,7 @@ public class XMLToObj{
 
 				if (firstNode.getNodeType() == Node.ELEMENT_NODE)
 				{	
-					Field[] fields = Aeroporto.class.getDeclaredFields();
+					List<Field> fields = (new Aeroporto()).getFields();
 					for(Field f:fields)
 					{
 						String name = f.getName();
@@ -100,7 +102,7 @@ public class XMLToObj{
 
 				if (firstNode.getNodeType() == Node.ELEMENT_NODE)
 				{	
-					Field[] fields = Pallet.class.getDeclaredFields();
+					List<Field> fields = (new Pallet()).getFields();
 					for(Field f:fields)
 					{
 						String name = f.getName();
@@ -139,7 +141,7 @@ public class XMLToObj{
 
 				if (firstNode.getNodeType() == Node.ELEMENT_NODE)
 				{	
-					Field[] fields = Volo.class.getDeclaredFields();
+					List<Field> fields = (new Volo()).getFields();
 					for(Field f:fields)
 					{
 						String name = f.getName();
