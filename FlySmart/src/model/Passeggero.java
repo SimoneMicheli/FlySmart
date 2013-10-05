@@ -193,4 +193,3 @@ public class Passeggero implements Serializable, Comparable<Passeggero>{
 
 }
 
->>>>>>> refs/heads/xml

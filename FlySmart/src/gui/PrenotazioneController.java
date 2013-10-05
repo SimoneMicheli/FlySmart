@@ -10,10 +10,13 @@ import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.Calendar;
+import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
 import org.w3c.dom.*;
 
+import javax.swing.AbstractButton;
+import javax.swing.ButtonGroup;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -132,7 +135,6 @@ public class PrenotazioneController{
 			public void mouseReleased(MouseEvent arg0) {
 				int p = ((Aeroporto)view.comboPasseggeriAeroportoPartenza.getSelectedItem()).getId();
 				int a = ((Aeroporto)view.comboPasseggeriAeroportoArrivo.getSelectedItem()).getId();
-				JOptionPane.showMessageDialog(null,"Hai scelto di partire da "+p+" e arrivare a "+a,"Errore", 1);
 				if(view.comboPasseggeriAeroportoArrivo.getSelectedItem().toString()!="" && view.comboPasseggeriAeroportoPartenza.getSelectedItem().toString()!=""){
 					List<Volo> voli=null;
 					try {
@@ -185,11 +187,14 @@ public class PrenotazioneController{
 
 
 
+
+
 		//confermo il volo (fase 2) per i passeggeri
 		view.buttonPasseggeriConfermaVolo.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
 				if(view.buttonGroupPasseggeriVoli.getSelection()!=null){
+					System.out.println(getSelectedButtonText(view.buttonGroupPasseggeriVoli));
 					view.setPasseggeriPasseggeri();
 					registraControllerFase3Passeggeri();
 					view.cardPasseggeri.show(view.panelPasseggeri,"panelPasseggeriPasseggeri");
@@ -200,6 +205,21 @@ public class PrenotazioneController{
 
 
 	}
+
+	
+	//dato un button group mi restituisce il nome
+	public String getSelectedButtonText(ButtonGroup buttonGroup) {
+		for (Enumeration<AbstractButton> buttons = buttonGroup.getElements(); buttons.hasMoreElements();) {
+			AbstractButton button = buttons.nextElement();
+
+			if (button.isSelected()) {
+				return button.getText();
+			}
+		}
+
+		return null;
+	}
+	
 
 	private void registraControllerFase2Pallet() {
 		//confermo il volo (fase 2) per i pallet
@@ -235,10 +255,10 @@ public class PrenotazioneController{
 			public void mouseReleased(MouseEvent arg0) {
 				view.cardPasseggeri.show(view.panelPasseggeri,"panelPasseggeriAeroporti");
 				//view.setPasseggeriPasseggeri();
-				
-				
-				
-				
+
+
+
+
 			}
 
 		});
@@ -254,7 +274,7 @@ public class PrenotazioneController{
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
 				view.passeggeroSuccessivo(); //lo aggiungo all'arraylist
-				
+
 			}
 
 		});
@@ -285,7 +305,7 @@ public class PrenotazioneController{
 					view.cardPasseggeri.show(view.panelPasseggeri,"panelPasseggeriAeroporti");
 					JOptionPane.showMessageDialog(null,view.listaPasseggeri.toString(),"Dato", 1);
 				}
-			
+
 				//creo la lista passeggeri xml per prova
 				XMLCreate<Passeggero> xml = new XMLCreate<Passeggero>();
 				Document d = xml.createFlySmartDocument(view.listaPasseggeri);
@@ -294,10 +314,10 @@ public class PrenotazioneController{
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-				
-			
-				
-				
+
+
+
+
 			}
 		});
 

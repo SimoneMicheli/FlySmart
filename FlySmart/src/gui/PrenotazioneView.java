@@ -248,31 +248,15 @@ public class PrenotazioneView extends View {
 		panelPasseggeriVoliInterno.removeAll();
 
 		Iterator<Volo> i = voli.iterator();
-		int x = 10;
+		int verticalPosition = 10;
 		while(i.hasNext()) {
 			Volo element = (Volo) i.next();
-			//comboPasseggeriAeroportoPartenza.addItem(element);
-			//comboPasseggeriAeroportoArrivo.addItem(element);
-			/*JRadioButton rdbtnNewRadioButton = new JRadioButton("cc"+element.getAeroportoDestinazione());
+			JRadioButton rdbtnNewRadioButton = new JRadioButton(element.toString());
 			buttonGroupPasseggeriVoli.add(rdbtnNewRadioButton);
-			rdbtnNewRadioButton.setBounds(6, x, 480, 23);
+			rdbtnNewRadioButton.setBounds(6, verticalPosition, 480, 23);
 			panelPasseggeriVoliInterno.add(rdbtnNewRadioButton);
-			x=x+20;*/
-			System.out.println("<sasdf"+element.getAeroportoDestinazione());
+			verticalPosition=verticalPosition+20;
 		}
-		/*
-		
-		JRadioButton rdbtnNewRadioButton = new JRadioButton(Double.toString(Math.random()));
-		buttonGroupPasseggeriVoli.add(rdbtnNewRadioButton);
-		rdbtnNewRadioButton.setBounds(6, 10, 480, 23);
-		panelPasseggeriVoliInterno.add(rdbtnNewRadioButton);
-
-		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("Orio Al Serio - Fiumicino             08:50 14/06/2013        Posti:23");
-		buttonGroupPasseggeriVoli.add(rdbtnNewRadioButton_1);
-		rdbtnNewRadioButton_1.setBounds(6, 30, 480, 23);
-		panelPasseggeriVoliInterno.add(rdbtnNewRadioButton_1);
-		 */
-		
 
 		buttonPasseggeriConfermaVolo = new JButton("Conferma");
 		buttonPasseggeriConfermaVolo.setBounds(167, 327, 89, 23);
