@@ -18,7 +18,7 @@ public class TestXML {
 		
 		List<Volo> elenco = new ArrayList<Volo>();
 		Date dt = new Date(5483267067974L);
-		elenco.add(new Volo(0,dt,1,2,3,4,5));
+		elenco.add(new Volo(0,dt,1,2,3,4,5,9.0));
 		XMLCreate<Volo> instance = new XMLCreate<Volo>();
 		Document d = instance.createFlySmartDocument(elenco);
 		instance.printDocument(d,"primo.xml");
