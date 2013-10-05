@@ -16,7 +16,6 @@ public class Passeggero extends Model implements Serializable{
 	private Integer idVolo;
 	private Integer posto;
 
-
 	public Passeggero(Integer id, Integer idGruppo, String nome, String cognome, Integer eta, Character sesso, Double pesoBagagli, Integer idVolo, Integer posto, Integer giorno, Integer mese, Integer anno) {
 		this.id = id;
 		this.idGruppo = idGruppo;

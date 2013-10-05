@@ -13,33 +13,33 @@ public class Aeroporto extends Model implements Serializable{
 		return serialVersionUID;
 	}
 	private String nome;
-	private double prezzoCarburante;
-	private double tasse;
+	private Double prezzoCarburante;
+	private Double tasse;
 	
 	
-	public Aeroporto(int id, String nome, double prezzoCarburante, double tasse) {
+	public Aeroporto(Integer id, String nome, Double prezzoCarburante, Double tasse) {
 		this.id = id;
 		this.nome = nome;
 		this.prezzoCarburante = prezzoCarburante;
 		this.tasse = tasse;
 	}
-	
+
 	public String getNome() {
 		return nome;
 	}
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public double getPrezzoCarburante() {
+	public Double getPrezzoCarburante() {
 		return prezzoCarburante;
 	}
-	public void setPrezzoCarburante(double prezzoCarburante) {
+	public void setPrezzoCarburante(Double prezzoCarburante) {
 		this.prezzoCarburante = prezzoCarburante;
 	}
-	public double getTasse() {
+	public Double getTasse() {
 		return tasse;
 	}
-	public void setTasse(double tasse) {
+	public void setTasse(Double tasse) {
 		this.tasse = tasse;
 	}
 	@Override
