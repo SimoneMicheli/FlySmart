@@ -32,9 +32,9 @@ public class Creator {
 	public static void creaAeroporti() throws IOException{
 		List<Aeroporto> elencoAeroporti;
 		elencoAeroporti = new LinkedList<Aeroporto>();
-		elencoAeroporti.add(new Aeroporto(1, "Malpensa", 20, 20));
-		elencoAeroporti.add(new Aeroporto(2, "Bergamo", 50, 10));
-		elencoAeroporti.add(new Aeroporto(3, "Fiumicino", 100, 40));
+		elencoAeroporti.add(new Aeroporto(1, "Malpensa", 20.0, 20.0));
+		elencoAeroporti.add(new Aeroporto(2, "Bergamo", 50.0, 10.0));
+		elencoAeroporti.add(new Aeroporto(3, "Fiumicino", 100.0, 40.0));
 
 		XMLCreate<Aeroporto> XMLAeroporti = new XMLCreate<Aeroporto>();
 		Document d = XMLAeroporti.createFlySmartDocument(elencoAeroporti);
@@ -46,13 +46,13 @@ public class Creator {
 		Calendar c = Calendar.getInstance();
 		
 		c.set(2013, 10, 20, 15, 0);
-		voli.add(new Volo(1, c.getTime() , 1, 2, 767, 100, 15));
+		voli.add(new Volo(1, c.getTime() , 1, 2, 767, 100, 15,2.0));
 		c.set(2014, 4, 10, 4, 10);
-		voli.add(new Volo(2, c.getTime() , 1, 2, 767, 100, 15));
+		voli.add(new Volo(2, c.getTime() , 1, 2, 767, 100, 15, 2.0));
 		c.set(2013, 12, 25, 13, 0);
-		voli.add(new Volo(3, c.getTime() , 1, 2, 767, 100, 15));
+		voli.add(new Volo(3, c.getTime() , 1, 2, 767, 100, 15, 2.0));
 		c.set(2013, 11, 29, 2, 0);
-		voli.add(new Volo(4, c.getTime() , 1, 2, 767, 100, 15));
+		voli.add(new Volo(4, c.getTime() , 1, 2, 767, 100, 15, 2.0));
 		
 		XMLCreate<Volo> XMLVoli = new XMLCreate<Volo>();
 		Document d = XMLVoli.createFlySmartDocument(voli);

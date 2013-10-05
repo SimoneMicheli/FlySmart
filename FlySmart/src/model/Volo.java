@@ -5,16 +5,16 @@ import java.util.Date;
 
 public class Volo implements Serializable{
 	private static final long serialVersionUID = 1L;
-	private int id;
+	private Integer  id;
 	private Date dataOra;
-	private int aeroportoPartenza;
-	private int aeroportoDestinazione;
-	private int aereo;
-	private int postiDisponibili;
-	private int palletDisponibili;
+	private Integer  aeroportoPartenza;
+	private Integer  aeroportoDestinazione;
+	private Integer  aereo;
+	private Integer  postiDisponibili;
+	private Integer  palletDisponibili;
+	private Double prezzo;
 	
-	
-	public Volo(int id, Date dataOra, int aeroportoPartenza, int aeroportoDestinazione, int aereo, int postiDisponibili, int palletDisponibili) {
+	public Volo(Integer id, Date dataOra, Integer aeroportoPartenza, Integer aeroportoDestinazione, Integer aereo, Integer postiDisponibili, Integer palletDisponibili, Double prezzo) {
 		this.id = id;
 		this.dataOra = dataOra;
 		this.aeroportoPartenza = aeroportoPartenza;
@@ -22,17 +22,19 @@ public class Volo implements Serializable{
 		this.aereo = aereo;
 		this.postiDisponibili = postiDisponibili;
 		this.palletDisponibili = palletDisponibili;
+		this.setPrezzo(prezzo);
+		
 	}
 
 
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
 
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -56,62 +58,74 @@ public class Volo implements Serializable{
 
 
 
-	public int getAeroportoPartenza() {
+	public Integer getAeroportoPartenza() {
 		return aeroportoPartenza;
 	}
 
 
 
-	public void setAeroportoPartenza(int aeroportoPartenza) {
+	public void setAeroportoPartenza(Integer aeroportoPartenza) {
 		this.aeroportoPartenza = aeroportoPartenza;
 	}
 
 
 
-	public int getAeroportoDestinazione() {
+	public Integer getAeroportoDestinazione() {
 		return aeroportoDestinazione;
 	}
 
 
 
-	public void setAeroportoDestinazione(int aeroportoDestinazione) {
+	public void setAeroportoDestinazione(Integer aeroportoDestinazione) {
 		this.aeroportoDestinazione = aeroportoDestinazione;
 	}
 
 
 
-	public int getAereo() {
+	public Integer getAereo() {
 		return aereo;
 	}
 
 
 
-	public void setAereo(int aereo) {
+	public void setAereo(Integer aereo) {
 		this.aereo = aereo;
 	}
 
 
 
-	public int getPostiDisponibili() {
+	public Integer getPostiDisponibili() {
 		return postiDisponibili;
 	}
 
 
 
-	public void setPostiDisponibili(int postiDisponibili) {
+	public void setPostiDisponibili(Integer postiDisponibili) {
 		this.postiDisponibili = postiDisponibili;
 	}
 
 
 
-	public int getPalletDisponibili() {
+	public Integer getPalletDisponibili() {
 		return palletDisponibili;
 	}
 
 
 
-	public void setPalletDisponibili(int palletDisponibili) {
+	public void setPalletDisponibili(Integer palletDisponibili) {
 		this.palletDisponibili = palletDisponibili;
+	}
+
+
+
+	public Double getPrezzo() {
+		return prezzo;
+	}
+
+
+
+	public void setPrezzo(Double prezzo) {
+		this.prezzo = prezzo;
 	}
 	
 	

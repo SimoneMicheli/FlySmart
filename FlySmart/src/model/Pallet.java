@@ -4,10 +4,10 @@ import java.io.Serializable;
 
 public class Pallet implements Serializable{
 	private static final long serialVersionUID = -5555020451242189950L;
-	private int id;
-	private double peso;
+	private Integer id;
+	private Double peso;
 	private String targa;
-	private int idVolo;
+	private Integer idVolo;
 	
 	public Pallet(Integer id, Double peso, String targa, Integer idVolo) {
 		this.id = id;
@@ -16,20 +16,20 @@ public class Pallet implements Serializable{
 		this.idVolo = idVolo;
 	}
 	
-	public Pallet(double peso, String targa, int idVolo) {
+	public Pallet(Double peso, String targa, Integer idVolo) {
 		this(null, peso,  targa,  idVolo);
 	}
 	
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
-	public double getPeso() {
+	public Double getPeso() {
 		return peso;
 	}
-	public void setPeso(double peso) {
+	public void setPeso(Double peso) {
 		this.peso = peso;
 	}
 	public String getTarga() {
@@ -38,10 +38,10 @@ public class Pallet implements Serializable{
 	public void setTarga(String targa) {
 		this.targa = targa;
 	}
-	public int getIdVolo() {
+	public Integer getIdVolo() {
 		return idVolo;
 	}
-	public void setIdVolo(int idVolo) {
+	public void setIdVolo(Integer idVolo) {
 		this.idVolo = idVolo;
 	}
 }

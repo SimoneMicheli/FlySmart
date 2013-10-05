@@ -12,23 +12,23 @@ public class Aeroporto implements Serializable{
 	public static long getSerialVersionUID() {
 		return serialVersionUID;
 	}
-	private int id;
+	private Integer id;
 	private String nome;
-	private double prezzoCarburante;
-	private double tasse;
+	private Double prezzoCarburante;
+	private Double tasse;
 	
 	
-	public Aeroporto(int id, String nome, double prezzoCarburante, double tasse) {
+	public Aeroporto(Integer id, String nome, Double prezzoCarburante, Double tasse) {
 		this.id = id;
 		this.nome = nome;
 		this.prezzoCarburante = prezzoCarburante;
 		this.tasse = tasse;
 	}
 	
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	public String getNome() {
@@ -37,16 +37,16 @@ public class Aeroporto implements Serializable{
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public double getPrezzoCarburante() {
+	public Double getPrezzoCarburante() {
 		return prezzoCarburante;
 	}
-	public void setPrezzoCarburante(double prezzoCarburante) {
+	public void setPrezzoCarburante(Double prezzoCarburante) {
 		this.prezzoCarburante = prezzoCarburante;
 	}
-	public double getTasse() {
+	public Double getTasse() {
 		return tasse;
 	}
-	public void setTasse(double tasse) {
+	public void setTasse(Double tasse) {
 		this.tasse = tasse;
 	}
 	@Override
