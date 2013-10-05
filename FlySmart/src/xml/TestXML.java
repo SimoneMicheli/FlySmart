@@ -16,18 +16,18 @@ public class TestXML {
 		
 
 		
-		// ArrayList<Passeggero> elenco = new ArrayList<Passeggero>();
-		// elenco.add(new Passeggero( 1 , "Gianluigi","Buffon", 42, 'm', 100.1 , 100 , 1000));		
-		// elenco.add(new Passeggero( 12 , "Marco","Amelia", 29, 'm', 120.12 , 120 , 2000));	
-		// XMLCreate<Passeggero> instance = new XMLCreate<Passeggero>();
-		// Document d = instance.createFlySmartDocument(elenco);
-		// instance.printDocument(d,"down");
+		List<Volo> elenco = new ArrayList<Volo>();
+		Date dt = new Date(5483267067974L);
+		elenco.add(new Volo(0,dt,1,2,3,4,5));
+		XMLCreate<Volo> instance = new XMLCreate<Volo>();
+		Document d = instance.createFlySmartDocument(elenco);
+		instance.printDocument(d,"primo.xml");
 		XMLToObj instance2 = new XMLToObj();
-		ArrayList<Aeroporto> elenco2 = new ArrayList<Aeroporto>();
-		elenco2 = instance2.createAeroportoList("aeroporti.xml");
-		XMLCreate<Aeroporto> instance3 = new XMLCreate<Aeroporto>();
+		List<Volo> elenco2 = new ArrayList<Volo>();
+		elenco2 = instance2.createVoloList("primo.xml");
+		XMLCreate<Volo> instance3 = new XMLCreate<Volo>();
 		Document d2 = instance3.createFlySmartDocument(elenco2);
-		instance3.printDocument(d2, "provafinale");
+		instance3.printDocument(d2, "secondo.xml");
 		
 	}
 

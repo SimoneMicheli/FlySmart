@@ -85,6 +85,13 @@ public class Volo extends Model implements Serializable{
 
 
 
+	@Override
+	public String toString() {
+		return id + "         " + dataOra + "          " +postiDisponibili+ " posti disponibili";
+	}
+
+
+
 	public void setPostiDisponibili(int postiDisponibili) {
 		this.postiDisponibili = postiDisponibili;
 	}
@@ -100,6 +107,8 @@ public class Volo extends Model implements Serializable{
 	public void setPalletDisponibili(int palletDisponibili) {
 		this.palletDisponibili = palletDisponibili;
 	}
+	
+
 	
 	
 

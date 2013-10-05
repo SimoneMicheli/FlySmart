@@ -88,7 +88,7 @@ public class Creator {
 
 		XMLCreate<Aeroporto> XMLAeroporti = new XMLCreate<Aeroporto>();
 		Document d = XMLAeroporti.createFlySmartDocument(elencoAeroporti);
-		XMLAeroporti.printDocument(d,"aeroporti");
+		XMLAeroporti.printDocument(d,"aeroporti.xml");
 	}
 	
 	public static void creaVoli() throws IOException{
@@ -106,6 +106,6 @@ public class Creator {
 		
 		XMLCreate<Volo> XMLVoli = new XMLCreate<Volo>();
 		Document d = XMLVoli.createFlySmartDocument(voli);
-		XMLVoli.printDocument(d,"voli");
+		XMLVoli.printDocument(d,"voli.xml");
 	}
 }

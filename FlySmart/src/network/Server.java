@@ -170,7 +170,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 		
 		//aggiorno volo
 		voliLock.acquireWriteLock();
-		voli = parserXML.createVoloList("voli.xml");
+		voli = (ArrayList<Volo>) parserXML.createVoloList("voli.xml");
 				
 		//ottengo riferimento volo
 		int pos = Collections.binarySearch(voli,new Integer(2));

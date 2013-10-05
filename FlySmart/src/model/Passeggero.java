@@ -3,8 +3,6 @@ package model;
 import java.io.Serializable;
 import java.util.Calendar;
 
-
-
 public class Passeggero extends Model implements Serializable{
 	private Integer idGruppo;
 	private String nome;
@@ -19,9 +17,9 @@ public class Passeggero extends Model implements Serializable{
 	private Integer posto;
 
 
-	public Passeggero(Integer id, Integer idGruppo, String nome, String cognome, Integer eta, Character sesso, Double pesoBagagli, Integer idVolo, Integer posto) {
+	public Passeggero(Integer id, Integer idGruppo, String nome, String cognome, Integer eta, Character sesso, Double pesoBagagli, Integer idVolo, Integer posto, Integer giorno, Integer mese, Integer anno) {
 		this.id = id;
-		this.setIdGruppo(idGruppo);
+		this.idGruppo = idGruppo;
 		this.nome = nome;
 		this.cognome = cognome;
 		this.eta = eta;
@@ -29,6 +27,9 @@ public class Passeggero extends Model implements Serializable{
 		this.pesoBagagli = pesoBagagli;
 		this.idVolo = idVolo;
 		this.posto = posto;
+		this.giorno = giorno;
+		this.mese = mese;
+		this.anno = anno;
 	}
 
 	public Passeggero() {
@@ -36,10 +37,7 @@ public class Passeggero extends Model implements Serializable{
 
 
 	public Passeggero(String nome, String cognome,String giorno, String mese, String anno, Character sesso) {
-		this(null, null, nome,  cognome,  calcolaEta(giorno, mese, anno),  sesso,  null,  null,  null);
-		this.giorno= Integer.parseInt(giorno);
-		this.mese= Integer.parseInt(mese);
-		this.anno= Integer.parseInt(anno);
+		this(null, null, nome,  cognome,  calcolaEta(giorno, mese, anno),  sesso,  null,  null,  null, Integer.parseInt(giorno), Integer.parseInt(mese), Integer.parseInt(anno));
 	}
 
 
@@ -138,14 +136,6 @@ public class Passeggero extends Model implements Serializable{
 	public String toString() {
 		return nome + " " + cognome;
 	}
-
-	/*@Override
-	public int compareTo(Passeggero o) {
-		int cmp = this.cognome.compareTo(o.cognome);
-		if (cmp == 0)
-			cmp = this.nome.compareTo(o.nome);
-		return cmp;
-	}*/
 
 	public Integer getMese() {
 		return mese;
