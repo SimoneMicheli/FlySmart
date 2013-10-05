@@ -8,9 +8,11 @@ import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 
 import model.Aeroporto;
 import model.Passeggero;
+import model.Volo;
 
 /**
  * @author Demarinis - Micheli - Scarpellini
@@ -32,6 +34,10 @@ public class ClientTest {
 			java.util.List<Aeroporto> s = serv.getAeroporti();
 			
 			System.out.println(s);
+			
+			java.util.List<Volo> v = serv.getVoli(1, 2);
+			
+			System.out.println(v);
 			
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block

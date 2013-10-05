@@ -3,7 +3,7 @@ package model;
 import java.io.Serializable;
 import java.util.Date;
 
-public class Volo implements Serializable{
+public class Volo extends Model implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private int id;
 	private Date dataOra;
@@ -23,19 +23,6 @@ public class Volo implements Serializable{
 		this.postiDisponibili = postiDisponibili;
 		this.palletDisponibili = palletDisponibili;
 	}
-
-
-
-	public int getId() {
-		return id;
-	}
-
-
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
 
 
 	public Date getDataOra() {

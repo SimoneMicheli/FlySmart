@@ -2,7 +2,7 @@ package model;
 
 import java.io.Serializable;
 
-public class Aeroporto implements Serializable{
+public class Aeroporto extends Model implements Serializable{
 	
 	/**
 	 * 
@@ -12,7 +12,6 @@ public class Aeroporto implements Serializable{
 	public static long getSerialVersionUID() {
 		return serialVersionUID;
 	}
-	private int id;
 	private String nome;
 	private double prezzoCarburante;
 	private double tasse;
@@ -25,12 +24,6 @@ public class Aeroporto implements Serializable{
 		this.tasse = tasse;
 	}
 	
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
 	public String getNome() {
 		return nome;
 	}

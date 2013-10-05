@@ -2,9 +2,8 @@ package model;
 
 import java.io.Serializable;
 
-public class Pallet implements Serializable{
+public class Pallet extends Model implements Serializable{
 	private static final long serialVersionUID = -5555020451242189950L;
-	private int id;
 	private double peso;
 	private String targa;
 	private int idVolo;
@@ -19,13 +18,7 @@ public class Pallet implements Serializable{
 	public Pallet(double peso, String targa, int idVolo) {
 		this(null, peso,  targa,  idVolo);
 	}
-	
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
+
 	public double getPeso() {
 		return peso;
 	}

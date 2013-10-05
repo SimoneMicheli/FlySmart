@@ -5,8 +5,7 @@ import java.util.Calendar;
 
 
 
-public class Passeggero implements Serializable, Comparable<Passeggero>{
-	private Integer id;
+public class Passeggero extends Model implements Serializable{
 	private Integer idGruppo;
 	private String nome;
 	private String cognome;
@@ -63,16 +62,6 @@ public class Passeggero implements Serializable, Comparable<Passeggero>{
 		}else{
 			eta = anni;
 		}
-	}
-
-
-	public int getId() {
-		return id;
-	}
-
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 
@@ -150,13 +139,13 @@ public class Passeggero implements Serializable, Comparable<Passeggero>{
 		return nome + " " + cognome;
 	}
 
-	@Override
+	/*@Override
 	public int compareTo(Passeggero o) {
 		int cmp = this.cognome.compareTo(o.cognome);
 		if (cmp == 0)
 			cmp = this.nome.compareTo(o.nome);
 		return cmp;
-	}
+	}*/
 
 	public Integer getMese() {
 		return mese;
