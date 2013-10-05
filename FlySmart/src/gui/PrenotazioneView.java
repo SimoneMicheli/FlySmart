@@ -1,11 +1,15 @@
+//scandurra ti amo
+
 package gui;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Iterator;
@@ -65,8 +69,21 @@ public class PrenotazioneView extends View {
 	JMenuItem mntmAboutUs = new JMenuItem("About Us");
 
 	//scelte
-	JComboBox comboPasseggeriAeroportoPartenza= new JComboBox();
-	//add(comboPasseggeriAeroportoPartenza, BorderLayout.NORTH);
+	
+	
+	
+	
+	
+	
+	
+	
+	//111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
+	
+	
+	JComboBox<Serializable> comboPasseggeriAeroportoPartenza= new JComboBox<Serializable>();
+	//JComboBox comboPasseggeriAeroportoPartenza= new JComboBox();
+	
+	
 	JComboBox comboPasseggeriAeroportoArrivo = new JComboBox();
 	JComboBox comboPalletAeroportoPartenza= new JComboBox();
 	JComboBox comboPalletAeroportoArrivo = new JComboBox();
@@ -75,7 +92,6 @@ public class PrenotazioneView extends View {
 
 	JTextField textPasseggeriNome = new JTextField();
 	JTextField textPasseggeriCognome = new JTextField();
-	JComboBox comboBoxSesso = new JComboBox();
 	JComboBox comboBoxGiorno = new JComboBox();
 	JComboBox comboBoxMese = new JComboBox();
 	JComboBox comboBoxAnno = new JComboBox();
@@ -115,7 +131,12 @@ public class PrenotazioneView extends View {
 	protected ButtonGroup buttonGroupSesso = new ButtonGroup();
 	JLabel labelTipoPrenotazione= new JLabel();
 	JLabel labelPasseggeriNumero = new JLabel("1");
+	
+	
+	JRadioButton rdbtnNewRadioButton_uomo = new JRadioButton("Uomo");
+	JRadioButton rdbtnNewRadioButton_donna = new JRadioButton("Donna");
 
+	JLabel labelResoconto = new JLabel("Lista utenti registrata");
 
 
 	public PrenotazioneView() {
@@ -262,11 +283,11 @@ public class PrenotazioneView extends View {
 		}
 
 		buttonPasseggeriConfermaVolo = new JButton("Conferma");
-		buttonPasseggeriConfermaVolo.setBounds(167, 327, 89, 23);
+		buttonPasseggeriConfermaVolo.setBounds(400, 327, 89, 23);
 		panelPasseggeriVoli.add(buttonPasseggeriConfermaVolo);
 
 		buttonPasseggeriAnnullaVolo = new JButton("Annulla");
-		buttonPasseggeriAnnullaVolo.setBounds(266, 327, 89, 23);
+		buttonPasseggeriAnnullaVolo.setBounds(310, 327, 89, 23);
 		panelPasseggeriVoli.add(buttonPasseggeriAnnullaVolo);
 
 		JProgressBar progressBar = new JProgressBar();
@@ -280,26 +301,26 @@ public class PrenotazioneView extends View {
 	protected void setPasseggeriPasseggeri(){
 
 
+		
+		
 
 
 		JLabel labelTipoPrenotazione = new JLabel("Inserire i dati dei passeggeri");
 		labelTipoPrenotazione.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		labelTipoPrenotazione.setBounds(8, 8, 482, 25);
 		panelPasseggeriPasseggeri.add(labelTipoPrenotazione);
+		
+		
+		JLabel labelResocontoVolo = new JLabel("From: Milano   To: Bergamo");
+		labelResocontoVolo.setFont(new Font("Arial", Font.PLAIN, 14));
+		labelResocontoVolo.setBounds(18, 58, 482, 25);
+		panelPasseggeriPasseggeri.add(labelResocontoVolo);
 
-		buttonPasseggeriPrecedente = new JButton("<");
-		buttonPasseggeriPrecedente.setFont(new Font("Tahoma", Font.BOLD, 10));
-		buttonPasseggeriPrecedente.setBounds(155, 260, 40, 23);
-		panelPasseggeriPasseggeri.add(buttonPasseggeriPrecedente);
 
-		labelPasseggeriNumero.setBounds(20, 80, 40, 23);
+
+		labelPasseggeriNumero.setBounds(20, 100, 40, 23);
 		labelPasseggeriNumero.setFont(new Font("Tahoma", Font.BOLD, 18));
 		panelPasseggeriPasseggeri.add(labelPasseggeriNumero);
-
-		buttonPasseggeriProssimo = new JButton(">");
-		buttonPasseggeriProssimo.setFont(new Font("Tahoma", Font.BOLD, 10));
-		buttonPasseggeriProssimo.setBounds(200, 260, 40, 23);
-		panelPasseggeriPasseggeri.add(buttonPasseggeriProssimo);
 
 
 		JLabel labelPasseggeriNome = new JLabel("Nome");
@@ -329,27 +350,17 @@ public class PrenotazioneView extends View {
 		panelPasseggeriPasseggeri.add(labelPasseggeriSesso);
 
 
-		JRadioButton rdbtnNewRadioButton_uomo = new JRadioButton("Uomo");
 		rdbtnNewRadioButton_uomo.setSelected(true);
-		rdbtnNewRadioButton_uomo.setBounds(70, 195, 72, 20);
+		rdbtnNewRadioButton_uomo.setBounds(80, 195, 72, 20);
 		buttonGroupSesso.add(rdbtnNewRadioButton_uomo);
 		panelPasseggeriPasseggeri.add(rdbtnNewRadioButton_uomo);
-		
-		JRadioButton rdbtnNewRadioButton_donna = new JRadioButton("Donna");
+
 		rdbtnNewRadioButton_donna.setBounds(150, 195, 72, 20);
 		buttonGroupSesso.add(rdbtnNewRadioButton_donna);
 		panelPasseggeriPasseggeri.add(rdbtnNewRadioButton_donna);
-		
-		
-		/*
-		comboBoxSesso.removeAllItems();
-		
-		comboBoxSesso.addItem("");
-		comboBoxSesso.addItem("Uomo");
-		comboBoxSesso.addItem("Donna");
-		comboBoxSesso.setBounds(215, 195, 72, 20);
-		panelPasseggeriPasseggeri.add(comboBoxSesso);
-*/
+
+
+	
 
 		JLabel labelPasseggeriEta = new JLabel("Nato il");
 		labelPasseggeriEta.setBounds(20, 230, 46, 14);
@@ -362,7 +373,7 @@ public class PrenotazioneView extends View {
 		for(int i=1;i<31;i++){
 			comboBoxGiorno.addItem(""+i);
 		}
-		comboBoxGiorno.setBounds(70, 230, 42, 20);
+		comboBoxGiorno.setBounds(80, 230, 42, 20);
 		panelPasseggeriPasseggeri.add(comboBoxGiorno);
 
 		//mese di nascita
@@ -384,15 +395,26 @@ public class PrenotazioneView extends View {
 		panelPasseggeriPasseggeri.add(comboBoxAnno);
 
 
+		buttonPasseggeriPrecedente = new JButton("<");
+		buttonPasseggeriPrecedente.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		buttonPasseggeriPrecedente.setBounds(165, 270, 40, 23);
+		buttonPasseggeriPrecedente.setForeground(Color.red);
+		panelPasseggeriPasseggeri.add(buttonPasseggeriPrecedente);
+
+		buttonPasseggeriProssimo = new JButton(">");
+		buttonPasseggeriProssimo.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		buttonPasseggeriProssimo.setBounds(210, 270, 40, 23);
+		buttonPasseggeriProssimo.setForeground(Color.red);
+		panelPasseggeriPasseggeri.add(buttonPasseggeriProssimo);
 
 
 
 		buttonPasseggeriAnnullaPrenotazione = new JButton("Annulla");
-		buttonPasseggeriAnnullaPrenotazione.setBounds(266, 327, 89, 23);
+		buttonPasseggeriAnnullaPrenotazione.setBounds(310, 327, 89, 23);
 		panelPasseggeriPasseggeri.add(buttonPasseggeriAnnullaPrenotazione);
 
 		buttonPasseggeriConfermaPrenotazione = new JButton("Conferma");
-		buttonPasseggeriConfermaPrenotazione.setBounds(167, 327, 89, 23);
+		buttonPasseggeriConfermaPrenotazione.setBounds(400, 327, 89, 23);
 		panelPasseggeriPasseggeri.add(buttonPasseggeriConfermaPrenotazione);
 
 		JProgressBar progressBar = new JProgressBar();
@@ -400,6 +422,10 @@ public class PrenotazioneView extends View {
 		panelPasseggeriPasseggeri.add(progressBar);
 		progressBar.setValue(90);
 
+		
+		labelResoconto.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		labelResoconto.setBounds(308, 88, 200, 18);
+		panelPasseggeriPasseggeri.add(labelResoconto);
 
 		//azzeramento dati passeggeri
 		listaPasseggeri.clear();
@@ -409,6 +435,24 @@ public class PrenotazioneView extends View {
 		currentIndex=0;
 		lastIndex=0;
 		labelPasseggeriNumero.setText(currentIndex+1+"");
+		
+		
+		
+	}
+	
+	private void setResoconto(){
+		Iterator<Passeggero> el = listaPasseggeri.iterator();
+		int verticalPosition = 150;
+		while(el.hasNext()) {
+			Passeggero element = (Passeggero) el.next();
+
+			System.out.println(element.getCognome()+" "+element.getNome());
+			JLabel label = new JLabel(element.getCognome()+" "+element.getNome());
+			label.setFont(new Font("Arial", Font.PLAIN, 11));
+			label.setBounds(308, verticalPosition, 300, 18);
+			panelPasseggeriPasseggeri.add(label);   //sembra che non funzioni sempre non posso distruggere la label dopo l'uscita del while
+			verticalPosition=verticalPosition+22;
+		}
 	}
 
 
@@ -532,16 +576,16 @@ public class PrenotazioneView extends View {
 
 
 	//dato un button group mi restituisce il nome
-		public String getSelectedButtonText(ButtonGroup buttonGroup) {
-			for (Enumeration<AbstractButton> buttons = buttonGroup.getElements(); buttons.hasMoreElements();) {
-				AbstractButton button = buttons.nextElement();
+	public String getSelectedButtonText(ButtonGroup buttonGroup) {
+		for (Enumeration<AbstractButton> buttons = buttonGroup.getElements(); buttons.hasMoreElements();) {
+			AbstractButton button = buttons.nextElement();
 
-				if (button.isSelected()) {
-					return button.getText();
-				}
+			if (button.isSelected()) {
+				return button.getText();
 			}
-			return null;
 		}
+		return null;
+	}
 
 
 	int lastIndex=0;
@@ -574,7 +618,6 @@ public class PrenotazioneView extends View {
 	protected boolean controllaCampi(){
 		return !(textPasseggeriNome.getText().equals("") || 
 				textPasseggeriCognome.getText().equals("") || 
-				comboBoxSesso.getSelectedIndex()==0 ||
 				comboBoxGiorno.getSelectedIndex()==0 ||
 				comboBoxMese.getSelectedIndex()==0 ||
 				comboBoxAnno.getSelectedIndex()==0
@@ -591,7 +634,7 @@ public class PrenotazioneView extends View {
 				save(nuovoPasseggero);
 				listaPasseggeri.add(nuovoPasseggero);
 			}
-
+			setResoconto();
 			System.out.println(listaPasseggeri);
 			if(currentIndex==lastIndex){
 				lastIndex++;
@@ -610,6 +653,8 @@ public class PrenotazioneView extends View {
 				textPasseggeriCognome.setText("");
 				comboBoxGiorno.setSelectedIndex(0);
 				comboBoxMese.setSelectedIndex(0);
+				rdbtnNewRadioButton_uomo.setSelected(true);
+				rdbtnNewRadioButton_donna.setSelected(false);
 				comboBoxAnno.setSelectedIndex(0);
 				passeggeroCorrente=null;
 			}else{
@@ -620,6 +665,7 @@ public class PrenotazioneView extends View {
 		}else{
 			JOptionPane.showMessageDialog(null,"Completare prima il passeggero corrente","Errore", 1);
 		}
+		
 	}
 
 	protected void passeggeroPrecedente(){
@@ -631,7 +677,6 @@ public class PrenotazioneView extends View {
 		mostraPasseggero(passeggeroCorrente);
 
 		labelPasseggeriNumero.setText(currentIndex+1+"");
-
 	}
 
 
@@ -640,13 +685,17 @@ public class PrenotazioneView extends View {
 		textPasseggeriNome.setText(p.getNome());
 		textPasseggeriCognome.setText(p.getCognome());
 		if(p.getSesso()=='m'){
-			comboBoxSesso.setSelectedIndex(1);  //sistemare mettere globali variabili uomo donna
+			rdbtnNewRadioButton_uomo.setSelected(true);
+			rdbtnNewRadioButton_donna.setSelected(false);
 		}else{
-			comboBoxSesso.setSelectedIndex(2);
+			rdbtnNewRadioButton_uomo.setSelected(false);
+			rdbtnNewRadioButton_donna.setSelected(true);
 		}
 		comboBoxGiorno.setSelectedIndex(p.getGiorno());
 		comboBoxMese.setSelectedIndex(p.getMese());
 		comboBoxAnno.setSelectedIndex(2013-p.getAnno()+1);
+
+		
 	}
 
 

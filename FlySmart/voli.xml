@@ -3,41 +3,45 @@
     <volo>
         <serialVersionUID>1</serialVersionUID>
         <id>1</id>
-        <dataOra>Wed Nov 20 15:00:01 CET 2013</dataOra>
+        <dataOra>Wed Nov 20 15:00:26 CET 2013</dataOra>
         <aeroportoPartenza>1</aeroportoPartenza>
         <aeroportoDestinazione>2</aeroportoDestinazione>
         <aereo>767</aereo>
         <postiDisponibili>100</postiDisponibili>
         <palletDisponibili>15</palletDisponibili>
+        <prezzo>2.0</prezzo>
     </volo>
     <volo>
         <serialVersionUID>1</serialVersionUID>
         <id>2</id>
-        <dataOra>Sat May 10 04:10:01 CEST 2014</dataOra>
+        <dataOra>Sat May 10 04:10:26 CEST 2014</dataOra>
         <aeroportoPartenza>1</aeroportoPartenza>
         <aeroportoDestinazione>2</aeroportoDestinazione>
         <aereo>767</aereo>
         <postiDisponibili>100</postiDisponibili>
         <palletDisponibili>15</palletDisponibili>
+        <prezzo>2.0</prezzo>
     </volo>
     <volo>
         <serialVersionUID>1</serialVersionUID>
         <id>3</id>
-        <dataOra>Sat Jan 25 13:00:01 CET 2014</dataOra>
+        <dataOra>Sat Jan 25 13:00:26 CET 2014</dataOra>
         <aeroportoPartenza>1</aeroportoPartenza>
         <aeroportoDestinazione>2</aeroportoDestinazione>
         <aereo>767</aereo>
         <postiDisponibili>100</postiDisponibili>
         <palletDisponibili>15</palletDisponibili>
+        <prezzo>2.0</prezzo>
     </volo>
     <volo>
         <serialVersionUID>1</serialVersionUID>
         <id>4</id>
-        <dataOra>Sun Dec 29 02:00:01 CET 2013</dataOra>
+        <dataOra>Sun Dec 29 02:00:26 CET 2013</dataOra>
         <aeroportoPartenza>1</aeroportoPartenza>
         <aeroportoDestinazione>2</aeroportoDestinazione>
         <aereo>767</aereo>
         <postiDisponibili>100</postiDisponibili>
         <palletDisponibili>15</palletDisponibili>
+        <prezzo>2.0</prezzo>
     </volo>
 </flySmart>
