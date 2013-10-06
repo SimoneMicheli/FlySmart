@@ -302,10 +302,13 @@ public class PrenotazioneController{
 		view.buttonPasseggeriConfermaPrenotazione.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				if(view.controllaCampi()){
+				if(view.controllaCampi() || (view.campiVuoti() && view.listaPasseggeri.size()!=0)){
 					view.updateOrSavePasseggero();
 					view.cardPasseggeri.show(view.panelPasseggeri,"panelPasseggeriAeroporti");
 					JOptionPane.showMessageDialog(null,view.listaPasseggeri.toString(),"Dato", 1);
+				}else{
+					JOptionPane.showMessageDialog(null,"","Errore", 1);
+					
 				}
 
 				//creo la lista passeggeri xml per prova

@@ -446,6 +446,7 @@ public class PrenotazioneView extends View {
 		currentIndex=0;
 		lastIndex=0;
 		labelPasseggeriNumero.setText(currentIndex+1+"");
+		panelResoconto.removeAll();
 
 
 
