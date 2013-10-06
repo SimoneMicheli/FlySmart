@@ -47,7 +47,13 @@ public class XMLCreate<E extends GetFields> {
 						String attributeName = f.getName();
 						String attributeNameMaiusc = attributeName.substring(0, 1).toUpperCase() + attributeName.substring(1);
 						Method m = elem.getClass().getMethod("get"+attributeNameMaiusc); // Ottengo il Metodo 
-						String s = m.invoke(elem).toString();// Invoco il metodo
+						String s;
+						//se l'elemento è null scrivo stringa vuota
+						try{
+							s = m.invoke(elem).toString();// Invoco il metodo
+						}catch (NullPointerException e) {
+							s = "";
+						}
 						childToAdd = d.createElement(attributeName); // Costruisco l'albero degli elementi, che successivamente inserirÚ del documento
 						childToAdd.setTextContent(s);
 						root.appendChild(childToAdd);
@@ -61,7 +67,7 @@ public class XMLCreate<E extends GetFields> {
 					e.printStackTrace();
 				} catch (IllegalAccessException e) {
 					e.printStackTrace();
-				} catch (InvocationTargetException e) {
+				}catch (InvocationTargetException e) {
 					e.printStackTrace();
 				}
 				

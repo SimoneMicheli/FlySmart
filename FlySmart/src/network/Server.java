@@ -34,7 +34,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 	private static final long serialVersionUID = -1112973689097758070L;
 	private FileLock aeroportiLock, voliLock;
 	private HashMap<Integer, FileLock> locks;
-	private int lastID, lastPalletID;
+	private int lastID=0, lastPalletID=0, lastGropuID=0;
 	
 	/**
 	 * costruttore dell'oggetto server, crea i lock necessari a garantire l'accesso
@@ -104,6 +104,12 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 	private synchronized int getNextPalletID(){
 		return getNextPalletID(1);
 	}
+	
+	private synchronized int getNextGroupID(){
+		int oldID = lastGropuID;
+		lastGropuID ++;
+		return oldID;
+	}
 	/* (non-Javadoc)
 	 * @see network.ServerInterface#getAeroporti()
 	 */
@@ -161,7 +167,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 	 * @see network.ServerInterface#prenotaPasseggero(java.util.List, int)
 	 */
 	@Override
-	public int prenotaPasseggero(List<Passeggero> listPass, int idVolo) {
+	public int prenotaPasseggero(List<Passeggero> listToAdd, int idVolo) {
 		
 		List<Passeggero> passeggeri = new ArrayList<Passeggero>();
 		ArrayList<Volo> voli = new ArrayList<Volo>();
@@ -172,11 +178,16 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 		voli = (ArrayList<Volo>) parserXML.createVoloList("voli.xml");
 				
 		//ottengo riferimento volo
+		Collections.sort(voli, VoloComparator.ID_ORDER);
 		int pos = Collections.binarySearch(voli,new Integer(2));
+		if (pos < 0)
+			return 3; //volo non trovato
+		
 		Volo v = voli.get(pos);
-		if (v.getPostiDisponibili() - listPass.size() < 0)
+		if (v.getPostiDisponibili() - listToAdd.size() < 0)
 			return 2; //posti insufficienti
-		v.setPostiDisponibili(v.getPostiDisponibili() - listPass.size());
+		
+		v.setPostiDisponibili(v.getPostiDisponibili() - listToAdd.size());
 		
 		//ottengo lock su file richiesto
 		FileLock lock = locks.get(idVolo);
@@ -187,21 +198,28 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 		
 		//aggiungo nuovi passeggeri alla lista
 		int id = getNextID(passeggeri.size());
-		Iterator<Passeggero> i = listPass.iterator();
+		int idGruppo = getNextGroupID();
+		Iterator<Passeggero> i = listToAdd.iterator();
 		
 		while (i.hasNext()) {
 			Passeggero passeggero = (Passeggero) i.next();
 			//assegno id
 			passeggero.setId(id);
+			passeggero.setIdGruppo(idGruppo);
 			id++;
 			passeggeri.add(passeggero);
 		}
 		
 		//salvo dati su xml volo e passeggeri
-		XMLCreate<Passeggero> XMLWriter = new XMLCreate<Passeggero>();
-		Document d = XMLWriter.createFlySmartDocument(passeggeri);
+		XMLCreate<Volo> XMLVoloWriter = new XMLCreate<Volo>();
+		Document VoliDocument = XMLVoloWriter.createFlySmartDocument(voli);
+		
+		XMLCreate<Passeggero> XMLPassWriter = new XMLCreate<Passeggero>();
+		Document PassDocument = XMLPassWriter.createFlySmartDocument(passeggeri);
+		
 		try {
-			XMLWriter.printDocument(d,"volo_"+idVolo);
+			XMLPassWriter.printDocument(PassDocument,"volo_"+idVolo+".xml");
+			XMLVoloWriter.printDocument(VoliDocument, "voli.xml");
 		} catch (IOException e) {
 			e.printStackTrace();
 			return 1; //can't save to file
@@ -209,7 +227,6 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 			voliLock.releaseWriteLock();
 			lock.releaseWriteLock();
 		}
-		
 		
 		return 0;
 	}
