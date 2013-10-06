@@ -39,13 +39,21 @@ public class Passeggero extends Model {
 	public Passeggero(String nome, String cognome,String giorno, String mese, String anno, Character sesso) {
 		this(null, null, nome,  cognome,  calcolaEta(giorno, mese, anno),  sesso,  null,  null,  null, Integer.parseInt(giorno), Integer.parseInt(mese), Integer.parseInt(anno));
 	}
+	
+	
+	public Passeggero(String nome, String cognome,int giorno, int mese, int anno, char sesso) {
+		this(null, null, nome,  cognome,  calcolaEta(giorno, mese, anno),  sesso,  null,  null,  null, giorno, mese, anno);
+	}
 
-
-	//calcola l'età a partire da una data di nascita
 	protected static int calcolaEta(String g, String m, String a){
+		return calcolaEta(Integer.parseInt(g), Integer.parseInt(m), Integer.parseInt(a));
+	}
+	
+	//calcola l'eta a partire da una data di nascita
+	protected static int calcolaEta(int g, int m, int a){
 		Calendar c = Calendar.getInstance();
-		int anni = c.get(Calendar.YEAR)-Integer.parseInt(a);
-		if(Integer.parseInt(m)>1+c.get(Calendar.MONTH) || (Integer.parseInt(m)==1+c.get(Calendar.MONTH) && Integer.parseInt(g)>=c.get(Calendar.DAY_OF_MONTH))){ //1+ perche gennaio è lo zero
+		int anni = c.get(Calendar.YEAR)-a;
+		if(m > 1+c.get(Calendar.MONTH) || (m == 1+c.get(Calendar.MONTH) && g >= c.get(Calendar.DAY_OF_MONTH))){ //1+ perche gennaio è lo zero
 			return anni-1;
 		}
 		return anni;
@@ -73,32 +81,32 @@ public class Passeggero extends Model {
 	}
 
 
-	public double getPesoBagagli() {
+	public Double getPesoBagagli() {
 		return pesoBagagli;
 	}
 
 
-	public void setPesoBagagli(double pesoBagagli) {
+	public void setPesoBagagli(Double pesoBagagli) {
 		this.pesoBagagli = pesoBagagli;
 	}
 
 
-	public int getIdVolo() {
+	public Integer getIdVolo() {
 		return idVolo;
 	}
 
 
-	public void setIdVolo(int idVolo) {
+	public void setIdVolo(Integer idVolo) {
 		this.idVolo = idVolo;
 	}
 
 
-	public int getPosto() {
+	public Integer getPosto() {
 		return posto;
 	}
 
 
-	public void setPosto(int posto) {
+	public void setPosto(Integer posto) {
 		this.posto = posto;
 	}
 
@@ -123,12 +131,12 @@ public class Passeggero extends Model {
 	}
 
 
-	public int getEta() {
+	public Integer getEta() {
 		return eta;
 	}
 
 
-	public void setEta(int eta) {
+	public void setEta(Integer eta) {
 		this.eta = eta;
 	}
 

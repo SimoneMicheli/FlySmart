@@ -9,6 +9,7 @@ import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 import model.Aeroporto;
 import model.Passeggero;
@@ -38,6 +39,16 @@ public class ClientTest {
 			java.util.List<Volo> v = serv.getVoli(1, 2);
 			
 			System.out.println(v);
+			
+			java.util.List<Passeggero> passToAdd = new LinkedList<Passeggero>();
+			
+			passToAdd.add(new Passeggero("mario", "rossi", 15, 10, 1990, 'm'));
+			passToAdd.add(new Passeggero("andrea", "bianchi", 5, 2, 1960, 'm'));
+			passToAdd.add(new Passeggero("valentina", "carrara", 22, 7, 1995, 'f'));
+			
+			int rx = serv.prenotaPasseggero(passToAdd, 2);
+			
+			System.out.println(rx);
 			
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block

@@ -18,7 +18,7 @@
         <aeroportoPartenza>1</aeroportoPartenza>
         <aeroportoDestinazione>2</aeroportoDestinazione>
         <aereo>767</aereo>
-        <postiDisponibili>100</postiDisponibili>
+        <postiDisponibili>76</postiDisponibili>
         <palletDisponibili>15</palletDisponibili>
         <prezzo>2.0</prezzo>
     </volo>
