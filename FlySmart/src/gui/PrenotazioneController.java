@@ -206,9 +206,9 @@ public class PrenotazioneController{
 
 	}
 
-	
-	
-	
+
+
+
 
 	private void registraControllerFase2Pallet() {
 		//confermo il volo (fase 2) per i pallet
@@ -269,17 +269,30 @@ public class PrenotazioneController{
 		});
 
 
+		//svuota
+		view.buttonPasseggeriReset.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				view.textPasseggeriNome.setText("");
+				view.textPasseggeriCognome.setText("");
+				view.comboBoxGiorno.setSelectedIndex(0);
+				view.comboBoxMese.setSelectedIndex(0);
+				view.comboBoxAnno.setSelectedIndex(0);
+			}
+
+		});
+
+
 		//precedente
 		view.buttonPasseggeriPrecedente.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
 				if(view.currentIndex!=0){
-					view.passeggeroPrecedente(); //lo aggiungo all'arraylist
+					view.passeggeroPrecedente();
 				}
 			}
 
 		});
-
 
 
 

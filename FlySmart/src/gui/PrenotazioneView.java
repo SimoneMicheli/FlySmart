@@ -5,9 +5,12 @@ package gui;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Insets;
 import java.awt.Toolkit;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -16,6 +19,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.AbstractButton;
+import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -29,6 +33,7 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+import javax.swing.border.Border;
 
 import model.Aeroporto;
 import model.Passeggero;
@@ -48,7 +53,8 @@ public class PrenotazioneView extends View {
 	protected JPanel panelPasseggeriVoli = new JPanel(); //pannello contenente i voli per l'applicazione passeggeri (3ab)
 	protected JPanel panelPasseggeriVoliInterno = new JPanel(); //pannello contenente proprio l'elenco dei voli
 	protected JPanel panelPasseggeriPasseggeri = new JPanel(); //pannello contenente i dati dei passeggeri per l'applicazione passeggeri (3ac)
-	protected JPanel panelPasseggeriPasseggeriInterno = new JPanel(); //pannello contenente proprio l'elenco dei passeggeri
+	//non serve piu protected JPanel panelPasseggeriPasseggeriInterno = new JPanel(); //pannello contenente proprio l'elenco dei passeggeri
+	JPanel panelResoconto = new JPanel();
 
 	//pannelli livello 3 pallet
 	protected JPanel panelPalletAeroporti = new JPanel(); //pannello contenente gli aeroporti per l'applicazione pallet (3ba)
@@ -69,21 +75,11 @@ public class PrenotazioneView extends View {
 	JMenuItem mntmAboutUs = new JMenuItem("About Us");
 
 	//scelte
-	
-	
-	
-	
-	
-	
-	
-	
-	//111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
-	
-	
-	//JComboBox<Serializable> comboPasseggeriAeroportoPartenza= new JComboBox<Serializable>();
+
+
 	JComboBox comboPasseggeriAeroportoPartenza= new JComboBox();
-	
-	
+
+
 	JComboBox comboPasseggeriAeroportoArrivo = new JComboBox();
 	JComboBox comboPalletAeroportoPartenza= new JComboBox();
 	JComboBox comboPalletAeroportoArrivo = new JComboBox();
@@ -104,7 +100,7 @@ public class PrenotazioneView extends View {
 	protected JButton buttonPalletConfermaVolo,buttonPalletAnnullaVolo;
 	//button 3 livello
 	protected JButton buttonPasseggeriAnnullaPrenotazione,buttonPasseggeriConfermaPrenotazione,buttonPasseggeriProssimo,buttonPasseggeriPrecedente;
-	protected JButton buttonPalletAnnullaPrenotazione,buttonPalletConfermaPrenotazione;
+	protected JButton buttonPalletAnnullaPrenotazione,buttonPalletConfermaPrenotazione,buttonPasseggeriReset;
 
 	//arraylist per i dati dei passeggeri
 	protected ArrayList<JTextField> nomiPasseggeri = new ArrayList<JTextField>();
@@ -131,12 +127,12 @@ public class PrenotazioneView extends View {
 	protected ButtonGroup buttonGroupSesso = new ButtonGroup();
 	JLabel labelTipoPrenotazione= new JLabel();
 	JLabel labelPasseggeriNumero = new JLabel("1");
-	
-	
+
+
 	JRadioButton rdbtnNewRadioButton_uomo = new JRadioButton("Uomo");
 	JRadioButton rdbtnNewRadioButton_donna = new JRadioButton("Donna");
 
-	JLabel labelResoconto = new JLabel("Lista utenti registrata");
+	JLabel labelResocontoPasseggeri = new JLabel("Lista passeggeri registrata");
 
 
 	public PrenotazioneView() {
@@ -301,16 +297,16 @@ public class PrenotazioneView extends View {
 	protected void setPasseggeriPasseggeri(){
 
 
-		
-		
+
+
 
 
 		JLabel labelTipoPrenotazione = new JLabel("Inserire i dati dei passeggeri");
 		labelTipoPrenotazione.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		labelTipoPrenotazione.setBounds(8, 8, 482, 25);
 		panelPasseggeriPasseggeri.add(labelTipoPrenotazione);
-		
-		
+
+
 		JLabel labelResocontoVolo = new JLabel("From: Milano   To: Bergamo");
 		labelResocontoVolo.setFont(new Font("Arial", Font.PLAIN, 14));
 		labelResocontoVolo.setBounds(18, 58, 482, 25);
@@ -360,7 +356,7 @@ public class PrenotazioneView extends View {
 		panelPasseggeriPasseggeri.add(rdbtnNewRadioButton_donna);
 
 
-	
+
 
 		JLabel labelPasseggeriEta = new JLabel("Nato il");
 		labelPasseggeriEta.setBounds(20, 230, 46, 14);
@@ -382,7 +378,7 @@ public class PrenotazioneView extends View {
 		for(int i=1;i<12;i++){
 			comboBoxMese.addItem(""+i);
 		}
-		comboBoxMese.setBounds(130, 230, 42, 20);
+		comboBoxMese.setBounds(137, 230, 42, 20);
 		panelPasseggeriPasseggeri.add(comboBoxMese);
 
 		//anno di nascita
@@ -395,6 +391,11 @@ public class PrenotazioneView extends View {
 		panelPasseggeriPasseggeri.add(comboBoxAnno);
 
 
+		buttonPasseggeriReset = new JButton("Svuota");
+		buttonPasseggeriReset.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		buttonPasseggeriReset.setBounds(20, 270, 70, 23);
+		panelPasseggeriPasseggeri.add(buttonPasseggeriReset);
+		
 		buttonPasseggeriPrecedente = new JButton("<");
 		buttonPasseggeriPrecedente.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		buttonPasseggeriPrecedente.setBounds(165, 270, 40, 23);
@@ -403,7 +404,7 @@ public class PrenotazioneView extends View {
 
 		buttonPasseggeriProssimo = new JButton(">");
 		buttonPasseggeriProssimo.setFont(new Font("Tahoma", Font.PLAIN, 10));
-		buttonPasseggeriProssimo.setBounds(210, 270, 40, 23);
+		buttonPasseggeriProssimo.setBounds(207, 270, 40, 23);
 		buttonPasseggeriProssimo.setForeground(Color.red);
 		panelPasseggeriPasseggeri.add(buttonPasseggeriProssimo);
 
@@ -422,10 +423,20 @@ public class PrenotazioneView extends View {
 		panelPasseggeriPasseggeri.add(progressBar);
 		progressBar.setValue(90);
 
-		
-		labelResoconto.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		labelResoconto.setBounds(308, 88, 200, 18);
-		panelPasseggeriPasseggeri.add(labelResoconto);
+
+
+
+
+		panelResoconto.setLayout(null);
+		panelResoconto.setBorder(BorderFactory.createLineBorder(Color.black));
+		panelResoconto.setBounds(277, 90, 205, 230);
+		panelPasseggeriPasseggeri.add(panelResoconto);
+
+
+		labelResocontoPasseggeri.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		labelResocontoPasseggeri.setBounds(277, 58, 482, 25);
+		panelPasseggeriPasseggeri.add(labelResocontoPasseggeri);
+
 
 		//azzeramento dati passeggeri
 		listaPasseggeri.clear();
@@ -435,24 +446,27 @@ public class PrenotazioneView extends View {
 		currentIndex=0;
 		lastIndex=0;
 		labelPasseggeriNumero.setText(currentIndex+1+"");
-		
-		
-		
+
+
+
 	}
-	
+
 	private void setResoconto(){
 		Iterator<Passeggero> el = listaPasseggeri.iterator();
-		int verticalPosition = 150;
+		int verticalPosition = 20;
+		panelResoconto.removeAll();
+
 		while(el.hasNext()) {
 			Passeggero element = (Passeggero) el.next();
 
 			System.out.println(element.getCognome()+" "+element.getNome());
 			JLabel label = new JLabel(element.getCognome()+" "+element.getNome());
 			label.setFont(new Font("Arial", Font.PLAIN, 11));
-			label.setBounds(308, verticalPosition, 300, 18);
-			panelPasseggeriPasseggeri.add(label);   //sembra che non funzioni sempre non posso distruggere la label dopo l'uscita del while
+			label.setBounds(20, verticalPosition, 300, 18);
+			panelResoconto.add(label);
 			verticalPosition=verticalPosition+22;
 		}
+		repaint();
 	}
 
 
@@ -594,6 +608,7 @@ public class PrenotazioneView extends View {
 	Passeggero passeggeroCorrente=null;
 
 	protected void save(Passeggero p){
+
 		Character sex = null;
 		if(getSelectedButtonText(buttonGroupSesso).compareTo("Uomo")==0) sex='m'; 
 		else sex='f';
@@ -612,6 +627,7 @@ public class PrenotazioneView extends View {
 		p.setPosto(2);
 		p.setIdVolo(5);
 
+
 	}
 
 
@@ -620,6 +636,15 @@ public class PrenotazioneView extends View {
 				textPasseggeriCognome.getText().equals("") || 
 				comboBoxGiorno.getSelectedIndex()==0 ||
 				comboBoxMese.getSelectedIndex()==0 ||
+				comboBoxAnno.getSelectedIndex()==0
+				);
+	}
+	
+	protected boolean campiVuoti(){
+		return (textPasseggeriNome.getText().equals("") && 
+				textPasseggeriCognome.getText().equals("") && 
+				comboBoxGiorno.getSelectedIndex()==0 &&
+				comboBoxMese.getSelectedIndex()==0 &&
 				comboBoxAnno.getSelectedIndex()==0
 				);
 	}
@@ -665,18 +690,27 @@ public class PrenotazioneView extends View {
 		}else{
 			JOptionPane.showMessageDialog(null,"Completare prima il passeggero corrente","Errore", 1);
 		}
-		
+
 	}
 
 	protected void passeggeroPrecedente(){
-		if(currentIndex!=lastIndex){
-			save(passeggeroCorrente);
-		}
-		currentIndex--;
-		passeggeroCorrente = listaPasseggeri.get(currentIndex);
-		mostraPasseggero(passeggeroCorrente);
+		if(controllaCampi() || campiVuoti()){ 
+			if(currentIndex!=lastIndex && !campiVuoti()){ 
+				save(passeggeroCorrente);
+			}
+			/*if(campiVuoti()){
+				listaPasseggeri.remove(currentIndex);
+			}*/
+			
+			currentIndex--;
+			passeggeroCorrente = listaPasseggeri.get(currentIndex);
+			mostraPasseggero(passeggeroCorrente);
 
-		labelPasseggeriNumero.setText(currentIndex+1+"");
+			labelPasseggeriNumero.setText(currentIndex+1+"");
+			
+		}else{
+			JOptionPane.showMessageDialog(null,"Completare prima il passeggero corrente o cliccare \"Svuota\"","Errore", 1);
+		}
 	}
 
 
@@ -695,7 +729,7 @@ public class PrenotazioneView extends View {
 		comboBoxMese.setSelectedIndex(p.getMese());
 		comboBoxAnno.setSelectedIndex(2013-p.getAnno()+1);
 
-		
+
 	}
 
 

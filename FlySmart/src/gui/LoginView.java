@@ -35,7 +35,7 @@ public class LoginView extends View {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		Connect = new JButton("Connect!");
+		Connect = new JButton("Connettiti");
 		Connect.setBounds(10, 73, 120, 23);
 		contentPane.add(Connect);
 		

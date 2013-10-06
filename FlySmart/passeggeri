@@ -5,11 +5,11 @@
         <idGruppo>0</idGruppo>
         <nome>asd</nome>
         <cognome>asd</cognome>
-        <eta>3</eta>
+        <eta>1</eta>
         <giorno>2</giorno>
-        <mese>2</mese>
-        <anno>2010</anno>
-        <sesso>f</sesso>
+        <mese>3</mese>
+        <anno>2012</anno>
+        <sesso>m</sesso>
         <pesoBagagli>10.0</pesoBagagli>
         <idVolo>5</idVolo>
         <posto>2</posto>
