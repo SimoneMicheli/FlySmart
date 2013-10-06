@@ -53,7 +53,7 @@ public class Aeroporto extends Model implements Serializable{
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return nome;
+		return id+ " "+nome;
 	}
 
 	@Override

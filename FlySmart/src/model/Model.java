@@ -3,6 +3,7 @@
  */
 package model;
 
+import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,7 +14,7 @@ import java.util.List;
  * @author simone
  *
  */
-public abstract class Model implements SortableList<Integer>, GetFields{
+public abstract class Model implements SortableList<Integer>, GetFields, Serializable{
 
 	protected  Integer id;
 

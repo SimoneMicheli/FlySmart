@@ -63,7 +63,6 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 		
 		//creo file lock
 		int l = voli.size();
-		System.out.println(l);
 		//preparo hasmap di capacitˆ l
 		locks = new HashMap<Integer, FileLock>(l);
 		Iterator<Volo> i = voli.iterator();
