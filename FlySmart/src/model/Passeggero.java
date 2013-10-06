@@ -1,12 +1,10 @@
 package model;
 
-import java.io.Serializable;
 import java.lang.reflect.Field;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
-public class Passeggero extends Model implements Serializable{
+public class Passeggero extends Model {
 	private Integer idGruppo;
 	private String nome;
 	private String cognome;

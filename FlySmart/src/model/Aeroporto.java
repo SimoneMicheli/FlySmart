@@ -1,12 +1,9 @@
 package model;
 
-import java.io.Serializable;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-public class Aeroporto extends Model implements Serializable{
+public class Aeroporto extends Model {
 	
 	/**
 	 * 

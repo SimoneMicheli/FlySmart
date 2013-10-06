@@ -1,11 +1,9 @@
 package model;
 
-import java.io.Serializable;
 import java.lang.reflect.Field;
-import java.util.Arrays;
 import java.util.List;
 
-public class Pallet extends Model implements Serializable{
+public class Pallet extends Model {
 	private static final long serialVersionUID = -5555020451242189950L;
 
 	private double peso;
