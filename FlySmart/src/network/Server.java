@@ -3,6 +3,10 @@
  */
 package network;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.rmi.server.*;
@@ -13,6 +17,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Properties;
 
 import org.w3c.dom.Document;
 
@@ -34,7 +39,10 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 	private static final long serialVersionUID = -1112973689097758070L;
 	private FileLock aeroportiLock, voliLock;
 	private HashMap<Integer, FileLock> locks;
-	private int lastID=0, lastPalletID=0, lastGropuID=0;
+	private int lastID=0, lastPalletID=0, lastGroupID=0;
+	private Properties config;
+	
+	private static final String configFileName = "config.xml";
 	
 	/**
 	 * costruttore dell'oggetto server, crea i lock necessari a garantire l'accesso
@@ -42,6 +50,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 	 * @param clientFactory
 	 * @param serverFactory
 	 * @throws RemoteException
+	 * @throws FileNotFoundException 
 	 */
 	protected Server(RMISSLClientSocketFactory clientFactory, RMISSLServerSocketFactory serverFactory) throws RemoteException {
 		super(0, clientFactory, serverFactory);
@@ -71,6 +80,42 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 			//creo lock per ogni volo
 			locks.put(volo.getId(), new FileLockImpl());
 		}
+		
+		//load configuration file
+		config = new Properties();
+		try {
+			FileInputStream configFile = new FileInputStream(configFileName);
+			config.loadFromXML(configFile);
+			lastID = Integer.parseInt(config.getProperty("lastID", "0"));
+			lastPalletID = Integer.parseInt(config.getProperty("lastPalletID", "0"));
+			lastGroupID = Integer.parseInt(config.getProperty("lastGropuID", "0"));
+		} catch (FileNotFoundException e) {
+			System.err.println("Configuration file not found: init with default options");
+		} catch (IOException e) {
+			System.err.println("Configuration file not found: init with default options");
+		}
+		
+		//server shoutdown
+		Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
+		    @Override
+		    public void run() {
+		    	System.out.println("shutdown RMI Server");
+		    	
+		    	//save configuration file
+		    	try {
+		    		System.out.println("saving configuration file");
+					File f = new File(configFileName);
+					FileOutputStream configFileOut = new FileOutputStream(f);
+					config.storeToXML(configFileOut, "Flysmart Configuration File");
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+
+		    }
+		}));
+	
 	}
 	
 	/**
@@ -82,6 +127,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 	private synchronized int getNextID(int length){
 		int oldID = lastID;
 		lastID += length;
+		config.setProperty("lastID", Integer.toString(lastID));
 		return oldID;
 	}
 	
@@ -98,6 +144,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 	private synchronized int getNextPalletID(int length){
 		int oldID = lastPalletID;
 		lastPalletID += length;
+		config.setProperty("lastPalletID", Integer.toString(lastPalletID));
 		return oldID;
 	}
 
@@ -106,8 +153,9 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 	}
 	
 	private synchronized int getNextGroupID(){
-		int oldID = lastGropuID;
-		lastGropuID ++;
+		int oldID = lastGroupID;
+		lastGroupID ++;
+		config.setProperty("lastGroupID", Integer.toString(lastGroupID));
 		return oldID;
 	}
 	/* (non-Javadoc)

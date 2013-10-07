@@ -3,6 +3,7 @@
  */
 package network;
 
+import java.io.IOException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -44,7 +45,24 @@ public class ServerLauncher {
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		
+		}	
+	
+		//=====================solo per eclipse======================
+    	System.out.println("You're using Eclipse; click in this console and	" +
+    						"press ENTER to call System.exit() and run the shutdown routine.");
+    	try {
+    		System.in.read();
+    	} catch (IOException e) {
+    		// TODO Auto-generated catch block
+    		e.printStackTrace();
+    	}
+    	System.exit(0);
+	}
+	
+	@Override
+	protected void finalize() throws Throwable {
+		// TODO Auto-generated method stub
+		System.out.println("finalize mathod");
+		super.finalize();
 	}
 }
