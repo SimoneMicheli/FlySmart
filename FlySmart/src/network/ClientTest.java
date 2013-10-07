@@ -4,12 +4,16 @@
 package network;
 
 import java.awt.List;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.LinkedList;
+
+import exception.FlightNotFoundException;
+import exception.SeatsSoldOutException;
 
 import model.Aeroporto;
 import model.Passeggero;
@@ -57,6 +61,15 @@ public class ClientTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (NotBoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (FlightNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SeatsSoldOutException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

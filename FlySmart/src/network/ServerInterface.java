@@ -3,9 +3,13 @@
  */
 package network;
 
+import java.io.IOException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;
+
+import exception.FlightNotFoundException;
+import exception.SeatsSoldOutException;
 
 import model.*;
 
@@ -35,19 +39,24 @@ public interface ServerInterface extends Remote {
 	
 	/**
 	 * consente la prenotazione di un volo da parte di una lista di passeggeri
-	 * @param listPass elnco passeggeri da prenotare
+	 * @param listToAdd elnco passeggeri da prenotare
 	 * @param idVolo id del volo da prenotare
 	 * @return codice di errore
 	 * @throws RemoteException
+	 * @throws FlightNotFoundException 
+	 * @throws SeatsSoldOutException 
 	 */
-	public int prenotaPasseggero(List<Passeggero> listPass, int idVolo) throws RemoteException;
+	public int prenotaPasseggero(List<Passeggero> listToAdd, int idVolo) throws RemoteException, IOException, FlightNotFoundException, SeatsSoldOutException;
 	
 	/**
 	 * consente la prenotazione di un volo da parte di una lista di pallet
-	 * @param listPallet elnco pallet da prenotare
+	 * @param listToAdd elnco pallet da prenotare
 	 * @param idVolo id del volo da prenotare
 	 * @return codice di errore
 	 * @throws RemoteException
+	 * @throws IOException 
+	 * @throws FlightNotFoundException 
+	 * @throws SeatsSoldOutException 
 	 */
-	public int prenotaPallet(List<Pallet> listPallet, int idVolo) throws RemoteException;
+	public int prenotaPallet(List<Pallet> listToAdd, int idVolo) throws RemoteException, IOException, FlightNotFoundException, SeatsSoldOutException;
 }

@@ -1,6 +1,3 @@
-/**
- * 
- */
 package network;
 
 import java.io.File;
@@ -24,6 +21,8 @@ import org.w3c.dom.Document;
 import xml.XMLCreate;
 import xml.XMLToObj;
 import comparator.*;
+import exception.FlightNotFoundException;
+import exception.SeatsSoldOutException;
 import fileLock.*;
 import model.*;
 
@@ -38,11 +37,13 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 	 */
 	private static final long serialVersionUID = -1112973689097758070L;
 	private FileLock aeroportiLock, voliLock;
-	private HashMap<Integer, FileLock> locks;
+	private HashMap<Integer, FileLock> passLocks, palletLocks;
 	private int lastID=0, lastPalletID=0, lastGroupID=0;
 	private Properties config;
 	
 	private static final String configFileName = "config.xml";
+	private static final String voliFileName = "voli.xml";
+	private static final String aeroportiFileName = "aeroporti.xml";
 	
 	/**
 	 * costruttore dell'oggetto server, crea i lock necessari a garantire l'accesso
@@ -66,19 +67,21 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 		//lock in lettura su volo
 		voliLock.acquireReadLock();
 		
-		voli = parserXML.createVoloList("voli.xml");
+		voli = parserXML.createVoloList(voliFileName);
 		
 		voliLock.releaseReadLock();
 		
 		//creo file lock
 		int l = voli.size();
 		//preparo hasmap di capacitˆ l
-		locks = new HashMap<Integer, FileLock>(l);
+		passLocks = new HashMap<Integer, FileLock>(l);
+		palletLocks = new HashMap<Integer, FileLock>(l);
 		Iterator<Volo> i = voli.iterator();
 		while (i.hasNext()) {
 			Volo volo = (Volo) i.next();
 			//creo lock per ogni volo
-			locks.put(volo.getId(), new FileLockImpl());
+			passLocks.put(volo.getId(), new FileLockImpl());
+			palletLocks.put(volo.getId(), new FileLockImpl());
 		}
 		
 		//load configuration file
@@ -170,7 +173,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 		aeroportiLock.acquireReadLock();
 		
 		//parse xml data
-		aeroporti = parserXML.createAeroportoList("aeroporti.xml");
+		aeroporti = parserXML.createAeroportoList(aeroportiFileName);
 
 		//release lock
 		aeroportiLock.releaseReadLock();
@@ -194,7 +197,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 		//lock in lettura su volo
 		voliLock.acquireReadLock();
 		
-		voli = parserXML.createVoloList("voli.xml");
+		voli = parserXML.createVoloList(voliFileName);
 		
 		voliLock.releaseReadLock();
 		
@@ -215,34 +218,35 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 	 * @see network.ServerInterface#prenotaPasseggero(java.util.List, int)
 	 */
 	@Override
-	public int prenotaPasseggero(List<Passeggero> listToAdd, int idVolo) {
+	public int prenotaPasseggero(List<Passeggero> listToAdd, int idVolo) throws IOException, FlightNotFoundException, SeatsSoldOutException {
 		
 		List<Passeggero> passeggeri = new ArrayList<Passeggero>();
 		ArrayList<Volo> voli = new ArrayList<Volo>();
 		XMLToObj parserXML = new XMLToObj();
 		
 		//aggiorno volo
-		voliLock.acquireWriteLock();
-		voli = (ArrayList<Volo>) parserXML.createVoloList("voli.xml");
+		voliLock.acquireReadLock();
+		voli = (ArrayList<Volo>) parserXML.createVoloList(voliFileName);
+		voliLock.releaseReadLock();
 				
 		//ottengo riferimento volo
 		Collections.sort(voli, VoloComparator.ID_ORDER);
-		int pos = Collections.binarySearch(voli,new Integer(2));
+		int pos = Collections.binarySearch(voli,new Integer(idVolo));
 		if (pos < 0)
-			return 3; //volo non trovato
+			throw new FlightNotFoundException(idVolo); //volo non trovato
 		
 		Volo v = voli.get(pos);
 		if (v.getPostiDisponibili() - listToAdd.size() < 0)
-			return 2; //posti insufficienti
+			throw new SeatsSoldOutException(idVolo); //posti insufficienti
 		
 		v.setPostiDisponibili(v.getPostiDisponibili() - listToAdd.size());
 		
 		//ottengo lock su file richiesto
-		FileLock lock = locks.get(idVolo);
+		FileLock lock = passLocks.get(idVolo);
 		lock.acquireWriteLock();
 		
 		//ottengo lista passeggeri
-		passeggeri = parserXML.createPasseggeroList("volo_"+idVolo+".xml");
+		passeggeri = parserXML.createPasseggeroList("volo_"+idVolo+"_pass.xml");
 		
 		//aggiungo nuovi passeggeri alla lista
 		int id = getNextID(passeggeri.size());
@@ -265,13 +269,12 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 		XMLCreate<Passeggero> XMLPassWriter = new XMLCreate<Passeggero>();
 		Document PassDocument = XMLPassWriter.createFlySmartDocument(passeggeri);
 		
+		voliLock.acquireWriteLock();
+		
 		try {
-			XMLPassWriter.printDocument(PassDocument,"volo_"+idVolo+".xml");
-			XMLVoloWriter.printDocument(VoliDocument, "voli.xml");
-		} catch (IOException e) {
-			e.printStackTrace();
-			return 1; //can't save to file
-		}finally{
+			XMLPassWriter.printDocument(PassDocument,"volo_"+idVolo+"_pass.xml");
+			XMLVoloWriter.printDocument(VoliDocument, voliFileName);
+		} finally{
 			voliLock.releaseWriteLock();
 			lock.releaseWriteLock();
 		}
@@ -283,8 +286,64 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 	 * @see network.ServerInterface#prenotaPallet(java.util.List, int)
 	 */
 	@Override
-	public int prenotaPallet(List<Pallet> listPallet, int idVolo) {
-		// TODO Auto-generated method stub
+	public int prenotaPallet(List<Pallet> listToAdd, int idVolo) throws IOException, FlightNotFoundException, SeatsSoldOutException {
+		List<Pallet> pallets = new ArrayList<Pallet>();
+		ArrayList<Volo> voli = new ArrayList<Volo>();
+		XMLToObj parserXML = new XMLToObj();
+		
+		//aggiorno volo
+		voliLock.acquireReadLock();
+		voli = (ArrayList<Volo>) parserXML.createVoloList(voliFileName);
+		voliLock.releaseReadLock();
+				
+		//ottengo riferimento volo
+		Collections.sort(voli, VoloComparator.ID_ORDER);
+		int pos = Collections.binarySearch(voli,new Integer(idVolo));
+		if (pos < 0)
+			throw new FlightNotFoundException(idVolo); //volo non trovato
+		
+		Volo v = voli.get(pos);
+		if (v.getPostiDisponibili() - listToAdd.size() < 0)
+			throw new SeatsSoldOutException(idVolo); //posti insufficienti
+		
+		v.setPostiDisponibili(v.getPostiDisponibili() - listToAdd.size());
+		
+		//ottengo lock su file richiesto
+		FileLock lock = palletLocks.get(idVolo);
+		lock.acquireWriteLock();
+		
+		//ottengo lista passeggeri
+		pallets = parserXML.createPalletList("volo_"+idVolo+"_pallet.xml");
+		
+		//aggiungo nuovi passeggeri alla lista
+		int id = getNextPalletID(pallets.size());
+		Iterator<Pallet> i = listToAdd.iterator();
+		
+		while (i.hasNext()) {
+			Pallet p = (Pallet) i.next();
+			//assegno id
+			p.setId(id);
+			id++;
+			pallets.add(p);
+		}
+		
+		//salvo dati su xml volo e passeggeri
+		XMLCreate<Volo> XMLVoloWriter = new XMLCreate<Volo>();
+		Document VoliDocument = XMLVoloWriter.createFlySmartDocument(voli);
+		
+		XMLCreate<Pallet> XMLPalletWriter = new XMLCreate<Pallet>();
+		Document PalletDocument = XMLPalletWriter.createFlySmartDocument(pallets);
+		
+		voliLock.acquireWriteLock();
+		
+		try {
+			XMLPalletWriter.printDocument(PalletDocument,"volo_"+idVolo+"_pallet.xml");
+			XMLVoloWriter.printDocument(VoliDocument, voliFileName);
+		} finally{
+			voliLock.releaseWriteLock();
+			lock.releaseWriteLock();
+		}
+		
 		return 0;
 	}
 
