@@ -29,7 +29,14 @@ public class LoginView extends View {
 		int yFrame = (dimensioniSchermo.height - h) / 2;
 		setLocation(xFrame, yFrame);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setTitle("Login");
+		
+		
+		
+		setTitle("Login 07/10 8:28");
+		
+		
+		
+		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
