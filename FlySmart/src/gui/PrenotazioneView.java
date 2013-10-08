@@ -1,6 +1,6 @@
-//scandurra ti amo
 
 package gui;
+
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
@@ -10,13 +10,11 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.AbstractButton;
-import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -35,7 +33,7 @@ import model.Aeroporto;
 import model.Passeggero;
 import model.Volo;
 
-
+@SuppressWarnings("rawtypes")
 public class PrenotazioneView extends View {
 	
 	int idVoloSelezionato;
@@ -75,6 +73,7 @@ public class PrenotazioneView extends View {
 	//scelte
 
 
+	
 	JComboBox comboPasseggeriAeroportoPartenza= new JComboBox();
 
 
@@ -207,6 +206,7 @@ public class PrenotazioneView extends View {
 		panelPallet.add(panelPalletPallet,"panelPalletPallet");
 	}
 
+	@SuppressWarnings("unchecked")
 	public void setPasseggeriAeroporti(List<Aeroporto> aeroporti){
 
 		JLabel labelTipoPrenotazione = new JLabel("Selezionare aeroporto di partenza e di arrivo");
@@ -297,6 +297,7 @@ public class PrenotazioneView extends View {
 	
 	
 	
+	@SuppressWarnings("unchecked")
 	protected void setPasseggeriPasseggeri(){
 
 
@@ -725,8 +726,6 @@ public class PrenotazioneView extends View {
 
 
 	}
-
-
 
 
 	// Quando seleziono febbraio, togliere i giorni invalidi eccetera

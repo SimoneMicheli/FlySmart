@@ -1,33 +1,17 @@
 package gui;
 
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.rmi.Naming;
-import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
-import java.util.Calendar;
-import java.util.Enumeration;
-import java.util.Iterator;
 import java.util.List;
-import org.w3c.dom.*;
 
 import exception.FlightNotFoundException;
 import exception.SeatsSoldOutException;
 
-import javax.swing.AbstractButton;
-import javax.swing.ButtonGroup;
-import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-
-import xml.XMLCreate;
 
 import model.Aeroporto;
-import model.Passeggero;
 import model.Volo;
 import network.ServerInterface;
 

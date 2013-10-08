@@ -3,13 +3,11 @@
  */
 package network;
 
-import java.awt.List;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 import exception.FlightNotFoundException;
