@@ -73,7 +73,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 		
 		//creo file lock
 		int l = voli.size();
-		//preparo hasmap di capacitˆ l
+		//preparo hasmap di capacitË† l
 		passLocks = new HashMap<Integer, FileLock>(l);
 		palletLocks = new HashMap<Integer, FileLock>(l);
 		Iterator<Volo> i = voli.iterator();
@@ -123,7 +123,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 	
 	/**
 	 * restituisce il primo id passeggero libero e blocca tutti i successivi length id
-	 * metodo synchronized perch condiviso tra tutti i server thread
+	 * metodo synchronized perchï¿½ condiviso tra tutti i server thread
 	 * @param length numero id da bloccare
 	 * @return primo id disponibile
 	 */
@@ -144,7 +144,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 	
 	/**
 	 * restituisce il primo id pallet libero e blocca tutti i successivi length id
-	 * metodo synchronized perch condiviso tra tutti i server thread
+	 * metodo synchronized perchï¿½ condiviso tra tutti i server thread
 	 * @param length numero id da bloccare
 	 * @return primo id disponibile
 	 */
@@ -219,7 +219,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 		
 		while (i.hasNext()) {
 			Volo volo = (Volo) i.next();
-			if (volo.getAeroportoPartenza() == idp && volo.getAeroportoDestinazione() == ida && volo.getDataOra().compareTo(new Date()) > 0){
+			if (volo.getAeroportoPartenza() == idp && volo.getAeroportoDestinazione() == ida && volo.getDataOra().compareTo(new Date()) > 0 && volo.getPostiDisponibili()>0){
 				voliRichiesti.add(volo);
 			}
 		}

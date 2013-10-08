@@ -32,7 +32,7 @@ public class LoginView extends View {
 		
 		
 		
-		setTitle("Login 07/10 8:28");
+		setTitle("Login");
 		
 		
 		

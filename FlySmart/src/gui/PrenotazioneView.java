@@ -130,7 +130,7 @@ public class PrenotazioneView extends View {
 	JRadioButton rdbtnNewRadioButton_uomo = new JRadioButton("Uomo");
 	JRadioButton rdbtnNewRadioButton_donna = new JRadioButton("Donna");
 
-	JLabel labelResocontoPasseggeri = new JLabel("Lista passeggeri registrata");
+	JLabel labelResocontoPasseggeri = new JLabel("Lista passeggeri");
 
 
 	public PrenotazioneView() {
@@ -265,6 +265,7 @@ public class PrenotazioneView extends View {
 
 		panelPasseggeriVoliInterno.removeAll();
 
+		
 		Iterator<Volo> i = voli.iterator();
 		int verticalPosition = 10;
 		while(i.hasNext()) {
@@ -275,6 +276,7 @@ public class PrenotazioneView extends View {
 			panelPasseggeriVoliInterno.add(rdbtnNewRadioButton);
 			verticalPosition=verticalPosition+20;
 		}
+		
 
 		buttonPasseggeriConfermaVolo = new JButton("Conferma");
 		buttonPasseggeriConfermaVolo.setBounds(400, 327, 89, 23);
@@ -457,7 +459,6 @@ public class PrenotazioneView extends View {
 		while(el.hasNext()) {
 			Passeggero element = (Passeggero) el.next();
 
-			System.out.println(element.getCognome()+" "+element.getNome());
 			JLabel label = new JLabel(element.getCognome()+" "+element.getNome());
 			label.setFont(new Font("Arial", Font.PLAIN, 11));
 			label.setBounds(20, verticalPosition, 300, 18);
@@ -618,7 +619,6 @@ public class PrenotazioneView extends View {
 		p.setMese(Integer.parseInt(comboBoxMese.getSelectedItem().toString()));
 		p.setAnno(Integer.parseInt(comboBoxAnno.getSelectedItem().toString()));
 		p.calcolaEta();
-		System.out.println(idVoloSelezionato);
 		p.setIdVolo(idVoloSelezionato);
 		
 
@@ -655,7 +655,6 @@ public class PrenotazioneView extends View {
 				listaPasseggeri.add(nuovoPasseggero);
 			}
 			setResoconto();
-			System.out.println(listaPasseggeri);
 			if(currentIndex==lastIndex){
 				lastIndex++;
 			}
