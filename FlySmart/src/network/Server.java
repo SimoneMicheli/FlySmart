@@ -262,7 +262,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 		passeggeri = parserXML.createPasseggeroList("volo_"+idVolo+"_pass.xml");
 		
 		//aggiungo nuovi passeggeri alla lista
-		int id = getNextID(passeggeri.size());
+		int id = getNextID(listToAdd.size());
 		int idGruppo = getNextGroupID();
 		Iterator<Passeggero> i = listToAdd.iterator();
 		
@@ -329,7 +329,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 		pallets = parserXML.createPalletList("volo_"+idVolo+"_pallet.xml");
 		
 		//aggiungo nuovi passeggeri alla lista
-		int id = getNextPalletID(pallets.size());
+		int id = getNextPalletID(listToAdd.size());
 		Iterator<Pallet> i = listToAdd.iterator();
 		
 		while (i.hasNext()) {
