@@ -10,6 +10,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
@@ -37,7 +38,7 @@ import model.Volo;
 
 public class PrenotazioneView extends View {
 	
-	Integer idVoloSelezionato=null;
+	int idVoloSelezionato;
 	
 	private static final long serialVersionUID = 7352763063630645243L;
 	//pannelli livello 1
@@ -291,10 +292,10 @@ public class PrenotazioneView extends View {
 		repaint();
 	}
 
+	
+	
+	
 	protected void setPasseggeriPasseggeri(){
-
-
-
 
 
 
@@ -303,12 +304,12 @@ public class PrenotazioneView extends View {
 		labelTipoPrenotazione.setBounds(8, 8, 482, 25);
 		panelPasseggeriPasseggeri.add(labelTipoPrenotazione);
 
-
+		/*
 		JLabel labelResocontoVolo = new JLabel("ID: "+idVoloSelezionato + " From: Milano   To: Bergamo");
 		labelResocontoVolo.setFont(new Font("Arial", Font.PLAIN, 14));
 		labelResocontoVolo.setBounds(18, 58, 482, 25);
 		panelPasseggeriPasseggeri.add(labelResocontoVolo);
-
+		 */
 
 
 		labelPasseggeriNumero.setBounds(20, 100, 40, 23);
@@ -425,12 +426,11 @@ public class PrenotazioneView extends View {
 
 
 		panelResoconto.setLayout(null);
-		panelResoconto.setBorder(BorderFactory.createLineBorder(Color.black));
 		panelResoconto.setBounds(277, 90, 205, 230);
 		panelPasseggeriPasseggeri.add(panelResoconto);
 
 
-		labelResocontoPasseggeri.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		labelResocontoPasseggeri.setFont(new Font("Arial", Font.PLAIN, 13));
 		labelResocontoPasseggeri.setBounds(277, 58, 482, 25);
 		panelPasseggeriPasseggeri.add(labelResocontoPasseggeri);
 
@@ -618,6 +618,7 @@ public class PrenotazioneView extends View {
 		p.setMese(Integer.parseInt(comboBoxMese.getSelectedItem().toString()));
 		p.setAnno(Integer.parseInt(comboBoxAnno.getSelectedItem().toString()));
 		p.calcolaEta();
+		System.out.println(idVoloSelezionato);
 		p.setIdVolo(idVoloSelezionato);
 		
 
