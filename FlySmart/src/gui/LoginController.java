@@ -14,71 +14,90 @@ import javax.swing.JOptionPane;
 import network.ServerInterface;
 
 
+/**
+ * @author Demarinis - Micheli - Scarpellini
+ * Il controller della form di login
+ */
 public class LoginController {
 
-	
-	LoginView view;
-	PrenotazioneController p;
-	ServerInterface serv;
-	
-	
 
+	/** Riferimento alla vista */
+	LoginView view;
+
+	/** Il controller della nuova vista */
+	PrenotazioneController p;
+
+	/** Oggetto per la comunicazione col il server tramite messaggi RMI */
+	ServerInterface serv;
+
+
+
+	/**
+	 * Instantiates a new login controller.
+	 *
+	 * @param v il riferimento alla vista
+	 */
 	public LoginController(LoginView v){
-		view=v;
-		registraController();
-		//temporaneo bypass
-		//view.dispose();  //elimino la vecchia view
-	    //p = new PrenotazioneController(); //creo il nuovo controller (che creera la nuova view)
+		this.view=v;
+		registraControllerLogin();
 	}
 
-	public void registraController() {
+	/**
+	 * aggiunge i listner agli oggetti della vista di login
+	 */
+	public void registraControllerLogin() {
+
+		//click sul pulsante connettiti
 		view.Connect.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				ok();
 			}
-			
+
 		});
-		view.port.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent e) {
-				 if (e.getKeyCode() == 10){
-					 ok();
-				 }
-			}
-		});
+
+		//pressione tasto invio sulla casella ip
 		view.ip.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
-				 if (e.getKeyCode() == 10){
-					 ok();
-				 }
+				if (e.getKeyCode() == 10){
+					ok();
+				}
 			}
 		});
-		
-		
-		
+
+		//pressione tasto invio sulla casella porta
+		view.port.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == 10){
+					ok();
+				}
+			}
+		});
+
+
+
 	}
-	
+
+	/**
+	 * Connessione al server, con controllo dei campi e creazione della vista prenotazione
+	 */
 	public void ok(){
-		if(view.ip.getText().toString().compareTo("")==0 || view.port.getText().toString().compareTo("")==0){
+		if(view.ip.getText().toString().compareTo("")==0 || view.port.getText().toString().compareTo("")==0){ //se i campi sono vuoti
 			JOptionPane.showMessageDialog(null, "Inserire tutti i campi","Error", 0);
-		}else{
+		}else{ 
 			String url = "rmi://"+ view.ip.getText().toString() +":"+ view.port.getText().toString() +"/FlySmartServer";
 			try {
 				serv = (ServerInterface) Naming.lookup(url);
-			
 				view.dispose();  //elimino la vecchia view
 				p = new PrenotazioneController(serv); //creo il nuovo controller (che creerà la nuova view)
 			} catch (MalformedURLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (RemoteException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 				JOptionPane.showMessageDialog(null, "Impossibile connettersi al server","Error", 0);
 			} catch (NotBoundException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

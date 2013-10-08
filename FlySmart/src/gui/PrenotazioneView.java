@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 
 package gui;
 
@@ -33,105 +36,207 @@ import model.Aeroporto;
 import model.Passeggero;
 import model.Volo;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class PrenotazioneView.
+ */
 @SuppressWarnings("rawtypes")
 public class PrenotazioneView extends View {
-	
+
+	/** The id volo selezionato. */
 	int idVoloSelezionato;
-	
+
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 7352763063630645243L;
 	//pannelli livello 1
+	/** The panel card layout esterno. */
 	protected JPanel panelCardLayoutEsterno=new JPanel(); //pannello per switchare da passeggeri a pallet
 	//pannelli livello 2
+	/** The panel passeggeri. */
 	protected JPanel panelPasseggeri=new JPanel(); //pannello contentente tutta l'applicazione per i passeggeri
+
+	/** The panel pallet. */
 	protected JPanel panelPallet=new JPanel(); //pannello contentente tutta l'applicazione per i pallett
 	//pannelli livello 3 passeggeri
+	/** The panel passeggeri aeroporti. */
 	protected JPanel panelPasseggeriAeroporti = new JPanel(); //pannello contenente gli aeroporti per l'applicazione passeggeri (3aa)
+
+	/** The panel passeggeri voli. */
 	protected JPanel panelPasseggeriVoli = new JPanel(); //pannello contenente i voli per l'applicazione passeggeri (3ab)
+
+	/** The panel passeggeri voli interno. */
 	protected JPanel panelPasseggeriVoliInterno = new JPanel(); //pannello contenente proprio l'elenco dei voli
+
+	/** The panel passeggeri passeggeri. */
 	protected JPanel panelPasseggeriPasseggeri = new JPanel(); //pannello contenente i dati dei passeggeri per l'applicazione passeggeri (3ac)
 	//non serve piu protected JPanel panelPasseggeriPasseggeriInterno = new JPanel(); //pannello contenente proprio l'elenco dei passeggeri
+	/** The panel resoconto. */
 	JPanel panelResoconto = new JPanel();
 
 	//pannelli livello 3 pallet
+	/** The panel pallet aeroporti. */
 	protected JPanel panelPalletAeroporti = new JPanel(); //pannello contenente gli aeroporti per l'applicazione pallet (3ba)
+
+	/** The panel pallet voli. */
 	protected JPanel panelPalletVoli = new JPanel(); //pannello contenente i voli per l'applicazione pallet (3bb)
+
+	/** The panel pallet voli interno. */
 	protected JPanel panelPalletVoliInterno = new JPanel();  //pannello contenente proprio l'elenco dei voli
+
+	/** The panel pallet pallet. */
 	protected JPanel panelPalletPallet = new JPanel(); //pannello contenente i dati dei pallet per l'applicazione pallet (3bc)
 
 
 	//barra del menu
+	/** The menu bar. */
 	JMenuBar menuBar = new JMenuBar();
 	//pulsanti nel menu
+	/** The mn file. */
 	JMenu mnFile = new JMenu("File");
+
+	/** The mn modifica. */
 	JMenu mnModifica = new JMenu("Modifica");
+
+	/** The mn info. */
 	JMenu mnInfo = new JMenu("Info");
 	//varie opzioni
+	/** The mntm exit. */
 	JMenuItem mntmExit = new JMenuItem("Esci");
+
+	/** The mntm switch. */
 	JMenuItem mntmSwitch = new JMenuItem("Cambia");
-	JMenuItem mntmAboutUs = new JMenuItem("About Us");
+
+	/** The mntmsu di noi. */
+	JMenuItem mntmsuDiNoi = new JMenuItem("Su di noi");
 
 	//scelte
 
 
-	
+
+	/** The combo passeggeri aeroporto partenza. */
 	JComboBox comboPasseggeriAeroportoPartenza= new JComboBox();
 
 
+	/** The combo passeggeri aeroporto arrivo. */
 	JComboBox comboPasseggeriAeroportoArrivo = new JComboBox();
+
+	/** The combo pallet aeroporto partenza. */
 	JComboBox comboPalletAeroportoPartenza= new JComboBox();
+
+	/** The combo pallet aeroporto arrivo. */
 	JComboBox comboPalletAeroportoArrivo = new JComboBox();
 
 
 
+	/** The text passeggeri nome. */
 	JTextField textPasseggeriNome = new JTextField();
+
+	/** The text passeggeri cognome. */
 	JTextField textPasseggeriCognome = new JTextField();
+
+	/** The combo box giorno. */
 	JComboBox comboBoxGiorno = new JComboBox();
+
+	/** The combo box mese. */
 	JComboBox comboBoxMese = new JComboBox();
+
+	/** The combo box anno. */
 	JComboBox comboBoxAnno = new JComboBox();
 
 	//button 1 livello
+	/** The button passeggeri passeggeri cerca voli. */
 	protected JButton buttonPasseggeriPasseggeriCercaVoli;
+
+	/** The button pallet passeggeri cerca voli. */
 	protected JButton buttonPalletPasseggeriCercaVoli;
 	//button 2 livello
+	/** The button passeggeri annulla volo. */
 	protected JButton buttonPasseggeriConfermaVolo,buttonPasseggeriAnnullaVolo;
+
+	/** The button pallet annulla volo. */
 	protected JButton buttonPalletConfermaVolo,buttonPalletAnnullaVolo;
 	//button 3 livello
+	/** The button passeggeri precedente. */
 	protected JButton buttonPasseggeriAnnullaPrenotazione,buttonPasseggeriConfermaPrenotazione,buttonPasseggeriProssimo,buttonPasseggeriPrecedente;
+
+	/** The button passeggeri reset. */
 	protected JButton buttonPalletAnnullaPrenotazione,buttonPalletConfermaPrenotazione,buttonPasseggeriReset;
 
 	//arraylist per i dati dei passeggeri
+	/** The nomi passeggeri. */
 	protected ArrayList<JTextField> nomiPasseggeri = new ArrayList<JTextField>();
+
+	/** The cognomi passeggeri. */
 	protected ArrayList<JTextField> cognomiPasseggeri = new ArrayList<JTextField>();
+
+	/** The sesso passeggeri. */
 	protected ArrayList<JComboBox> sessoPasseggeri = new ArrayList<JComboBox>();
+
+	/** The giorno nascita passeggeri. */
 	protected ArrayList<JComboBox> giornoNascitaPasseggeri = new ArrayList<JComboBox>();
+
+	/** The mese nascita passeggeri. */
 	protected ArrayList<JComboBox> meseNascitaPasseggeri = new ArrayList<JComboBox>();
+
+	/** The anno nascita passeggeri. */
 	protected ArrayList<JComboBox> annoNascitaPasseggeri = new ArrayList<JComboBox>();
+
+	/** The lista passeggeri. */
 	protected ArrayList<Passeggero> listaPasseggeri = new ArrayList<Passeggero>();
 
 	//dati dei pallet
+	/** The text field targa pallet. */
 	protected JTextField textFieldTargaPallet = new JTextField();
+
+	/** The text field peso pallet. */
 	protected JTextField textFieldPesoPallet = new JTextField();
 
 
 	//varie variabili
+	/** The dimensione finestra. */
 	Dimension dimensioneFinestra = new Dimension(508,440);
+
+	/** The card esterno. */
 	protected CardLayout cardEsterno = new CardLayout();
+
+	/** The card passeggeri. */
 	protected CardLayout cardPasseggeri = new CardLayout();
+
+	/** The card pallet. */
 	protected CardLayout cardPallet = new CardLayout();
+
+	/** The passeggeri. */
 	protected boolean passeggeri; //true: sono nel pannello passeggeri; false: sono nel pannello pallet
+
+	/** The button group passeggeri voli. */
 	protected ButtonGroup buttonGroupPasseggeriVoli = new ButtonGroup();
+
+	/** The button group pallet voli. */
 	protected ButtonGroup buttonGroupPalletVoli = new ButtonGroup();
+
+	/** The button group sesso. */
 	protected ButtonGroup buttonGroupSesso = new ButtonGroup();
+
+	/** The label tipo prenotazione. */
 	JLabel labelTipoPrenotazione= new JLabel();
+
+	/** The label passeggeri numero. */
 	JLabel labelPasseggeriNumero = new JLabel("1");
 
 
+	/** The rdbtn new radio button_uomo. */
 	JRadioButton rdbtnNewRadioButton_uomo = new JRadioButton("Uomo");
+
+	/** The rdbtn new radio button_donna. */
 	JRadioButton rdbtnNewRadioButton_donna = new JRadioButton("Donna");
 
+	/** The label resoconto passeggeri. */
 	JLabel labelResocontoPasseggeri = new JLabel("Lista passeggeri");
 
 
+	/**
+	 * Instantiates a new prenotazione view.
+	 */
 	public PrenotazioneView() {
 		setGraphic(); //setto le cose della grafica della finestra
 		setMenu(); //creo il menu
@@ -149,6 +254,9 @@ public class PrenotazioneView extends View {
 
 
 
+	/**
+	 * Sets the graphic.
+	 */
 	private void setGraphic(){
 		lookAndFeel();
 		setResizable(false);
@@ -162,6 +270,9 @@ public class PrenotazioneView extends View {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
+	/**
+	 * Sets the menu.
+	 */
 	private void setMenu(){
 		setJMenuBar(menuBar);
 		menuBar.add(mnFile);
@@ -169,9 +280,12 @@ public class PrenotazioneView extends View {
 		menuBar.add(mnInfo);
 		mnFile.add(mntmExit);
 		mnModifica.add(mntmSwitch);
-		mnInfo.add(mntmAboutUs);
+		mnInfo.add(mntmsuDiNoi);
 	}
 
+	/**
+	 * Sets the card esterne.
+	 */
 	private void setCardEsterne(){
 		Container contentPane = getContentPane();
 		contentPane.add(panelCardLayoutEsterno,BorderLayout.CENTER);
@@ -187,6 +301,9 @@ public class PrenotazioneView extends View {
 		passeggeri=true;
 	}
 
+	/**
+	 * Sets the card passeggeri.
+	 */
 	private void setCardPasseggeri(){
 		panelPasseggeriAeroporti.setLayout(null);
 		panelPasseggeri.add(panelPasseggeriAeroporti,"panelPasseggeriAeroporti");
@@ -197,6 +314,9 @@ public class PrenotazioneView extends View {
 		cardPasseggeri.show(panelPasseggeri,"panelPasseggeriAeroporti");
 	}
 
+	/**
+	 * Sets the card pallet.
+	 */
 	private void setCardPallet(){
 		panelPalletAeroporti.setLayout(null);
 		panelPallet.add(panelPalletAeroporti,"panelPalletAeroporti");
@@ -206,6 +326,11 @@ public class PrenotazioneView extends View {
 		panelPallet.add(panelPalletPallet,"panelPalletPallet");
 	}
 
+	/**
+	 * Sets the passeggeri aeroporti.
+	 *
+	 * @param aeroporti the new passeggeri aeroporti
+	 */
 	@SuppressWarnings("unchecked")
 	public void setPasseggeriAeroporti(List<Aeroporto> aeroporti){
 
@@ -252,6 +377,11 @@ public class PrenotazioneView extends View {
 		progressBar.setValue(2);
 	}
 
+	/**
+	 * Sets the passeggeri voli.
+	 *
+	 * @param voli the new passeggeri voli
+	 */
 	public void setPasseggeriVoli(List<Volo> voli){
 
 		JLabel labelTipoPrenotazione = new JLabel("Selezionare un volo:");
@@ -265,7 +395,7 @@ public class PrenotazioneView extends View {
 
 		panelPasseggeriVoliInterno.removeAll();
 
-		
+
 		Iterator<Volo> i = voli.iterator();
 		int verticalPosition = 10;
 		while(i.hasNext()) {
@@ -276,7 +406,7 @@ public class PrenotazioneView extends View {
 			panelPasseggeriVoliInterno.add(rdbtnNewRadioButton);
 			verticalPosition=verticalPosition+20;
 		}
-		
+
 
 		buttonPasseggeriConfermaVolo = new JButton("Conferma");
 		buttonPasseggeriConfermaVolo.setBounds(400, 327, 89, 23);
@@ -294,9 +424,12 @@ public class PrenotazioneView extends View {
 		repaint();
 	}
 
-	
-	
-	
+
+
+
+	/**
+	 * Sets the passeggeri passeggeri.
+	 */
 	@SuppressWarnings("unchecked")
 	protected void setPasseggeriPasseggeri(){
 
@@ -396,7 +529,7 @@ public class PrenotazioneView extends View {
 		buttonPasseggeriReset.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		buttonPasseggeriReset.setBounds(20, 270, 70, 23);
 		panelPasseggeriPasseggeri.add(buttonPasseggeriReset);
-		
+
 		buttonPasseggeriPrecedente = new JButton("<");
 		buttonPasseggeriPrecedente.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		buttonPasseggeriPrecedente.setBounds(165, 270, 40, 23);
@@ -452,6 +585,9 @@ public class PrenotazioneView extends View {
 
 	}
 
+	/**
+	 * Sets the resoconto.
+	 */
 	private void setResoconto(){
 		Iterator<Passeggero> el = listaPasseggeri.iterator();
 		int verticalPosition = 20;
@@ -470,6 +606,9 @@ public class PrenotazioneView extends View {
 	}
 
 
+	/**
+	 * Sets the pallet aeroporti.
+	 */
 	private void setPalletAeroporti(){
 
 		labelTipoPrenotazione.setText("Prenotazione Pallet 1/3");
@@ -505,6 +644,9 @@ public class PrenotazioneView extends View {
 		progressBar.setValue(2);
 	}
 
+	/**
+	 * Sets the pallet voli.
+	 */
 	public void setPalletVoli(){
 
 		JLabel labelTipoPrenotazione = new JLabel("Pallet");
@@ -544,6 +686,9 @@ public class PrenotazioneView extends View {
 		repaint();
 	}
 
+	/**
+	 * Sets the pallet pallet.
+	 */
 	public void setPalletPallet(){
 		JLabel labelTipoPrenotazione = new JLabel("Prenotazione Pallet 3/3");
 		labelTipoPrenotazione.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -590,6 +735,12 @@ public class PrenotazioneView extends View {
 
 
 	//dato un button group mi restituisce il nome
+	/**
+	 * Gets the selected button text.
+	 *
+	 * @param buttonGroup the button group
+	 * @return the selected button text
+	 */
 	public String getSelectedButtonText(ButtonGroup buttonGroup) {
 		for (Enumeration<AbstractButton> buttons = buttonGroup.getElements(); buttons.hasMoreElements();) {
 			AbstractButton button = buttons.nextElement();
@@ -602,11 +753,20 @@ public class PrenotazioneView extends View {
 	}
 
 
+	/** The last index. */
 	int lastIndex=0;
+
+	/** The current index. */
 	int currentIndex=0;
 
+	/** The passeggero corrente. */
 	Passeggero passeggeroCorrente=null;
 
+	/**
+	 * Save.
+	 *
+	 * @param p the p
+	 */
 	protected void save(Passeggero p){
 
 		Character sex = null;
@@ -621,12 +781,17 @@ public class PrenotazioneView extends View {
 		p.setAnno(Integer.parseInt(comboBoxAnno.getSelectedItem().toString()));
 		p.calcolaEta();
 		p.setIdVolo(idVoloSelezionato);
-		
+
 
 
 	}
 
 
+	/**
+	 * Controlla campi.
+	 *
+	 * @return true, if successful
+	 */
 	protected boolean controllaCampi(){
 		return !(textPasseggeriNome.getText().equals("") || 
 				textPasseggeriCognome.getText().equals("") || 
@@ -635,7 +800,12 @@ public class PrenotazioneView extends View {
 				comboBoxAnno.getSelectedIndex()==0
 				);
 	}
-	
+
+	/**
+	 * Campi vuoti.
+	 *
+	 * @return true, if successful
+	 */
 	protected boolean campiVuoti(){
 		return (textPasseggeriNome.getText().equals("") && 
 				textPasseggeriCognome.getText().equals("") && 
@@ -645,6 +815,9 @@ public class PrenotazioneView extends View {
 				);
 	}
 
+	/**
+	 * Update or save passeggero.
+	 */
 	protected void updateOrSavePasseggero(){
 		if(controllaCampi()){ 
 			if(passeggeroCorrente != null){ //riaggiorno il passeggero esistente
@@ -664,6 +837,9 @@ public class PrenotazioneView extends View {
 	}
 
 
+	/**
+	 * Passeggero successivo.
+	 */
 	protected void passeggeroSuccessivo(){
 		if(controllaCampi()){ 
 			updateOrSavePasseggero();
@@ -688,6 +864,9 @@ public class PrenotazioneView extends View {
 
 	}
 
+	/**
+	 * Passeggero precedente.
+	 */
 	protected void passeggeroPrecedente(){
 		if(controllaCampi() || campiVuoti()){ 
 			if(currentIndex!=lastIndex && !campiVuoti()){ 
@@ -696,19 +875,24 @@ public class PrenotazioneView extends View {
 			/*if(campiVuoti()){
 				listaPasseggeri.remove(currentIndex);
 			}*/
-			
+
 			currentIndex--;
 			passeggeroCorrente = listaPasseggeri.get(currentIndex);
 			mostraPasseggero(passeggeroCorrente);
 
 			labelPasseggeriNumero.setText(currentIndex+1+"");
-			
+
 		}else{
 			JOptionPane.showMessageDialog(null,"Completare prima il passeggero corrente o cliccare \"Svuota\"","Errore", 1);
 		}
 	}
 
 
+	/**
+	 * Mostra passeggero.
+	 *
+	 * @param p the p
+	 */
 	protected void mostraPasseggero(Passeggero p){
 
 		textPasseggeriNome.setText(p.getNome());

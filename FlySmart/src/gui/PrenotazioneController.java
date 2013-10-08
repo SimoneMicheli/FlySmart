@@ -5,44 +5,59 @@ import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.List;
-
 import exception.FlightNotFoundException;
 import exception.SeatsSoldOutException;
-
 import javax.swing.JOptionPane;
-
 import model.Aeroporto;
 import model.Volo;
 import network.ServerInterface;
 
 
+/**
+ * @author Demarinis - Micheli - Scarpellini
+ * Il controller della vista di prenotazione
+ */
 public class PrenotazioneController{
 
+	/** Il riferimento alla vista */
 	PrenotazioneView view;
+
+	/** L'oggetto per la connessione con il server */
 	ServerInterface serv;
 
+	/**
+	 * Crea un controller per la fase di prenotazione
+	 *
+	 * @param serv l'oggetto che la login mi passa per la connessione con il server
+	 */
 	public PrenotazioneController(ServerInterface serv){
-		view= new PrenotazioneView();
-		this.serv=serv;
+		view= new PrenotazioneView(); //creo la vista
 		view.setVisible(true);
-		initController();
-		registraController();
+		this.serv=serv;
+		caricaAeroporti();
+		registraControllerPrenotazione();
 	}
 
-	public void initController(){
+	/**
+	 * Carica gli aereoporti dal server
+	 */
+	public void caricaAeroporti(){
 		List<Aeroporto> aeroporti=null;
 		try {
 			aeroporti = serv.getAeroporti();
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(null, "Impossibile connettersi al server","Error", 0);
 			e.printStackTrace();
 		}
-		view.setPasseggeriAeroporti(aeroporti);
+		view.setPasseggeriAeroporti(aeroporti); //mostro la vista passeggeri:aeroporti
 
 	}
 
 
-	public void registraController() {
+	/**
+	 * Aggiungo i listner agli oggetti della facciata passeggeri:aeroporti e pallet:aeroporti
+	 */
+	public void registraControllerPrenotazione() {
 
 		//file->esci
 		view.mntmExit.addMouseListener(new MouseAdapter() {
@@ -57,48 +72,47 @@ public class PrenotazioneController{
 		view.mntmSwitch.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				if(view.passeggeri){
+				if(view.passeggeri){ //se sono su passeggeri
 					view.passeggeri=false;
 					view.cardEsterno.show(view.panelCardLayoutEsterno,"panelPallet");
-					System.out.println("Pallet!");
-				}else{
+				}else{ //se sono su pallet
 					view.passeggeri=true;
 					view.cardEsterno.show(view.panelCardLayoutEsterno,"panelPasseggeri");
-					System.out.println("Passeggeri!");
 				}
 			}
 
 		});
 
-		//info->about us
-		view.mntmAboutUs.addMouseListener(new MouseAdapter() {
+		//info->Chi siamo
+		view.mntmsuDiNoi.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				JOptionPane.showMessageDialog(null,"Siamo 3 geni","Ha ragione questo qui sotto.. Zizi", 1);
+				JOptionPane.showMessageDialog(null,"Siamo 3 geni","Ha ragione questo qui sotto.. ", 1);
 			}
 
 		});
 
 
-		//cerco il volo per i passeggeri
+		//conferma di passeggeri:aeroporti
 		view.buttonPasseggeriPasseggeriCercaVoli.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				int p = ((Aeroporto)view.comboPasseggeriAeroportoPartenza.getSelectedItem()).getId();
-				int a = ((Aeroporto)view.comboPasseggeriAeroportoArrivo.getSelectedItem()).getId();
-				if(p==a){
+				int p = ((Aeroporto)view.comboPasseggeriAeroportoPartenza.getSelectedItem()).getId();  //codice aeroporto di partenza
+				int a = ((Aeroporto)view.comboPasseggeriAeroportoArrivo.getSelectedItem()).getId();  //codice aeroporto di arrivo
+				if(p==a){ //scelta destinazione=partenza
 					JOptionPane.showMessageDialog(null,"Sei gia arrivato!","Complimenti!", 1);
 				}else{
-					if(view.comboPasseggeriAeroportoArrivo.getSelectedItem().toString()!="" && view.comboPasseggeriAeroportoPartenza.getSelectedItem().toString()!=""){
+					if(view.comboPasseggeriAeroportoArrivo.getSelectedItem().toString()!="" && view.comboPasseggeriAeroportoPartenza.getSelectedItem().toString()!=""){ //se non vuoti
 						List<Volo> voli=null;
 						try {
-							voli = serv.getVoli(p,a);
+							voli = serv.getVoli(p,a); //carico la lista dei voli
 						} catch (RemoteException e) {
+							JOptionPane.showMessageDialog(null, "Impossibile connettersi al server","Error", 0);
 							e.printStackTrace();
 						}
-						view.setPasseggeriVoli(voli);
-						registraControllerFase2Passeggeri();
-						view.cardPasseggeri.show(view.panelPasseggeri,"panelPasseggeriVoli");
+						view.setPasseggeriVoli(voli);  //carico gli oggetti nella facciata passeggeri:voli
+						registraControllerFase2Passeggeri(); //registro i listner della facciata passeggeri:voli
+						view.cardPasseggeri.show(view.panelPasseggeri,"panelPasseggeriVoli"); //visualizzo il pannello passeggeri:voli passandogli la lista dei voli
 					}
 				}
 
@@ -107,43 +121,41 @@ public class PrenotazioneController{
 
 		});
 
-		//cerco il volo per i pallet
-		view.buttonPalletPasseggeriCercaVoli.addMouseListener(new MouseAdapter() {
+		//TODO conferma di pallet:aeroporti
+		/*
+		 view.buttonPalletPasseggeriCercaVoli.addMouseListener(new MouseAdapter() {
+
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
 				if(view.comboPalletAeroportoArrivo.getSelectedItem().toString()!="" && view.comboPalletAeroportoPartenza.getSelectedItem().toString()!=""){
+
 					view.setPalletVoli();
 					registraControllerFase2Pallet();
 					view.cardPallet.show(view.panelPallet,"panelPalletVoli");
+					poi rimuovere suppress warning unused
 				}
-
 			}
-
 		});
-
+		 */
 
 	}
 
 
+	/**
+	 * Aggiungo i listner agli oggetti della facciata passeggeri:voli
+	 */
 	private void registraControllerFase2Passeggeri() {  
-		//non potevo registrare i pulsanti prima ancora di averli disegnati; non potevo disegnarli subito perche non sapevo che volo avrebbe scelto etc..
 
-
-		//annulla la fase due per i passeggeri
+		//annulla passeggeri:voli
 		view.buttonPasseggeriAnnullaVolo.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
 				view.cardPasseggeri.show(view.panelPasseggeri,"panelPasseggeriAeroporti");
-
 			}
 
 		});
 
-
-
-
-
-		//confermo il volo (fase 2) per i passeggeri
+		//confermo passeggeri:voli
 		view.buttonPasseggeriConfermaVolo.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
@@ -154,80 +166,45 @@ public class PrenotazioneController{
 					String[] temp = view.getSelectedButtonText(view.buttonGroupPasseggeriVoli).split(delimiter);
 					view.idVoloSelezionato= Integer.parseInt(temp[0]);
 
-
 					//richiamo la fase 3
 					view.setPasseggeriPasseggeri();
 					registraControllerFase3Passeggeri();
 					view.cardPasseggeri.show(view.panelPasseggeri,"panelPasseggeriPasseggeri");
 				}
 			}
-
 		});
-
 
 	}
 
 
 
-
-
-	private void registraControllerFase2Pallet() {
-		//confermo il volo (fase 2) per i pallet
-		view.buttonPalletConfermaVolo.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseReleased(MouseEvent arg0) {
-				if(view.buttonGroupPalletVoli.getSelection()!=null){
-					view.setPalletPallet();
-					registraControllerFase3Pallet();
-					view.cardPallet.show(view.panelPallet,"panelPalletPallet");
-				}
-			}
-
-		});
-		//annulla la fase due per i pallet
-		view.buttonPalletAnnullaVolo.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseReleased(MouseEvent arg0) {
-				view.cardPallet.show(view.panelPallet,"panelPalletAeroporti");
-
-			}
-
-		});
-	}
-
+	/**
+	 * Aggiungo i listner agli oggetti della facciata passeggeri:passeggeri
+	 */
 	private void registraControllerFase3Passeggeri() { 
-
-
-
-		//annulla la fase tre per i passeggeri
-		view.buttonPasseggeriAnnullaPrenotazione.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseReleased(MouseEvent arg0) {
-				view.cardPasseggeri.show(view.panelPasseggeri,"panelPasseggeriAeroporti");
-				//view.setPasseggeriPasseggeri();
-
-			}
-
-		});
-
-
-
-
-
-
 
 		// prossimo passeggero
 		view.buttonPasseggeriProssimo.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				view.passeggeroSuccessivo(); //lo aggiungo all'arraylist
+				view.passeggeroSuccessivo(); 
 
 			}
 
 		});
 
+		//precedente
+		view.buttonPasseggeriPrecedente.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				if(view.currentIndex!=0){
+					view.passeggeroPrecedente();
+				}
+			}
 
-		//svuota
+		});
+
+		//svuoto i campi del passeggero
 		view.buttonPasseggeriReset.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
@@ -241,78 +218,93 @@ public class PrenotazioneController{
 		});
 
 
-		//precedente
-		view.buttonPasseggeriPrecedente.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseReleased(MouseEvent arg0) {
-				if(view.currentIndex!=0){
-					view.passeggeroPrecedente();
-				}
-			}
-
-		});
-
-
-
-
-
-		//conferma definitiva prenotazione per passeggeri
+		//conferma passeggeri:passeggeri
 		view.buttonPasseggeriConfermaPrenotazione.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				if(view.controllaCampi() || (view.campiVuoti() && view.listaPasseggeri.size()!=0)){
+				if(view.controllaCampi() || (view.campiVuoti() && view.listaPasseggeri.size()!=0)){ //se sono pieni oppure vuoti
 					view.updateOrSavePasseggero();
-					view.cardPasseggeri.show(view.panelPasseggeri,"panelPasseggeriAeroporti");
-
 
 					try {
 						serv.prenotaPasseggero(view.listaPasseggeri, view.idVoloSelezionato);
-						JOptionPane.showMessageDialog(null,"Prenotazione effettuata con successo","", 0);
+						JOptionPane.showMessageDialog(null,"Prenotazione effettuata con successo","", 1);
+						view.cardPasseggeri.show(view.panelPasseggeri,"panelPasseggeriAeroporti"); //torno alla schermata iniziale
 					} catch (RemoteException e) {
-						// TODO Auto-generated catch block
 						JOptionPane.showMessageDialog(null,"Connessione persa","Errore", 1);
 						System.exit(0);
 						e.printStackTrace();
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();JOptionPane.showMessageDialog(null,"Errore di input","Errore", 1);
+						e.printStackTrace();JOptionPane.showMessageDialog(null,"Errore di input","Errore", 0);
 					} catch (FlightNotFoundException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();JOptionPane.showMessageDialog(null,"Volo non trovato, ritentare","Errore", 1);
+						e.printStackTrace();JOptionPane.showMessageDialog(null,"Volo non trovato, ritentare","Errore", 0);
 					} catch (SeatsSoldOutException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
-						JOptionPane.showMessageDialog(null,"I posti non sono più disponibili","Errore", 1);
+						JOptionPane.showMessageDialog(null,"I posti non sono più disponibili","Errore", 0);
 					}
-
-
 				}else{
-					JOptionPane.showMessageDialog(null,"","Errore", 1);
+					JOptionPane.showMessageDialog(null,"Completare l'inserimento dei dati","Errore", 1);
 
 				}
-
-
-				/*
-				//creo la lista passeggeri xml per prova
-				XMLCreate<Passeggero> xml = new XMLCreate<Passeggero>();
-				Document d = xml.createFlySmartDocument(view.listaPasseggeri);
-				try {
-					xml.printDocument(d, "passeggeri");
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-				 */
-
-
 
 			}
 		});
 
+		//annulla passeggeri:passeggeri
+		view.buttonPasseggeriAnnullaPrenotazione.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				view.cardPasseggeri.show(view.panelPasseggeri,"panelPasseggeriAeroporti");
+			}
+		});
 
 	}
 
+
+
+	/**
+	 * Aggiungo i listner agli oggetti della facciata pallet:voli
+	 */
+	@SuppressWarnings("unused")
+	private void registraControllerFase2Pallet() {
+
+		/*
+		//confermo pallet:voli
+		view.buttonPalletConfermaVolo.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				if(view.buttonGroupPalletVoli.getSelection()!=null){
+					view.setPalletPallet();
+					registraControllerFase3Pallet();
+					view.cardPallet.show(view.panelPallet,"panelPalletPallet");
+				}
+			}
+
+		});
+		//annulla pallet:voli
+		view.buttonPalletAnnullaVolo.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				view.cardPallet.show(view.panelPallet,"panelPalletAeroporti");
+
+			}
+
+		});
+		 */
+	}
+
+
+
+
+
+	/**
+	 * Aggiungo i listner agli oggetti della facciata pallet:pallet
+	 */
+	
+	@SuppressWarnings("unused")
 	private void registraControllerFase3Pallet() { 
-		//conferma definitiva prenotazione per pallet
+		/*
+		
+		//confermo pallet:pallet
 		view.buttonPalletConfermaPrenotazione.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
@@ -324,7 +316,7 @@ public class PrenotazioneController{
 
 		});
 
-		//annulla la fase tre per i pallet pi
+		//annullo pallet:pallet
 		view.buttonPalletAnnullaPrenotazione.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
@@ -332,14 +324,7 @@ public class PrenotazioneController{
 			}
 
 		});
+		*/
 	}
 
-
-
-
-
 }
-
-
-
-
