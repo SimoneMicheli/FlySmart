@@ -14,7 +14,7 @@ public class TestXML {
 	 */
 	public static void main(String[] args) throws IOException {
 		
-		/*
+		
 		List<Volo> elenco = new ArrayList<Volo>();
 		Date dt = new Date(5483267067974L);
 		elenco.add(new Volo(0,dt,1,2,3,4,5,9.0));
@@ -27,7 +27,7 @@ public class TestXML {
 		XMLCreate<Volo> instance3 = new XMLCreate<Volo>();
 		Document d2 = instance3.createFlySmartDocument(elenco2);
 		instance3.printDocument(d2, "secondo.xml");
-		*/
+		
 		
 		
 		List<Pallet> list = new ArrayList<Pallet>();

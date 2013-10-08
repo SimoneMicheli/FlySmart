@@ -4,8 +4,8 @@ import java.lang.reflect.Field;
 import java.util.List;
 
 public class Pallet extends Model {
+	
 	private static final long serialVersionUID = -5555020451242189950L;
-
 	private Double peso;
 	private String targa;
 	private Integer idVolo;

@@ -5,6 +5,10 @@ import java.util.Calendar;
 import java.util.List;
 
 public class Passeggero extends Model {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7403817763041464772L;
 	private Integer idGruppo;
 	private String nome;
 	private String cognome;
@@ -175,6 +179,11 @@ public class Passeggero extends Model {
 
 	public void setIdGruppo(Integer idGruppo) {
 		this.idGruppo = idGruppo;
+	}
+	
+
+	public static long getSerialVersionUID() {
+		return serialVersionUID;
 	}
 	
 	@Override
