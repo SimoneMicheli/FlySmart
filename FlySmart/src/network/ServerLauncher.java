@@ -59,10 +59,4 @@ public class ServerLauncher {
     	System.exit(0);
 	}
 	
-	@Override
-	protected void finalize() throws Throwable {
-		// TODO Auto-generated method stub
-		System.out.println("finalize mathod");
-		super.finalize();
-	}
 }

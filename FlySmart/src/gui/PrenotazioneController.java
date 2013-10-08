@@ -283,6 +283,7 @@ public class PrenotazioneController{
 
 					try {
 						serv.prenotaPasseggero(view.listaPasseggeri, view.idVoloSelezionato);
+						JOptionPane.showMessageDialog(null,"Prenotazione effettuata con successo","", 0);
 					} catch (RemoteException e) {
 						// TODO Auto-generated catch block
 						JOptionPane.showMessageDialog(null,"Connessione persa","Errore", 1);

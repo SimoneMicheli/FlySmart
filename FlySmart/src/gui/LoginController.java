@@ -14,11 +14,9 @@ import javax.swing.JOptionPane;
 import network.ServerInterface;
 
 
-public class LoginController implements Controller{
+public class LoginController {
 
-	/**
-	 * @param args
-	 */
+	
 	LoginView view;
 	PrenotazioneController p;
 	ServerInterface serv;
@@ -37,7 +35,6 @@ public class LoginController implements Controller{
 		view.Connect.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				System.out.println("Clic sul connect");
 				ok();
 			}
 			
@@ -68,7 +65,6 @@ public class LoginController implements Controller{
 			JOptionPane.showMessageDialog(null, "Inserire tutti i campi","Error", 0);
 		}else{
 			String url = "rmi://"+ view.ip.getText().toString() +":"+ view.port.getText().toString() +"/FlySmartServer";
-			System.out.println(url);
 			try {
 				serv = (ServerInterface) Naming.lookup(url);
 			
