@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 public class Volo extends Model {
+	
 	private static final long serialVersionUID = 1L;
 	private Date dataOra;
 	private Integer  aeroportoPartenza;

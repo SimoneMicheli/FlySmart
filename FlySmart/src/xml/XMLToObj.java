@@ -78,6 +78,12 @@ public class XMLToObj{
 	
 	public List<Aeroporto> createAeroportoList(String path){
 		List<Aeroporto> list = new ArrayList<Aeroporto>();
+		
+		//check if file exist otherwise return empty list
+		File file = new File(path);
+		if (!file.exists())
+			return list;
+		
 		try {
 			XMLLoad instance = new XMLLoad();
 			Document d = instance.loadDocument(path);
@@ -85,7 +91,7 @@ public class XMLToObj{
 
 			for (int i = 0; i < nodeList.getLength(); i++)
 			{
-				Map<String, String> map= new HashMap<String, String>();
+				Map<String, Object> map= new HashMap<String, Object>();
 				Node firstNode = nodeList.item(i);
 
 				if (firstNode.getNodeType() == Node.ELEMENT_NODE)
@@ -98,10 +104,28 @@ public class XMLToObj{
 						NodeList firstNameElementLst = firstElement.getElementsByTagName(name);
 						Element firstNameElement = (Element)firstNameElementLst.item(0);
 						NodeList firstName = firstNameElement.getChildNodes();
-						map.put(name, ((Node)firstName.item(0)).getNodeValue());
+						try{
+							String value = ((Node)firstName.item(0)).getNodeValue();
+							String type = f.getType().getName();
+							Object v = null;
+							
+							if(type.compareTo("java.lang.Integer") == 0){
+								v = Integer.valueOf(value);
+							}else if (type.compareTo("java.lang.Character") == 0){
+								v = value.charAt(0);
+							}else if (type.compareTo("java.lang.Double") == 0){
+								v= Double.valueOf(value);
+							}else{
+								v = value;
+							}
+							
+							map.put(name, v);
+						}catch(NullPointerException e){
+							map.put(name, null);
+						}
 					}
 					
-					Aeroporto toAdd = new Aeroporto(Integer.parseInt(map.get("id")), map.get("nome"), Double.parseDouble(map.get("prezzoCarburante")), Double.parseDouble(map.get("tasse")));
+					Aeroporto toAdd = new Aeroporto((Integer) map.get("id"), (String) map.get("nome"), (Double) map.get("prezzoCarburante"), (Double) map.get("tasse"));
 					list.add(toAdd);
 
 				}
@@ -116,6 +140,12 @@ public class XMLToObj{
 		
 	public List<Pallet> createPalletList(String path){
 		List<Pallet> list = new ArrayList<Pallet>();
+		
+		//check if file exist otherwise return empty list
+		File file = new File(path);
+		if (!file.exists())
+			return list;
+		
 		try {
 			XMLLoad instance = new XMLLoad();
 			Document d = instance.loadDocument(path);
@@ -123,7 +153,7 @@ public class XMLToObj{
 
 			for (int i = 0; i < nodeList.getLength(); i++)
 			{
-				Map<String, String> map= new HashMap<String, String>();
+				Map<String, Object> map= new HashMap<String, Object>();
 				Node firstNode = nodeList.item(i);
 
 				if (firstNode.getNodeType() == Node.ELEMENT_NODE)
@@ -136,10 +166,28 @@ public class XMLToObj{
 						NodeList firstNameElementLst = firstElement.getElementsByTagName(name);
 						Element firstNameElement = (Element)firstNameElementLst.item(0);
 						NodeList firstName = firstNameElement.getChildNodes();
-						map.put(name, ((Node)firstName.item(0)).getNodeValue());
+						try{
+							String value = ((Node)firstName.item(0)).getNodeValue();
+							String type = f.getType().getName();
+							Object v = null;
+							
+							if(type.compareTo("java.lang.Integer") == 0){
+								v = Integer.valueOf(value);
+							}else if (type.compareTo("java.lang.Character") == 0){
+								v = value.charAt(0);
+							}else if (type.compareTo("java.lang.Double") == 0){
+								v= Double.valueOf(value);
+							}else{
+								v = value;
+							}
+							
+							map.put(name, v);
+						}catch(NullPointerException e){
+							map.put(name, null);
+						}
 					}
 					
-					Pallet toAdd = new Pallet( Integer.parseInt(map.get("id")), Double.parseDouble(map.get("peso")), map.get("targa"), Integer.parseInt(map.get("idVolo")));
+					Pallet toAdd = new Pallet((Integer) map.get("id"), (Double) map.get("peso"), (String) map.get("targa"), (Integer) map.get("idVolo"));
 					list.add(toAdd);
 
 				}
