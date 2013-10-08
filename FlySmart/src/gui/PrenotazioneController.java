@@ -15,6 +15,9 @@ import java.util.Iterator;
 import java.util.List;
 import org.w3c.dom.*;
 
+import exception.FlightNotFoundException;
+import exception.SeatsSoldOutException;
+
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
 import javax.swing.JComboBox;
@@ -194,7 +197,14 @@ public class PrenotazioneController{
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
 				if(view.buttonGroupPasseggeriVoli.getSelection()!=null){
-					System.out.println(view.getSelectedButtonText(view.buttonGroupPasseggeriVoli));
+					
+					//risalgo all'id del volo
+					String delimiter = " ";
+					String[] temp = view.getSelectedButtonText(view.buttonGroupPasseggeriVoli).split(delimiter);
+					view.idVoloSelezionato= Integer.parseInt(temp[0]);
+					
+					
+					//richiamo la fase 3
 					view.setPasseggeriPasseggeri();
 					registraControllerFase3Passeggeri();
 					view.cardPasseggeri.show(view.panelPasseggeri,"panelPasseggeriPasseggeri");
@@ -306,11 +316,35 @@ public class PrenotazioneController{
 					view.updateOrSavePasseggero();
 					view.cardPasseggeri.show(view.panelPasseggeri,"panelPasseggeriAeroporti");
 					JOptionPane.showMessageDialog(null,view.listaPasseggeri.toString(),"Dato", 1);
+					
+					
+					try {
+						serv.prenotaPasseggero(view.listaPasseggeri, view.idVoloSelezionato);
+					} catch (RemoteException e) {
+						// TODO Auto-generated catch block
+						JOptionPane.showMessageDialog(null,"Connessione persa","Errore", 1);
+						System.exit(0);
+						e.printStackTrace();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();JOptionPane.showMessageDialog(null,"Errore di input","Errore", 1);
+					} catch (FlightNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();JOptionPane.showMessageDialog(null,"Volo non trovato, ritentare","Errore", 1);
+					} catch (SeatsSoldOutException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						JOptionPane.showMessageDialog(null,"I posti non sono più disponibili","Errore", 1);
+					}
+					
+					
 				}else{
 					JOptionPane.showMessageDialog(null,"","Errore", 1);
 					
 				}
 
+				
+				/*
 				//creo la lista passeggeri xml per prova
 				XMLCreate<Passeggero> xml = new XMLCreate<Passeggero>();
 				Document d = xml.createFlySmartDocument(view.listaPasseggeri);
@@ -319,7 +353,7 @@ public class PrenotazioneController{
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-
+				 */
 
 
 

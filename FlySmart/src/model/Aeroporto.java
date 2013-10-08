@@ -52,7 +52,7 @@ public class Aeroporto extends Model {
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return id+ " "+nome;
+		return nome;
 	}
 
 	@Override
