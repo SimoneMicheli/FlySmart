@@ -4,3 +4,9 @@
 *.jar
 *.war
 *.ear
+
+#project file#
+aeroporti.xml
+config.xml
+voli.xml
+volo_*.xml

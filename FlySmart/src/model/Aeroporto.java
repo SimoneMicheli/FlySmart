@@ -9,10 +9,6 @@ public class Aeroporto extends Model {
 	 * 
 	 */
 	private static final long serialVersionUID = -5654644415727177592L;
-	
-	public static long getSerialVersionUID() {
-		return serialVersionUID;
-	}
 	private String nome;
 	private Double prezzoCarburante;
 	private Double tasse;
@@ -47,6 +43,12 @@ public class Aeroporto extends Model {
 	public void setTasse(Double tasse) {
 		this.tasse = tasse;
 	}
+	
+	
+	public static long getSerialVersionUID() {
+		return serialVersionUID;
+	}
+	
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub

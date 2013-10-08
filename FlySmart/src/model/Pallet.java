@@ -4,9 +4,9 @@ import java.lang.reflect.Field;
 import java.util.List;
 
 public class Pallet extends Model {
+	
 	private static final long serialVersionUID = -5555020451242189950L;
-
-	private double peso;
+	private Double peso;
 	private String targa;
 	private Integer idVolo;
 	
@@ -41,6 +41,10 @@ public class Pallet extends Model {
 	}
 	public void setIdVolo(Integer idVolo) {
 		this.idVolo = idVolo;
+	}
+	
+	public static long getSerialVersionUID() {
+		return serialVersionUID;
 	}
 	
 	@Override

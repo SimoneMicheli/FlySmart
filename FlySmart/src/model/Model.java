@@ -22,7 +22,7 @@ public abstract class Model implements SortableList<Integer>, GetFields, Seriali
 	/**
 	 * @return the id
 	 */
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 

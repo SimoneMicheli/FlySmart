@@ -1,10 +1,12 @@
 package model;
 
 import java.lang.reflect.Field;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 public class Volo extends Model {
+	
 	private static final long serialVersionUID = 1L;
 	private Date dataOra;
 	private Integer  aeroportoPartenza;
@@ -92,7 +94,8 @@ public class Volo extends Model {
 
 	@Override
 	public String toString() {
-		return id + "         " + dataOra + "          " +postiDisponibili+ " posti disponibili";
+		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+		return  format.format(dataOra) + "          " +postiDisponibili+ " posti disponibili";
 	}
 
 
