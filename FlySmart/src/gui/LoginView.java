@@ -14,7 +14,7 @@ public class LoginView extends View {
 	private JPanel contentPane;
 	protected JTextField ip;
 	protected JTextField port;
-	public JButton Connect,Reset ;
+	public JButton Connect;
 	
 
 	public LoginView() {
@@ -43,12 +43,9 @@ public class LoginView extends View {
 		contentPane.setLayout(null);
 		
 		Connect = new JButton("Connettiti");
-		Connect.setBounds(10, 73, 120, 23);
+		Connect.setBounds(10, 73, 254, 23);
 		contentPane.add(Connect);
 		
-		Reset = new JButton("Reset");
-		Reset.setBounds(140, 73, 126, 23);
-		contentPane.add(Reset);
 		
 		ip = new JTextField();
 		ip.setText("localhost");

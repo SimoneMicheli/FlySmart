@@ -59,14 +59,6 @@ public class LoginController implements Controller{
 			}
 		});
 		
-		view.Reset.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseReleased(MouseEvent arg0) {
-				System.out.println("Clic sul reset");
-				view.ip.setText("");
-				view.port.setText("");
-			}
-		});
 		
 		
 	}

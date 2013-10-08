@@ -5,14 +5,10 @@ package gui;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Insets;
 import java.awt.Toolkit;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Iterator;
@@ -33,16 +29,17 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
-import javax.swing.border.Border;
 
 import model.Aeroporto;
 import model.Passeggero;
 import model.Volo;
 
 
-@SuppressWarnings("serial")
 public class PrenotazioneView extends View {
-
+	
+	Integer idVoloSelezionato=null;
+	
+	private static final long serialVersionUID = 7352763063630645243L;
 	//pannelli livello 1
 	protected JPanel panelCardLayoutEsterno=new JPanel(); //pannello per switchare da passeggeri a pallet
 	//pannelli livello 2
@@ -307,7 +304,7 @@ public class PrenotazioneView extends View {
 		panelPasseggeriPasseggeri.add(labelTipoPrenotazione);
 
 
-		JLabel labelResocontoVolo = new JLabel("From: Milano   To: Bergamo");
+		JLabel labelResocontoVolo = new JLabel("ID: "+idVoloSelezionato + " From: Milano   To: Bergamo");
 		labelResocontoVolo.setFont(new Font("Arial", Font.PLAIN, 14));
 		labelResocontoVolo.setBounds(18, 58, 482, 25);
 		panelPasseggeriPasseggeri.add(labelResocontoVolo);
@@ -621,12 +618,8 @@ public class PrenotazioneView extends View {
 		p.setMese(Integer.parseInt(comboBoxMese.getSelectedItem().toString()));
 		p.setAnno(Integer.parseInt(comboBoxAnno.getSelectedItem().toString()));
 		p.calcolaEta();
-		//per test XML: la classe XMLCreate non va se non ho settato tutti i parametri
-		p.setId(0);
-		p.setIdGruppo(0);
-		p.setPesoBagagli(10.0);
-		p.setPosto(2);
-		p.setIdVolo(5);
+		p.setIdVolo(idVoloSelezionato);
+		
 
 
 	}
