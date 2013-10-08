@@ -1,5 +1,6 @@
 package xmlCreator;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.LinkedList;
@@ -19,6 +20,7 @@ public class Creator {
 	public static void main(String[] args)  {
 		// TODO Auto-generated method stub
 		try {
+			cancellaConfigFile();
 			creaAeroporti();
 			creaVoli();
 			
@@ -29,6 +31,20 @@ public class Creator {
 		
 	}
 
+	public static void cancellaConfigFile(){
+		File f = new File("config.xml");
+		if (!f.exists()){
+		     System.out.println("config file not exist");
+		     return;
+		}
+		Boolean rx = f.delete();
+		
+		if(rx)
+			System.out.println("config file deleted");
+		else
+			System.err.println("can't delete config file");
+	}
+	
 	public static void creaAeroporti() throws IOException{
 		List<Aeroporto> elencoAeroporti;
 		elencoAeroporti = new LinkedList<Aeroporto>();
