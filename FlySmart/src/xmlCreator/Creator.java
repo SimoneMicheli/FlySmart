@@ -110,16 +110,49 @@ public class Creator {
 	public static void creaVoli() throws IOException{
 		List<Volo> voli = new LinkedList<Volo>();
 		Calendar c = Calendar.getInstance();
+		int idIncr = 0;
 		
+		for(int i = 1; i<54; i++)
+		{
+			for(int j = 1; j<54; j++)
+			{
+				if(i!=j)
+					for(int n = 0; n < (int) (Math.random()*(7-1)+1); n++)
+						{
+							int rMese = (int) (Math.random()*(12-0)+0);
+							boolean repeat = true;
+							int rGiorno = 1;
+							while(repeat)
+							{
+								rGiorno = (int) (Math.random()*(32-1)+1);
+								repeat= false;
+								if(rMese == 1)
+									if(rGiorno>28)
+										repeat = true;
+								if(rMese == 3 || rMese == 5 || rMese == 8 || rMese == 10 )
+										if(rGiorno>31)
+											repeat=true;
+							}
+							c.set(2014,(int) rMese, rGiorno, (int) (Math.random()*(23-0)+1), (int) (Math.random()*(59-0)+1));
+							double result =  (Math.random()*(110-40)+40)*100;
+							result = Math.round(result);
+							result = result/100;
+							voli.add(new Volo(idIncr, c.getTime(), i, j, (int) (Math.random()*(100-1)+1), 300, 50, result));
+							idIncr++;
+						}
+			}
+		}
+		
+		/*
 		c.set(2013, 10, 20, 15, 0);
-		voli.add(new Volo(1, c.getTime() , 1, 2, 767, 100, 15,2.0));
+		voli.add(new Volo(1, c.getTime() , 1, 2, 767, 100, 15, 2.0));
 		c.set(2014, 4, 10, 4, 10);
 		voli.add(new Volo(2, c.getTime() , 1, 2, 767, 100, 15, 2.0));
 		c.set(2013, 12, 25, 13, 0);
 		voli.add(new Volo(3, c.getTime() , 1, 2, 767, 100, 15, 2.0));
 		c.set(2013, 11, 29, 2, 0);
 		voli.add(new Volo(4, c.getTime() , 1, 2, 767, 100, 15, 2.0));
-		
+		*/
 		XMLCreate<Volo> XMLVoli = new XMLCreate<Volo>();
 		Document d = XMLVoli.createFlySmartDocument(voli);
 		XMLVoli.printDocument(d,"voli.xml");
