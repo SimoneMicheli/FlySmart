@@ -72,13 +72,13 @@ public class PrenotazioneController{
 		view.mntmSwitch.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				if(view.passeggeri){ //se sono su passeggeri
+				/*if(view.passeggeri){ //se sono su passeggeri
 					view.passeggeri=false;
 					view.cardEsterno.show(view.panelCardLayoutEsterno,"panelPallet");
 				}else{ //se sono su pallet
 					view.passeggeri=true;
 					view.cardEsterno.show(view.panelCardLayoutEsterno,"panelPasseggeri");
-				}
+				}*/
 			}
 
 		});
@@ -164,7 +164,7 @@ public class PrenotazioneController{
 					//risalgo all'id del volo
 					String delimiter = " ";
 					String[] temp = view.getSelectedButtonText(view.buttonGroupPasseggeriVoli).split(delimiter);
-					view.idVoloSelezionato= Integer.parseInt(temp[0]);
+					view.idVoloSelezionatoPasseggeri= Integer.parseInt(temp[0]);
 
 					//richiamo la fase 3
 					view.setPasseggeriPasseggeri();
@@ -226,7 +226,7 @@ public class PrenotazioneController{
 					view.updateOrSavePasseggero();
 
 					try {
-						serv.prenotaPasseggero(view.listaPasseggeri, view.idVoloSelezionato);
+						serv.prenotaPasseggero(view.listaPasseggeri, view.idVoloSelezionatoPasseggeri);
 						JOptionPane.showMessageDialog(null,"Prenotazione effettuata con successo","", 1);
 						view.cardPasseggeri.show(view.panelPasseggeri,"panelPasseggeriAeroporti"); //torno alla schermata iniziale
 					} catch (RemoteException e) {
@@ -242,7 +242,7 @@ public class PrenotazioneController{
 						JOptionPane.showMessageDialog(null,"I posti non sono più disponibili","Errore", 0);
 					}
 				}else{
-					JOptionPane.showMessageDialog(null,"Completare l'inserimento dei dati","Errore", 1);
+					JOptionPane.showMessageDialog(null,"Completare l'inserimento dei dati","Errore", 0);
 
 				}
 

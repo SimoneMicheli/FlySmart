@@ -1,6 +1,7 @@
 package exception;
 
 /**
+ * @author Demarinis - Micheli - Scarpellini
  * eccezione lanciata se il volo cercato
  * ha posti residui insufficienti
  *

@@ -11,8 +11,8 @@ import exception.SeatsSoldOutException;
 import model.*;
 
 /**
+ * @author Demarinis - Micheli - Scarpellini
  * interfaccia server, definisce i metodi eseguibili dai client
- * @author 
  *
  */
 public interface ServerInterface extends Remote {

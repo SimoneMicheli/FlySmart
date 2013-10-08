@@ -6,6 +6,7 @@ import model.Aeroporto;
 
 /**
  * 
+ * @author Demarinis - Micheli - Scarpellini
  * implementa l'intefaccia comparator che permette di ordinare gli aeroporti
  * secondo i seguenti criteri
  * ID_ORDER: ordinamento crescente per id

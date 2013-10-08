@@ -1,7 +1,3 @@
-/*
- * 
- */
-
 package gui;
 
 
@@ -16,7 +12,6 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
-
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -31,7 +26,6 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
-
 import model.Aeroporto;
 import model.Passeggero;
 import model.Volo;
@@ -39,223 +33,171 @@ import model.Volo;
 // TODO: Auto-generated Javadoc
 /**
  * The Class PrenotazioneView.
+ *
+ * @author Demarinis - Micheli - Scarpellini
+ * La vista della prenotazione
  */
+
 @SuppressWarnings("rawtypes")
 public class PrenotazioneView extends View {
 
-	/** The id volo selezionato. */
-	int idVoloSelezionato;
-
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 7352763063630645243L;
+
+
 	//pannelli livello 1
-	/** The panel card layout esterno. */
-	protected JPanel panelCardLayoutEsterno=new JPanel(); //pannello per switchare da passeggeri a pallet
+	/** I layout per il card layout */
+	protected CardLayout cardEsterno = new CardLayout();
+	protected CardLayout cardPasseggeri = new CardLayout();
+	protected CardLayout cardPallet = new CardLayout();
+	/** il pannello esterno per switchare da passeggeri a pallet. */
+	protected JPanel panelCardLayoutEsterno=new JPanel();
 	//pannelli livello 2
-	/** The panel passeggeri. */
-	protected JPanel panelPasseggeri=new JPanel(); //pannello contentente tutta l'applicazione per i passeggeri
-
-	/** The panel pallet. */
-	protected JPanel panelPallet=new JPanel(); //pannello contentente tutta l'applicazione per i pallett
+	/** pannello contentente tutta l'applicazione per i passeggeri. */
+	protected JPanel panelPasseggeri=new JPanel();
+	/** pannello contentente tutta l'applicazione per i pallett. */
+	protected JPanel panelPallet=new JPanel();
 	//pannelli livello 3 passeggeri
-	/** The panel passeggeri aeroporti. */
-	protected JPanel panelPasseggeriAeroporti = new JPanel(); //pannello contenente gli aeroporti per l'applicazione passeggeri (3aa)
-
-	/** The panel passeggeri voli. */
-	protected JPanel panelPasseggeriVoli = new JPanel(); //pannello contenente i voli per l'applicazione passeggeri (3ab)
-
-	/** The panel passeggeri voli interno. */
-	protected JPanel panelPasseggeriVoliInterno = new JPanel(); //pannello contenente proprio l'elenco dei voli
-
-	/** The panel passeggeri passeggeri. */
-	protected JPanel panelPasseggeriPasseggeri = new JPanel(); //pannello contenente i dati dei passeggeri per l'applicazione passeggeri (3ac)
-	//non serve piu protected JPanel panelPasseggeriPasseggeriInterno = new JPanel(); //pannello contenente proprio l'elenco dei passeggeri
-	/** The panel resoconto. */
-	JPanel panelResoconto = new JPanel();
-
+	/** pannello contenente gli aeroporti per l'applicazione passeggeri. */
+	protected JPanel panelPasseggeriAeroporti = new JPanel();
+	/** pannello contenente i voli per l'applicazione passeggeri. */
+	protected JPanel panelPasseggeriVoli = new JPanel();
+	/** parte sinistra dei dati dei passeggeri per l'applicazione passeggeri. */
+	protected JPanel panelPasseggeriPasseggeri = new JPanel();
+	/** parte destra dei dati dei passeggeri per l'applicazione passeggeri (resoconto passeggeri). */
+	protected JPanel panelResoconto = new JPanel();
 	//pannelli livello 3 pallet
-	/** The panel pallet aeroporti. */
-	protected JPanel panelPalletAeroporti = new JPanel(); //pannello contenente gli aeroporti per l'applicazione pallet (3ba)
+	/** pannello contenente gli aeroporti per l'applicazione pallet. */
+	protected JPanel panelPalletAeroporti = new JPanel();
+	/** pannello contenente i voli per l'applicazione pallet. */
+	protected JPanel panelPalletVoli = new JPanel();
+	/** pannello contenente i dati dei pallet per l'applicazione pallet. */
+	protected JPanel panelPalletPallet = new JPanel();
 
-	/** The panel pallet voli. */
-	protected JPanel panelPalletVoli = new JPanel(); //pannello contenente i voli per l'applicazione pallet (3bb)
-
-	/** The panel pallet voli interno. */
-	protected JPanel panelPalletVoliInterno = new JPanel();  //pannello contenente proprio l'elenco dei voli
-
-	/** The panel pallet pallet. */
-	protected JPanel panelPalletPallet = new JPanel(); //pannello contenente i dati dei pallet per l'applicazione pallet (3bc)
-
-
-	//barra del menu
-	/** The menu bar. */
+	//barra degli strumenti
+	/** container degli strumenti. */
 	JMenuBar menuBar = new JMenuBar();
-	//pulsanti nel menu
-	/** The mn file. */
-	JMenu mnFile = new JMenu("File");
+	//pulsanti 
+	/** strumento file. */
+	protected JMenu mnFile = new JMenu("File");
+	/** strumento modifica. */
+	protected JMenu mnModifica = new JMenu("Modifica");
+	/** strumento info. */
+	protected JMenu mnInfo = new JMenu("Info");
+	//opzioni
+	/** opzione esci. */
+	protected JMenuItem mntmExit = new JMenuItem("Esci");
+	/** opzione switch. */
+	protected JMenuItem mntmSwitch = new JMenuItem("Cambia");
+	/** opzione su di noi. */
+	protected JMenuItem mntmsuDiNoi = new JMenuItem("Su di noi");
 
-	/** The mn modifica. */
-	JMenu mnModifica = new JMenu("Modifica");
+	//combo box
+	/** La combo box per la scelta dell'aeroporto di partenza per i passeggeri. */
+	protected JComboBox comboPasseggeriAeroportoPartenza= new JComboBox();
+	/** La combo box per la scelta dell'aeroporto di arrivo per i passeggeri. */
+	protected JComboBox comboPasseggeriAeroportoArrivo = new JComboBox();
+	/** La combo box per la scelta dell'aeroporto di partenza per i pallet. */
+	protected JComboBox comboPalletAeroportoPartenza= new JComboBox();
+	/** La combo box per la scelta dell'aeroporto di arrivo per i pallet. */
+	protected JComboBox comboPalletAeroportoArrivo = new JComboBox();
 
-	/** The mn info. */
-	JMenu mnInfo = new JMenu("Info");
-	//varie opzioni
-	/** The mntm exit. */
-	JMenuItem mntmExit = new JMenuItem("Esci");
-
-	/** The mntm switch. */
-	JMenuItem mntmSwitch = new JMenuItem("Cambia");
-
-	/** The mntmsu di noi. */
-	JMenuItem mntmsuDiNoi = new JMenuItem("Su di noi");
-
-	//scelte
-
-
-
-	/** The combo passeggeri aeroporto partenza. */
-	JComboBox comboPasseggeriAeroportoPartenza= new JComboBox();
-
-
-	/** The combo passeggeri aeroporto arrivo. */
-	JComboBox comboPasseggeriAeroportoArrivo = new JComboBox();
-
-	/** The combo pallet aeroporto partenza. */
-	JComboBox comboPalletAeroportoPartenza= new JComboBox();
-
-	/** The combo pallet aeroporto arrivo. */
-	JComboBox comboPalletAeroportoArrivo = new JComboBox();
-
-
-
+	//text-field
 	/** The text passeggeri nome. */
-	JTextField textPasseggeriNome = new JTextField();
-
+	protected JTextField textPasseggeriNome = new JTextField();
 	/** The text passeggeri cognome. */
-	JTextField textPasseggeriCognome = new JTextField();
-
-	/** The combo box giorno. */
-	JComboBox comboBoxGiorno = new JComboBox();
-
-	/** The combo box mese. */
-	JComboBox comboBoxMese = new JComboBox();
-
-	/** The combo box anno. */
-	JComboBox comboBoxAnno = new JComboBox();
-
-	//button 1 livello
-	/** The button passeggeri passeggeri cerca voli. */
-	protected JButton buttonPasseggeriPasseggeriCercaVoli;
-
-	/** The button pallet passeggeri cerca voli. */
-	protected JButton buttonPalletPasseggeriCercaVoli;
-	//button 2 livello
-	/** The button passeggeri annulla volo. */
-	protected JButton buttonPasseggeriConfermaVolo,buttonPasseggeriAnnullaVolo;
-
-	/** The button pallet annulla volo. */
-	protected JButton buttonPalletConfermaVolo,buttonPalletAnnullaVolo;
-	//button 3 livello
-	/** The button passeggeri precedente. */
-	protected JButton buttonPasseggeriAnnullaPrenotazione,buttonPasseggeriConfermaPrenotazione,buttonPasseggeriProssimo,buttonPasseggeriPrecedente;
-
-	/** The button passeggeri reset. */
-	protected JButton buttonPalletAnnullaPrenotazione,buttonPalletConfermaPrenotazione,buttonPasseggeriReset;
-
-	//arraylist per i dati dei passeggeri
-	/** The nomi passeggeri. */
-	protected ArrayList<JTextField> nomiPasseggeri = new ArrayList<JTextField>();
-
-	/** The cognomi passeggeri. */
-	protected ArrayList<JTextField> cognomiPasseggeri = new ArrayList<JTextField>();
-
-	/** The sesso passeggeri. */
-	protected ArrayList<JComboBox> sessoPasseggeri = new ArrayList<JComboBox>();
-
-	/** The giorno nascita passeggeri. */
-	protected ArrayList<JComboBox> giornoNascitaPasseggeri = new ArrayList<JComboBox>();
-
-	/** The mese nascita passeggeri. */
-	protected ArrayList<JComboBox> meseNascitaPasseggeri = new ArrayList<JComboBox>();
-
-	/** The anno nascita passeggeri. */
-	protected ArrayList<JComboBox> annoNascitaPasseggeri = new ArrayList<JComboBox>();
-
-	/** The lista passeggeri. */
-	protected ArrayList<Passeggero> listaPasseggeri = new ArrayList<Passeggero>();
-
-	//dati dei pallet
+	protected JTextField textPasseggeriCognome = new JTextField();
 	/** The text field targa pallet. */
 	protected JTextField textFieldTargaPallet = new JTextField();
-
 	/** The text field peso pallet. */
 	protected JTextField textFieldPesoPallet = new JTextField();
 
+	//combo-box
+	/** The combo box giorno. */
+	protected JComboBox comboBoxGiorno = new JComboBox();
+	/** The combo box mese. */
+	protected JComboBox comboBoxMese = new JComboBox();
+	/** The combo box anno. */
+	protected JComboBox comboBoxAnno = new JComboBox();
 
-	//varie variabili
-	/** The dimensione finestra. */
-	Dimension dimensioneFinestra = new Dimension(508,440);
-
-	/** The card esterno. */
-	protected CardLayout cardEsterno = new CardLayout();
-
-	/** The card passeggeri. */
-	protected CardLayout cardPasseggeri = new CardLayout();
-
-	/** The card pallet. */
-	protected CardLayout cardPallet = new CardLayout();
-
-	/** The passeggeri. */
-	protected boolean passeggeri; //true: sono nel pannello passeggeri; false: sono nel pannello pallet
-
+	//button-group
 	/** The button group passeggeri voli. */
 	protected ButtonGroup buttonGroupPasseggeriVoli = new ButtonGroup();
-
 	/** The button group pallet voli. */
 	protected ButtonGroup buttonGroupPalletVoli = new ButtonGroup();
-
 	/** The button group sesso. */
 	protected ButtonGroup buttonGroupSesso = new ButtonGroup();
+	protected JRadioButton rdbtnNewRadioButton_uomo = new JRadioButton("Uomo");
+	protected JRadioButton rdbtnNewRadioButton_donna = new JRadioButton("Donna");
 
+	//label
 	/** The label tipo prenotazione. */
-	JLabel labelTipoPrenotazione= new JLabel();
+	protected JLabel labelTipoPrenotazione= new JLabel();
+	/** label contenente il numero del passeggero corrente. */
+	protected JLabel labelNumeroPasseggero = new JLabel("1");
+	/** The label lista passeggeri */
+	protected JLabel labelListaPasseggeri = new JLabel("Lista passeggeri");
 
-	/** The label passeggeri numero. */
-	JLabel labelPasseggeriNumero = new JLabel("1");
+	//button 1 livello
+	/** conferma la fase passeggeri:aeroporti */
+	protected JButton buttonPasseggeriPasseggeriCercaVoli;
+	/** conferma la fase pallet:aeroporti */
+	protected JButton buttonPalletPasseggeriCercaVoli;
+	//button 2 livello
+	/** conferma la fase passeggeri:voli */
+	protected JButton buttonPasseggeriConfermaVolo;
+	/** conferma la fase pallet:voli */
+	protected JButton buttonPalletConfermaVolo;
+	/** annulla la fase passeggeri:voli */
+	protected JButton buttonPasseggeriAnnullaVolo;
+	/** annulla la fase pallet:voli */
+	protected JButton buttonPalletAnnullaVolo;
+	//button 3 livello
+	/** conferma la fase passeggeri:passeggeri */
+	protected JButton buttonPasseggeriConfermaPrenotazione;
+	/** conferma la fase pallet:passeggeri */
+	protected JButton buttonPalletConfermaPrenotazione;
+	/** annulla la fase passeggeri:passeggeri */
+	protected JButton buttonPasseggeriAnnullaPrenotazione;
+	/** annulla la fase pallet:passeggeri */
+	protected JButton buttonPalletAnnullaPrenotazione;
+	/** passa al prossimo passeggero */
+	protected JButton buttonPasseggeriProssimo;
+	/** passa al passeggero precedente */
+	protected JButton buttonPasseggeriPrecedente;
+	/** resetta i campi dei passeggeri */
+	protected JButton buttonPasseggeriReset;
 
-
-	/** The rdbtn new radio button_uomo. */
-	JRadioButton rdbtnNewRadioButton_uomo = new JRadioButton("Uomo");
-
-	/** The rdbtn new radio button_donna. */
-	JRadioButton rdbtnNewRadioButton_donna = new JRadioButton("Donna");
-
-	/** The label resoconto passeggeri. */
-	JLabel labelResocontoPasseggeri = new JLabel("Lista passeggeri");
-
+	//varie variabili
+	/** la dimensione della finestra */
+	protected Dimension dimensioneFinestra = new Dimension(508,440);
+	/** true: sono nel pannello passeggeri; false: sono nel pannello pallet */
+	protected boolean passeggeri;
+	/** il volo selezionato dalla fase passeggeri:voli. */
+	int idVoloSelezionatoPasseggeri;
+	/** la lista dei passeggeri da inviare */
+	protected ArrayList<Passeggero> listaPasseggeri = new ArrayList<Passeggero>();
+	/** indice dell'ultimo passeggero inserito nella prenotazione attuale */
+	int lastIndex=0;
+	/** indice del passeggero visualizzato */
+	int currentIndex=0;
+	/** passeggero visualizzato */
+	Passeggero passeggeroCorrente=null;
 
 	/**
-	 * Instantiates a new prenotazione view.
+	 * crea la vista prenotazione
 	 */
 	public PrenotazioneView() {
-		setGraphic(); //setto le cose della grafica della finestra
-		setMenu(); //creo il menu
-		setCardEsterne(); //creo le card esterne (passeggeri/pallett)
-		setCardPasseggeri(); //creo le card interne dell'applicazione passeggeri (aeroporti/voli/passeggeri)
-		setCardPallet(); //creo le card interne dell'applicazione pallet (aeroporti/voli/pallet)
-		//setPasseggeriAeroporti(); //riempio livello 3aa
-		//setPasseggeriVoli(); //riempio livello 3ab
-		//setPasseggeriPasseggeri(); //riempio livello 3ac
-		setPalletAeroporti(); //riempio livello 3ba
-		//setPalletVoli(); //riempio livello 3bb
-		//setPalletPallet(); //riempio livello 3bc
+		setGraphic();
+		setMenu();
+		setCardEsterne();
+		setCardPasseggeri();
+		setCardPallet();
 	}
 
 
-
-
 	/**
-	 * Sets the graphic.
+	 * setto le cose della grafica della finestra
 	 */
 	private void setGraphic(){
 		lookAndFeel();
@@ -271,7 +213,7 @@ public class PrenotazioneView extends View {
 	}
 
 	/**
-	 * Sets the menu.
+	 * creo il menu
 	 */
 	private void setMenu(){
 		setJMenuBar(menuBar);
@@ -284,13 +226,12 @@ public class PrenotazioneView extends View {
 	}
 
 	/**
-	 * Sets the card esterne.
+	 * creo le card esterne (passeggeri/pallett)
 	 */
 	private void setCardEsterne(){
 		Container contentPane = getContentPane();
 		contentPane.add(panelCardLayoutEsterno,BorderLayout.CENTER);
 		panelCardLayoutEsterno.setLayout(cardEsterno);
-
 		//pannello passeggeri
 		panelPasseggeri.setLayout(cardPasseggeri);
 		panelCardLayoutEsterno.add(panelPasseggeri,"panelPasseggeri");
@@ -302,7 +243,7 @@ public class PrenotazioneView extends View {
 	}
 
 	/**
-	 * Sets the card passeggeri.
+	 * creo le card interne dell'applicazione passeggeri (aeroporti/voli/passeggeri)
 	 */
 	private void setCardPasseggeri(){
 		panelPasseggeriAeroporti.setLayout(null);
@@ -315,7 +256,7 @@ public class PrenotazioneView extends View {
 	}
 
 	/**
-	 * Sets the card pallet.
+	 * creo le card interne dell'applicazione pallet (aeroporti/voli/pallet)
 	 */
 	private void setCardPallet(){
 		panelPalletAeroporti.setLayout(null);
@@ -326,10 +267,12 @@ public class PrenotazioneView extends View {
 		panelPallet.add(panelPalletPallet,"panelPalletPallet");
 	}
 
+
+
 	/**
-	 * Sets the passeggeri aeroporti.
+	 * Carico gli oggetti di passeggeri:aeroporti
 	 *
-	 * @param aeroporti the new passeggeri aeroporti
+	 * @param aeroporti la lista degli aeroporti
 	 */
 	@SuppressWarnings("unchecked")
 	public void setPasseggeriAeroporti(List<Aeroporto> aeroporti){
@@ -339,17 +282,18 @@ public class PrenotazioneView extends View {
 		labelTipoPrenotazione.setBounds(8, 8, 482, 25);
 		panelPasseggeriAeroporti.add(labelTipoPrenotazione);
 
-
 		JLabel labelAeroportoPartenza = new JLabel("Aereporto Partenza");
 		labelAeroportoPartenza.setBounds(141, 110, 112, 14);
 		panelPasseggeriAeroporti.add(labelAeroportoPartenza);
 
+		JLabel labelAeroportoArrivo = new JLabel("Aereporto Arrivo");
+		labelAeroportoArrivo.setBounds(141, 160, 112, 14);
+		panelPasseggeriAeroporti.add(labelAeroportoArrivo);
 
 		comboPasseggeriAeroportoPartenza.setBounds(141, 127, 220, 20);
 		comboPasseggeriAeroportoPartenza.addItem("");
 		comboPasseggeriAeroportoArrivo.setBounds(141, 177, 220, 20);
 		comboPasseggeriAeroportoArrivo.addItem("");
-
 		Iterator<Aeroporto> i = aeroporti.iterator();
 		while(i.hasNext()) {
 			Aeroporto element = (Aeroporto) i.next();
@@ -361,12 +305,6 @@ public class PrenotazioneView extends View {
 		panelPasseggeriAeroporti.add(comboPasseggeriAeroportoPartenza, BorderLayout.NORTH);
 
 
-
-		JLabel labelAeroportoArrivo = new JLabel("Aereporto Arrivo");
-		labelAeroportoArrivo.setBounds(141, 160, 112, 14);
-		panelPasseggeriAeroporti.add(labelAeroportoArrivo);
-
-
 		buttonPasseggeriPasseggeriCercaVoli = new JButton("Cerca Voli");
 		buttonPasseggeriPasseggeriCercaVoli.setBounds(141, 215, 220, 23);
 		panelPasseggeriAeroporti.add(buttonPasseggeriPasseggeriCercaVoli);
@@ -374,39 +312,33 @@ public class PrenotazioneView extends View {
 		JProgressBar progressBar = new JProgressBar();
 		progressBar.setBounds(10, 360, 482, 26);
 		panelPasseggeriAeroporti.add(progressBar);
-		progressBar.setValue(2);
+		progressBar.setValue(10);
 	}
 
 	/**
-	 * Sets the passeggeri voli.
+	 * Carico gli oggetti di passeggeri:voli
 	 *
-	 * @param voli the new passeggeri voli
+	 * @param voli la lista dei voli ricevuta dal server
 	 */
 	public void setPasseggeriVoli(List<Volo> voli){
+
+		panelPasseggeriVoli.removeAll(); //rimuovo tutti gli oggetti
 
 		JLabel labelTipoPrenotazione = new JLabel("Selezionare un volo:");
 		labelTipoPrenotazione.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		labelTipoPrenotazione.setBounds(8, 8, 482, 25);
 		panelPasseggeriVoli.add(labelTipoPrenotazione);
 
-		panelPasseggeriVoliInterno.setBounds(0, 40, 498, 280);
-		panelPasseggeriVoliInterno.setLayout(null);
-		panelPasseggeriVoli.add(panelPasseggeriVoliInterno);
-
-		panelPasseggeriVoliInterno.removeAll();
-
-
 		Iterator<Volo> i = voli.iterator();
-		int verticalPosition = 10;
+		int verticalPosition = 50;
 		while(i.hasNext()) {
 			Volo element = (Volo) i.next();
 			JRadioButton rdbtnNewRadioButton = new JRadioButton(element.toString());
 			buttonGroupPasseggeriVoli.add(rdbtnNewRadioButton);
 			rdbtnNewRadioButton.setBounds(6, verticalPosition, 480, 23);
-			panelPasseggeriVoliInterno.add(rdbtnNewRadioButton);
+			panelPasseggeriVoli.add(rdbtnNewRadioButton);
 			verticalPosition=verticalPosition+20;
 		}
-
 
 		buttonPasseggeriConfermaVolo = new JButton("Conferma");
 		buttonPasseggeriConfermaVolo.setBounds(400, 327, 89, 23);
@@ -425,14 +357,11 @@ public class PrenotazioneView extends View {
 	}
 
 
-
-
 	/**
-	 * Sets the passeggeri passeggeri.
+	 * Carico gli oggetti di passeggeri:passeggeri
 	 */
 	@SuppressWarnings("unchecked")
 	protected void setPasseggeriPasseggeri(){
-
 
 
 		JLabel labelTipoPrenotazione = new JLabel("Inserire i dati dei passeggeri");
@@ -447,55 +376,40 @@ public class PrenotazioneView extends View {
 		panelPasseggeriPasseggeri.add(labelResocontoVolo);
 		 */
 
-
-		labelPasseggeriNumero.setBounds(20, 100, 40, 23);
-		labelPasseggeriNumero.setFont(new Font("Tahoma", Font.BOLD, 18));
-		panelPasseggeriPasseggeri.add(labelPasseggeriNumero);
-
+		labelNumeroPasseggero.setBounds(20, 100, 40, 23);
+		labelNumeroPasseggero.setFont(new Font("Tahoma", Font.BOLD, 18));
+		panelPasseggeriPasseggeri.add(labelNumeroPasseggero);
 
 		JLabel labelPasseggeriNome = new JLabel("Nome");
 		labelPasseggeriNome.setBounds(20, 136, 72, 14);
-
 		panelPasseggeriPasseggeri.add(labelPasseggeriNome);
-
-
-		textPasseggeriNome.setBounds(80, 134, 163, 20);
-		panelPasseggeriPasseggeri.add(textPasseggeriNome);
-		textPasseggeriNome.setColumns(10);
 
 		JLabel labelPasseggeriCognome = new JLabel("Cognome");
 		labelPasseggeriCognome.setBounds(20, 164, 46, 14);
 		panelPasseggeriPasseggeri.add(labelPasseggeriCognome);
 
+		textPasseggeriNome.setBounds(80, 134, 163, 20);
+		panelPasseggeriPasseggeri.add(textPasseggeriNome);
+		textPasseggeriNome.setColumns(10);
 
 		textPasseggeriCognome.setBounds(80, 161, 163, 20);
 		panelPasseggeriPasseggeri.add(textPasseggeriCognome);
 		textPasseggeriCognome.setColumns(10);
 
-
-
-
 		JLabel labelPasseggeriSesso = new JLabel("Sesso");
 		labelPasseggeriSesso.setBounds(20, 195, 46, 14);
 		panelPasseggeriPasseggeri.add(labelPasseggeriSesso);
-
-
 		rdbtnNewRadioButton_uomo.setSelected(true);
 		rdbtnNewRadioButton_uomo.setBounds(80, 195, 72, 20);
 		buttonGroupSesso.add(rdbtnNewRadioButton_uomo);
 		panelPasseggeriPasseggeri.add(rdbtnNewRadioButton_uomo);
-
 		rdbtnNewRadioButton_donna.setBounds(150, 195, 72, 20);
 		buttonGroupSesso.add(rdbtnNewRadioButton_donna);
 		panelPasseggeriPasseggeri.add(rdbtnNewRadioButton_donna);
 
-
-
-
 		JLabel labelPasseggeriEta = new JLabel("Nato il");
 		labelPasseggeriEta.setBounds(20, 230, 46, 14);
 		panelPasseggeriPasseggeri.add(labelPasseggeriEta);
-
 
 		//giorni di nascita
 		comboBoxGiorno.removeAllItems();
@@ -543,7 +457,6 @@ public class PrenotazioneView extends View {
 		panelPasseggeriPasseggeri.add(buttonPasseggeriProssimo);
 
 
-
 		buttonPasseggeriAnnullaPrenotazione = new JButton("Annulla");
 		buttonPasseggeriAnnullaPrenotazione.setBounds(310, 327, 89, 23);
 		panelPasseggeriPasseggeri.add(buttonPasseggeriAnnullaPrenotazione);
@@ -552,23 +465,21 @@ public class PrenotazioneView extends View {
 		buttonPasseggeriConfermaPrenotazione.setBounds(400, 327, 89, 23);
 		panelPasseggeriPasseggeri.add(buttonPasseggeriConfermaPrenotazione);
 
-		JProgressBar progressBar = new JProgressBar();
-		progressBar.setBounds(10, 360, 482, 26);
-		panelPasseggeriPasseggeri.add(progressBar);
-		progressBar.setValue(90);
-
-
-
-
 
 		panelResoconto.setLayout(null);
 		panelResoconto.setBounds(277, 90, 205, 230);
 		panelPasseggeriPasseggeri.add(panelResoconto);
 
 
-		labelResocontoPasseggeri.setFont(new Font("Arial", Font.PLAIN, 13));
-		labelResocontoPasseggeri.setBounds(277, 58, 482, 25);
-		panelPasseggeriPasseggeri.add(labelResocontoPasseggeri);
+		labelListaPasseggeri.setFont(new Font("Arial", Font.PLAIN, 13));
+		labelListaPasseggeri.setBounds(277, 58, 482, 25);
+		panelPasseggeriPasseggeri.add(labelListaPasseggeri);
+
+
+		JProgressBar progressBar = new JProgressBar();
+		progressBar.setBounds(10, 360, 482, 26);
+		panelPasseggeriPasseggeri.add(progressBar);
+		progressBar.setValue(90);
 
 
 		//azzeramento dati passeggeri
@@ -578,17 +489,16 @@ public class PrenotazioneView extends View {
 		passeggeroCorrente=null;
 		currentIndex=0;
 		lastIndex=0;
-		labelPasseggeriNumero.setText(currentIndex+1+"");
+		labelNumeroPasseggero.setText(currentIndex+1+"");
 		panelResoconto.removeAll();
-
 
 
 	}
 
 	/**
-	 * Sets the resoconto.
+	 * Costruisce la lista dei passeggeri di cui si sono gia inseriti i dati
 	 */
-	private void setResoconto(){
+	private void mostraPasseggeriMemorizzati(){
 		Iterator<Passeggero> el = listaPasseggeri.iterator();
 		int verticalPosition = 20;
 		panelResoconto.removeAll();
@@ -607,10 +517,154 @@ public class PrenotazioneView extends View {
 
 
 	/**
-	 * Sets the pallet aeroporti.
+	 * Dato un passeggero, aggiorna i dati con quelli della form
+	 *
+	 * @param p il passeggero
 	 */
-	private void setPalletAeroporti(){
+	protected void save(Passeggero p){
 
+		Character sex = null;
+		if(getSelectedButtonText(buttonGroupSesso).compareTo("Uomo")==0) sex='m'; 
+		else sex='f';
+
+		p.setNome(textPasseggeriNome.getText());
+		p.setCognome(textPasseggeriCognome.getText());
+		p.setSesso(sex);
+		p.setGiorno(Integer.parseInt(comboBoxGiorno.getSelectedItem().toString()));
+		p.setMese(Integer.parseInt(comboBoxMese.getSelectedItem().toString()));
+		p.setAnno(Integer.parseInt(comboBoxAnno.getSelectedItem().toString()));
+		p.calcolaEta();
+		p.setIdVolo(idVoloSelezionatoPasseggeri);
+
+	}
+
+
+	/**
+	 * Controlla che i campi siano pieni
+	 *
+	 * @return vero se tutti i campi sono stati inseriti correttamente
+	 */
+	protected boolean controllaCampi(){
+		return !(textPasseggeriNome.getText().equals("") || 
+				textPasseggeriCognome.getText().equals("") || 
+				comboBoxGiorno.getSelectedIndex()==0 ||
+				comboBoxMese.getSelectedIndex()==0 ||
+				comboBoxAnno.getSelectedIndex()==0
+				);
+	}
+
+	/**
+	 * 
+	 * @return true se tutti i campi sono vuoti
+	 */
+	protected boolean campiVuoti(){
+		return (textPasseggeriNome.getText().equals("") && 
+				textPasseggeriCognome.getText().equals("") && 
+				comboBoxGiorno.getSelectedIndex()==0 &&
+				comboBoxMese.getSelectedIndex()==0 &&
+				comboBoxAnno.getSelectedIndex()==0
+				);
+	}
+
+	/**
+	 * Capisce se si sta modificando un passeggero esistente o creandone uno nuovo
+	 */
+	protected void updateOrSavePasseggero(){
+		if(controllaCampi()){ 
+			if(passeggeroCorrente != null){ //riaggiorno il passeggero esistente
+				save(passeggeroCorrente);
+			}
+			else{ //creo uno nuovo
+				Passeggero nuovoPasseggero = new Passeggero();
+				save(nuovoPasseggero);
+				listaPasseggeri.add(nuovoPasseggero);
+			}
+			mostraPasseggeriMemorizzati();
+			if(currentIndex==lastIndex){
+				lastIndex++;
+			}
+			currentIndex++;
+		}
+	}
+
+
+	/**
+	 * Passa alla visualizzazione del passeggero successivo.
+	 */
+	protected void passeggeroSuccessivo(){
+		if(controllaCampi()){ 
+			updateOrSavePasseggero();
+			if(lastIndex==currentIndex){
+				//lo azzero
+				textPasseggeriNome.setText("");
+				textPasseggeriCognome.setText("");
+				comboBoxGiorno.setSelectedIndex(0);
+				comboBoxMese.setSelectedIndex(0);
+				rdbtnNewRadioButton_uomo.setSelected(true);
+				rdbtnNewRadioButton_donna.setSelected(false);
+				comboBoxAnno.setSelectedIndex(0);
+				passeggeroCorrente=null;
+			}else{
+				passeggeroCorrente = listaPasseggeri.get(currentIndex);
+				mostraPasseggero(passeggeroCorrente);
+			}
+			labelNumeroPasseggero.setText(currentIndex+1+"");
+		}else{
+			JOptionPane.showMessageDialog(null,"Completare prima il passeggero corrente","Errore", 0);
+		}
+
+	}
+
+	/**
+	 * Passa alla visualizzazione del passeggero precedente.
+	 */
+	protected void passeggeroPrecedente(){
+		if(controllaCampi() || campiVuoti()){ 
+			if(currentIndex!=lastIndex && !campiVuoti()){ 
+				save(passeggeroCorrente);
+			}
+			/*if(campiVuoti()){ e sono all'ultimo q
+				listaPasseggeri.remove(currentIndex);
+			}*/
+			currentIndex--;
+			passeggeroCorrente = listaPasseggeri.get(currentIndex);
+			mostraPasseggero(passeggeroCorrente);
+			labelNumeroPasseggero.setText(currentIndex+1+"");
+		}else{
+			JOptionPane.showMessageDialog(null,"Completare prima il passeggero corrente o cliccare \"Svuota\"","Errore", 0);
+		}
+	}
+
+
+	/**
+	 * Mostra i dati del passeggero sullo schermo
+	 *
+	 * @param p the p
+	 */
+	protected void mostraPasseggero(Passeggero p){
+		textPasseggeriNome.setText(p.getNome());
+		textPasseggeriCognome.setText(p.getCognome());
+		if(p.getSesso()=='m'){
+			rdbtnNewRadioButton_uomo.setSelected(true);
+			rdbtnNewRadioButton_donna.setSelected(false);
+		}else{
+			rdbtnNewRadioButton_uomo.setSelected(false);
+			rdbtnNewRadioButton_donna.setSelected(true);
+		}
+		comboBoxGiorno.setSelectedIndex(p.getGiorno());
+		comboBoxMese.setSelectedIndex(p.getMese());
+		comboBoxAnno.setSelectedIndex(2013-p.getAnno()+1);
+
+	}
+
+
+
+	/**
+	 * Carico gli oggetti di pallet:aeroporti
+	 */
+	@SuppressWarnings({ "unused", "unchecked" })
+	private void setPalletAeroporti(){
+		//rimuovere unused
 		labelTipoPrenotazione.setText("Prenotazione Pallet 1/3");
 		labelTipoPrenotazione.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		labelTipoPrenotazione.setBounds(8, 8, 482, 25);
@@ -622,7 +676,6 @@ public class PrenotazioneView extends View {
 
 		comboPalletAeroportoPartenza.setBounds(141, 127, 220, 20);
 		comboPalletAeroportoPartenza.addItem("");
-		comboPalletAeroportoPartenza.addItem("Orio al Serio");
 		panelPalletAeroporti.add(comboPalletAeroportoPartenza);
 
 		JLabel labelAeroportoArrivo = new JLabel("Aereporto Arrivo");
@@ -631,7 +684,6 @@ public class PrenotazioneView extends View {
 
 		comboPalletAeroportoArrivo.setBounds(141, 177, 220, 20);
 		comboPalletAeroportoArrivo.addItem("");
-		comboPalletAeroportoArrivo.addItem("Orio al Serio");
 		panelPalletAeroporti.add(comboPalletAeroportoArrivo);
 
 		buttonPalletPasseggeriCercaVoli = new JButton("Cerca Voli");
@@ -645,30 +697,26 @@ public class PrenotazioneView extends View {
 	}
 
 	/**
-	 * Sets the pallet voli.
+	 * Carico gli oggetti di pallet:voli
 	 */
 	public void setPalletVoli(){
+
+		panelPalletVoli.removeAll();
 
 		JLabel labelTipoPrenotazione = new JLabel("Pallet");
 		labelTipoPrenotazione.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		labelTipoPrenotazione.setBounds(8, 8, 482, 25);
 		panelPalletVoli.add(labelTipoPrenotazione);
 
-		panelPalletVoliInterno.setBounds(0, 40, 498, 280);
-		panelPalletVoliInterno.setLayout(null);
-		panelPalletVoli.add(panelPalletVoliInterno);
-
-		panelPalletVoliInterno.removeAll();
-
 		JRadioButton rdbtnNewRadioButton = new JRadioButton(Double.toString(Math.random()));
 		buttonGroupPalletVoli.add(rdbtnNewRadioButton);
-		rdbtnNewRadioButton.setBounds(6, 10, 490, 23);
-		panelPalletVoliInterno.add(rdbtnNewRadioButton);
+		rdbtnNewRadioButton.setBounds(6, 50, 490, 23);
+		panelPalletVoli.add(rdbtnNewRadioButton);
 
 		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("Orio Al Serio -");
 		buttonGroupPalletVoli.add(rdbtnNewRadioButton_1);
-		rdbtnNewRadioButton_1.setBounds(6, 30, 490, 23);
-		panelPalletVoliInterno.add(rdbtnNewRadioButton_1);
+		rdbtnNewRadioButton_1.setBounds(6, 80, 490, 23);
+		panelPalletVoli.add(rdbtnNewRadioButton_1);
 
 		buttonPalletConfermaVolo = new JButton("Conferma");
 		buttonPalletConfermaVolo.setBounds(167, 327, 89, 23);
@@ -687,7 +735,7 @@ public class PrenotazioneView extends View {
 	}
 
 	/**
-	 * Sets the pallet pallet.
+	 * Carico gli oggetti di pallet:pallet
 	 */
 	public void setPalletPallet(){
 		JLabel labelTipoPrenotazione = new JLabel("Prenotazione Pallet 3/3");
@@ -734,12 +782,11 @@ public class PrenotazioneView extends View {
 	}
 
 
-	//dato un button group mi restituisce il nome
 	/**
-	 * Gets the selected button text.
+	 * Dato un button group mi restituisce il testo del selezionato
 	 *
-	 * @param buttonGroup the button group
-	 * @return the selected button text
+	 * @param buttonGroup il button group di riferimento
+	 * @return il testo dell'elemento selezionato
 	 */
 	public String getSelectedButtonText(ButtonGroup buttonGroup) {
 		for (Enumeration<AbstractButton> buttons = buttonGroup.getElements(); buttons.hasMoreElements();) {
@@ -751,167 +798,5 @@ public class PrenotazioneView extends View {
 		}
 		return null;
 	}
-
-
-	/** The last index. */
-	int lastIndex=0;
-
-	/** The current index. */
-	int currentIndex=0;
-
-	/** The passeggero corrente. */
-	Passeggero passeggeroCorrente=null;
-
-	/**
-	 * Save.
-	 *
-	 * @param p the p
-	 */
-	protected void save(Passeggero p){
-
-		Character sex = null;
-		if(getSelectedButtonText(buttonGroupSesso).compareTo("Uomo")==0) sex='m'; 
-		else sex='f';
-
-		p.setNome(textPasseggeriNome.getText());
-		p.setCognome(textPasseggeriCognome.getText());
-		p.setSesso(sex);
-		p.setGiorno(Integer.parseInt(comboBoxGiorno.getSelectedItem().toString()));
-		p.setMese(Integer.parseInt(comboBoxMese.getSelectedItem().toString()));
-		p.setAnno(Integer.parseInt(comboBoxAnno.getSelectedItem().toString()));
-		p.calcolaEta();
-		p.setIdVolo(idVoloSelezionato);
-
-
-
-	}
-
-
-	/**
-	 * Controlla campi.
-	 *
-	 * @return true, if successful
-	 */
-	protected boolean controllaCampi(){
-		return !(textPasseggeriNome.getText().equals("") || 
-				textPasseggeriCognome.getText().equals("") || 
-				comboBoxGiorno.getSelectedIndex()==0 ||
-				comboBoxMese.getSelectedIndex()==0 ||
-				comboBoxAnno.getSelectedIndex()==0
-				);
-	}
-
-	/**
-	 * Campi vuoti.
-	 *
-	 * @return true, if successful
-	 */
-	protected boolean campiVuoti(){
-		return (textPasseggeriNome.getText().equals("") && 
-				textPasseggeriCognome.getText().equals("") && 
-				comboBoxGiorno.getSelectedIndex()==0 &&
-				comboBoxMese.getSelectedIndex()==0 &&
-				comboBoxAnno.getSelectedIndex()==0
-				);
-	}
-
-	/**
-	 * Update or save passeggero.
-	 */
-	protected void updateOrSavePasseggero(){
-		if(controllaCampi()){ 
-			if(passeggeroCorrente != null){ //riaggiorno il passeggero esistente
-				save(passeggeroCorrente);
-			}
-			else{ //creo uno nuovo
-				Passeggero nuovoPasseggero = new Passeggero();
-				save(nuovoPasseggero);
-				listaPasseggeri.add(nuovoPasseggero);
-			}
-			setResoconto();
-			if(currentIndex==lastIndex){
-				lastIndex++;
-			}
-			currentIndex++;
-		}
-	}
-
-
-	/**
-	 * Passeggero successivo.
-	 */
-	protected void passeggeroSuccessivo(){
-		if(controllaCampi()){ 
-			updateOrSavePasseggero();
-			if(lastIndex==currentIndex){
-				//lo azzero
-				textPasseggeriNome.setText("");
-				textPasseggeriCognome.setText("");
-				comboBoxGiorno.setSelectedIndex(0);
-				comboBoxMese.setSelectedIndex(0);
-				rdbtnNewRadioButton_uomo.setSelected(true);
-				rdbtnNewRadioButton_donna.setSelected(false);
-				comboBoxAnno.setSelectedIndex(0);
-				passeggeroCorrente=null;
-			}else{
-				passeggeroCorrente = listaPasseggeri.get(currentIndex);
-				mostraPasseggero(passeggeroCorrente);
-			}
-			labelPasseggeriNumero.setText(currentIndex+1+"");
-		}else{
-			JOptionPane.showMessageDialog(null,"Completare prima il passeggero corrente","Errore", 1);
-		}
-
-	}
-
-	/**
-	 * Passeggero precedente.
-	 */
-	protected void passeggeroPrecedente(){
-		if(controllaCampi() || campiVuoti()){ 
-			if(currentIndex!=lastIndex && !campiVuoti()){ 
-				save(passeggeroCorrente);
-			}
-			/*if(campiVuoti()){
-				listaPasseggeri.remove(currentIndex);
-			}*/
-
-			currentIndex--;
-			passeggeroCorrente = listaPasseggeri.get(currentIndex);
-			mostraPasseggero(passeggeroCorrente);
-
-			labelPasseggeriNumero.setText(currentIndex+1+"");
-
-		}else{
-			JOptionPane.showMessageDialog(null,"Completare prima il passeggero corrente o cliccare \"Svuota\"","Errore", 1);
-		}
-	}
-
-
-	/**
-	 * Mostra passeggero.
-	 *
-	 * @param p the p
-	 */
-	protected void mostraPasseggero(Passeggero p){
-
-		textPasseggeriNome.setText(p.getNome());
-		textPasseggeriCognome.setText(p.getCognome());
-		if(p.getSesso()=='m'){
-			rdbtnNewRadioButton_uomo.setSelected(true);
-			rdbtnNewRadioButton_donna.setSelected(false);
-		}else{
-			rdbtnNewRadioButton_uomo.setSelected(false);
-			rdbtnNewRadioButton_donna.setSelected(true);
-		}
-		comboBoxGiorno.setSelectedIndex(p.getGiorno());
-		comboBoxMese.setSelectedIndex(p.getMese());
-		comboBoxAnno.setSelectedIndex(2013-p.getAnno()+1);
-
-
-	}
-
-
-	// Quando seleziono febbraio, togliere i giorni invalidi eccetera
 
 }

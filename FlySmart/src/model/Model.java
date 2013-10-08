@@ -8,7 +8,9 @@ import java.lang.reflect.Field;
 import java.util.LinkedList;
 import java.util.List;
 
+// TODO: Auto-generated Javadoc
 /**
+ * @author Demarinis - Micheli - Scarpellini
  * superclasse astratta di modelli, ogni modello deve avere un id,
  * permette di recuperare i campi dichiarati nel modello
  * e permettedi eseguire una ricerca per id sui modelli.
@@ -17,9 +19,12 @@ import java.util.List;
  */
 public abstract class Model implements SortableList<Integer>, GetFields, Serializable{
 
+	/** The id. */
 	protected  Integer id;
 
 	/**
+	 * Gets the id.
+	 *
 	 * @return the id
 	 */
 	public Integer getId() {
@@ -27,6 +32,8 @@ public abstract class Model implements SortableList<Integer>, GetFields, Seriali
 	}
 
 	/**
+	 * Sets the id.
+	 *
 	 * @param id the id to set
 	 */
 	public void setId(Integer id) {
@@ -34,7 +41,10 @@ public abstract class Model implements SortableList<Integer>, GetFields, Seriali
 	}
 
 	/**
-	 * compara il modello con l'id fornito
+	 * compara il modello con l'id fornito.
+	 *
+	 * @param o the o
+	 * @return the int
 	 */
 	@Override
 	public int compareTo(Integer o) {
@@ -47,7 +57,9 @@ public abstract class Model implements SortableList<Integer>, GetFields, Seriali
 	}
 	
 	/**
-	 * ritorna l'elenco dei campi (anche privati) dichiarati nell'oggetto
+	 * ritorna l'elenco dei campi (anche privati) dichiarati nell'oggetto.
+	 *
+	 * @return the fields
 	 */
 	@Override
 	public List<Field> getFields() {

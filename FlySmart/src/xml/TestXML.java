@@ -6,11 +6,18 @@ import model.*;
 import java.util.*;
 
 
+// TODO: Auto-generated Javadoc
+/**
+ * @author Demarinis - Micheli - Scarpellini
+ * The Class TestXML.
+ */
 public class TestXML {
 
 	/**
-	 * @param args
-	 * @throws IOException 
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	public static void main(String[] args) throws IOException {
 		

@@ -8,6 +8,7 @@ import java.util.Comparator;
 import model.Passeggero;
 
 /**
+ * @author Demarinis - Micheli - Scarpellini
  * gestione ordinamento passeggeri
  * ID_ORDER: ordinamento crescente per id
  * NAME_ORDER: ordinamento crescente per nome

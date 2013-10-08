@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 
 
 /**
+ * @author Demarinis - Micheli - Scarpellini
  * server logger, la classe gestisce il log del server
  *
  */

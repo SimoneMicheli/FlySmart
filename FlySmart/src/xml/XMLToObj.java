@@ -11,8 +11,18 @@ import java.util.*;
 
 import org.w3c.dom.*;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class XMLToObj.
+ */
 public class XMLToObj{
 	
+	/**
+	 * Creates the passeggero list.
+	 *
+	 * @param path the path
+	 * @return the list
+	 */
 	public List<Passeggero> createPasseggeroList(String path){
 		List<Passeggero> list = new ArrayList<Passeggero>();
 		
@@ -76,6 +86,12 @@ public class XMLToObj{
 		return list;
 	}
 	
+	/**
+	 * Creates the aeroporto list.
+	 *
+	 * @param path the path
+	 * @return the list
+	 */
 	public List<Aeroporto> createAeroportoList(String path){
 		List<Aeroporto> list = new ArrayList<Aeroporto>();
 		
@@ -138,6 +154,12 @@ public class XMLToObj{
 		return list;
 	}
 		
+	/**
+	 * Creates the pallet list.
+	 *
+	 * @param path the path
+	 * @return the list
+	 */
 	public List<Pallet> createPalletList(String path){
 		List<Pallet> list = new ArrayList<Pallet>();
 		
@@ -201,6 +223,12 @@ public class XMLToObj{
 	}
 	
 
+	/**
+	 * Creates the volo list.
+	 *
+	 * @param path the path
+	 * @return the list
+	 */
 	public List<Volo> createVoloList(String path){
 		List<Volo> list = new ArrayList<Volo>();
 		try {

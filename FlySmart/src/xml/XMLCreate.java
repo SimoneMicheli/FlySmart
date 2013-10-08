@@ -12,14 +12,34 @@ import org.w3c.dom.ls.*;      //Interfacce Load&Save di DOM
 import java.util.*;
 
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class XMLCreate.
+ *
+ * @author Demarinis - Micheli - Scarpellini
+ * @param <E> the element type
+ */
 public class XMLCreate<E extends GetFields> {
 	
 
+	/**
+	 * Creates the fly smart document.
+	 *
+	 * @param list the list
+	 * @return the document
+	 */
 	public Document createFlySmartDocument(List<E> list){
 		Document d = this.createDocument();
 		return this.createFlySmartDocument(d, list);
 	}
 	
+	/**
+	 * Creates the fly smart document.
+	 *
+	 * @param d the d
+	 * @param list the list
+	 * @return the document
+	 */
 	public Document createFlySmartDocument(Document d, List<E> list)	
 		{
 
@@ -48,7 +68,7 @@ public class XMLCreate<E extends GetFields> {
 						String attributeNameMaiusc = attributeName.substring(0, 1).toUpperCase() + attributeName.substring(1);
 						Method m = elem.getClass().getMethod("get"+attributeNameMaiusc); // Ottengo il Metodo 
 						String s;
-						//se l'elemento è null scrivo stringa vuota
+						//se l'elemento ? null scrivo stringa vuota
 						try{
 							s = m.invoke(elem).toString();// Invoco il metodo
 						}catch (NullPointerException e) {
@@ -79,6 +99,11 @@ public class XMLCreate<E extends GetFields> {
 		}
 
 
+	/**
+	 * Creates the document.
+	 *
+	 * @return the document
+	 */
 	public Document createDocument() {
 		//Ottengo un document builder factory
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -96,6 +121,14 @@ public class XMLCreate<E extends GetFields> {
 	}
 	
 
+	/**
+	 * Creates the document dtd.
+	 *
+	 * @param radice the radice
+	 * @param pubid the pubid
+	 * @param sysid the sysid
+	 * @return the document
+	 */
 	public Document createDocumentDTD(String radice, String pubid, String sysid) {
 		//Ottengo un document builder factory
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -117,6 +150,13 @@ public class XMLCreate<E extends GetFields> {
 	}
 
 
+	/**
+	 * Save document.
+	 *
+	 * @param d the d
+	 * @param w the w
+	 * @return true, if successful
+	 */
 	public boolean saveDocument(Document d, Writer w) {
 
 		//Ottengo un load&save object
@@ -143,6 +183,14 @@ public class XMLCreate<E extends GetFields> {
 	}
 	
 
+	/**
+	 * Prints the document.
+	 *
+	 * @param d the d
+	 * @param name_file the name_file
+	 * @return true, if successful
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public boolean printDocument(Document d, String name_file) throws IOException
 	{
 		try {

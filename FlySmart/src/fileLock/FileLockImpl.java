@@ -4,7 +4,8 @@
 package fileLock;
 
 /**
- * @author simone
+ * 
+ * @author Demarinis - Micheli - Scarpellini
  *
  */
 public class FileLockImpl implements FileLock {

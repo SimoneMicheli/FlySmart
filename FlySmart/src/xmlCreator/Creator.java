@@ -14,6 +14,7 @@ import model.*;
 public class Creator {
 
 	/**
+	 * @author Demarinis - Micheli - Scarpellini
 	 * @param args
 	 * @throws IOException 
 	 */
@@ -23,28 +24,28 @@ public class Creator {
 			cancellaConfigFile();
 			creaAeroporti();
 			creaVoli();
-			
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	public static void cancellaConfigFile(){
 		File f = new File("config.xml");
 		if (!f.exists()){
-		     System.out.println("config file not exist");
-		     return;
+			System.out.println("config file not exist");
+			return;
 		}
 		Boolean rx = f.delete();
-		
+
 		if(rx)
 			System.out.println("config file deleted");
 		else
 			System.err.println("can't delete config file");
 	}
-	
+
 	public static void creaAeroporti() throws IOException{
 		List<Aeroporto> elencoAeroporti;
 		elencoAeroporti = new LinkedList<Aeroporto>();
@@ -106,43 +107,43 @@ public class Creator {
 		Document d = XMLAeroporti.createFlySmartDocument(elencoAeroporti);
 		XMLAeroporti.printDocument(d,"aeroporti.xml");
 	}
-	
+
 	public static void creaVoli() throws IOException{
 		List<Volo> voli = new LinkedList<Volo>();
 		Calendar c = Calendar.getInstance();
 		int idIncr = 0;
-		
+
 		for(int i = 1; i<54; i++)
 		{
 			for(int j = 1; j<54; j++)
 			{
 				if(i!=j)
-					for(int n = 0; n < (int) (Math.random()*(7-1)+1); n++)
+					for(int n = 0; n < (int) (Math.random()*(7-2)+2); n++)
+					{
+						int rMese = (int) (Math.random()*(12-0)+0);
+						boolean repeat = true;
+						int rGiorno = 1;
+						while(repeat)
 						{
-							int rMese = (int) (Math.random()*(12-0)+0);
-							boolean repeat = true;
-							int rGiorno = 1;
-							while(repeat)
-							{
-								rGiorno = (int) (Math.random()*(32-1)+1);
-								repeat= false;
-								if(rMese == 1)
-									if(rGiorno>28)
-										repeat = true;
-								if(rMese == 3 || rMese == 5 || rMese == 8 || rMese == 10 )
-										if(rGiorno>31)
-											repeat=true;
-							}
-							c.set(2014,(int) rMese, rGiorno, (int) (Math.random()*(23-0)+1), (int) (Math.random()*(59-0)+1));
-							double result =  (Math.random()*(110-40)+40)*100;
-							result = Math.round(result);
-							result = result/100;
-							voli.add(new Volo(idIncr, c.getTime(), i, j, (int) (Math.random()*(100-1)+1), 300, 50, result));
-							idIncr++;
+							rGiorno = (int) (Math.random()*(32-1)+1);
+							repeat= false;
+							if(rMese == 1)
+								if(rGiorno>28)
+									repeat = true;
+							if(rMese == 3 || rMese == 5 || rMese == 8 || rMese == 10 )
+								if(rGiorno>31)
+									repeat=true;
 						}
+						c.set(2014,(int) rMese, rGiorno, (int) (Math.random()*(23-0)+1), (int) (Math.random()*(59-0)+1));
+						double result =  (Math.random()*(110-40)+40)*100;
+						result = Math.round(result);
+						result = result/100;
+						voli.add(new Volo(idIncr, c.getTime(), i, j, (int) (Math.random()*(100-1)+1), 300, 50, result));
+						idIncr++;
+					}
 			}
 		}
-		
+
 		/*
 		c.set(2013, 10, 20, 15, 0);
 		voli.add(new Volo(1, c.getTime() , 1, 2, 767, 100, 15, 2.0));
@@ -152,7 +153,7 @@ public class Creator {
 		voli.add(new Volo(3, c.getTime() , 1, 2, 767, 100, 15, 2.0));
 		c.set(2013, 11, 29, 2, 0);
 		voli.add(new Volo(4, c.getTime() , 1, 2, 767, 100, 15, 2.0));
-		*/
+		 */
 		XMLCreate<Volo> XMLVoli = new XMLCreate<Volo>();
 		Document d = XMLVoli.createFlySmartDocument(voli);
 		XMLVoli.printDocument(d,"voli.xml");
