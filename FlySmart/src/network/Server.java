@@ -134,6 +134,10 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 		return oldID;
 	}
 	
+	/**
+	 * restituisce il primo id libero da assegnare ad un passeggero
+	 * @return
+	 */
 	private synchronized int getNextID(){
 		return getNextID(1);
 	}
@@ -151,16 +155,25 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 		return oldID;
 	}
 
+	/**
+	 * primo id libero per i pallet
+	 * @return
+	 */
 	private synchronized int getNextPalletID(){
 		return getNextPalletID(1);
 	}
 	
+	/**
+	 * primo id libero per gruppi
+	 * @return
+	 */
 	private synchronized int getNextGroupID(){
 		int oldID = lastGroupID;
 		lastGroupID ++;
 		config.setProperty("lastGroupID", Integer.toString(lastGroupID));
 		return oldID;
 	}
+	
 	/* (non-Javadoc)
 	 * @see network.ServerInterface#getAeroporti()
 	 */

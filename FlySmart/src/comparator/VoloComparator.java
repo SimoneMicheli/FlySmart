@@ -11,7 +11,7 @@ import model.Volo;
  * gestione ordinamento voli secondo i seguenti criteri
  * ID_ORDER
  * DATA_ORDER
- * POST_ORDER
+ * POSTI_ORDER
  * PALLET_ORDER
  *
  */

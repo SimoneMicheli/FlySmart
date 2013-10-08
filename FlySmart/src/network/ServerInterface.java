@@ -1,6 +1,3 @@
-/**
- * 
- */
 package network;
 
 import java.io.IOException;

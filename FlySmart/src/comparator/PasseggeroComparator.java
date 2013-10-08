@@ -9,6 +9,9 @@ import model.Passeggero;
 
 /**
  * gestione ordinamento passeggeri
+ * ID_ORDER: ordinamento crescente per id
+ * NAME_ORDER: ordinamento crescente per nome
+ * POSTO_ORDER: ordinamento per posto cresente
  *
  */
 public enum PasseggeroComparator implements Comparator<Passeggero> {
