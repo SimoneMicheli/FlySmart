@@ -131,7 +131,7 @@ public class Creator {
 								if(rGiorno>28)
 									repeat = true;
 							if(rMese == 3 || rMese == 5 || rMese == 8 || rMese == 10 )
-								if(rGiorno>31)
+								if(rGiorno>30)
 									repeat=true;
 						}
 						c.set(2014,(int) rMese, rGiorno, (int) (Math.random()*(23-0)+1), (int) (Math.random()*(59-0)+1));
