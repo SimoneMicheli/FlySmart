@@ -6,19 +6,20 @@ import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
 import javax.xml.parsers.*; //JAXP
 
-// TODO: Auto-generated Javadoc
 /**
  * @author Demarinis - Micheli - Scarpellini
- * The Class XMLLoad.
+ * Carica e restituisce un Document XML da file
  */
 public class XMLLoad {
 
 	/**
-	 * Load document.
+	 * Carica il Document XML indicato nel path
 	 *
-	 * @param path the path
-	 * @return the document
+	 * @param path Il percorso del file
+	 * @return Il Document XML
+	 * 
 	 */
+	
 	public Document loadDocument(String path) {
 		// Si crea un'istanza di DocumentBuilderFactory usando il metodo statico newInstance()
 		DocumentBuilderFactory f = DocumentBuilderFactory.newInstance();

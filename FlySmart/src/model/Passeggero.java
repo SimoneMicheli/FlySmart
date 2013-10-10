@@ -4,64 +4,69 @@ import java.lang.reflect.Field;
 import java.util.Calendar;
 import java.util.List;
 
-// TODO: Auto-generated Javadoc
 /**
  * @author Demarinis - Micheli - Scarpellini
- * The Class Passeggero.
+ * La classe Passeggero
+ * Rappresenta un cliente della compagnia aerea, e le sue informazioni personali.
+ * Sono contenute inoltre informazioni circa il volo da lui prenotato e il posto assegnatogli
+ * 
  */
 public class Passeggero extends Model {
 	
-	/** The Constant serialVersionUID. */
+	/** La costante serialVersionUID */
 	private static final long serialVersionUID = -7403817763041464772L;
 	
-	/** The id gruppo. */
+	/** Id del gruppo di passeggero */
 	private Integer idGruppo;
 	
-	/** The nome. */
+	/** Nome del passeggero */
 	private String nome;
 	
-	/** The cognome. */
+	/** Cognome del passeggero */
 	private String cognome;
 	
-	/** The eta. */
+	/** Età del passeggero (numero intero di anni) */
 	private Integer eta;
 	
-	/** The giorno. */
+	/** Giorno di nascita */
 	private Integer giorno;
 	
-	/** The mese. */
+	/** Mese di nascita */
 	private Integer mese;
 	
-	/** The anno. */
+	/** Anno di nascita */
 	private Integer anno;
 	
-	/** The sesso. */
+	/** Sesso del passeggero:
+	 * 'm' per maschio
+	 * 'f' per femmina
+	 */
 	private Character sesso;
 	
-	/** The peso bagagli. */
+	/** Peso dei bagagli del passeggero (in Kilogrammi) */
 	private Double pesoBagagli;
 	
-	/** The id volo. */
+	/** Id del volo del passeggero */
 	private Integer idVolo;
 	
-	/** The posto. */
+	/** Numero di posto sul volo prenotato dal passeggero */
 	private Integer posto;
 
 	/**
-	 * Instantiates a new passeggero.
+	 * Istanzia un nuovo passeggero (supercostruttore)
 	 *
-	 * @param id the id
-	 * @param idGruppo the id gruppo
-	 * @param nome the nome
-	 * @param cognome the cognome
-	 * @param eta the eta
-	 * @param sesso the sesso
-	 * @param pesoBagagli the peso bagagli
-	 * @param idVolo the id volo
-	 * @param posto the posto
-	 * @param giorno the giorno
-	 * @param mese the mese
-	 * @param anno the anno
+	 * @param id Id del gruppo di passeggero
+	 * @param idGruppo Id del gruppo di passeggero
+	 * @param nome Nome del passeggero
+	 * @param cognome Cognome del passeggero
+	 * @param eta Età del passeggero (numero intero di anni)
+	 * @param sesso Sesso del passeggero
+	 * @param pesoBagagli Peso dei bagagli del passeggero (in Kilogrammi)
+	 * @param idVolo Id del volo del passeggero 
+	 * @param posto Numero di posto sul volo prenotato dal passeggero
+	 * @param giorno Giorno di nascita
+	 * @param mese Mese di nascita
+	 * @param anno Anno di nascita
 	 */
 	public Passeggero(Integer id, Integer idGruppo, String nome, String cognome, Integer eta, Character sesso, Double pesoBagagli, Integer idVolo, Integer posto, Integer giorno, Integer mese, Integer anno) {
 		this.id = id;
@@ -79,21 +84,21 @@ public class Passeggero extends Model {
 	}
 
 	/**
-	 * Instantiates a new passeggero.
+	 * Istanza un nuovo passeggero (costruttore vuoto)
 	 */
 	public Passeggero() {
 	}
 
 
 	/**
-	 * Instantiates a new passeggero.
+	 * Istanza un nuovo passeggero.
 	 *
-	 * @param nome the nome
-	 * @param cognome the cognome
-	 * @param giorno the giorno
-	 * @param mese the mese
-	 * @param anno the anno
-	 * @param sesso the sesso
+	 * @param nome Nome del passeggero
+	 * @param cognome Cognome del passeggero
+	 * @param giorno Giorno di nascita
+	 * @param mese Mese di nascita
+	 * @param anno Anno di nascita
+	 * @param sesso Sesso del passeggero
 	 */
 	public Passeggero(String nome, String cognome,String giorno, String mese, String anno, Character sesso) {
 		this(null, null, nome,  cognome,  calcolaEta(giorno, mese, anno),  sesso,  null,  null,  null, Integer.parseInt(giorno), Integer.parseInt(mese), Integer.parseInt(anno));
@@ -101,26 +106,26 @@ public class Passeggero extends Model {
 	
 	
 	/**
-	 * Instantiates a new passeggero.
+	 * Istanza un nuovo passeggero.
 	 *
-	 * @param nome the nome
-	 * @param cognome the cognome
-	 * @param giorno the giorno
-	 * @param mese the mese
-	 * @param anno the anno
-	 * @param sesso the sesso
+	 * @param nome Nome del passeggero
+	 * @param cognome Cognome del passeggero
+	 * @param giorno Giorno di nascita
+	 * @param mese Mese di nascita
+	 * @param anno Anno di nascita
+	 * @param sesso Sesso del passeggero
 	 */
 	public Passeggero(String nome, String cognome,int giorno, int mese, int anno, char sesso) {
 		this(null, null, nome,  cognome,  calcolaEta(giorno, mese, anno),  sesso,  null,  null,  null, giorno, mese, anno);
 	}
 
 	/**
-	 * Calcola eta.
+	 * Calcola eta del passeggero a partire dalla sua data di nascita
 	 *
-	 * @param g the g
-	 * @param m the m
-	 * @param a the a
-	 * @return the int
+	 * @param g Giorno di nascita
+	 * @param m Mese di nascita
+	 * @param a Anno di nascita
+	 * @return Età del passeggero (numero intero di anni)
 	 */
 	protected static int calcolaEta(String g, String m, String a){
 		return calcolaEta(Integer.parseInt(g), Integer.parseInt(m), Integer.parseInt(a));
@@ -128,12 +133,12 @@ public class Passeggero extends Model {
 	
 	//calcola l'eta a partire da una data di nascita
 	/**
-	 * Calcola eta.
+	 * Calcola eta del passeggero a partire dalla sua data di nascita
 	 *
-	 * @param g the g
-	 * @param m the m
-	 * @param a the a
-	 * @return the int
+	 * @param g Giorno di nascita
+	 * @param m Mese di nascita
+	 * @param a Anno di nascita
+	 * @return Età del passeggero (numero intero di anni)
 	 */
 	protected static int calcolaEta(int g, int m, int a){
 		Calendar c = Calendar.getInstance();
@@ -146,7 +151,8 @@ public class Passeggero extends Model {
 
 
 	/**
-	 * Calcola eta.
+	 * Calcola l'eta del passeggero
+	 *
 	 */
 	public void calcolaEta(){
 		Calendar c = Calendar.getInstance();
@@ -160,9 +166,9 @@ public class Passeggero extends Model {
 
 
 	/**
-	 * Gets the sesso.
+	 * Ottiene il sesso del passeggero
 	 *
-	 * @return the sesso
+	 * @return Il sesso del passeggero
 	 */
 	public char getSesso() {
 		return sesso;
@@ -170,9 +176,10 @@ public class Passeggero extends Model {
 
 
 	/**
-	 * Sets the sesso.
+	 * Set il sesso del passeggero
 	 *
-	 * @param sesso the new sesso
+	 * @param sesso Il sesso del passeggero: 'm' per maschio, 'f' per femmina
+	 * 
 	 */
 	public void setSesso(char sesso) {
 		this.sesso = sesso;
@@ -180,9 +187,9 @@ public class Passeggero extends Model {
 
 
 	/**
-	 * Gets the peso bagagli.
+	 * Ottiene il peso dei bagagli in Kilogrammi
 	 *
-	 * @return the peso bagagli
+	 * @return Il peso dei bagagli in Kilogrammi
 	 */
 	public Double getPesoBagagli() {
 		return pesoBagagli;
@@ -190,9 +197,9 @@ public class Passeggero extends Model {
 
 
 	/**
-	 * Sets the peso bagagli.
+	 * Set il peso dei bagali in Kilogrammi
 	 *
-	 * @param pesoBagagli the new peso bagagli
+	 * @param pesoBagagli Il peso dei bagagli in Kilogrammi
 	 */
 	public void setPesoBagagli(Double pesoBagagli) {
 		this.pesoBagagli = pesoBagagli;
@@ -200,9 +207,9 @@ public class Passeggero extends Model {
 
 
 	/**
-	 * Gets the id volo.
+	 * Ottiene l'Id del volo del passeggero 
 	 *
-	 * @return the id volo
+	 * @return Id del volo del passeggero 
 	 */
 	public Integer getIdVolo() {
 		return idVolo;
@@ -210,9 +217,9 @@ public class Passeggero extends Model {
 
 
 	/**
-	 * Sets the id volo.
+	 * Set l'Id del volo del passeggero 
 	 *
-	 * @param idVolo the new id volo
+	 * @param idVolo Id del volo del passeggero 
 	 */
 	public void setIdVolo(Integer idVolo) {
 		this.idVolo = idVolo;
@@ -220,9 +227,9 @@ public class Passeggero extends Model {
 
 
 	/**
-	 * Gets the posto.
+	 * Ottiene il numero di posto sul volo prenotato dal passeggero
 	 *
-	 * @return the posto
+	 * @return Il numero di posto sul volo prenotato dal passeggero
 	 */
 	public Integer getPosto() {
 		return posto;
@@ -230,9 +237,9 @@ public class Passeggero extends Model {
 
 
 	/**
-	 * Sets the posto.
+	 * Sets il numero di posto sul volo prenotato dal passeggero
 	 *
-	 * @param posto the new posto
+	 * @param posto Il numero di posto sul volo prenotato dal passeggero
 	 */
 	public void setPosto(Integer posto) {
 		this.posto = posto;
@@ -240,9 +247,9 @@ public class Passeggero extends Model {
 
 
 	/**
-	 * Gets the nome.
+	 * Ottiene il nome del passeggero
 	 *
-	 * @return the nome
+	 * @return Il nome del passeggero
 	 */
 	public String getNome() {
 		return nome;
@@ -250,9 +257,9 @@ public class Passeggero extends Model {
 
 
 	/**
-	 * Sets the nome.
+	 * Sets il nome del passeggero
 	 *
-	 * @param nome the new nome
+	 * @param nome Il nome del passeggero
 	 */
 	public void setNome(String nome) {
 		this.nome = nome;
@@ -260,9 +267,9 @@ public class Passeggero extends Model {
 
 
 	/**
-	 * Gets the cognome.
+	 * Ottiene il cognome del passeggero
 	 *
-	 * @return the cognome
+	 * @return Il cognome del passeggero
 	 */
 	public String getCognome() {
 		return cognome;
@@ -270,9 +277,9 @@ public class Passeggero extends Model {
 
 
 	/**
-	 * Sets the cognome.
+	 * Set Il cognome del passeggero
 	 *
-	 * @param cognome the new cognome
+	 * @param Il cognome del passeggero
 	 */
 	public void setCognome(String cognome) {
 		this.cognome = cognome;
@@ -280,9 +287,9 @@ public class Passeggero extends Model {
 
 
 	/**
-	 * Gets the eta.
+	 * Ottiene l' Età del passeggero (numero intero di anni)
 	 *
-	 * @return the eta
+	 * @return Età del passeggero (numero intero di anni)
 	 */
 	public Integer getEta() {
 		return eta;
@@ -290,9 +297,9 @@ public class Passeggero extends Model {
 
 
 	/**
-	 * Sets the eta.
+	 * Set l'età del passeggero (numero intero di anni)
 	 *
-	 * @param eta the new eta
+	 * @param eta Età del passeggero (numero intero di anni)
 	 */
 	public void setEta(Integer eta) {
 		this.eta = eta;
@@ -307,72 +314,72 @@ public class Passeggero extends Model {
 	}
 
 	/**
-	 * Gets the mese.
+	 * Gets Il mese di nascita
 	 *
-	 * @return the mese
+	 * @return Il mese di nascita
 	 */
 	public Integer getMese() {
 		return mese;
 	}
 
 	/**
-	 * Sets the mese.
+	 * Sets Il mese di nascita
 	 *
-	 * @param mese the new mese
+	 * @param mese Il mese di nascita
 	 */
 	public void setMese(Integer mese) {
 		this.mese = mese;
 	}
 
 	/**
-	 * Gets the giorno.
+	 * Ottiene il giorno di nascita
 	 *
-	 * @return the giorno
+	 * @return il giorno di nascita
 	 */
 	public Integer getGiorno() {
 		return giorno;
 	}
 
 	/**
-	 * Sets the giorno.
+	 * Set il giorno di nascita
 	 *
-	 * @param giorno the new giorno
+	 * @param giorno il giorno di nascita
 	 */
 	public void setGiorno(Integer giorno) {
 		this.giorno = giorno;
 	}
 
 	/**
-	 * Gets the anno.
+	 * Ottiene l'anno di nascita
 	 *
-	 * @return the anno
+	 * @return l'anno di nascita
 	 */
 	public Integer getAnno() {
 		return anno;
 	}
 
 	/**
-	 * Sets the anno.
+	 * Set l'anno di nascita
 	 *
-	 * @param anno the new anno
+	 * @param anno l'anno di nascita
 	 */
 	public void setAnno(Integer anno) {
 		this.anno = anno;
 	}
 
 	/**
-	 * Gets the id gruppo.
+	 * Ottiene l'Id del gruppo di passeggeri
 	 *
-	 * @return the id gruppo
+	 * @return Id del gruppo di passeggeri
 	 */
 	public Integer getIdGruppo() {
 		return idGruppo;
 	}
 
 	/**
-	 * Sets the id gruppo.
+	 * Set Id del gruppo di passeggeri
 	 *
-	 * @param idGruppo the new id gruppo
+	 * @param idGruppo Id del gruppo di passeggeri
 	 */
 	public void setIdGruppo(Integer idGruppo) {
 		this.idGruppo = idGruppo;
@@ -380,9 +387,9 @@ public class Passeggero extends Model {
 	
 
 	/**
-	 * Gets the serial version uid.
+	 * Ottiene il serial version UID
 	 *
-	 * @return the serial version uid
+	 * @return the serial version UID
 	 */
 	public static long getSerialVersionUID() {
 		return serialVersionUID;
@@ -391,6 +398,7 @@ public class Passeggero extends Model {
 	/* (non-Javadoc)
 	 * @see model.Model#getFields()
 	 */
+	//ottiene i campi della classe passeggero
 	@Override
 	public List<Field> getFields() {
 		List<Field>  fields = super.getFields();

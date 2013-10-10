@@ -1,6 +1,4 @@
-/**
- * 
- */
+
 package model;
 
 import java.io.Serializable;
@@ -8,7 +6,6 @@ import java.lang.reflect.Field;
 import java.util.LinkedList;
 import java.util.List;
 
-// TODO: Auto-generated Javadoc
 /**
  * @author Demarinis - Micheli - Scarpellini
  * superclasse astratta di modelli, ogni modello deve avere un id,
@@ -19,22 +16,22 @@ import java.util.List;
  */
 public abstract class Model implements SortableList<Integer>, GetFields, Serializable{
 
-	/** The id. */
+	/** Id dell'oggetto della classe */
 	protected  Integer id;
 
 	/**
-	 * Gets the id.
+	 * Ottiene l'id dell'oggetto
 	 *
-	 * @return the id
+	 * @return Id dell'oggetto
 	 */
 	public Integer getId() {
 		return id;
 	}
 
 	/**
-	 * Sets the id.
+	 * Set Id dell'oggetto
 	 *
-	 * @param id the id to set
+	 * @param id Id dell'oggetto
 	 */
 	public void setId(Integer id) {
 		this.id = id;
@@ -43,8 +40,8 @@ public abstract class Model implements SortableList<Integer>, GetFields, Seriali
 	/**
 	 * compara il modello con l'id fornito.
 	 *
-	 * @param o the o
-	 * @return the int
+	 * @param o Integer con cui vuole essere fatto il confronto
+	 * @return Il risultato del confronto tra Integer
 	 */
 	@Override
 	public int compareTo(Integer o) {
@@ -59,7 +56,7 @@ public abstract class Model implements SortableList<Integer>, GetFields, Seriali
 	/**
 	 * ritorna l'elenco dei campi (anche privati) dichiarati nell'oggetto.
 	 *
-	 * @return the fields
+	 * @return I campi della classe
 	 */
 	@Override
 	public List<Field> getFields() {

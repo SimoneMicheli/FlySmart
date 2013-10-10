@@ -1,12 +1,8 @@
-/**
- * 
- */
 package model;
 
 import java.lang.reflect.Field;
 import java.util.List;
 
-// TODO: Auto-generated Javadoc
 /**
  * @author Demarinis - Micheli - Scarpellini
  * l'interfaccia permette di ottenere tutti i campi della classe
@@ -15,9 +11,9 @@ import java.util.List;
 public interface GetFields {
 	
 	/**
-	 * Gets the fields.
+	 * Ottieni i campi della classe
 	 *
-	 * @return the fields
+	 * @return I campi della classe
 	 */
 	public List<Field> getFields();
 }

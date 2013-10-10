@@ -2,31 +2,27 @@ package xml;
 
 import java.io.*;
 import java.lang.reflect.*;
-
 import javax.xml.parsers.*;   //XML parsers
-
 import model.GetFields;
-
 import org.w3c.dom.*;         //Interfacce di DOM 
 import org.w3c.dom.ls.*;      //Interfacce Load&Save di DOM
 import java.util.*;
 
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class XMLCreate.
+ * Crea un Document XML a partire da una lista di oggetti
  *
  * @author Demarinis - Micheli - Scarpellini
- * @param <E> the element type
+ * @param <E> Tipo dell'oggetto della lista
  */
 public class XMLCreate<E extends GetFields> {
 	
 
 	/**
-	 * Creates the fly smart document.
+	 * Crea un nuovo Document XML
 	 *
-	 * @param list the list
-	 * @return the document
+	 * @param list Lista degli oggetti 
+	 * @return Il Document XML
 	 */
 	public Document createFlySmartDocument(List<E> list){
 		Document d = this.createDocument();
@@ -34,11 +30,11 @@ public class XMLCreate<E extends GetFields> {
 	}
 	
 	/**
-	 * Creates the fly smart document.
+	 * Crea un Document XML a partire da un Document già esistente
 	 *
-	 * @param d the d
-	 * @param list the list
-	 * @return the document
+	 * @param d Il Document
+	 * @param list Lista degli oggetti
+	 * @return Il Document XML
 	 */
 	public Document createFlySmartDocument(Document d, List<E> list)	
 		{
@@ -48,7 +44,7 @@ public class XMLCreate<E extends GetFields> {
 		// Il documento deve includere un elemento di livello superiore, 
 		//cioè l' elemento principale: tutti gli altri elementi 
 		//devono essere nidificati al loro interno. 
-		// A questo elemento è stato assegnato il nome di "FlySmart"
+		// A questo elemento è stato assegnato il nome di "flySmart"
 		Element upperRoot = d.createElement("flySmart");
 		//Element radice = d.getDocumentElement();  //versione con DTD
 		
@@ -68,7 +64,7 @@ public class XMLCreate<E extends GetFields> {
 						String attributeNameMaiusc = attributeName.substring(0, 1).toUpperCase() + attributeName.substring(1);
 						Method m = elem.getClass().getMethod("get"+attributeNameMaiusc); // Ottengo il Metodo 
 						String s;
-						//se l'elemento ? null scrivo stringa vuota
+						//se l'elemento è null scrivo stringa vuota
 						try{
 							s = m.invoke(elem).toString();// Invoco il metodo
 						}catch (NullPointerException e) {
@@ -100,9 +96,9 @@ public class XMLCreate<E extends GetFields> {
 
 
 	/**
-	 * Creates the document.
+	 * Crea un Document XML generico
 	 *
-	 * @return the document
+	 * @return Il Document XML
 	 */
 	public Document createDocument() {
 		//Ottengo un document builder factory
@@ -122,12 +118,12 @@ public class XMLCreate<E extends GetFields> {
 	
 
 	/**
-	 * Creates the document dtd.
+	 * Crea un Document con DTD
 	 *
-	 * @param radice the radice
-	 * @param pubid the pubid
-	 * @param sysid the sysid
-	 * @return the document
+	 * @param radice Il nodo radice
+	 * @param pubid Il PubID
+	 * @param sysid Il SysID
+	 * @return Il Document con DTD
 	 */
 	public Document createDocumentDTD(String radice, String pubid, String sysid) {
 		//Ottengo un document builder factory
@@ -151,11 +147,11 @@ public class XMLCreate<E extends GetFields> {
 
 
 	/**
-	 * Save document.
+	 * Salva il Document
 	 *
-	 * @param d the d
-	 * @param w the w
-	 * @return true, if successful
+	 * @param d Il Document che si vuole salvare
+	 * @param w Il writer che si vuole utilizzare
+	 * @return true, Se il salvataggio è avvenuto correttamente
 	 */
 	public boolean saveDocument(Document d, Writer w) {
 
@@ -184,12 +180,12 @@ public class XMLCreate<E extends GetFields> {
 	
 
 	/**
-	 * Prints the document.
+	 * Stampa il documento su file
 	 *
-	 * @param d the d
-	 * @param name_file the name_file
-	 * @return true, if successful
-	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @param d Il Document che si vuole stampare su file
+	 * @param name_file Nome del file in output
+	 * @return true, Se scrittura avvenuta con successo
+	 * @throws IOException Indica che è avvuta un accezione durante l'operazione di I/O
 	 */
 	public boolean printDocument(Document d, String name_file) throws IOException
 	{

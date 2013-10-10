@@ -6,7 +6,6 @@ import model.*;
 import java.util.*;
 
 
-// TODO: Auto-generated Javadoc
 /**
  * @author Demarinis - Micheli - Scarpellini
  * The Class TestXML.

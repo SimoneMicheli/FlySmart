@@ -5,48 +5,50 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-// TODO: Auto-generated Javadoc
 /**
  * @author Demarinis - Micheli - Scarpellini
- * The Class Volo.
+ * La classe Volo:
+ * Rappresenta uno specifico volo che collega due aeroporti in una determinata data.
+ * Contiene informazioni circa posti disponibili, pallet disponibili e prezzi del volo.
+ * 
  */
 public class Volo extends Model {
 	
-	/** The Constant serialVersionUID. */
+	/** La costante serialVersionUID */
 	private static final long serialVersionUID = 1L;
 	
-	/** The data ora. */
+	/** Data del volo (in particolare la partenza) */
 	private Date dataOra;
 	
-	/** The aeroporto partenza. */
+	/** Id dell'aeroporto di partenza */
 	private Integer  aeroportoPartenza;
 	
-	/** The aeroporto destinazione. */
+	/** Id dell'aeroporto di destinazione */
 	private Integer  aeroportoDestinazione;
 	
-	/** The aereo. */
+	/** Id dell'aereo assegnato al volo */
 	private Integer  aereo;
 	
-	/** The posti disponibili. */
+	/** Numero di posti per passeggeri ancora disponibili sull'aereo */
 	private Integer  postiDisponibili;
 	
-	/** The pallet disponibili. */
+	/** Numero di posti per pallet ancora disponibili sull'aereo */
 	private Integer  palletDisponibili;
 	
-	/** The prezzo. */
+	/** Prezzo del volo (espresso in euro) */
 	private Double prezzo;
 	
 	/**
-	 * Instantiates a new volo.
+	 * Istanzia un nuovo volo (supercostruttore)
 	 *
-	 * @param id the id
-	 * @param dataOra the data ora
-	 * @param aeroportoPartenza the aeroporto partenza
-	 * @param aeroportoDestinazione the aeroporto destinazione
-	 * @param aereo the aereo
-	 * @param postiDisponibili the posti disponibili
-	 * @param palletDisponibili the pallet disponibili
-	 * @param prezzo the prezzo
+	 * @param id Id del volo
+	 * @param dataOra Data del volo (in particolare la partenza)
+	 * @param aeroportoPartenza Id dell'aeroporto di partenza
+	 * @param aeroportoDestinazione Id dell'aeroporto di destinazione
+	 * @param aereo Id dell'aereo assegnato al volo
+	 * @param postiDisponibili Numero di posti per passeggeri ancora disponibili sull'aereo
+	 * @param palletDisponibili  Numero di posti per pallet ancora disponibili sull'aereo
+	 * @param prezzo Prezzo del volo (espresso in euro)
 	 */
 	public Volo(Integer id, Date dataOra, Integer aeroportoPartenza, Integer aeroportoDestinazione, Integer aereo, Integer postiDisponibili, Integer palletDisponibili, Double prezzo) {
 		this.id = id;
@@ -61,16 +63,16 @@ public class Volo extends Model {
 	}
 	
 	/**
-	 * Instantiates a new volo.
+	 * Istanzia un nuovo volo (costruttore vuoto)
 	 */
 	public Volo(){
 		
 	}
 
 	/**
-	 * Gets the data ora.
+	 * Ottiene la Data del volo (in particolare la partenza)
 	 *
-	 * @return the data ora
+	 * @return Data del volo (in particolare la partenza)
 	 */
 	public Date getDataOra() {
 		return dataOra;
@@ -79,9 +81,9 @@ public class Volo extends Model {
 
 
 	/**
-	 * Sets the datao ora.
+	 * Set Data del volo (in particolare la partenza)
 	 *
-	 * @param dataOra the new datao ora
+	 * @param dataOra Data del volo (in particolare la partenza)
 	 */
 	public void setDataoOra(Date dataOra) {
 		this.dataOra = dataOra;
@@ -90,9 +92,9 @@ public class Volo extends Model {
 
 
 	/**
-	 * Gets the serial version uid.
+	 * Ottiene il serial version UID
 	 *
-	 * @return the serial version uid
+	 * @return the serial version UID
 	 */
 	public static long getSerialVersionUID() {
 		return serialVersionUID;
@@ -101,9 +103,9 @@ public class Volo extends Model {
 
 
 	/**
-	 * Gets the aeroporto partenza.
+	 * Gets Id dell'aeroporto di partenza
 	 *
-	 * @return the aeroporto partenza
+	 * @return Id dell'aeroporto di partenza
 	 */
 	public Integer getAeroportoPartenza() {
 		return aeroportoPartenza;
@@ -112,9 +114,9 @@ public class Volo extends Model {
 
 
 	/**
-	 * Sets the aeroporto partenza.
+	 * Set Id dell'aeroporto di partenza
 	 *
-	 * @param aeroportoPartenza the new aeroporto partenza
+	 * @param aeroportoPartenza Id dell'aeroporto di partenza
 	 */
 	public void setAeroportoPartenza(Integer aeroportoPartenza) {
 		this.aeroportoPartenza = aeroportoPartenza;
@@ -123,9 +125,9 @@ public class Volo extends Model {
 
 
 	/**
-	 * Gets the aeroporto destinazione.
+	 * Ottiene Id dell'aeroporto di destinazione
 	 *
-	 * @return the aeroporto destinazione
+	 * @return Id dell'aeroporto di destinazione
 	 */
 	public Integer getAeroportoDestinazione() {
 		return aeroportoDestinazione;
@@ -134,9 +136,9 @@ public class Volo extends Model {
 
 
 	/**
-	 * Sets the aeroporto destinazione.
+	 * Set Id dell'aeroporto di destinazione
 	 *
-	 * @param aeroportoDestinazione the new aeroporto destinazione
+	 * @param aeroportoDestinazione Id dell'aeroporto di destinazione
 	 */
 	public void setAeroportoDestinazione(Integer aeroportoDestinazione) {
 		this.aeroportoDestinazione = aeroportoDestinazione;
@@ -145,9 +147,9 @@ public class Volo extends Model {
 
 
 	/**
-	 * Gets the aereo.
+	 * Ottiene Id dell'aereo assegnato al volo
 	 *
-	 * @return the aereo
+	 * @return Id dell'aereo assegnato al volo
 	 */
 	public Integer getAereo() {
 		return aereo;
@@ -156,9 +158,9 @@ public class Volo extends Model {
 
 
 	/**
-	 * Sets the aereo.
+	 * Set Id dell'aereo assegnato al volo
 	 *
-	 * @param aereo the new aereo
+	 * @param aereo Id dell'aereo assegnato al volo
 	 */
 	public void setAereo(Integer aereo) {
 		this.aereo = aereo;
@@ -167,9 +169,9 @@ public class Volo extends Model {
 
 
 	/**
-	 * Gets the posti disponibili.
+	 * Ottiene il Numero di posti per passeggeri ancora disponibili sull'aereo
 	 *
-	 * @return the posti disponibili
+	 * @return Numero di posti per passeggeri ancora disponibili sull'aereo
 	 */
 	public Integer getPostiDisponibili() {
 		return postiDisponibili;
@@ -190,9 +192,9 @@ public class Volo extends Model {
 
 
 	/**
-	 * Sets the posti disponibili.
+	 * Set il Numero di posti per passeggeri ancora disponibili sull'aereo
 	 *
-	 * @param postiDisponibili the new posti disponibili
+	 * @param postiDisponibili Numero di posti per passeggeri ancora disponibili sull'aereo
 	 */
 	public void setPostiDisponibili(Integer postiDisponibili) {
 		this.postiDisponibili = postiDisponibili;
@@ -201,9 +203,9 @@ public class Volo extends Model {
 
 
 	/**
-	 * Gets the pallet disponibili.
+	 * Ottiene il Numero di posti per pallet ancora disponibili sull'aereo
 	 *
-	 * @return the pallet disponibili
+	 * @return Numero di posti per pallet ancora disponibili sull'aereo
 	 */
 	public Integer getPalletDisponibili() {
 		return palletDisponibili;
@@ -212,9 +214,9 @@ public class Volo extends Model {
 
 
 	/**
-	 * Sets the pallet disponibili.
+	 * Set il Numero di posti per pallet ancora disponibili sull'aereo
 	 *
-	 * @param palletDisponibili the new pallet disponibili
+	 * @param palletDisponibili Numero di posti per pallet ancora disponibili sull'aereo
 	 */
 	public void setPalletDisponibili(Integer palletDisponibili) {
 		this.palletDisponibili = palletDisponibili;
@@ -223,9 +225,9 @@ public class Volo extends Model {
 
 
 	/**
-	 * Gets the prezzo.
+	 * Ottiene il Prezzo del volo (espresso in euro)
 	 *
-	 * @return the prezzo
+	 * @return Prezzo del volo (espresso in euro)
 	 */
 	public Double getPrezzo() {
 		return prezzo;
@@ -234,9 +236,9 @@ public class Volo extends Model {
 
 
 	/**
-	 * Sets the prezzo.
+	 * Set il Prezzo del volo (espresso in euro)
 	 *
-	 * @param prezzo the new prezzo
+	 * @param prezzo Prezzo del volo (espresso in euro)
 	 */
 	public void setPrezzo(Double prezzo) {
 		this.prezzo = prezzo;
@@ -247,6 +249,7 @@ public class Volo extends Model {
 	 * @see model.Model#getFields()
 	 */
 	@Override
+	//ottiene i campi della classe Volo
 	public List<Field> getFields() {
 		List<Field>  fields = super.getFields();
 		Field[] currentFields = Volo.class.getDeclaredFields();

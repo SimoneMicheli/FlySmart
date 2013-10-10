@@ -3,32 +3,31 @@ package model;
 import java.lang.reflect.Field;
 import java.util.List;
 
-// TODO: Auto-generated Javadoc
 /**
  * @author Demarinis - Micheli - Scarpellini
- * The Class Pallet.
+ * La classe pallet
  */
 public class Pallet extends Model {
 	
-	/** The Constant serialVersionUID. */
+	/** La costante serialVersionUID. */
 	private static final long serialVersionUID = -5555020451242189950L;
 	
-	/** The peso. */
+	/** Il peso del pallet */
 	private Double peso;
 	
-	/** The targa. */
+	/** La targa del pallet */
 	private String targa;
 	
-	/** The id volo. */
+	/** Id del volo su cui si trova il pallet */
 	private Integer idVolo;
 	
 	/**
-	 * Instantiates a new pallet.
+	 * Istanzia un nuovo pallet (supercostruttore)
 	 *
-	 * @param id the id
-	 * @param peso the peso
-	 * @param targa the targa
-	 * @param idVolo the id volo
+	 * @param id Id del pallet
+	 * @param peso Il peso del pallet
+	 * @param targa La targa del pallet
+	 * @param idVolo Id del volo su cui si trova il pallet
 	 */
 	public Pallet(Integer id, Double peso, String targa, Integer idVolo) {
 		this.id = id;
@@ -38,80 +37,80 @@ public class Pallet extends Model {
 	}
 	
 	/**
-	 * Instantiates a new pallet.
+	 * Istanzia un nuovo pallet
 	 *
-	 * @param peso the peso
-	 * @param targa the targa
-	 * @param idVolo the id volo
+	 * @param peso Il peso del pallet
+	 * @param targa la targa del pallet
+	 * @param idVolo Id del volo su cui si trova il pallet
 	 */
 	public Pallet(Double peso, String targa, Integer idVolo) {
 		this(null, peso,  targa,  idVolo);
 	}
 	
 	/**
-	 * Instantiates a new pallet.
+	 * Istanzia un nuovo pallet (costruttore senza parametri)
 	 */
 	public Pallet(){
 	}
 
 	/**
-	 * Gets the peso.
+	 * Ottiene peso
 	 *
-	 * @return the peso
+	 * @return Il peso del pallet
 	 */
 	public double getPeso() {
 		return peso;
 	}
 	
 	/**
-	 * Sets the peso.
+	 * Set del peso del pallet
 	 *
-	 * @param peso the new peso
+	 * @param peso Il peso del pallet
 	 */
 	public void setPeso(Double peso) {
 		this.peso = peso;
 	}
 	
 	/**
-	 * Gets the targa.
+	 * Ottiene la targa del pallet
 	 *
-	 * @return the targa
+	 * @return La targa del pallet
 	 */
 	public String getTarga() {
 		return targa;
 	}
 	
 	/**
-	 * Sets the targa.
+	 * Set la targa del pallet
 	 *
-	 * @param targa the new targa
+	 * @param La targa del pallet
 	 */
 	public void setTarga(String targa) {
 		this.targa = targa;
 	}
 	
 	/**
-	 * Gets the id volo.
+	 * Ottiene l'id del volo su cui si trova il pallet
 	 *
-	 * @return the id volo
+	 * @return L'id del volo su cui si trova il pallet
 	 */
 	public Integer getIdVolo() {
 		return idVolo;
 	}
 	
 	/**
-	 * Sets the id volo.
+	 * Set id del volo su cui si trova il pallet
 	 *
-	 * @param idVolo the new id volo
+	 * @param idVolo Id del volo su cui si trova il pallet
 	 */
 	public void setIdVolo(Integer idVolo) {
 		this.idVolo = idVolo;
 	}
 	
 	/**
-	 * Gets the serial version uid.
+	 * Ottiene il serial version UID
 	 *
-	 * @return the serial version uid
+	 * @return Il serial version UID
 	 */
 	public static long getSerialVersionUID() {
 		return serialVersionUID;
@@ -121,6 +120,7 @@ public class Pallet extends Model {
 	 * @see model.Model#getFields()
 	 */
 	@Override
+	// ottiene la lista dei campi della classe pallet
 	public List<Field> getFields() {
 		List<Field>  fields = super.getFields();
 		Field[] currentFields = Pallet.class.getDeclaredFields();

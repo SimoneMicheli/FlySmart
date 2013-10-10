@@ -3,33 +3,33 @@ package model;
 import java.lang.reflect.Field;
 import java.util.List;
 
-// TODO: Auto-generated Javadoc
 /**
  * @author Demarinis - Micheli - Scarpellini
- * The Class Aeroporto.
+ * La classe Aeroporto:
+ * Rappresenta un determinato aeroporto, e informazioni circa tasse e prezzo del carburante.
  */
 public class Aeroporto extends Model {
 	
-	/** The Constant serialVersionUID. */
+	/** La costante serialVersionUID. */
 	private static final long serialVersionUID = -5654644415727177592L;
 	
-	/** The nome. */
+	/** Il nome dell'aeroporto */
 	private String nome;
 	
-	/** The prezzo carburante. */
+	/** Il prezzo del carburante */
 	private Double prezzoCarburante;
 	
-	/** The tasse. */
+	/** Le tasse pagate nell'aeroporto specifico */
 	private Double tasse;
 	
 	
 	/**
-	 * Instantiates a new aeroporto.
+	 * Istanzia un nuovo aeroporto (Supercostruttore)
 	 *
-	 * @param id the id
-	 * @param nome the nome
-	 * @param prezzoCarburante the prezzo carburante
-	 * @param tasse the tasse
+	 * @param id Id dell'aeroporto
+	 * @param nome Nome dell'aeroporto
+	 * @param prezzoCarburante Prezzo del carburante
+	 * @param tasse Tasse pagate
 	 */
 	public Aeroporto(Integer id, String nome, Double prezzoCarburante, Double tasse) {
 		this.id = id;
@@ -39,61 +39,61 @@ public class Aeroporto extends Model {
 	}
 	
 	/**
-	 * Instantiates a new aeroporto.
+	 * Istanzia un nuovo aeroporto
 	 */
 	public Aeroporto(){
 		this(null, "", 0.0, 0.0);
 	}
 
 	/**
-	 * Gets the nome.
+	 * Ottiene il nome dell'aeroporto
 	 *
-	 * @return the nome
+	 * @return Il nome dell'aeroporto
 	 */
 	public String getNome() {
 		return nome;
 	}
 	
 	/**
-	 * Sets the nome.
+	 * Set del nome
 	 *
-	 * @param nome the new nome
+	 * @param nome Il nome dell'aeroporto
 	 */
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
 	
 	/**
-	 * Gets the prezzo carburante.
+	 * Ottiene il prezzo del carburante
 	 *
-	 * @return the prezzo carburante
+	 * @return Il prezzo del carburante
 	 */
 	public Double getPrezzoCarburante() {
 		return prezzoCarburante;
 	}
 	
 	/**
-	 * Sets the prezzo carburante.
+	 * Set del prezzo del carburante
 	 *
-	 * @param prezzoCarburante the new prezzo carburante
+	 * @param prezzoCarburante Il prezzo del carburante
 	 */
 	public void setPrezzoCarburante(Double prezzoCarburante) {
 		this.prezzoCarburante = prezzoCarburante;
 	}
 	
 	/**
-	 * Gets the tasse.
+	 * Ottiene le tasse 
 	 *
-	 * @return the tasse
+	 * @return Le tasse dell'aeroporto
 	 */
 	public Double getTasse() {
 		return tasse;
 	}
 	
 	/**
-	 * Sets the tasse.
+	 * Set delle tasse dell'aeroporto
 	 *
-	 * @param tasse the new tasse
+	 * @param tasse Le tasse dell'aeroporto
 	 */
 	public void setTasse(Double tasse) {
 		this.tasse = tasse;
@@ -101,9 +101,9 @@ public class Aeroporto extends Model {
 	
 	
 	/**
-	 * Gets the serial version uid.
+	 * Ottiene il serial version UID.
 	 *
-	 * @return the serial version uid
+	 * @return Il serial version UID
 	 */
 	public static long getSerialVersionUID() {
 		return serialVersionUID;
@@ -113,8 +113,8 @@ public class Aeroporto extends Model {
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
+	//override del metodo toString
 	public String toString() {
-		// TODO Auto-generated method stub
 		return nome;
 	}
 
@@ -122,6 +122,7 @@ public class Aeroporto extends Model {
 	 * @see model.Model#getFields()
 	 */
 	@Override
+	//ottiene i campi della classe Aeroporto
 	public List<Field> getFields() {
 		List<Field>  fields = super.getFields();
 		Field[] currentFields = Aeroporto.class.getDeclaredFields();
