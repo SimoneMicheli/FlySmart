@@ -7,12 +7,9 @@ import javax.swing.JFrame;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Class View.
+/**Superclasse di tutte le viste, ognuna delle quali estende JFrame
  *
  * @author Demarinis - Micheli - Scarpellini
- * The Class View. Superclasse di tutte le viste, ognuna delle quali estende JFrame
  */
 public abstract class View extends JFrame{
 

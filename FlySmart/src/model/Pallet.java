@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  * @author Demarinis - Micheli - Scarpellini
- * La classe pallet
+ * 
  */
 public class Pallet extends Model {
 	
@@ -83,7 +83,7 @@ public class Pallet extends Model {
 	/**
 	 * Set la targa del pallet
 	 *
-	 * @param La targa del pallet
+	 * @param targa La targa del pallet
 	 */
 	public void setTarga(String targa) {
 		this.targa = targa;

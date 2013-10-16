@@ -30,12 +30,10 @@ import model.Aeroporto;
 import model.Passeggero;
 import model.Volo;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Class PrenotazioneView.
+/**La vista della prenotazione
  *
  * @author Demarinis - Micheli - Scarpellini
- * La vista della prenotazione
+ * 
  */
 
 @SuppressWarnings("rawtypes")

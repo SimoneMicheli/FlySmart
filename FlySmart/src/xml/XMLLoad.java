@@ -7,8 +7,8 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.*; //JAXP
 
 /**
- * @author Demarinis - Micheli - Scarpellini
  * Carica e restituisce un Document XML da file
+ * @author Demarinis - Micheli - Scarpellini
  */
 public class XMLLoad {
 

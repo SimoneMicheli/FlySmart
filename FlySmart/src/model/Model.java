@@ -6,12 +6,11 @@ import java.lang.reflect.Field;
 import java.util.LinkedList;
 import java.util.List;
 
-/**
- * @author Demarinis - Micheli - Scarpellini
- * superclasse astratta di modelli, ogni modello deve avere un id,
+/**Superclasse astratta di modelli, ogni modello deve avere un id,
  * permette di recuperare i campi dichiarati nel modello
  * e permettedi eseguire una ricerca per id sui modelli.
  * Implementa l'interfaccia serializable per usare i modelli con RMI
+ * @author Demarinis - Micheli - Scarpellini
  *
  */
 public abstract class Model implements SortableList<Integer>, GetFields, Serializable{

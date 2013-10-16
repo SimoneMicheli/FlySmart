@@ -27,7 +27,6 @@ public class ClientTest {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		System.setProperty("javax.net.ssl.trustStore", "src/network/clientstore");
 		System.setProperty("javax.net.ssl.trustStorePassword", "clientstorepassword");
 		
@@ -53,22 +52,16 @@ public class ClientTest {
 			System.out.println(rx);
 			
 		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (NotBoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (FlightNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SeatsSoldOutException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

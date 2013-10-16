@@ -11,7 +11,7 @@ import org.w3c.dom.*;
 
 /**
  * Carica il Document XML e crea una lista di oggetti contenuti nel file xml
- * 
+ * @author Demarinis - Micheli - Scarpellini
  */
 public class XMLToObj{
 	

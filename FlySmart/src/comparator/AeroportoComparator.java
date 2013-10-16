@@ -4,13 +4,11 @@ import java.util.Comparator;
 
 import model.Aeroporto;
 
-/**
- * 
- * @author Demarinis - Micheli - Scarpellini
- * implementa l'intefaccia comparator che permette di ordinare gli aeroporti
- * secondo i seguenti criteri
+/**Implementa l'intefaccia comparator che permette di ordinare gli aeroporti secondo i seguenti criteri
  * ID_ORDER: ordinamento crescente per id
  * NAME_ORDER: ordinamento crescente per nome
+ * 
+ * @author Demarinis - Micheli - Scarpellini
  *
  */
 public enum AeroportoComparator implements Comparator<Aeroporto> {

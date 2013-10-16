@@ -4,11 +4,11 @@ import java.lang.reflect.Field;
 import java.util.Calendar;
 import java.util.List;
 
-/**
- * @author Demarinis - Micheli - Scarpellini
- * La classe Passeggero
- * Rappresenta un cliente della compagnia aerea, e le sue informazioni personali.
+/**Rappresenta un cliente della compagnia aerea, e le sue informazioni personali.
  * Sono contenute inoltre informazioni circa il volo da lui prenotato e il posto assegnatogli
+ * 
+ * @author Demarinis - Micheli - Scarpellini
+ * 
  * 
  */
 public class Passeggero extends Model {
@@ -279,7 +279,7 @@ public class Passeggero extends Model {
 	/**
 	 * Set Il cognome del passeggero
 	 *
-	 * @param Il cognome del passeggero
+	 * @param cognome Il cognome del passeggero
 	 */
 	public void setCognome(String cognome) {
 		this.cognome = cognome;

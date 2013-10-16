@@ -7,13 +7,13 @@ import java.util.Comparator;
 
 import model.Volo;
 
-/**
- * @author Demarinis - Micheli - Scarpellini
- * gestione ordinamento voli secondo i seguenti criteri
- * ID_ORDER
- * DATA_ORDER
- * POSTI_ORDER
+/** Gestione ordinamento voli secondo i seguenti criteri:
+ * ID_ORDER,
+ * DATA_ORDER,
+ * POSTI_ORDER,
  * PALLET_ORDER
+ * @author Demarinis - Micheli - Scarpellini
+ * 
  *
  */
 public enum VoloComparator implements Comparator<Volo> {

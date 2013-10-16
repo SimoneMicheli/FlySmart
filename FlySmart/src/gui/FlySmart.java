@@ -3,12 +3,10 @@
  */
 package gui;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Class FlySmart.
+/** The Class FlySmart. Compagnia aerea
  *
  * @author Demarinis - Micheli - Scarpellini
- * The Class FlySmart. Compagnia aerea
+ * 
  */
 public class FlySmart {
 

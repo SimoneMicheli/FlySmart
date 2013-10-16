@@ -13,9 +13,8 @@ import model.Volo;
 import network.ServerInterface;
 
 
-/**
+/**Il controller della vista di prenotazione
  * @author Demarinis - Micheli - Scarpellini
- * Il controller della vista di prenotazione
  */
 public class PrenotazioneController{
 

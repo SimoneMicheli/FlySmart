@@ -8,7 +8,7 @@ import java.util.*;
 
 /**
  * @author Demarinis - Micheli - Scarpellini
- * The Class TestXML.
+ * 
  */
 public class TestXML {
 

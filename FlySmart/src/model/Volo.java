@@ -6,10 +6,9 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * @author Demarinis - Micheli - Scarpellini
- * La classe Volo:
  * Rappresenta uno specifico volo che collega due aeroporti in una determinata data.
  * Contiene informazioni circa posti disponibili, pallet disponibili e prezzi del volo.
+ * @author Demarinis - Micheli - Scarpellini
  * 
  */
 public class Volo extends Model {

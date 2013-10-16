@@ -3,10 +3,9 @@ package model;
 import java.lang.reflect.Field;
 import java.util.List;
 
-/**
+/**Rappresenta un determinato aeroporto, e informazioni circa tasse e prezzo del carburante.
  * @author Demarinis - Micheli - Scarpellini
- * La classe Aeroporto:
- * Rappresenta un determinato aeroporto, e informazioni circa tasse e prezzo del carburante.
+ * 
  */
 public class Aeroporto extends Model {
 	

@@ -1,9 +1,9 @@
 package exception;
 
-/**
- * @author Demarinis - Micheli - Scarpellini
- * eccezione lanciata se il volo cercato
+/**Eccezione lanciata se il volo cercato
  * non esiste o non � stato trovato nella lista
+ * @author Demarinis - Micheli - Scarpellini
+ * 
  *
  */
 public class FlightNotFoundException extends Exception {

@@ -14,9 +14,9 @@ import javax.swing.JOptionPane;
 import network.ServerInterface;
 
 
-/**
+/**Il controller della form di login
  * @author Demarinis - Micheli - Scarpellini
- * Il controller della form di login
+ * 
  */
 public class LoginController {
 

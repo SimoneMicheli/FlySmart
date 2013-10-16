@@ -5,9 +5,9 @@ import java.awt.Toolkit;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
-/**
+/**Vista della Form di Login
  * @author Demarinis - Micheli - Scarpellini
- * Vista della Form di Login
+ * 
  */
 public class LoginView extends View {
 

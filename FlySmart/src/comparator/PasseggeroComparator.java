@@ -7,12 +7,11 @@ import java.util.Comparator;
 
 import model.Passeggero;
 
-/**
- * @author Demarinis - Micheli - Scarpellini
- * gestione ordinamento passeggeri
+/**Gestione ordinamento passeggeri
  * ID_ORDER: ordinamento crescente per id
  * NAME_ORDER: ordinamento crescente per nome
  * POSTO_ORDER: ordinamento per posto cresente
+ * @author Demarinis - Micheli - Scarpellini
  *
  */
 public enum PasseggeroComparator implements Comparator<Passeggero> {

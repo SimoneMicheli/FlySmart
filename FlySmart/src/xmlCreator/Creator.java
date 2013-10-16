@@ -14,7 +14,6 @@ import model.*;
 public class Creator {
 
 	/**
-	 * @author Demarinis - Micheli - Scarpellini
 	 * @param args
 	 * @throws IOException 
 	 */

@@ -10,16 +10,15 @@ import exception.SeatsSoldOutException;
 
 import model.*;
 
-/**
+/**Interfaccia server, definisce i metodi eseguibili dai client
  * @author Demarinis - Micheli - Scarpellini
- * interfaccia server, definisce i metodi eseguibili dai client
+ * 
  *
  */
 public interface ServerInterface extends Remote {
 	
 	/**
-	 * restituisce l'elenco areoporti al client
-	 * @return
+	 * @return l'elenco areoporti al client
 	 * @throws RemoteException
 	 */
 	public List<Aeroporto> getAeroporti() throws RemoteException;

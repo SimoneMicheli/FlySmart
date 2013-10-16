@@ -13,9 +13,9 @@ import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 
 
-/**
+/**Server logger, la classe gestisce il log del server
  * @author Demarinis - Micheli - Scarpellini
- * server logger, la classe gestisce il log del server
+ * 
  *
  */
 public class ServerLogger {

@@ -26,9 +26,9 @@ import exception.SeatsSoldOutException;
 import fileLock.*;
 import model.*;
 
-/**
+/** Implementa i metodi definiti nell'interfaccia del server
  * @author Demarinis - Micheli - Scarpellini
- * implementa i metodi definiti nell'interfaccia del server
+ * 
  *
  */
 public class Server extends UnicastRemoteObject implements ServerInterface {
@@ -135,8 +135,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 	}
 	
 	/**
-	 * restituisce il primo id libero da assegnare ad un passeggero
-	 * @return
+	 * @return il primo id libero da assegnare ad un passeggero
 	 */
 	private synchronized int getNextID(){
 		return getNextID(1);
@@ -156,16 +155,16 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 	}
 
 	/**
-	 * primo id libero per i pallet
-	 * @return
+	 * 
+	 * @return primo id libero per i pallet
 	 */
 	private synchronized int getNextPalletID(){
 		return getNextPalletID(1);
 	}
 	
 	/**
-	 * primo id libero per gruppi
-	 * @return
+	 * 
+	 * @return oldId primo id libero per gruppi
 	 */
 	private synchronized int getNextGroupID(){
 		int oldID = lastGroupID;

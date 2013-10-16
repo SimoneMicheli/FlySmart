@@ -3,10 +3,9 @@
  */
 package fileLock;
 
-/**
- * @author Demarinis - Micheli - Scarpellini
- * interfaccia che definisce i metodi da usare per i lock sui file.
+/**Interfaccia che definisce i metodi da usare per i lock sui file.
  * implementa il paradigma dei lettori scrittori con prioritˆ agli scrittori
+ * @author Demarinis - Micheli - Scarpellini
  *
  */
 public interface FileLock {

@@ -1,9 +1,8 @@
 package exception;
 
-/**
- * @author Demarinis - Micheli - Scarpellini
- * eccezione lanciata se il volo cercato
+/** Eccezione lanciata se il volo cercato
  * ha posti residui insufficienti
+ * @author Demarinis - Micheli - Scarpellini
  *
  */
 public class SeatsSoldOutException extends Exception {
