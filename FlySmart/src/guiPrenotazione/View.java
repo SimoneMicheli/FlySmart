@@ -1,7 +1,7 @@
 /*
  * 
  */
-package gui;
+package guiPrenotazione;
 
 import javax.swing.JFrame;
 import javax.swing.UIManager;

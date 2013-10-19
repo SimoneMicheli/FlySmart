@@ -1,4 +1,4 @@
-package gui;
+package guiPrenotazione;
 
 
 import java.awt.BorderLayout;

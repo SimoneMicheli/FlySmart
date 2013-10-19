@@ -1,4 +1,4 @@
-package gui;
+package guiPrenotazione;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;

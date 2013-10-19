@@ -1,7 +1,7 @@
 /*
  * 
  */
-package gui;
+package guiPrenotazione;
 
 /** The Class FlySmart. Compagnia aerea
  *
