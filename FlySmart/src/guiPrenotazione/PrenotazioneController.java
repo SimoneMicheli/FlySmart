@@ -83,10 +83,10 @@ public class PrenotazioneController{
 		});
 
 		//info->Chi siamo
-		view.mntmsuDiNoi.addMouseListener(new MouseAdapter() {
+		view.mntmCopyright.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				JOptionPane.showMessageDialog(null,"Siamo 3 geni","Ha ragione questo qui sotto.. ", 1);
+				JOptionPane.showMessageDialog(null,"Copyright by Demarinis Gianluca, Micheli Simone and Scarpellini Alan ","Copyright", 3);
 			}
 
 		});
@@ -96,12 +96,17 @@ public class PrenotazioneController{
 		view.buttonPasseggeriPasseggeriCercaVoli.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				int p = ((Aeroporto)view.comboPasseggeriAeroportoPartenza.getSelectedItem()).getId();  //codice aeroporto di partenza
-				int a = ((Aeroporto)view.comboPasseggeriAeroportoArrivo.getSelectedItem()).getId();  //codice aeroporto di arrivo
-				if(p==a){ //scelta destinazione=partenza
-					JOptionPane.showMessageDialog(null,"Sei gia arrivato!","Complimenti!", 1);
-				}else{
-					if(view.comboPasseggeriAeroportoArrivo.getSelectedItem().toString()!="" && view.comboPasseggeriAeroportoPartenza.getSelectedItem().toString()!=""){ //se non vuoti
+				int p=0,a=0;
+				try{
+					p = ((Aeroporto)view.comboPasseggeriAeroportoPartenza.getSelectedItem()).getId();  //codice aeroporto di partenza
+					a = ((Aeroporto)view.comboPasseggeriAeroportoArrivo.getSelectedItem()).getId();  //codice aeroporto di arrivo
+				}catch(Exception e){
+					JOptionPane.showMessageDialog(null,"Selezionare gli aeroporti","Errore", 1);
+				}
+				if(p!=0 && a!=0){
+					if(p==a){ //scelta destinazione=partenza e il try ha funzionato
+						JOptionPane.showMessageDialog(null,"Sei gia arrivato!","Complimenti!", 1);
+					}else{
 						List<Volo> voli=null;
 						try {
 							voli = serv.getVoli(p,a); //carico la lista dei voli
@@ -109,12 +114,14 @@ public class PrenotazioneController{
 							JOptionPane.showMessageDialog(null, "Impossibile connettersi al server","Error", 0);
 							e.printStackTrace();
 						}
+						view.aeroportoPartenza=((Aeroporto)view.comboPasseggeriAeroportoPartenza.getSelectedItem()).getNome();
+						view.aeroportoArrivo=((Aeroporto)view.comboPasseggeriAeroportoArrivo.getSelectedItem()).getNome();
 						view.setPasseggeriVoli(voli);  //carico gli oggetti nella facciata passeggeri:voli
 						registraControllerFase2Passeggeri(); //registro i listner della facciata passeggeri:voli
 						view.cardPasseggeri.show(view.panelPasseggeri,"panelPasseggeriVoli"); //visualizzo il pannello passeggeri:voli passandogli la lista dei voli
+
 					}
 				}
-
 
 			}
 
@@ -158,18 +165,10 @@ public class PrenotazioneController{
 		view.buttonPasseggeriConfermaVolo.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				if(view.buttonGroupPasseggeriVoli.getSelection()!=null){
-
-					//risalgo all'id del volo
-					String delimiter = " ";
-					String[] temp = view.getSelectedButtonText(view.buttonGroupPasseggeriVoli).split(delimiter);
-					view.idVoloSelezionatoPasseggeri= Integer.parseInt(temp[0]);
-
-					//richiamo la fase 3
-					view.setPasseggeriPasseggeri();
-					registraControllerFase3Passeggeri();
-					view.cardPasseggeri.show(view.panelPasseggeri,"panelPasseggeriPasseggeri");
-				}
+				view.voloSelezionatoPasseggeri = ((Volo)view.comboVoliDisponibili.getSelectedItem());  //codice del volo
+				view.setPasseggeriPasseggeri();
+				registraControllerFase3Passeggeri();
+				view.cardPasseggeri.show(view.panelPasseggeri,"panelPasseggeriPasseggeri");
 			}
 		});
 
@@ -222,23 +221,26 @@ public class PrenotazioneController{
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
 				if(view.controllaCampi() || (view.campiVuoti() && view.listaPasseggeri.size()!=0)){ //se sono pieni oppure vuoti
-					view.updateOrSavePasseggero();
+					view.passeggeroSuccessivo(); 
+					if (JOptionPane.showConfirmDialog(null,"Vuoi confermare la spesa di "+view.prezzoTotaleVolo+" €?","Conferma prenotazione passeggeri",JOptionPane.YES_NO_OPTION,JOptionPane.NO_OPTION) == JOptionPane.OK_OPTION) {
+						try {
+							serv.prenotaPasseggero(view.listaPasseggeri, view.voloSelezionatoPasseggeri.getId());
+							JOptionPane.showMessageDialog(null,"Prenotazione effettuata con successo","", 1);
+							view.cardPasseggeri.show(view.panelPasseggeri,"panelPasseggeriAeroporti"); //torno alla schermata iniziale
+						} catch (RemoteException e) {
+							JOptionPane.showMessageDialog(null,"Connessione persa","Errore", 1);
+							System.exit(0);
+							e.printStackTrace();
+						} catch (IOException e) {
+							e.printStackTrace();JOptionPane.showMessageDialog(null,"Errore di input","Errore", 0);
+						} catch (FlightNotFoundException e) {
+							e.printStackTrace();JOptionPane.showMessageDialog(null,"Volo non trovato, ritentare","Errore", 0);
+						} catch (SeatsSoldOutException e) {
+							e.printStackTrace();
+							JOptionPane.showMessageDialog(null,"I posti non sono più disponibili","Errore", 0);
+						}
+					}else{
 
-					try {
-						serv.prenotaPasseggero(view.listaPasseggeri, view.idVoloSelezionatoPasseggeri);
-						JOptionPane.showMessageDialog(null,"Prenotazione effettuata con successo","", 1);
-						view.cardPasseggeri.show(view.panelPasseggeri,"panelPasseggeriAeroporti"); //torno alla schermata iniziale
-					} catch (RemoteException e) {
-						JOptionPane.showMessageDialog(null,"Connessione persa","Errore", 1);
-						System.exit(0);
-						e.printStackTrace();
-					} catch (IOException e) {
-						e.printStackTrace();JOptionPane.showMessageDialog(null,"Errore di input","Errore", 0);
-					} catch (FlightNotFoundException e) {
-						e.printStackTrace();JOptionPane.showMessageDialog(null,"Volo non trovato, ritentare","Errore", 0);
-					} catch (SeatsSoldOutException e) {
-						e.printStackTrace();
-						JOptionPane.showMessageDialog(null,"I posti non sono più disponibili","Errore", 0);
 					}
 				}else{
 					JOptionPane.showMessageDialog(null,"Completare l'inserimento dei dati","Errore", 0);
@@ -298,11 +300,11 @@ public class PrenotazioneController{
 	/**
 	 * Aggiungo i listner agli oggetti della facciata pallet:pallet
 	 */
-	
+
 	@SuppressWarnings("unused")
 	private void registraControllerFase3Pallet() { 
 		/*
-		
+
 		//confermo pallet:pallet
 		view.buttonPalletConfermaPrenotazione.addMouseListener(new MouseAdapter() {
 			@Override
@@ -323,7 +325,7 @@ public class PrenotazioneController{
 			}
 
 		});
-		*/
+		 */
 	}
 
 }
