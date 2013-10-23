@@ -114,8 +114,8 @@ public class PrenotazioneController{
 							JOptionPane.showMessageDialog(null, "Impossibile connettersi al server","Error", 0);
 							e.printStackTrace();
 						}
-						view.aeroportoPartenza=((Aeroporto)view.comboPasseggeriAeroportoPartenza.getSelectedItem()).getNome();
-						view.aeroportoArrivo=((Aeroporto)view.comboPasseggeriAeroportoArrivo.getSelectedItem()).getNome();
+						view.aeroportoPartenzaPasseggeri=((Aeroporto)view.comboPasseggeriAeroportoPartenza.getSelectedItem()).getNome();
+						view.aeroportoArrivoPasseggeri=((Aeroporto)view.comboPasseggeriAeroportoArrivo.getSelectedItem()).getNome();
 						view.setPasseggeriVoli(voli);  //carico gli oggetti nella facciata passeggeri:voli
 						registraControllerFase2Passeggeri(); //registro i listner della facciata passeggeri:voli
 						view.cardPasseggeri.show(view.panelPasseggeri,"panelPasseggeriVoli"); //visualizzo il pannello passeggeri:voli passandogli la lista dei voli
@@ -127,22 +127,49 @@ public class PrenotazioneController{
 
 		});
 
-		//TODO conferma di pallet:aeroporti
-		/*
-		 view.buttonPalletPasseggeriCercaVoli.addMouseListener(new MouseAdapter() {
+		//conferma di pallet:aeroporti
+
+		 view.buttonPalletCercaVoli.addMouseListener(new MouseAdapter() {
 
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				if(view.comboPalletAeroportoArrivo.getSelectedItem().toString()!="" && view.comboPalletAeroportoPartenza.getSelectedItem().toString()!=""){
-
-					view.setPalletVoli();
-					registraControllerFase2Pallet();
-					view.cardPallet.show(view.panelPallet,"panelPalletVoli");
-					poi rimuovere suppress warning unused
+				
+				
+				int p=0,a=0;
+				try{
+					p = ((Aeroporto)view.comboPalletAeroportoPartenza.getSelectedItem()).getId();  //codice aeroporto di partenza
+					a = ((Aeroporto)view.comboPalletAeroportoArrivo.getSelectedItem()).getId();  //codice aeroporto di arrivo
+				}catch(Exception e){
+					JOptionPane.showMessageDialog(null,"Selezionare gli aeroporti","Errore", 1);
 				}
+				if(p!=0 && a!=0){
+					if(p==a){ //scelta destinazione=partenza e il try ha funzionato
+						JOptionPane.showMessageDialog(null,"Sei gia arrivato!","Complimenti!", 1);
+					}else{
+						List<Volo> voli=null;
+						try {
+							voli = serv.getVoli(p,a); //carico la lista dei voli
+						} catch (RemoteException e) {
+							JOptionPane.showMessageDialog(null, "Impossibile connettersi al server","Error", 0);
+							e.printStackTrace();
+						}
+						view.aeroportoPartenzaPallet=((Aeroporto)view.comboPalletAeroportoPartenza.getSelectedItem()).getNome();
+						view.aeroportoArrivoPallet=((Aeroporto)view.comboPalletAeroportoArrivo.getSelectedItem()).getNome();
+						view.setPalletVoli(voli);  //carico gli oggetti nella facciata pallet:voli
+						registraControllerFase2Pallet(); //registro i listner della facciata pallet:voli
+						view.cardPallet.show(view.panelPallet,"panelPalletVoli"); //visualizzo il pannello pallet:voli passandogli la lista dei voli
+
+					}
+				}
+				
+				
+				
+				
+				
+				
+				
 			}
 		});
-		 */
 
 	}
 
@@ -265,7 +292,6 @@ public class PrenotazioneController{
 	/**
 	 * Aggiungo i listner agli oggetti della facciata pallet:voli
 	 */
-	@SuppressWarnings("unused")
 	private void registraControllerFase2Pallet() {
 
 		/*
