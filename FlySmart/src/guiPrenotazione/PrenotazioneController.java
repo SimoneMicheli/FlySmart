@@ -48,8 +48,8 @@ public class PrenotazioneController{
 			JOptionPane.showMessageDialog(null, "Impossibile connettersi al server","Error", 0);
 			e.printStackTrace();
 		}
-		view.setPasseggeriAeroporti(aeroporti); //mostro la vista passeggeri:aeroporti
-
+		view.setPasseggeriAeroporti(aeroporti); //carico gli oggetti nella vista passeggeri:aeroporti
+		view.setPalletAeroporti(aeroporti); //carico gli oggetti nella vista pallet:aeroporti
 	}
 
 
@@ -71,13 +71,13 @@ public class PrenotazioneController{
 		view.mntmSwitch.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				/*if(view.passeggeri){ //se sono su passeggeri
+				if(view.passeggeri){ //se sono su passeggeri
 					view.passeggeri=false;
 					view.cardEsterno.show(view.panelCardLayoutEsterno,"panelPallet");
 				}else{ //se sono su pallet
 					view.passeggeri=true;
 					view.cardEsterno.show(view.panelCardLayoutEsterno,"panelPasseggeri");
-				}*/
+				}
 			}
 
 		});
@@ -93,7 +93,7 @@ public class PrenotazioneController{
 
 
 		//conferma di passeggeri:aeroporti
-		view.buttonPasseggeriPasseggeriCercaVoli.addMouseListener(new MouseAdapter() {
+		view.buttonPasseggeriCercaVoli.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
 				int p=0,a=0;

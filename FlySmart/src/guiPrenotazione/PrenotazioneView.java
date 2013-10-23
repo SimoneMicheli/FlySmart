@@ -25,6 +25,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+
 import model.Aeroporto;
 import model.Passeggero;
 import model.Volo;
@@ -138,9 +139,9 @@ public class PrenotazioneView extends View {
 
 	//button 1 livello
 	/** conferma la fase passeggeri:aeroporti */
-	protected JButton buttonPasseggeriPasseggeriCercaVoli;
+	protected JButton buttonPasseggeriCercaVoli;
 	/** conferma la fase pallet:aeroporti */
-	protected JButton buttonPalletPasseggeriCercaVoli;
+	protected JButton buttonPalletCercaVoli;
 	//button 2 livello
 	/** conferma la fase passeggeri:voli */
 	protected JButton buttonPasseggeriConfermaVolo;
@@ -309,9 +310,13 @@ public class PrenotazioneView extends View {
 		panelPasseggeriAeroporti.add(comboPasseggeriAeroportoPartenza, BorderLayout.NORTH);
 
 
-		buttonPasseggeriPasseggeriCercaVoli = new JButton("Cerca Voli");
-		buttonPasseggeriPasseggeriCercaVoli.setBounds(141, 215, 220, 23);
-		panelPasseggeriAeroporti.add(buttonPasseggeriPasseggeriCercaVoli);
+		buttonPasseggeriCercaVoli = new JButton("Cerca Voli");
+		buttonPasseggeriCercaVoli.setBounds(141, 215, 220, 23);
+		panelPasseggeriAeroporti.add(buttonPasseggeriCercaVoli);
+		
+		JLabel labelFondo = new JLabel("<html><span style='font-size:10px;font-weight:bold'>Passeggeri</span>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:red'>Selezione tratta</span><span style='font-size:16px'>&nbsp;&nbsp;&nbsp;→&nbsp;&nbsp;</span><span style='color:'>Ricerca volo</span><span style='font-size:16px'>&nbsp;&nbsp;→&nbsp;&nbsp;&nbsp;&nbsp;</span><span style='color:'>Inserimento anagrafica</span></html>");
+		labelFondo.setBounds(10, 310, 480, 50);
+		panelPasseggeriAeroporti.add(labelFondo);
 
 	}
 
@@ -343,14 +348,18 @@ public class PrenotazioneView extends View {
 		
 
 		buttonPasseggeriConfermaVolo = new JButton("Conferma");
-		buttonPasseggeriConfermaVolo.setBounds(400, 327, 89, 23);
+		buttonPasseggeriConfermaVolo.setBounds(400, 287, 89, 23);
 		panelPasseggeriVoli.add(buttonPasseggeriConfermaVolo);
 
 		buttonPasseggeriAnnullaVolo = new JButton("Annulla");
-		buttonPasseggeriAnnullaVolo.setBounds(310, 327, 89, 23);
+		buttonPasseggeriAnnullaVolo.setBounds(310, 287, 89, 23);
 		panelPasseggeriVoli.add(buttonPasseggeriAnnullaVolo);
 
 
+		JLabel labelFondo = new JLabel("<html><span style='font-size:10px;font-weight:bold'>Passeggeri</span>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style=''>Selezione tratta</span><span style='font-size:16px'>&nbsp;&nbsp;&nbsp;→&nbsp;&nbsp;</span><span style='color:red'>Ricerca volo</span><span style='font-size:16px'>&nbsp;&nbsp;→&nbsp;&nbsp;&nbsp;&nbsp;</span><span style='color:'>Inserimento anagrafica</span></html>");
+		labelFondo.setBounds(10, 310, 480, 50);
+		panelPasseggeriVoli.add(labelFondo);
+		
 		repaint();
 	}
 
@@ -457,29 +466,31 @@ public class PrenotazioneView extends View {
 
 
 		buttonPasseggeriAnnullaPrenotazione = new JButton("Annulla");
-		buttonPasseggeriAnnullaPrenotazione.setBounds(310, 327, 89, 23);
+		buttonPasseggeriAnnullaPrenotazione.setBounds(310, 287, 89, 23);
 		panelPasseggeriPasseggeri.add(buttonPasseggeriAnnullaPrenotazione);
 
 		buttonPasseggeriConfermaPrenotazione = new JButton("Conferma");
-		buttonPasseggeriConfermaPrenotazione.setBounds(400, 327, 89, 23);
+		buttonPasseggeriConfermaPrenotazione.setBounds(400, 287, 89, 23);
 		panelPasseggeriPasseggeri.add(buttonPasseggeriConfermaPrenotazione);
 
 
 		panelResoconto.setLayout(null);
-		panelResoconto.setBounds(277, 90, 205, 230);
+		panelResoconto.setBounds(277, 60, 205, 170);
 		panelPasseggeriPasseggeri.add(panelResoconto);
 
 
 		labelListaPasseggeri.setFont(new Font("Arial", Font.PLAIN, 13));
-		labelListaPasseggeri.setBounds(277, 58, 482, 25);
+		labelListaPasseggeri.setBounds(277, 38, 482, 25);
 		panelPasseggeriPasseggeri.add(labelListaPasseggeri);
 		
 		labelPrezzoTotale.setFont(new Font("Arial", Font.BOLD, 12));
 		labelPrezzoTotale.setForeground(Color.RED);
-		labelPrezzoTotale.setBounds(12, 327, 220, 25);
+		labelPrezzoTotale.setBounds(310, 260, 220, 25);
 		panelPasseggeriPasseggeri.add(labelPrezzoTotale);
 		
-
+		JLabel labelFondo = new JLabel("<html><span style='font-size:10px;font-weight:bold'>Passeggeri</span>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>Selezione tratta</span><span style='font-size:16px'>&nbsp;&nbsp;&nbsp;→&nbsp;&nbsp;</span><span>Ricerca volo</span><span style='font-size:16px'>&nbsp;&nbsp;→&nbsp;&nbsp;&nbsp;&nbsp;</span><span style='color:red'>Inserimento anagrafica</span></html>");
+		labelFondo.setBounds(10, 310, 480, 50);
+		panelPasseggeriPasseggeri.add(labelFondo);
 
 
 
@@ -496,6 +507,58 @@ public class PrenotazioneView extends View {
 
 
 	}
+	
+	
+
+	/**
+	 * Carico gli oggetti di pallet:aeroporti
+	 *
+	 * @param aeroporti la lista degli aeroporti
+	 */
+	@SuppressWarnings("unchecked")
+	public void setPalletAeroporti(List<Aeroporto> aeroporti){
+
+		JLabel labelTipoPrenotazione = new JLabel("Selezionare aeroporto di partenza e di arrivo");
+		labelTipoPrenotazione.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		labelTipoPrenotazione.setBounds(8, 8, 482, 25);
+		panelPalletAeroporti.add(labelTipoPrenotazione);
+
+		JLabel labelAeroportoPartenza = new JLabel("Aereporto Partenza");
+		labelAeroportoPartenza.setBounds(141, 110, 112, 14);
+		panelPalletAeroporti.add(labelAeroportoPartenza);
+
+		JLabel labelAeroportoArrivo = new JLabel("Aereporto Arrivo");
+		labelAeroportoArrivo.setBounds(141, 160, 112, 14);
+		panelPalletAeroporti.add(labelAeroportoArrivo);
+
+		comboPalletAeroportoPartenza.setBounds(141, 127, 220, 20);
+		comboPalletAeroportoPartenza.addItem("");
+		comboPalletAeroportoArrivo.setBounds(141, 177, 220, 20);
+		comboPalletAeroportoArrivo.addItem("");
+		Iterator<Aeroporto> i = aeroporti.iterator();
+		while(i.hasNext()) {
+			Aeroporto element = (Aeroporto) i.next();
+			comboPalletAeroportoPartenza.addItem(element);
+			comboPalletAeroportoArrivo.addItem(element);
+		}
+
+		panelPalletAeroporti.add(comboPalletAeroportoArrivo, BorderLayout.SOUTH);
+		panelPalletAeroporti.add(comboPalletAeroportoPartenza, BorderLayout.NORTH);
+
+
+		buttonPalletCercaVoli = new JButton("Cerca Voli");
+		buttonPalletCercaVoli.setBounds(141, 215, 220, 23);
+		panelPalletAeroporti.add(buttonPalletCercaVoli);
+
+	}
+
+	
+	
+	
+	
+	
+	
+	
 
 	/**
 	 * Costruisce la lista dei passeggeri di cui si sono gia inseriti i dati
@@ -503,15 +566,15 @@ public class PrenotazioneView extends View {
 	private void mostraPasseggeriMemorizzati(){
 		
 		Iterator<Passeggero> el = listaPasseggeri.iterator();
-		int verticalPosition = 10;
+		int verticalPosition = 8;
 		panelResoconto.removeAll();
 
 		while(el.hasNext()) {
 			Passeggero element = (Passeggero) el.next();
 
 			JLabel label = new JLabel(element.getCognome()+" "+element.getNome());
-			label.setFont(new Font("Monotype Corsiva", Font.PLAIN, 16));
-			label.setBounds(16, verticalPosition, 300, 18);
+			label.setFont(new Font("Monotype Corsiva", Font.PLAIN, 15));
+			label.setBounds(12, verticalPosition, 300, 18);
 			panelResoconto.add(label);
 			verticalPosition=verticalPosition+24;
 		}
@@ -692,9 +755,9 @@ public class PrenotazioneView extends View {
 		comboPalletAeroportoArrivo.addItem("");
 		panelPalletAeroporti.add(comboPalletAeroportoArrivo);
 
-		buttonPalletPasseggeriCercaVoli = new JButton("Cerca Voli");
-		buttonPalletPasseggeriCercaVoli.setBounds(141, 215, 220, 23);
-		panelPalletAeroporti.add(buttonPalletPasseggeriCercaVoli);
+		buttonPalletCercaVoli = new JButton("Cerca Voli");
+		buttonPalletCercaVoli.setBounds(141, 215, 220, 23);
+		panelPalletAeroporti.add(buttonPalletCercaVoli);
 
 	}
 
