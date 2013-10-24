@@ -51,8 +51,9 @@ public class Volo extends Model {
 	 * @param postiDisponibili Numero di posti per passeggeri ancora disponibili sull'aereo
 	 * @param palletDisponibili  Numero di posti per pallet ancora disponibili sull'aereo
 	 * @param prezzo Prezzo del volo (espresso in euro)
+	 * @param stato stato del volo
 	 */
-	public Volo(Integer id, Date dataOra, Integer aeroportoPartenza, Integer aeroportoDestinazione, Integer aereo, Integer postiDisponibili, Integer palletDisponibili, Double prezzo) {
+	public Volo(Integer id, Date dataOra, Integer aeroportoPartenza, Integer aeroportoDestinazione, Integer aereo, Integer postiDisponibili, Integer palletDisponibili, Double prezzo, StatoVolo stato) {
 		this.id = id;
 		this.dataOra = dataOra;
 		this.aeroportoPartenza = aeroportoPartenza;
@@ -61,7 +62,7 @@ public class Volo extends Model {
 		this.postiDisponibili = postiDisponibili;
 		this.palletDisponibili = palletDisponibili;
 		this.setPrezzo(prezzo);
-		this.stato = StatoVolo.OPEN;
+		this.stato = stato;
 	}
 	
 	/**
