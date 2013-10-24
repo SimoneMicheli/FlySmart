@@ -37,6 +37,9 @@ public class Volo extends Model {
 	/** Prezzo del volo (espresso in euro) */
 	private Double prezzo;
 	
+	/** Stato del volo */
+	private StatoVolo stato;
+	
 	/**
 	 * Istanzia un nuovo volo (supercostruttore)
 	 *
@@ -58,7 +61,7 @@ public class Volo extends Model {
 		this.postiDisponibili = postiDisponibili;
 		this.palletDisponibili = palletDisponibili;
 		this.setPrezzo(prezzo);
-		
+		this.stato = StatoVolo.OPEN;
 	}
 	
 	/**
@@ -243,6 +246,22 @@ public class Volo extends Model {
 		this.prezzo = prezzo;
 	}
 	
+	
+	/**
+	 * ottiene lo stato del volo
+	 * @return stato volo
+	 */
+	public StatoVolo getStato() {
+		return stato;
+	}
+
+	/**
+	 * Imposta lo stato del volo
+	 * @param stato
+	 */
+	public void setStato(StatoVolo stato) {
+		this.stato = stato;
+	}
 
 	/* (non-Javadoc)
 	 * @see model.Model#getFields()

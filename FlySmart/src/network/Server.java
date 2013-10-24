@@ -10,6 +10,7 @@ import java.rmi.server.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.Formatter;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -18,6 +19,7 @@ import java.util.Properties;
 
 import org.w3c.dom.Document;
 
+import util.Options;
 import xml.XMLCreate;
 import xml.XMLToObj;
 import comparator.*;
@@ -41,10 +43,6 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 	private int lastID=0, lastPalletID=0, lastGroupID=0;
 	private Properties config;
 	
-	private static final String configFileName = "config.xml";
-	private static final String voliFileName = "voli.xml";
-	private static final String aeroportiFileName = "aeroporti.xml";
-	
 	/**
 	 * costruttore dell'oggetto server, crea i lock necessari a garantire l'accesso
 	 * ai file xml
@@ -67,7 +65,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 		//lock in lettura su volo
 		voliLock.acquireReadLock();
 		
-		voli = parserXML.createVoloList(voliFileName);
+		voli = parserXML.createVoloList(Options.voliFileName);
 		
 		voliLock.releaseReadLock();
 		
@@ -87,7 +85,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 		//load configuration file
 		config = new Properties();
 		try {
-			FileInputStream configFile = new FileInputStream(configFileName);
+			FileInputStream configFile = new FileInputStream(Options.configFileName);
 			config.loadFromXML(configFile);
 			lastID = Integer.parseInt(config.getProperty("lastID", "0"));
 			lastPalletID = Integer.parseInt(config.getProperty("lastPalletID", "0"));
@@ -107,7 +105,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 		    	//save configuration file
 		    	try {
 		    		System.out.println("saving configuration file");
-					File f = new File(configFileName);
+					File f = new File(Options.configFileName);
 					FileOutputStream configFileOut = new FileOutputStream(f);
 					config.storeToXML(configFileOut, "Flysmart Configuration File");
 				} catch (FileNotFoundException e) {
@@ -185,7 +183,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 		aeroportiLock.acquireReadLock();
 		
 		//parse xml data
-		aeroporti = parserXML.createAeroportoList(aeroportiFileName);
+		aeroporti = parserXML.createAeroportoList(Options.aeroportiFileName);
 
 		//release lock
 		aeroportiLock.releaseReadLock();
@@ -209,7 +207,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 		//lock in lettura su volo
 		voliLock.acquireReadLock();
 		
-		voli = parserXML.createVoloList(voliFileName);
+		voli = parserXML.createVoloList(Options.voliFileName);
 		
 		voliLock.releaseReadLock();
 		
@@ -238,7 +236,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 		
 		//aggiorno volo
 		voliLock.acquireReadLock();
-		voli = (ArrayList<Volo>) parserXML.createVoloList(voliFileName);
+		voli = (ArrayList<Volo>) parserXML.createVoloList(Options.voliFileName);
 		voliLock.releaseReadLock();
 				
 		//ottengo riferimento volo
@@ -258,7 +256,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 		lock.acquireWriteLock();
 		
 		//ottengo lista passeggeri
-		passeggeri = parserXML.createPasseggeroList("volo_"+idVolo+"_pass.xml");
+		passeggeri = parserXML.createPasseggeroList( String.format(Options.voloPassFileName, idVolo));
 		
 		//aggiungo nuovi passeggeri alla lista
 		int id = getNextID(listToAdd.size());
@@ -284,8 +282,8 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 		voliLock.acquireWriteLock();
 		
 		try {
-			XMLPassWriter.printDocument(PassDocument,"volo_"+idVolo+"_pass.xml");
-			XMLVoloWriter.printDocument(VoliDocument, voliFileName);
+			XMLPassWriter.printDocument(PassDocument,String.format(Options.voloPassFileName, idVolo));
+			XMLVoloWriter.printDocument(VoliDocument, Options.voliFileName);
 		} finally{
 			voliLock.releaseWriteLock();
 			lock.releaseWriteLock();
@@ -305,7 +303,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 		
 		//aggiorno volo
 		voliLock.acquireReadLock();
-		voli = (ArrayList<Volo>) parserXML.createVoloList(voliFileName);
+		voli = (ArrayList<Volo>) parserXML.createVoloList(Options.voliFileName);
 		voliLock.releaseReadLock();
 				
 		//ottengo riferimento volo
@@ -325,7 +323,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 		lock.acquireWriteLock();
 		
 		//ottengo lista passeggeri
-		pallets = parserXML.createPalletList("volo_"+idVolo+"_pallet.xml");
+		pallets = parserXML.createPalletList(String.format(Options.voloPalletFileName, idVolo));
 		
 		//aggiungo nuovi passeggeri alla lista
 		int id = getNextPalletID(listToAdd.size());
@@ -349,8 +347,8 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 		voliLock.acquireWriteLock();
 		
 		try {
-			XMLPalletWriter.printDocument(PalletDocument,"volo_"+idVolo+"_pallet.xml");
-			XMLVoloWriter.printDocument(VoliDocument, voliFileName);
+			XMLPalletWriter.printDocument(PalletDocument, String.format(Options.voloPalletFileName, idVolo));
+			XMLVoloWriter.printDocument(VoliDocument, Options.voliFileName);
 		} finally{
 			voliLock.releaseWriteLock();
 			lock.releaseWriteLock();
