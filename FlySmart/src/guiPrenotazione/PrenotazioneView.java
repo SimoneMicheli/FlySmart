@@ -180,8 +180,10 @@ public class PrenotazioneView extends View {
 	int currentIndex=0;
 	/** passeggero visualizzato */
 	Passeggero passeggeroCorrente=null;
-	/** volo scelto */
+	/** volo scelto per i passeggeri*/
 	Volo voloSelezionatoPasseggeri=null;
+	/** volo scelto per i pallet*/
+	Volo voloSelezionatoPallet=null;
 	/** prezzo totale del volo */
 	double prezzoTotaleVolo=0;
 	/** aeroporto di partenza per i passeggeri */
@@ -522,10 +524,10 @@ public class PrenotazioneView extends View {
 	@SuppressWarnings("unchecked")
 	public void setPalletAeroporti(List<Aeroporto> aeroporti){
 
-		JLabel labelTipoPrenotazione = new JLabel("Selezionare aeroporto di partenza e di arrivo");
-		labelTipoPrenotazione.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		labelTipoPrenotazione.setBounds(8, 8, 482, 25);
-		panelPalletAeroporti.add(labelTipoPrenotazione);
+		JLabel labelIstruzioni = new JLabel("Selezionare aeroporto di partenza e di arrivo");
+		labelIstruzioni.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		labelIstruzioni.setBounds(8, 8, 482, 25);
+		panelPalletAeroporti.add(labelIstruzioni);
 
 		JLabel labelAeroportoPartenza = new JLabel("Aereporto Partenza");
 		labelAeroportoPartenza.setBounds(141, 110, 112, 14);
@@ -569,18 +571,16 @@ public class PrenotazioneView extends View {
 	 * @param voli la lista dei voli ricevuta dal server
 	 */
 	
+	@SuppressWarnings("unchecked")
 	public void setPalletVoli(List<Volo> voli){
 
 		
-		/*
-		 * 
-		 * tutto da modificare
-		panelPasseggeriVoli.removeAll(); //rimuovo tutti gli oggetti
+		panelPalletVoli.removeAll(); //rimuovo tutti gli oggetti
 
-		JLabel labelTipoPrenotazione = new JLabel("Selezionare un volo:");
-		labelTipoPrenotazione.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		labelTipoPrenotazione.setBounds(8, 8, 482, 25);
-		panelPasseggeriVoli.add(labelTipoPrenotazione);
+		JLabel labelIstruzioni = new JLabel("Selezionare un volo:");
+		labelIstruzioni.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		labelIstruzioni.setBounds(8, 8, 482, 25);
+		panelPalletVoli.add(labelIstruzioni);
 
 		comboVoliDisponibili.removeAllItems(); //rimuovo gli elementi scritti al passo prima
 		comboVoliDisponibili.setBounds(12, 50, 470, 23);
@@ -589,30 +589,77 @@ public class PrenotazioneView extends View {
 			Volo element = (Volo) v.next();
 			comboVoliDisponibili.addItem(element);
 		}
-		panelPasseggeriVoli.add(comboVoliDisponibili, BorderLayout.NORTH);
+		panelPalletVoli.add(comboVoliDisponibili, BorderLayout.NORTH);
 		
 		
 
-		buttonPasseggeriConfermaVolo = new JButton("Conferma");
-		buttonPasseggeriConfermaVolo.setBounds(400, 287, 89, 23);
-		panelPasseggeriVoli.add(buttonPasseggeriConfermaVolo);
+		buttonPalletConfermaVolo = new JButton("Conferma");
+		buttonPalletConfermaVolo.setBounds(400, 287, 89, 23);
+		panelPalletVoli.add(buttonPalletConfermaVolo);
 
-		buttonPasseggeriAnnullaVolo = new JButton("Annulla");
-		buttonPasseggeriAnnullaVolo.setBounds(310, 287, 89, 23);
-		panelPasseggeriVoli.add(buttonPasseggeriAnnullaVolo);
+		buttonPalletAnnullaVolo = new JButton("Annulla");
+		buttonPalletAnnullaVolo.setBounds(310, 287, 89, 23);
+		panelPalletVoli.add(buttonPalletAnnullaVolo);
 
 
-		JLabel labelFondo = new JLabel("<html><span style='font-size:10px;font-weight:bold'>Passeggeri</span>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style=''>Selezione tratta</span><span style='font-size:16px'>&nbsp;&nbsp;&nbsp;→&nbsp;&nbsp;</span><span style='color:red'>Ricerca volo</span><span style='font-size:16px'>&nbsp;&nbsp;→&nbsp;&nbsp;&nbsp;&nbsp;</span><span style='color:'>Inserimento anagrafica</span></html>");
+		JLabel labelFondo = new JLabel("<html><span style='font-size:10px;font-weight:bold'>Pallet</span>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>Selezione tratta</span><span style='font-size:16px'>&nbsp;&nbsp;&nbsp;→&nbsp;&nbsp;</span><span  style='color:red'>Ricerca volo</span><span style='font-size:16px'>&nbsp;&nbsp;→&nbsp;&nbsp;&nbsp;&nbsp;</span><span style='color:'>Inserimento dati pallet</span></html>");
 		labelFondo.setBounds(10, 310, 480, 50);
-		panelPasseggeriVoli.add(labelFondo);
+		panelPalletVoli.add(labelFondo);
 		
 		repaint();
 		
-		*/
 	}
 
 	
-	
+	/**
+	 * Carico gli oggetti di pallet:pallet
+	 */
+	public void setPalletPallet(){
+		
+		panelPalletPallet.removeAll(); //rimuovo tutti gli oggetti
+
+		JLabel labelIstruzioni = new JLabel("Inserire gli ultimi dati:");
+		labelIstruzioni.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		labelIstruzioni.setBounds(8, 8, 482, 25);
+		panelPalletPallet.add(labelIstruzioni);
+		
+		
+
+		JLabel lblIstruzioni = new JLabel("Inserire gli ultimi dati");
+		lblIstruzioni.setBounds(8, 60, 100, 14);
+		panelPalletPallet.add(lblIstruzioni);
+
+		JLabel lblTarga = new JLabel("Targa del pallet");
+		lblTarga.setBounds(141, 110, 112, 14);
+		panelPalletPallet.add(lblTarga);
+
+		textFieldTargaPallet.setBounds(141, 127, 220, 20);
+		panelPalletPallet.add(textFieldTargaPallet);
+		textFieldTargaPallet.setColumns(10);
+
+		JLabel lblPeso = new JLabel("Peso complessivo");
+		lblPeso.setBounds(141, 160, 112, 14);
+		panelPalletPallet.add(lblPeso);
+
+		textFieldPesoPallet.setBounds(141, 177, 220, 20);
+		panelPalletPallet.add(textFieldPesoPallet);
+		textFieldPesoPallet.setColumns(10);
+
+
+		buttonPalletConfermaPrenotazione = new JButton("Conferma");
+		buttonPalletConfermaPrenotazione.setBounds(400, 287, 89, 23);
+		panelPalletPallet.add(buttonPalletConfermaPrenotazione);
+
+		buttonPalletAnnullaPrenotazione = new JButton("Annulla");
+		buttonPalletAnnullaPrenotazione.setBounds(310, 287, 89, 23);
+		panelPalletPallet.add(buttonPalletAnnullaPrenotazione);
+
+		JLabel labelFondo = new JLabel("<html><span style='font-size:10px;font-weight:bold'>Pallet</span>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>Selezione tratta</span><span style='font-size:16px'>&nbsp;&nbsp;&nbsp;→&nbsp;&nbsp;</span><span>Ricerca volo</span><span style='font-size:16px'>&nbsp;&nbsp;→&nbsp;&nbsp;&nbsp;&nbsp;</span><span style='color:red'>Inserimento dati pallet</span></html>");
+		labelFondo.setBounds(10, 310, 480, 50);
+		panelPalletVoli.add(labelFondo);
+		
+		repaint();
+	}
 	
 	
 

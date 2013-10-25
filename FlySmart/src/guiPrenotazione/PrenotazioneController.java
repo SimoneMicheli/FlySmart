@@ -294,19 +294,20 @@ public class PrenotazioneController{
 	 */
 	private void registraControllerFase2Pallet() {
 
-		/*
+		
 		//confermo pallet:voli
 		view.buttonPalletConfermaVolo.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				if(view.buttonGroupPalletVoli.getSelection()!=null){
-					view.setPalletPallet();
-					registraControllerFase3Pallet();
-					view.cardPallet.show(view.panelPallet,"panelPalletPallet");
-				}
+				view.voloSelezionatoPallet = ((Volo)view.comboVoliDisponibili.getSelectedItem());  //codice del volo
+				view.setPalletPallet();
+				registraControllerFase3Pallet();
+				view.cardPallet.show(view.panelPallet,"panelPalletPallet");
 			}
 
 		});
+		
+		
 		//annulla pallet:voli
 		view.buttonPalletAnnullaVolo.addMouseListener(new MouseAdapter() {
 			@Override
@@ -316,7 +317,7 @@ public class PrenotazioneController{
 			}
 
 		});
-		 */
+		 
 	}
 
 
@@ -327,9 +328,8 @@ public class PrenotazioneController{
 	 * Aggiungo i listner agli oggetti della facciata pallet:pallet
 	 */
 
-	@SuppressWarnings("unused")
 	private void registraControllerFase3Pallet() { 
-		/*
+		
 
 		//confermo pallet:pallet
 		view.buttonPalletConfermaPrenotazione.addMouseListener(new MouseAdapter() {
@@ -351,7 +351,6 @@ public class PrenotazioneController{
 			}
 
 		});
-		 */
 	}
 
 }
