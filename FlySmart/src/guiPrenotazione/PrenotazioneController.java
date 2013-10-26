@@ -9,6 +9,7 @@ import exception.FlightNotFoundException;
 import exception.SeatsSoldOutException;
 import javax.swing.JOptionPane;
 import model.Aeroporto;
+import model.Pallet;
 import model.Volo;
 import network.ServerInterface;
 
@@ -257,13 +258,11 @@ public class PrenotazioneController{
 						} catch (RemoteException e) {
 							JOptionPane.showMessageDialog(null,"Connessione persa","Errore", 1);
 							System.exit(0);
-							e.printStackTrace();
 						} catch (IOException e) {
-							e.printStackTrace();JOptionPane.showMessageDialog(null,"Errore di input","Errore", 0);
+							JOptionPane.showMessageDialog(null,"Errore di input","Errore", 0);
 						} catch (FlightNotFoundException e) {
-							e.printStackTrace();JOptionPane.showMessageDialog(null,"Volo non trovato, ritentare","Errore", 0);
+							JOptionPane.showMessageDialog(null,"Volo non trovato, ritentare","Errore", 0);
 						} catch (SeatsSoldOutException e) {
-							e.printStackTrace();
 							JOptionPane.showMessageDialog(null,"I posti non sono più disponibili","Errore", 0);
 						}
 					}else{
@@ -335,9 +334,24 @@ public class PrenotazioneController{
 		view.buttonPalletConfermaPrenotazione.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				//fase di controllo
 				if(view.textFieldPesoPallet.getText().compareTo("")!=0 && view.textFieldTargaPallet.getText().compareTo("")!=0 ){
-					JOptionPane.showMessageDialog(null,view.textFieldPesoPallet.getText()+" "+view.textFieldTargaPallet.getText(),"Confermare la prenotazione?", 1);
+					view.listaPallet.add(new Pallet(Double.parseDouble(view.textFieldPesoPallet.getText()),view.textFieldTargaPallet.getText(),view.voloSelezionatoPallet.getId()));
+					if (JOptionPane.showConfirmDialog(null,"Vuoi confermare?","Conferma prenotazione pallet",JOptionPane.YES_NO_OPTION,JOptionPane.NO_OPTION) == JOptionPane.OK_OPTION) {
+						try {
+							serv.prenotaPallet(view.listaPallet,view.voloSelezionatoPallet.getId());
+							JOptionPane.showMessageDialog(null,"Prenotazione effettuata con successo","", 1);
+							view.cardPallet.show(view.panelPallet,"panelPalletAeroporti"); //torno alla schermata iniziale
+						} catch (RemoteException e) {
+							JOptionPane.showMessageDialog(null,"Connessione persa","Errore", 1);
+							System.exit(0);
+						} catch (IOException e) {
+							JOptionPane.showMessageDialog(null,"Errore di input","Errore", 0);
+						} catch (FlightNotFoundException e) {
+							JOptionPane.showMessageDialog(null,"Volo non trovato, ritentare","Errore", 0);
+						} catch (SeatsSoldOutException e) {
+							JOptionPane.showMessageDialog(null,"I posti non sono più disponibili","Errore", 0);
+						}
+					}
 				}
 			}
 

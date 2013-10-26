@@ -27,6 +27,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 import model.Aeroporto;
+import model.Pallet;
 import model.Passeggero;
 import model.Volo;
 
@@ -174,6 +175,8 @@ public class PrenotazioneView extends View {
 	protected boolean passeggeri;
 	/** la lista dei passeggeri da inviare */
 	protected ArrayList<Passeggero> listaPasseggeri = new ArrayList<Passeggero>();
+	/** la lista dei pallet da inviare */
+	protected ArrayList<Pallet> listaPallet = new ArrayList<Pallet>();
 	/** indice dell'ultimo passeggero inserito nella prenotazione attuale */
 	int lastIndex=0;
 	/** indice del passeggero visualizzato */
@@ -560,6 +563,7 @@ public class PrenotazioneView extends View {
 		JLabel labelFondo = new JLabel("<html><span style='font-size:10px;font-weight:bold'>Pallet</span>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:red'>Selezione tratta</span><span style='font-size:16px'>&nbsp;&nbsp;&nbsp;→&nbsp;&nbsp;</span><span style='color:'>Ricerca volo</span><span style='font-size:16px'>&nbsp;&nbsp;→&nbsp;&nbsp;&nbsp;&nbsp;</span><span style='color:'>Inserimento dati pallet</span></html>");
 		labelFondo.setBounds(10, 310, 480, 50);
 		panelPalletAeroporti.add(labelFondo);
+		
 	}
 
 	
@@ -623,11 +627,6 @@ public class PrenotazioneView extends View {
 		labelIstruzioni.setBounds(8, 8, 482, 25);
 		panelPalletPallet.add(labelIstruzioni);
 		
-		
-
-		JLabel lblIstruzioni = new JLabel("Inserire gli ultimi dati");
-		lblIstruzioni.setBounds(8, 60, 100, 14);
-		panelPalletPallet.add(lblIstruzioni);
 
 		JLabel lblTarga = new JLabel("Targa del pallet");
 		lblTarga.setBounds(141, 110, 112, 14);
@@ -657,7 +656,11 @@ public class PrenotazioneView extends View {
 		JLabel labelFondo = new JLabel("<html><span style='font-size:10px;font-weight:bold'>Pallet</span>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>Selezione tratta</span><span style='font-size:16px'>&nbsp;&nbsp;&nbsp;→&nbsp;&nbsp;</span><span>Ricerca volo</span><span style='font-size:16px'>&nbsp;&nbsp;→&nbsp;&nbsp;&nbsp;&nbsp;</span><span style='color:red'>Inserimento dati pallet</span></html>");
 		labelFondo.setBounds(10, 310, 480, 50);
 		panelPalletVoli.add(labelFondo);
-		
+
+		//azzeramento dati pallet
+		listaPallet.clear();
+		textFieldTargaPallet.setText("");
+		textFieldPesoPallet.setText("");
 		repaint();
 	}
 	
@@ -782,7 +785,7 @@ public class PrenotazioneView extends View {
 			}
 			labelNumeroPasseggero.setText(currentIndex+1+"");
 		}else{
-			//JOptionPane.showMessageDialog(null,"Completare prima il passeggero corrente","Errore", 0); tolto perchè compare anche quando faccio conferma prenotazione
+			//JOptionPane.showMessageDialog(null,"Completare prima il passeggero corrente","Errore", 0); //tolto perchè compare anche quando faccio conferma prenotazione
 		}
 
 	}
