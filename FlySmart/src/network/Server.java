@@ -137,6 +137,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 	/**
 	 * @return il primo id libero da assegnare ad un passeggero
 	 */
+	@SuppressWarnings("unused")
 	private synchronized int getNextID(){
 		return getNextID(1);
 	}
@@ -158,6 +159,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 	 * 
 	 * @return primo id libero per i pallet
 	 */
+	@SuppressWarnings("unused")
 	private synchronized int getNextPalletID(){
 		return getNextPalletID(1);
 	}

@@ -10,6 +10,11 @@ import javax.net.ssl.SSLSocketFactory;
 
 public class RMISSLClientSocketFactory implements RMIClientSocketFactory, Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5373789233449860363L;
+
 	@Override
 	/**
 	 * restituisce il socket da utilizzare per la comunicazione su SSL per il client

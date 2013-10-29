@@ -13,6 +13,7 @@ import java.util.List;
  * @author Demarinis - Micheli - Scarpellini
  *
  */
+@SuppressWarnings("serial")
 public abstract class Model implements SortableList<Integer>, GetFields, Serializable{
 
 	/** Id dell'oggetto della classe */
