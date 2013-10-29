@@ -31,10 +31,10 @@ public enum PasseggeroComparator implements Comparator<Passeggero> {
 			return o1.getId() - o2.getId();
 		}
 	},
-	POSTO_ORDER{
+	/*POSTO_ORDER{
 		@Override
 		public int compare(Passeggero o1, Passeggero o2) {
 			return o1.getPosto() - o2.getPosto();
 		}
-	}
+	}*/
 }
