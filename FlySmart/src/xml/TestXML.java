@@ -23,7 +23,7 @@ public class TestXML {
 		
 		List<Volo> elenco = new ArrayList<Volo>();
 		Date dt = new Date(5483267067974L);
-		elenco.add(new Volo(0,dt,1,2,3,4,5,9.0, StatoVolo.OPEN));
+		elenco.add(new Volo(0,dt,1,2,3,4,5,9.0, StatoVolo.OPEN, TipoAereo.S));
 		XMLCreate<Volo> instance = new XMLCreate<Volo>();
 		Document d = instance.createFlySmartDocument(elenco);
 		instance.printDocument(d,"primo.xml");
@@ -37,8 +37,8 @@ public class TestXML {
 		
 		
 		List<Pallet> list = new ArrayList<Pallet>();
-		list.add(new Pallet(1, 63.4, "alfa", 19));
-		list.add(new Pallet(1, 49.4, "beta", 20));
+		list.add(new Pallet(1, 63.4, "alfa", 19, null, null));
+		list.add(new Pallet(1, 49.4, "beta", 20, null, null));
 		XMLCreate<Pallet> istanza = new XMLCreate<Pallet>();
 		Document documento = istanza.createFlySmartDocument(list);
 		istanza.printDocument(documento, "test1.xml");
@@ -51,8 +51,8 @@ public class TestXML {
 		
 		
 		List<Passeggero> listA = new ArrayList<Passeggero>();
-		listA.add(new Passeggero(1,1,"alan","scarpellini",22,'m',1.0,1,1,1,1,1));
-		listA.add(new Passeggero(1,1,"alan2","scarpellini2",22,'m',1.0,1,1,1,1,1));
+		//listA.add(new Passeggero(1,1,"alan","scarpellini",22,'m',1.0,1,1,1,1,1));
+		//listA.add(new Passeggero(1,1,"alan2","scarpellini2",22,'m',1.0,1,1,1,1,1));
 		XMLCreate<Passeggero> istanza4 = new XMLCreate<Passeggero>();
 		Document documento3 = istanza4.createFlySmartDocument(listA);
 		istanza4.printDocument(documento3,  "test3.xml");

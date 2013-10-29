@@ -25,7 +25,7 @@ public class Passeggero extends Model {
 	/** Cognome del passeggero */
 	private String cognome;
 	
-	/** Età del passeggero (numero intero di anni) */
+	/** Etï¿½ del passeggero (numero intero di anni) */
 	private Integer eta;
 	
 	/** Giorno di nascita */
@@ -49,8 +49,11 @@ public class Passeggero extends Model {
 	/** Id del volo del passeggero */
 	private Integer idVolo;
 	
-	/** Numero di posto sul volo prenotato dal passeggero */
-	private Integer posto;
+	/** Fila del posto del passeggero */
+	private Integer fila;
+	
+	/** Colonna del posto del passeggero */
+	private Integer colonna;
 
 	/**
 	 * Istanzia un nuovo passeggero (supercostruttore)
@@ -59,7 +62,7 @@ public class Passeggero extends Model {
 	 * @param idGruppo Id del gruppo di passeggero
 	 * @param nome Nome del passeggero
 	 * @param cognome Cognome del passeggero
-	 * @param eta Età del passeggero (numero intero di anni)
+	 * @param eta EtÃ  del passeggero (numero intero di anni)
 	 * @param sesso Sesso del passeggero
 	 * @param pesoBagagli Peso dei bagagli del passeggero (in Kilogrammi)
 	 * @param idVolo Id del volo del passeggero 
@@ -68,7 +71,7 @@ public class Passeggero extends Model {
 	 * @param mese Mese di nascita
 	 * @param anno Anno di nascita
 	 */
-	public Passeggero(Integer id, Integer idGruppo, String nome, String cognome, Integer eta, Character sesso, Double pesoBagagli, Integer idVolo, Integer posto, Integer giorno, Integer mese, Integer anno) {
+	public Passeggero(Integer id, Integer idGruppo, String nome, String cognome, Integer eta, Character sesso, Double pesoBagagli, Integer idVolo, Integer fila, Integer colonna, Integer giorno, Integer mese, Integer anno) {
 		this.id = id;
 		this.idGruppo = idGruppo;
 		this.nome = nome;
@@ -77,7 +80,8 @@ public class Passeggero extends Model {
 		this.sesso = sesso;
 		this.pesoBagagli = pesoBagagli;
 		this.idVolo = idVolo;
-		this.posto = posto;
+		this.fila = fila;
+		this.colonna = colonna;
 		this.giorno = giorno;
 		this.mese = mese;
 		this.anno = anno;
@@ -101,7 +105,7 @@ public class Passeggero extends Model {
 	 * @param sesso Sesso del passeggero
 	 */
 	public Passeggero(String nome, String cognome,String giorno, String mese, String anno, Character sesso) {
-		this(null, null, nome,  cognome,  calcolaEta(giorno, mese, anno),  sesso,  null,  null,  null, Integer.parseInt(giorno), Integer.parseInt(mese), Integer.parseInt(anno));
+		this(null, null, nome,  cognome,  calcolaEta(giorno, mese, anno),  sesso,  null,  null,  null, null, Integer.parseInt(giorno), Integer.parseInt(mese), Integer.parseInt(anno));
 	}
 	
 	
@@ -116,7 +120,7 @@ public class Passeggero extends Model {
 	 * @param sesso Sesso del passeggero
 	 */
 	public Passeggero(String nome, String cognome,int giorno, int mese, int anno, char sesso) {
-		this(null, null, nome,  cognome,  calcolaEta(giorno, mese, anno),  sesso,  null,  null,  null, giorno, mese, anno);
+		this(null, null, nome,  cognome,  calcolaEta(giorno, mese, anno),  sesso,  null,  null,  null, null, giorno, mese, anno);
 	}
 
 	/**
@@ -125,7 +129,7 @@ public class Passeggero extends Model {
 	 * @param g Giorno di nascita
 	 * @param m Mese di nascita
 	 * @param a Anno di nascita
-	 * @return Età del passeggero (numero intero di anni)
+	 * @return Etï¿½ del passeggero (numero intero di anni)
 	 */
 	protected static int calcolaEta(String g, String m, String a){
 		return calcolaEta(Integer.parseInt(g), Integer.parseInt(m), Integer.parseInt(a));
@@ -138,12 +142,12 @@ public class Passeggero extends Model {
 	 * @param g Giorno di nascita
 	 * @param m Mese di nascita
 	 * @param a Anno di nascita
-	 * @return Età del passeggero (numero intero di anni)
+	 * @return Etï¿½ del passeggero (numero intero di anni)
 	 */
 	protected static int calcolaEta(int g, int m, int a){
 		Calendar c = Calendar.getInstance();
 		int anni = c.get(Calendar.YEAR)-a;
-		if(m > 1+c.get(Calendar.MONTH) || (m == 1+c.get(Calendar.MONTH) && g >= c.get(Calendar.DAY_OF_MONTH))){ //1+ perche gennaio è lo zero
+		if(m > 1+c.get(Calendar.MONTH) || (m == 1+c.get(Calendar.MONTH) && g >= c.get(Calendar.DAY_OF_MONTH))){ //1+ perche gennaio ï¿½ lo zero
 			return anni-1;
 		}
 		return anni;
@@ -157,7 +161,7 @@ public class Passeggero extends Model {
 	public void calcolaEta(){
 		Calendar c = Calendar.getInstance();
 		int anni = c.get(Calendar.YEAR)-anno;
-		if(mese>1+c.get(Calendar.MONTH) || (mese==1+c.get(Calendar.MONTH) && giorno>=c.get(Calendar.DAY_OF_MONTH))){ //1+ perche gennaio è lo zero
+		if(mese>1+c.get(Calendar.MONTH) || (mese==1+c.get(Calendar.MONTH) && giorno>=c.get(Calendar.DAY_OF_MONTH))){ //1+ perche gennaio ï¿½ lo zero
 			eta = anni-1;
 		}else{
 			eta = anni;
@@ -227,24 +231,42 @@ public class Passeggero extends Model {
 
 
 	/**
-	 * Ottiene il numero di posto sul volo prenotato dal passeggero
+	 * Ottiene il numero di fila sul volo prenotato dal passeggero
 	 *
-	 * @return Il numero di posto sul volo prenotato dal passeggero
+	 * @return Il numero di fila sul volo prenotato dal passeggero
 	 */
-	public Integer getPosto() {
-		return posto;
+	public Integer getFila() {
+		return fila;
 	}
 
 
 	/**
-	 * Sets il numero di posto sul volo prenotato dal passeggero
+	 * Setta il numero di fila sul volo prenotato dal passeggero
 	 *
-	 * @param posto Il numero di posto sul volo prenotato dal passeggero
+	 * @param fila Il numero di fila sul volo prenotato dal passeggero
 	 */
-	public void setPosto(Integer posto) {
-		this.posto = posto;
+	public void setFila(Integer fila) {
+		this.fila = fila;
 	}
 
+
+	/**
+	 * Ottiene il numero di colonna sul volo prenotato dal passeggero
+	 *
+	 * @return Il numero di colonna sul volo prenotato dal passeggero
+	 */
+	public Integer getColonna() {
+		return colonna;
+	}
+
+	/**
+	 * Setta il numero di colonna sul volo prenotato dal passeggero
+	 *
+	 * @param colonna Il numero di colonna sul volo prenotato dal passeggero
+	 */
+	public void setColonna(Integer colonna) {
+		this.colonna = colonna;
+	}
 
 	/**
 	 * Ottiene il nome del passeggero
@@ -287,9 +309,9 @@ public class Passeggero extends Model {
 
 
 	/**
-	 * Ottiene l' Età del passeggero (numero intero di anni)
+	 * Ottiene l' Etï¿½ del passeggero (numero intero di anni)
 	 *
-	 * @return Età del passeggero (numero intero di anni)
+	 * @return Etï¿½ del passeggero (numero intero di anni)
 	 */
 	public Integer getEta() {
 		return eta;
@@ -297,9 +319,9 @@ public class Passeggero extends Model {
 
 
 	/**
-	 * Set l'età del passeggero (numero intero di anni)
+	 * Set l'etï¿½ del passeggero (numero intero di anni)
 	 *
-	 * @param eta Età del passeggero (numero intero di anni)
+	 * @param eta Etï¿½ del passeggero (numero intero di anni)
 	 */
 	public void setEta(Integer eta) {
 		this.eta = eta;

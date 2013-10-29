@@ -40,6 +40,9 @@ public class Volo extends Model {
 	/** Stato del volo */
 	private StatoVolo stato;
 	
+	/** Tipo di aereo per il volo*/
+	private TipoAereo tipoAereo;
+	
 	/**
 	 * Istanzia un nuovo volo (supercostruttore)
 	 *
@@ -53,7 +56,7 @@ public class Volo extends Model {
 	 * @param prezzo Prezzo del volo (espresso in euro)
 	 * @param stato stato del volo
 	 */
-	public Volo(Integer id, Date dataOra, Integer aeroportoPartenza, Integer aeroportoDestinazione, Integer aereo, Integer postiDisponibili, Integer palletDisponibili, Double prezzo, StatoVolo stato) {
+	public Volo(Integer id, Date dataOra, Integer aeroportoPartenza, Integer aeroportoDestinazione, Integer aereo, Integer postiDisponibili, Integer palletDisponibili, Double prezzo, StatoVolo stato, TipoAereo tipoAereo) {
 		this.id = id;
 		this.dataOra = dataOra;
 		this.aeroportoPartenza = aeroportoPartenza;
@@ -63,6 +66,7 @@ public class Volo extends Model {
 		this.palletDisponibili = palletDisponibili;
 		this.setPrezzo(prezzo);
 		this.stato = stato;
+		this.tipoAereo = tipoAereo;
 	}
 	
 	/**
@@ -188,7 +192,7 @@ public class Volo extends Model {
 	@Override
 	public String toString() {
 		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy   hh:mm");
-		return  format.format(dataOra) + "          " +postiDisponibili+ " posti disponibili         "+palletDisponibili+ " pallet disponibili         " +prezzo+ " €";
+		return  format.format(dataOra) + "          " +postiDisponibili+ " posti disponibili         "+palletDisponibili+ " pallet disponibili         " +prezzo+ " ï¿½";
 	}
 
 
@@ -262,6 +266,22 @@ public class Volo extends Model {
 	 */
 	public void setStato(StatoVolo stato) {
 		this.stato = stato;
+	}
+
+	/**
+	 * ritorna il tipo di aereo utilizzato per il volo
+	 * @return
+	 */
+	public TipoAereo getTipoAereo() {
+		return tipoAereo;
+	}
+
+	/**
+	 * imposta il tipo di aereo usato per il volo
+	 * @param tipoAereo
+	 */
+	public void setTipoAereo(TipoAereo tipoAereo) {
+		this.tipoAereo = tipoAereo;
 	}
 
 	/* (non-Javadoc)

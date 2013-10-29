@@ -68,7 +68,7 @@ public class Creator {
 		elencoAeroporti.add(new Aeroporto(20, "Fano", 0.0, 0.0));
 		elencoAeroporti.add(new Aeroporto(21, "Firenze", 0.0, 0.0));
 		elencoAeroporti.add(new Aeroporto(22, "Foggia", 0.0, 0.0));
-		elencoAeroporti.add(new Aeroporto(23, "Forlì", 0.0, 0.0));
+		elencoAeroporti.add(new Aeroporto(23, "Forlï¿½", 0.0, 0.0));
 		elencoAeroporti.add(new Aeroporto(24, "Genova", 0.0, 0.0));
 		elencoAeroporti.add(new Aeroporto(25, "Grosseto", 0.0, 0.0));
 		elencoAeroporti.add(new Aeroporto(26, "Lamezia", 0.0, 0.0));
@@ -135,7 +135,7 @@ public class Creator {
 						double result =  (Math.random()*(110-40)+40)*100;
 						result = Math.round(result);
 						result = result/100;
-						voli.add(new Volo(idIncr, c.getTime(), i, j, (int) (Math.random()*(100-1)+1), 300, 50, result, StatoVolo.OPEN));
+						voli.add(new Volo(idIncr, c.getTime(), i, j, (int) (Math.random()*(100-1)+1), 300, 50, result, StatoVolo.OPEN, TipoAereo.S));
 						idIncr++;
 					}
 			}

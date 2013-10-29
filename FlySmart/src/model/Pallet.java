@@ -21,6 +21,12 @@ public class Pallet extends Model {
 	/** Id del volo su cui si trova il pallet */
 	private Integer idVolo;
 	
+	/** Indica la fila in cui posizionare il pallet*/
+	private Integer fila;
+	
+	/** Indica la colonna in cui posizionare il pallet*/
+	private Integer colonna;
+	
 	/**
 	 * Istanzia un nuovo pallet (supercostruttore)
 	 *
@@ -28,12 +34,16 @@ public class Pallet extends Model {
 	 * @param peso Il peso del pallet
 	 * @param targa La targa del pallet
 	 * @param idVolo Id del volo su cui si trova il pallet
+	 * @param fila
+	 * @param colonna 
 	 */
-	public Pallet(Integer id, Double peso, String targa, Integer idVolo) {
+	public Pallet(Integer id, Double peso, String targa, Integer idVolo, Integer fila, Integer colonna) {
 		this.id = id;
 		this.peso = peso;
 		this.targa = targa;
 		this.idVolo = idVolo;
+		this.fila = fila;
+		this.colonna = colonna;
 	}
 	
 	/**
@@ -44,7 +54,7 @@ public class Pallet extends Model {
 	 * @param idVolo Id del volo su cui si trova il pallet
 	 */
 	public Pallet(Double peso, String targa, Integer idVolo) {
-		this(null, peso,  targa,  idVolo);
+		this(null, peso,  targa,  idVolo, null, null);
 	}
 	
 	/**
@@ -116,6 +126,26 @@ public class Pallet extends Model {
 		return serialVersionUID;
 	}
 	
+	/** Restituisce la fila in cui posizionare del pallet*/
+	public Integer getFila() {
+		return fila;
+	}
+
+	/** Setta la fila in cui posizionare del pallet*/
+	public void setFila(Integer fila) {
+		this.fila = fila;
+	}
+
+	/** Restituisce la colonna in cui posizionare il pallet*/
+	public Integer getColonna() {
+		return colonna;
+	}
+
+	/** Setta la colonna in cui posizionare il pallet*/
+	public void setColonna(Integer colonna) {
+		this.colonna = colonna;
+	}
+
 	/* (non-Javadoc)
 	 * @see model.Model#getFields()
 	 */

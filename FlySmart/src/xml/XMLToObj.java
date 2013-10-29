@@ -52,11 +52,11 @@ public class XMLToObj{
 						
 						try{
 							String value = ((Node)firstName.item(0)).getNodeValue(); //ottengo la stringa contenuta nel tag 
-							String type = f.getType().getName(); //vedo di che tipo è il corrispondente campo nella classe passeggero
+							String type = f.getType().getName(); //vedo di che tipo ï¿½ il corrispondente campo nella classe passeggero
 							Object v = null;
 							
 							if(type.compareTo("java.lang.Integer") == 0){
-								v = Integer.valueOf(value); // se il campo della classe passeggero è un Integer lo converto ad Integer
+								v = Integer.valueOf(value); // se il campo della classe passeggero ï¿½ un Integer lo converto ad Integer
 							}else if (type.compareTo("java.lang.Character") == 0){
 								v = value.charAt(0);
 							}else if (type.compareTo("java.lang.Double") == 0){
@@ -71,7 +71,7 @@ public class XMLToObj{
 						}
 					}
 					//utilizzo il costruttore della classe passeggero
-					Passeggero toAdd = new Passeggero((Integer) map.get("id"), (Integer) map.get("idGruppo"), (String) map.get("nome"), (String) map.get("cognome"), (Integer) map.get("eta"), (Character) map.get("sesso"), (Double) map.get("pesoBagagli"), (Integer) map.get("idVolo"), (Integer) map.get("posto"), (Integer) map.get("giorno"), (Integer) map.get("mese"), (Integer) map.get("anno"));
+					Passeggero toAdd = new Passeggero((Integer) map.get("id"), (Integer) map.get("idGruppo"), (String) map.get("nome"), (String) map.get("cognome"), (Integer) map.get("eta"), (Character) map.get("sesso"), (Double) map.get("pesoBagagli"), (Integer) map.get("idVolo"), (Integer) map.get("fila"), (Integer) map.get("colonna"), (Integer) map.get("giorno"), (Integer) map.get("mese"), (Integer) map.get("anno"));
 					list.add(toAdd);
 					//aggiungo il passeggero alla lista da ritornare 
 
@@ -208,7 +208,7 @@ public class XMLToObj{
 						}
 					}
 					
-					Pallet toAdd = new Pallet((Integer) map.get("id"), (Double) map.get("peso"), (String) map.get("targa"), (Integer) map.get("idVolo"));
+					Pallet toAdd = new Pallet((Integer) map.get("id"), (Double) map.get("peso"), (String) map.get("targa"), (Integer) map.get("idVolo"), (Integer) map.get("fila"), (Integer) map.get("colonna") );
 					list.add(toAdd);
 
 				}
@@ -262,7 +262,7 @@ public class XMLToObj{
 					} catch (ParseException e) {
 						e.printStackTrace();
 					}
-					Volo toAdd = new Volo( Integer.parseInt(map.get("id")), dt, Integer.parseInt(map.get("aeroportoPartenza")) , Integer.parseInt(map.get("aeroportoDestinazione")), Integer.parseInt(map.get("aereo")), Integer.parseInt(map.get("postiDisponibili")), Integer.parseInt(map.get("palletDisponibili")), Double.parseDouble(map.get("prezzo")), StatoVolo.valueOf(map.get("stato")));
+					Volo toAdd = new Volo( Integer.parseInt(map.get("id")), dt, Integer.parseInt(map.get("aeroportoPartenza")) , Integer.parseInt(map.get("aeroportoDestinazione")), Integer.parseInt(map.get("aereo")), Integer.parseInt(map.get("postiDisponibili")), Integer.parseInt(map.get("palletDisponibili")), Double.parseDouble(map.get("prezzo")), StatoVolo.valueOf(map.get("stato")), TipoAereo.valueOf(map.get("tipoAereo")));
 					list.add(toAdd);
 
 				}
