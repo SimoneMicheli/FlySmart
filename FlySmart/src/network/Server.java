@@ -135,6 +135,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 	/**
 	 * @return il primo id libero da assegnare ad un passeggero
 	 */
+	@SuppressWarnings("unused")
 	private synchronized int getNextID(){
 		return getNextID(1);
 	}
@@ -156,6 +157,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 	 * 
 	 * @return primo id libero per i pallet
 	 */
+	@SuppressWarnings("unused")
 	private synchronized int getNextPalletID(){
 		return getNextPalletID(1);
 	}
@@ -313,10 +315,10 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 			throw new FlightNotFoundException(idVolo); //volo non trovato
 		
 		Volo v = voli.get(pos);
-		if (v.getPostiDisponibili() - listToAdd.size() < 0)
+		if (v.getPalletDisponibili() - listToAdd.size() < 0)
 			throw new SeatsSoldOutException(idVolo); //posti insufficienti
 		
-		v.setPostiDisponibili(v.getPostiDisponibili() - listToAdd.size());
+		v.setPalletDisponibili(v.getPalletDisponibili() - listToAdd.size());
 		
 		//ottengo lock su file richiesto
 		FileLock lock = palletLocks.get(idVolo);
