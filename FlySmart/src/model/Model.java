@@ -14,7 +14,7 @@ import java.util.List;
  *
  */
 @SuppressWarnings("serial")
-public abstract class Model implements SortableList<Integer>, GetFields, Serializable{
+public abstract class Model implements Comparable<Integer>, GetFields, Serializable{
 
 	/** Id dell'oggetto della classe */
 	protected  Integer id;
