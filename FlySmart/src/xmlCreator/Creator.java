@@ -135,7 +135,7 @@ public class Creator {
 						double result =  (Math.random()*(110-40)+40)*100;
 						result = Math.round(result);
 						result = result/100;
-						voli.add(new Volo(idIncr, c.getTime(), i, j, (int) (Math.random()*(100-1)+1), 300, 50, result));
+						voli.add(new Volo(idIncr, c.getTime(), i, j, (int) (Math.random()*(100-1)+1), (int) (Math.random()*(300-1)+1), (int) (Math.random()*(100-1)+1), result));
 						idIncr++;
 					}
 			}
