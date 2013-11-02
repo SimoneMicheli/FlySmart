@@ -29,6 +29,7 @@ import javax.swing.JTextField;
 import model.Aeroporto;
 import model.Pallet;
 import model.Passeggero;
+import model.Sesso;
 import model.Volo;
 
 /**La vista della prenotazione
@@ -698,13 +699,13 @@ public class PrenotazioneView extends View {
 	 */
 	protected void save(Passeggero p){
 
-		Character sex = null;
-		if(getSelectedButtonText(buttonGroupSesso).compareTo("Uomo")==0) sex='m'; 
-		else sex='f';
+		String sex = null;
+		if(getSelectedButtonText(buttonGroupSesso).compareTo("Uomo")==0) sex="M"; 
+		else sex="F";
 
 		p.setNome(textPasseggeriNome.getText());
 		p.setCognome(textPasseggeriCognome.getText());
-		p.setSesso(sex);
+		p.setSesso(Sesso.valueOf(sex));
 		p.setGiorno(Integer.parseInt(comboBoxGiorno.getSelectedItem().toString()));
 		p.setMese(Integer.parseInt(comboBoxMese.getSelectedItem().toString()));
 		p.setAnno(Integer.parseInt(comboBoxAnno.getSelectedItem().toString()));
@@ -819,7 +820,7 @@ public class PrenotazioneView extends View {
 	protected void mostraPasseggero(Passeggero p){
 		textPasseggeriNome.setText(p.getNome());
 		textPasseggeriCognome.setText(p.getCognome());
-		if(p.getSesso()=='m'){
+		if(p.getSesso().equals(Sesso.M)){
 			rdbtnNewRadioButton_uomo.setSelected(true);
 			rdbtnNewRadioButton_donna.setSelected(false);
 		}else{

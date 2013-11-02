@@ -1,9 +1,6 @@
 package network;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.rmi.server.*;
@@ -14,7 +11,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Properties;
 
 import org.w3c.dom.Document;
 
@@ -39,8 +35,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 	private static final long serialVersionUID = -1112973689097758070L;
 	private FileLock aeroportiLock, voliLock;
 	private HashMap<Integer, FileLock> passLocks, palletLocks;
-	private int lastID=0, lastPalletID=0, lastGroupID=0;
-	private Properties config;
+	//private Properties config;
 	
 	/**
 	 * costruttore dell'oggetto server, crea i lock necessari a garantire l'accesso
@@ -81,96 +76,18 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 			palletLocks.put(volo.getId(), new FileLockImpl());
 		}
 		
-		//load configuration file
-		config = new Properties();
-		try {
-			FileInputStream configFile = new FileInputStream(Options.configFileName);
-			config.loadFromXML(configFile);
-			lastID = Integer.parseInt(config.getProperty("lastID", "0"));
-			lastPalletID = Integer.parseInt(config.getProperty("lastPalletID", "0"));
-			lastGroupID = Integer.parseInt(config.getProperty("lastGropuID", "0"));
-		} catch (FileNotFoundException e) {
-			System.err.println("Configuration file not found: init with default options");
-		} catch (IOException e) {
-			System.err.println("Configuration file not found: init with default options");
-		}
-		
 		//server shoutdown
 		Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
 		    @Override
 		    public void run() {
 		    	System.out.println("shutdown RMI Server");
-		    	
-		    	//save configuration file
-		    	try {
-		    		System.out.println("saving configuration file");
-					File f = new File(Options.configFileName);
-					FileOutputStream configFileOut = new FileOutputStream(f);
-					config.storeToXML(configFileOut, "Flysmart Configuration File");
-				} catch (FileNotFoundException e) {
-					e.printStackTrace();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
 
 		    }
 		}));
 	
 	}
 	
-	/**
-	 * restituisce il primo id passeggero libero e blocca tutti i successivi length id
-	 * metodo synchronized perch� condiviso tra tutti i server thread
-	 * @param length numero id da bloccare
-	 * @return primo id disponibile
-	 */
-	private synchronized int getNextID(int length){
-		int oldID = lastID;
-		lastID += length;
-		config.setProperty("lastID", Integer.toString(lastID));
-		return oldID;
-	}
 	
-	/**
-	 * @return il primo id libero da assegnare ad un passeggero
-	 */
-	@SuppressWarnings("unused")
-	private synchronized int getNextID(){
-		return getNextID(1);
-	}
-	
-	/**
-	 * restituisce il primo id pallet libero e blocca tutti i successivi length id
-	 * metodo synchronized perch� condiviso tra tutti i server thread
-	 * @param length numero id da bloccare
-	 * @return primo id disponibile
-	 */
-	private synchronized int getNextPalletID(int length){
-		int oldID = lastPalletID;
-		lastPalletID += length;
-		config.setProperty("lastPalletID", Integer.toString(lastPalletID));
-		return oldID;
-	}
-
-	/**
-	 * 
-	 * @return primo id libero per i pallet
-	 */
-	@SuppressWarnings("unused")
-	private synchronized int getNextPalletID(){
-		return getNextPalletID(1);
-	}
-	
-	/**
-	 * 
-	 * @return oldId primo id libero per gruppi
-	 */
-	private synchronized int getNextGroupID(){
-		int oldID = lastGroupID;
-		lastGroupID ++;
-		config.setProperty("lastGroupID", Integer.toString(lastGroupID));
-		return oldID;
-	}
 	
 	/* (non-Javadoc)
 	 * @see network.ServerInterface#getAeroporti()
@@ -260,8 +177,8 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 		passeggeri = parserXML.createPasseggeroList( String.format(Options.voloPassFileName, idVolo));
 		
 		//aggiungo nuovi passeggeri alla lista
-		int id = getNextID(listToAdd.size());
-		int idGruppo = getNextGroupID();
+		int id = v.getNextID(listToAdd.size());
+		int idGruppo = v.getNextGroupID();
 		Iterator<Passeggero> i = listToAdd.iterator();
 		
 		while (i.hasNext()) {
@@ -327,7 +244,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 		pallets = parserXML.createPalletList(String.format(Options.voloPalletFileName, idVolo));
 		
 		//aggiungo nuovi passeggeri alla lista
-		int id = getNextPalletID(listToAdd.size());
+		int id = v.getNextPalletID(listToAdd.size());
 		Iterator<Pallet> i = listToAdd.iterator();
 		
 		while (i.hasNext()) {

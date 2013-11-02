@@ -41,7 +41,7 @@ public class Passeggero extends Model {
 	 * 'm' per maschio
 	 * 'f' per femmina
 	 */
-	private Character sesso;
+	private Sesso sesso;
 	
 	/** Peso dei bagagli del passeggero (in Kilogrammi) */
 	private Double pesoBagagli;
@@ -71,7 +71,7 @@ public class Passeggero extends Model {
 	 * @param mese Mese di nascita
 	 * @param anno Anno di nascita
 	 */
-	public Passeggero(Integer id, Integer idGruppo, String nome, String cognome, Integer eta, Character sesso, Double pesoBagagli, Integer idVolo, Integer fila, Integer colonna, Integer giorno, Integer mese, Integer anno) {
+	public Passeggero(Integer id, Integer idGruppo, String nome, String cognome, Integer eta, Sesso sesso, Double pesoBagagli, Integer idVolo, Integer fila, Integer colonna, Integer giorno, Integer mese, Integer anno) {
 		this.id = id;
 		this.idGruppo = idGruppo;
 		this.nome = nome;
@@ -104,7 +104,7 @@ public class Passeggero extends Model {
 	 * @param anno Anno di nascita
 	 * @param sesso Sesso del passeggero
 	 */
-	public Passeggero(String nome, String cognome,String giorno, String mese, String anno, Character sesso) {
+	public Passeggero(String nome, String cognome,String giorno, String mese, String anno, Sesso sesso) {
 		this(null, null, nome,  cognome,  calcolaEta(giorno, mese, anno),  sesso,  null,  null,  null, null, Integer.parseInt(giorno), Integer.parseInt(mese), Integer.parseInt(anno));
 	}
 	
@@ -119,7 +119,7 @@ public class Passeggero extends Model {
 	 * @param anno Anno di nascita
 	 * @param sesso Sesso del passeggero
 	 */
-	public Passeggero(String nome, String cognome,int giorno, int mese, int anno, char sesso) {
+	public Passeggero(String nome, String cognome,int giorno, int mese, int anno, Sesso sesso) {
 		this(null, null, nome,  cognome,  calcolaEta(giorno, mese, anno),  sesso,  null,  null,  null, null, giorno, mese, anno);
 	}
 
@@ -174,7 +174,7 @@ public class Passeggero extends Model {
 	 *
 	 * @return Il sesso del passeggero
 	 */
-	public char getSesso() {
+	public Sesso getSesso() {
 		return sesso;
 	}
 
@@ -185,7 +185,7 @@ public class Passeggero extends Model {
 	 * @param sesso Il sesso del passeggero: 'm' per maschio, 'f' per femmina
 	 * 
 	 */
-	public void setSesso(char sesso) {
+	public void setSesso(Sesso sesso) {
 		this.sesso = sesso;
 	}
 
@@ -415,6 +415,20 @@ public class Passeggero extends Model {
 	 */
 	public static long getSerialVersionUID() {
 		return serialVersionUID;
+	}
+	
+	/**
+	 * restituisce il peso di un passeggero in base al sesso e all'età
+	 * @return peso del passeggero
+	 */
+	public int getPeso(){
+		int p = sesso.getPeso();
+		if (eta < 14){
+			p = (int) ((int) p*0.5);
+		} else if (eta < 18){
+			p = (int) ((int) p*0.8);
+		}
+		return p;
 	}
 	
 	/* (non-Javadoc)

@@ -15,6 +15,7 @@ import exception.SeatsSoldOutException;
 
 import model.Aeroporto;
 import model.Passeggero;
+import model.Sesso;
 import model.Volo;
 
 /**
@@ -43,9 +44,9 @@ public class ClientTest {
 			
 			java.util.List<Passeggero> passToAdd = new LinkedList<Passeggero>();
 			
-			passToAdd.add(new Passeggero("mario", "rossi", 15, 10, 1990, 'm'));
-			passToAdd.add(new Passeggero("andrea", "bianchi", 5, 2, 1960, 'm'));
-			passToAdd.add(new Passeggero("valentina", "carrara", 22, 7, 1995, 'f'));
+			passToAdd.add(new Passeggero("mario", "rossi", 15, 10, 1990, Sesso.M));
+			passToAdd.add(new Passeggero("andrea", "bianchi", 5, 2, 1960, Sesso.M));
+			passToAdd.add(new Passeggero("valentina", "carrara", 22, 7, 1995, Sesso.F));
 			
 			int rx = serv.prenotaPasseggero(passToAdd, 2);
 			
