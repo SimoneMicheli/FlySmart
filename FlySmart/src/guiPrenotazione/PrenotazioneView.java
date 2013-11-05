@@ -128,16 +128,26 @@ public class PrenotazioneView extends View {
 	protected JRadioButton rdbtnNewRadioButton_donna = new JRadioButton("Donna");
 
 	//label
-	/** The label tipo prenotazione. */
 	protected JLabel labelTipoPrenotazione= new JLabel();
-	/** label contenente il numero del passeggero corrente. */
 	protected JLabel labelNumeroPasseggero = new JLabel("1");
-	/** The label lista passeggeri */
 	protected JLabel labelListaPasseggeri = new JLabel("Lista passeggeri");
-	/** The label con il prezzo totale del volo */
 	protected JLabel labelPrezzoTotale= new JLabel("");
-	/** fornisce la tratta del volo al cliente */
 	JLabel labelResocontoVolo= new JLabel("");
+	protected JLabel labelDataOraVoloPasseggeri= new JLabel();
+	protected JLabel labelDataOraVoloPallet= new JLabel();
+	protected JLabel labelPasseggeriDisponibili= new JLabel();
+	protected JLabel labelPalletDisponibili= new JLabel();
+	protected JLabel labelPrezzoPasseggeri= new JLabel();
+	protected JLabel labelPrezzoPallet= new JLabel();
+	protected JLabel labelAeroportoPartenzaPallet= new JLabel();
+	protected JLabel labelAeroportoPartenzaPasseggeri= new JLabel();
+	protected JLabel labelAeroportoArrivoPallet= new JLabel();
+	protected JLabel labelAeroportoArrivoPasseggeri= new JLabel();
+	protected JLabel labelStatoVoloPasseggeri= new JLabel();
+	protected JLabel labelStatoVoloPallet= new JLabel();
+	
+	
+	
 
 	//button 1 livello
 	/** conferma la fase passeggeri:aeroporti */
@@ -595,6 +605,38 @@ public class PrenotazioneView extends View {
 			comboVoliDisponibili.addItem(element);
 		}
 		panelPalletVoli.add(comboVoliDisponibili, BorderLayout.NORTH);
+		
+		
+		labelAeroportoPartenzaPallet.setText("Aeroporto di partenza: ");
+		labelAeroportoPartenzaPallet.setFont(new Font("Arial", Font.PLAIN, 12));
+		labelAeroportoPartenzaPallet.setBounds(16, 100, 482, 25);
+		panelPalletVoli.add(labelAeroportoPartenzaPallet);
+		
+		labelAeroportoArrivoPallet.setText("Aeroporto di arrivo: ");
+		labelAeroportoArrivoPallet.setFont(new Font("Arial", Font.PLAIN, 12));
+		labelAeroportoArrivoPallet.setBounds(16, 130, 482, 25);
+		panelPalletVoli.add(labelAeroportoArrivoPallet);
+		
+		labelDataOraVoloPallet.setText("Data e ora volo: ");
+		labelDataOraVoloPallet.setFont(new Font("Arial", Font.PLAIN, 12));
+		labelDataOraVoloPallet.setBounds(16, 160, 482, 25);
+		panelPalletVoli.add(labelDataOraVoloPallet);
+		
+		labelStatoVoloPallet.setText("Stato volo: ");
+		labelStatoVoloPallet.setFont(new Font("Arial", Font.PLAIN, 12));
+		labelStatoVoloPallet.setBounds(16, 190, 482, 25);
+		panelPalletVoli.add(labelStatoVoloPallet);
+		
+		labelPalletDisponibili.setText("Numero pallet disponibili: ");
+		labelPalletDisponibili.setFont(new Font("Arial", Font.PLAIN, 12));
+		labelPalletDisponibili.setBounds(16, 220, 482, 25);
+		panelPalletVoli.add(labelPalletDisponibili);
+		
+		labelPrezzoPallet.setText("Prezzo singolo: ");
+		labelPrezzoPallet.setFont(new Font("Arial", Font.PLAIN, 12));
+		labelPrezzoPallet.setBounds(16, 250, 482, 25);
+		panelPalletVoli.add(labelPrezzoPallet);
+		
 		
 		
 

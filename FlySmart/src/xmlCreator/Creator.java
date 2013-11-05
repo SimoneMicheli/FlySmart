@@ -52,7 +52,7 @@ public class Creator {
 		elencoAeroporti.add(new Aeroporto(20, "Fano", 0.0, 0.0));
 		elencoAeroporti.add(new Aeroporto(21, "Firenze", 0.0, 0.0));
 		elencoAeroporti.add(new Aeroporto(22, "Foggia", 0.0, 0.0));
-		elencoAeroporti.add(new Aeroporto(23, "Forl�", 0.0, 0.0));
+		elencoAeroporti.add(new Aeroporto(23, "Forlì", 0.0, 0.0));
 		elencoAeroporti.add(new Aeroporto(24, "Genova", 0.0, 0.0));
 		elencoAeroporti.add(new Aeroporto(25, "Grosseto", 0.0, 0.0));
 		elencoAeroporti.add(new Aeroporto(26, "Lamezia", 0.0, 0.0));
@@ -138,5 +138,6 @@ public class Creator {
 		XMLCreate<Volo> XMLVoli = new XMLCreate<Volo>();
 		Document d = XMLVoli.createFlySmartDocument(voli);
 		XMLVoli.printDocument(d,"voli.xml");
+		System.out.println("Done");
 	}
 }
