@@ -9,9 +9,9 @@ package model;
  */
 public enum TipoAereo {
 	//numero di colonne pallet, numero di fila pallet, numero di colonne passeggeri, numero file passeggeri
-	S (2,4,6,10), 
-	M (2,12,6,30), 
-	L (2,24,6,70);
+	S (2,4,6,12), 
+	M (2,12,6,36), 
+	L (2,24,6,72);
 	
 	private final int filePallet;
 	private final int colonnePallet;
