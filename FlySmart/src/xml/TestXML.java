@@ -64,8 +64,8 @@ public class TestXML {
 		istanza6.printDocument(documento4,  "test4.xml");
 		
 		List<Aeroporto> listAq = new ArrayList<Aeroporto>();
-		listAq.add(new Aeroporto(1,"boeing",1.0,1.1));
-		listAq.add(new Aeroporto(2,"boeing",2.0,2.1));
+		listAq.add(new Aeroporto(1,"boeing"));
+		listAq.add(new Aeroporto(2,"boeing"));
 		XMLCreate<Aeroporto> istanza4q = new XMLCreate<Aeroporto>();
 		Document documento3q = istanza4q.createFlySmartDocument(listAq);
 		istanza4q.printDocument(documento3q,  "test3q.xml");
