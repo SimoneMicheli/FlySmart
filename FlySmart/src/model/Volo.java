@@ -43,6 +43,9 @@ public class Volo extends Model {
 	/** Tipo di aereo per il volo*/
 	private TipoAereo tipoAereo;
 	
+	/** ultimi id assegnati */
+	private Integer lastID=0, lastPalletID=0, lastGroupID=0;
+	
 	/**
 	 * Istanzia un nuovo volo (supercostruttore)
 	 *
@@ -56,7 +59,7 @@ public class Volo extends Model {
 	 * @param prezzo Prezzo del volo (espresso in euro)
 	 * @param stato stato del volo
 	 */
-	public Volo(Integer id, Date dataOra, Integer aeroportoPartenza, Integer aeroportoDestinazione, Integer aereo, Integer postiDisponibili, Integer palletDisponibili, Double prezzo, StatoVolo stato, TipoAereo tipoAereo) {
+	public Volo(Integer id, Date dataOra, Integer aeroportoPartenza, Integer aeroportoDestinazione, Integer aereo, Integer postiDisponibili, Integer palletDisponibili, Double prezzo, StatoVolo stato, TipoAereo tipoAereo, Integer lastID, Integer lastPalletID, Integer lastGroupID) {
 		this.id = id;
 		this.dataOra = dataOra;
 		this.aeroportoPartenza = aeroportoPartenza;
@@ -67,6 +70,13 @@ public class Volo extends Model {
 		this.setPrezzo(prezzo);
 		this.stato = stato;
 		this.tipoAereo = tipoAereo;
+		this.lastID = lastID;
+		this.lastPalletID = lastPalletID;
+		this.lastGroupID = lastGroupID;
+	}
+	
+	public Volo(Integer id, Date dataOra, Integer aeroportoPartenza, Integer aeroportoDestinazione, Integer aereo, Integer postiDisponibili, Integer palletDisponibili, Double prezzo, StatoVolo stato, TipoAereo tipoAereo){
+		this(id, dataOra, aeroportoPartenza, aeroportoDestinazione, aereo, postiDisponibili, palletDisponibili, prezzo, stato, tipoAereo, new Integer(0), new Integer(0), new Integer(0));
 	}
 	
 	/**
@@ -203,7 +213,7 @@ public class Volo extends Model {
 	 *
 	 * @param postiDisponibili Numero di posti per passeggeri ancora disponibili sull'aereo
 	 */
-	public void setPostiDisponibili(Integer postiDisponibili) {
+	public synchronized void setPostiDisponibili(Integer postiDisponibili) {
 		this.postiDisponibili = postiDisponibili;
 	}
 
@@ -225,7 +235,7 @@ public class Volo extends Model {
 	 *
 	 * @param palletDisponibili Numero di posti per pallet ancora disponibili sull'aereo
 	 */
-	public void setPalletDisponibili(Integer palletDisponibili) {
+	public synchronized void setPalletDisponibili(Integer palletDisponibili) {
 		this.palletDisponibili = palletDisponibili;
 	}
 
@@ -282,6 +292,80 @@ public class Volo extends Model {
 	 */
 	public void setTipoAereo(TipoAereo tipoAereo) {
 		this.tipoAereo = tipoAereo;
+	}
+	
+	/**
+	 * restituisce il primo id passeggero libero e blocca tutti i successivi length id
+	 * metodo synchronized perch� condiviso tra tutti i server thread
+	 * @param length numero id da bloccare
+	 * @return primo id disponibile
+	 */
+	public synchronized int getNextID(int length){
+		int oldID = lastID;
+		lastID += length;
+		return oldID;
+	}
+	
+	/**
+	 * @return il primo id libero da assegnare ad un passeggero
+	 */
+	public synchronized int getNextID(){
+		return getNextID(1);
+	}
+	
+	/**
+	 * restituisce il primo id pallet libero e blocca tutti i successivi length id
+	 * metodo synchronized perch� condiviso tra tutti i server thread
+	 * @param length numero id da bloccare
+	 * @return primo id disponibile
+	 */
+	public synchronized int getNextPalletID(int length){
+		int oldID = lastPalletID;
+		lastPalletID += length;
+		return oldID;
+	}
+
+	/**
+	 * 
+	 * @return primo id libero per i pallet
+	 */
+	public synchronized int getNextPalletID(){
+		return getNextPalletID(1);
+	}
+	
+	/**
+	 * 
+	 * @return oldId primo id libero per gruppi
+	 */
+	public synchronized int getNextGroupID(){
+		int oldID = lastGroupID;
+		lastGroupID ++;
+		return oldID;
+	}
+	
+	public synchronized int getGroupNumber(){
+		return lastGroupID;
+	}
+
+	/**
+	 * @return the lastID
+	 */
+	public Integer getLastID() {
+		return lastID;
+	}
+
+	/**
+	 * @return the lastPalletID
+	 */
+	public Integer getLastPalletID() {
+		return lastPalletID;
+	}
+
+	/**
+	 * @return the lastGroupID
+	 */
+	public Integer getLastGroupID() {
+		return lastGroupID;
 	}
 
 	/* (non-Javadoc)

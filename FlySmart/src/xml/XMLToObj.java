@@ -71,7 +71,7 @@ public class XMLToObj{
 						}
 					}
 					//utilizzo il costruttore della classe passeggero
-					Passeggero toAdd = new Passeggero((Integer) map.get("id"), (Integer) map.get("idGruppo"), (String) map.get("nome"), (String) map.get("cognome"), (Integer) map.get("eta"), (Character) map.get("sesso"), (Double) map.get("pesoBagagli"), (Integer) map.get("idVolo"), (Integer) map.get("fila"), (Integer) map.get("colonna"), (Integer) map.get("giorno"), (Integer) map.get("mese"), (Integer) map.get("anno"));
+					Passeggero toAdd = new Passeggero((Integer) map.get("id"), (Integer) map.get("idGruppo"), (String) map.get("nome"), (String) map.get("cognome"), (Integer) map.get("eta"), Sesso.valueOf((String) map.get("sesso")), (Double) map.get("pesoBagagli"), (Integer) map.get("idVolo"), (Integer) map.get("fila"), (Integer) map.get("colonna"), (Integer) map.get("giorno"), (Integer) map.get("mese"), (Integer) map.get("anno"));
 					list.add(toAdd);
 					//aggiungo il passeggero alla lista da ritornare 
 
@@ -262,7 +262,7 @@ public class XMLToObj{
 					} catch (ParseException e) {
 						e.printStackTrace();
 					}
-					Volo toAdd = new Volo( Integer.parseInt(map.get("id")), dt, Integer.parseInt(map.get("aeroportoPartenza")) , Integer.parseInt(map.get("aeroportoDestinazione")), Integer.parseInt(map.get("aereo")), Integer.parseInt(map.get("postiDisponibili")), Integer.parseInt(map.get("palletDisponibili")), Double.parseDouble(map.get("prezzo")), StatoVolo.valueOf(map.get("stato")), TipoAereo.valueOf(map.get("tipoAereo")));
+					Volo toAdd = new Volo( Integer.parseInt(map.get("id")), dt, Integer.parseInt(map.get("aeroportoPartenza")) , Integer.parseInt(map.get("aeroportoDestinazione")), Integer.parseInt(map.get("aereo")), Integer.parseInt(map.get("postiDisponibili")), Integer.parseInt(map.get("palletDisponibili")), Double.parseDouble(map.get("prezzo")), StatoVolo.valueOf(map.get("stato")), TipoAereo.valueOf(map.get("tipoAereo")), Integer.parseInt(map.get("lastID")), Integer.parseInt(map.get("lastPalletID")), Integer.parseInt(map.get("lastGroupID")));
 					list.add(toAdd);
 
 				}

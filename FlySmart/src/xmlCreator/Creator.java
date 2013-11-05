@@ -19,7 +19,6 @@ public class Creator {
 	 */
 	public static void main(String[] args)  {
 		try {
-			cancellaConfigFile();
 			creaAeroporti();
 			creaVoli();
 
@@ -27,20 +26,6 @@ public class Creator {
 			e.printStackTrace();
 		}
 
-	}
-
-	public static void cancellaConfigFile(){
-		File f = new File("config.xml");
-		if (!f.exists()){
-			System.out.println("config file not exist");
-			return;
-		}
-		Boolean rx = f.delete();
-
-		if(rx)
-			System.out.println("config file deleted");
-		else
-			System.err.println("can't delete config file");
 	}
 
 	public static void creaAeroporti() throws IOException{

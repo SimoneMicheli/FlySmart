@@ -42,7 +42,7 @@ public interface ServerInterface extends Remote {
 	 * @throws FlightNotFoundException 
 	 * @throws SeatsSoldOutException 
 	 */
-	public int prenotaPasseggero(List<Passeggero> listToAdd, int idVolo) throws RemoteException, IOException, FlightNotFoundException, SeatsSoldOutException;
+	public int prenotaPasseggero(List<Passeggero> listToAdd, int idVolo) throws RemoteException, FlightNotFoundException, SeatsSoldOutException;
 	
 	/**
 	 * consente la prenotazione di un volo da parte di una lista di pallet
@@ -54,5 +54,5 @@ public interface ServerInterface extends Remote {
 	 * @throws FlightNotFoundException 
 	 * @throws SeatsSoldOutException 
 	 */
-	public int prenotaPallet(List<Pallet> listToAdd, int idVolo) throws RemoteException, IOException, FlightNotFoundException, SeatsSoldOutException;
+	public int prenotaPallet(List<Pallet> listToAdd, int idVolo) throws RemoteException, FlightNotFoundException, SeatsSoldOutException;
 }
