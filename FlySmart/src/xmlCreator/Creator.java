@@ -139,6 +139,5 @@ public class Creator {
 		XMLCreate<Volo> XMLVoli = new XMLCreate<Volo>();
 		Document d = XMLVoli.createFlySmartDocument(voli);
 		XMLVoli.printDocument(d,"voli.xml");
-		System.out.println("Done");
 	}
 }
