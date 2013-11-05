@@ -18,7 +18,7 @@ import network.ServerInterface;
  * @author Demarinis - Micheli - Scarpellini
  * 
  */
-public class LoginController extends Controller{
+public class LoginController {
 
 
 	/** Riferimento alla vista */

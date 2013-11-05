@@ -88,7 +88,7 @@ public class PrenotazioneView extends View {
 	/** opzione esci. */
 	protected JMenuItem mntmExit = new JMenuItem("Esci");
 	/** opzione switch. */
-	protected JMenuItem mntmSwitch = new JMenuItem("Prenota Pallet");
+	protected JMenuItem mntmSwitch = new JMenuItem("Cambia");
 	/** opzione copyright. */
 	protected JMenuItem mntmCopyright = new JMenuItem("Copyright");
 
@@ -333,7 +333,7 @@ public class PrenotazioneView extends View {
 		buttonPasseggeriCercaVoli = new JButton("Cerca Voli");
 		buttonPasseggeriCercaVoli.setBounds(141, 215, 220, 23);
 		panelPasseggeriAeroporti.add(buttonPasseggeriCercaVoli);
-
+		
 		JLabel labelFondo = new JLabel("<html><span style='font-size:10px;font-weight:bold'>Passeggeri</span>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:red'>Selezione tratta</span><span style='font-size:16px'>&nbsp;&nbsp;&nbsp;→&nbsp;&nbsp;</span><span style='color:'>Ricerca volo</span><span style='font-size:16px'>&nbsp;&nbsp;→&nbsp;&nbsp;&nbsp;&nbsp;</span><span style='color:'>Inserimento anagrafica</span></html>");
 		labelFondo.setBounds(10, 310, 480, 50);
 		panelPasseggeriAeroporti.add(labelFondo);
@@ -345,7 +345,7 @@ public class PrenotazioneView extends View {
 	 *
 	 * @param voli la lista dei voli ricevuta dal server
 	 */
-
+	
 	@SuppressWarnings("unchecked")
 	public void setPasseggeriVoli(List<Volo> voli){
 
@@ -364,8 +364,8 @@ public class PrenotazioneView extends View {
 			comboVoliDisponibili.addItem(element);
 		}
 		panelPasseggeriVoli.add(comboVoliDisponibili, BorderLayout.NORTH);
-
-
+		
+		
 
 		buttonPasseggeriConfermaVolo = new JButton("Conferma");
 		buttonPasseggeriConfermaVolo.setBounds(400, 287, 89, 23);
@@ -379,7 +379,7 @@ public class PrenotazioneView extends View {
 		JLabel labelFondo = new JLabel("<html><span style='font-size:10px;font-weight:bold'>Passeggeri</span>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style=''>Selezione tratta</span><span style='font-size:16px'>&nbsp;&nbsp;&nbsp;→&nbsp;&nbsp;</span><span style='color:red'>Ricerca volo</span><span style='font-size:16px'>&nbsp;&nbsp;→&nbsp;&nbsp;&nbsp;&nbsp;</span><span style='color:'>Inserimento anagrafica</span></html>");
 		labelFondo.setBounds(10, 310, 480, 50);
 		panelPasseggeriVoli.add(labelFondo);
-
+		
 		repaint();
 	}
 
@@ -396,13 +396,13 @@ public class PrenotazioneView extends View {
 		labelTipoPrenotazione.setBounds(8, 8, 482, 25);
 		panelPasseggeriPasseggeri.add(labelTipoPrenotazione);
 
-
+		
 		labelResocontoVolo.setText("");
 		labelResocontoVolo.setText("<html><span style='color:orange'>"+aeroportoPartenzaPasseggeri+"</span><span style='font-size:16px'>  →  </span><span style='color:orange'>"+aeroportoArrivoPasseggeri+"</span></html>");
 		labelResocontoVolo.setFont(new Font("Calibri", Font.PLAIN, 14));
 		labelResocontoVolo.setBounds(18, 48, 482, 35);
 		panelPasseggeriPasseggeri.add(labelResocontoVolo);
-
+		 
 
 		labelNumeroPasseggero.setBounds(20, 100, 40, 23);
 		labelNumeroPasseggero.setFont(new Font("Tahoma", Font.BOLD, 18));
@@ -502,12 +502,12 @@ public class PrenotazioneView extends View {
 		labelListaPasseggeri.setFont(new Font("Arial", Font.PLAIN, 13));
 		labelListaPasseggeri.setBounds(277, 38, 482, 25);
 		panelPasseggeriPasseggeri.add(labelListaPasseggeri);
-
+		
 		labelPrezzoTotale.setFont(new Font("Arial", Font.BOLD, 12));
 		labelPrezzoTotale.setForeground(Color.RED);
 		labelPrezzoTotale.setBounds(310, 260, 220, 25);
 		panelPasseggeriPasseggeri.add(labelPrezzoTotale);
-
+		
 		JLabel labelFondo = new JLabel("<html><span style='font-size:10px;font-weight:bold'>Passeggeri</span>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>Selezione tratta</span><span style='font-size:16px'>&nbsp;&nbsp;&nbsp;→&nbsp;&nbsp;</span><span>Ricerca volo</span><span style='font-size:16px'>&nbsp;&nbsp;→&nbsp;&nbsp;&nbsp;&nbsp;</span><span style='color:red'>Inserimento anagrafica</span></html>");
 		labelFondo.setBounds(10, 310, 480, 50);
 		panelPasseggeriPasseggeri.add(labelFondo);
@@ -527,8 +527,8 @@ public class PrenotazioneView extends View {
 
 
 	}
-
-
+	
+	
 
 	/**
 	 * Carico gli oggetti di pallet:aeroporti
@@ -570,26 +570,26 @@ public class PrenotazioneView extends View {
 		buttonPalletCercaVoli.setBounds(141, 215, 220, 23);
 		panelPalletAeroporti.add(buttonPalletCercaVoli);
 
-
+		
 		JLabel labelFondo = new JLabel("<html><span style='font-size:10px;font-weight:bold'>Pallet</span>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:red'>Selezione tratta</span><span style='font-size:16px'>&nbsp;&nbsp;&nbsp;→&nbsp;&nbsp;</span><span style='color:'>Ricerca volo</span><span style='font-size:16px'>&nbsp;&nbsp;→&nbsp;&nbsp;&nbsp;&nbsp;</span><span style='color:'>Inserimento dati pallet</span></html>");
 		labelFondo.setBounds(10, 310, 480, 50);
 		panelPalletAeroporti.add(labelFondo);
-
+		
 	}
 
-
-
+	
+	
 
 	/**
 	 * Carico gli oggetti di pallet:voli
 	 *
 	 * @param voli la lista dei voli ricevuta dal server
 	 */
-
+	
 	@SuppressWarnings("unchecked")
 	public void setPalletVoli(List<Volo> voli){
 
-
+		
 		panelPalletVoli.removeAll(); //rimuovo tutti gli oggetti
 
 		JLabel labelIstruzioni = new JLabel("Selezionare un volo:");
@@ -605,7 +605,7 @@ public class PrenotazioneView extends View {
 			comboVoliDisponibili.addItem(element);
 		}
 		panelPalletVoli.add(comboVoliDisponibili, BorderLayout.NORTH);
-
+		
 		
 		labelAeroportoPartenzaPallet.setText("Aeroporto di partenza: ");
 		labelAeroportoPartenzaPallet.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -638,6 +638,7 @@ public class PrenotazioneView extends View {
 		panelPalletVoli.add(labelPrezzoPallet);
 		
 		
+		
 
 		buttonPalletConfermaVolo = new JButton("Conferma");
 		buttonPalletConfermaVolo.setBounds(400, 287, 89, 23);
@@ -651,24 +652,24 @@ public class PrenotazioneView extends View {
 		JLabel labelFondo = new JLabel("<html><span style='font-size:10px;font-weight:bold'>Pallet</span>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>Selezione tratta</span><span style='font-size:16px'>&nbsp;&nbsp;&nbsp;→&nbsp;&nbsp;</span><span  style='color:red'>Ricerca volo</span><span style='font-size:16px'>&nbsp;&nbsp;→&nbsp;&nbsp;&nbsp;&nbsp;</span><span style='color:'>Inserimento dati pallet</span></html>");
 		labelFondo.setBounds(10, 310, 480, 50);
 		panelPalletVoli.add(labelFondo);
-
+		
 		repaint();
-
+		
 	}
 
-
+	
 	/**
 	 * Carico gli oggetti di pallet:pallet
 	 */
 	public void setPalletPallet(){
-
+		
 		panelPalletPallet.removeAll(); //rimuovo tutti gli oggetti
 
 		JLabel labelIstruzioni = new JLabel("Inserire gli ultimi dati:");
 		labelIstruzioni.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		labelIstruzioni.setBounds(8, 8, 482, 25);
 		panelPalletPallet.add(labelIstruzioni);
-
+		
 
 		JLabel lblTarga = new JLabel("Targa del pallet");
 		lblTarga.setBounds(141, 110, 112, 14);
@@ -705,14 +706,14 @@ public class PrenotazioneView extends View {
 		textFieldPesoPallet.setText("");
 		repaint();
 	}
-
-
+	
+	
 
 	/**
 	 * Costruisce la lista dei passeggeri di cui si sono gia inseriti i dati
 	 */
 	private void mostraPasseggeriMemorizzati(){
-
+		
 		Iterator<Passeggero> el = listaPasseggeri.iterator();
 		int verticalPosition = 8;
 		panelResoconto.removeAll();
@@ -809,25 +810,23 @@ public class PrenotazioneView extends View {
 	 * Passa alla visualizzazione del passeggero successivo.
 	 */
 	protected void passeggeroSuccessivo(){
-		if(controllaCampi()){
-				updateOrSavePasseggero();
-				if(lastIndex==currentIndex){
-					//lo azzero
-					textPasseggeriNome.setText("");
-					textPasseggeriCognome.setText("");
-					comboBoxGiorno.setSelectedIndex(0);
-					comboBoxMese.setSelectedIndex(0);
-					rdbtnNewRadioButton_uomo.setSelected(true);
-					rdbtnNewRadioButton_donna.setSelected(false);
-					comboBoxAnno.setSelectedIndex(0);
-					passeggeroCorrente=null;
-				}else{
-					passeggeroCorrente = listaPasseggeri.get(currentIndex);
-					mostraPasseggero(passeggeroCorrente);
-				}
-				labelNumeroPasseggero.setText(currentIndex+1+"");
-
-			
+		if(controllaCampi()){ 
+			updateOrSavePasseggero();
+			if(lastIndex==currentIndex){
+				//lo azzero
+				textPasseggeriNome.setText("");
+				textPasseggeriCognome.setText("");
+				comboBoxGiorno.setSelectedIndex(0);
+				comboBoxMese.setSelectedIndex(0);
+				rdbtnNewRadioButton_uomo.setSelected(true);
+				rdbtnNewRadioButton_donna.setSelected(false);
+				comboBoxAnno.setSelectedIndex(0);
+				passeggeroCorrente=null;
+			}else{
+				passeggeroCorrente = listaPasseggeri.get(currentIndex);
+				mostraPasseggero(passeggeroCorrente);
+			}
+			labelNumeroPasseggero.setText(currentIndex+1+"");
 		}else{
 			//JOptionPane.showMessageDialog(null,"Completare prima il passeggero corrente","Errore", 0); //tolto perchè compare anche quando faccio conferma prenotazione
 		}
