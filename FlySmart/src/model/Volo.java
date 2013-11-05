@@ -28,10 +28,10 @@ public class Volo extends Model {
 	/** Id dell'aereo assegnato al volo */
 	private Integer  aereo;
 	
-	/** Numero di posti per passeggeri ancora disponibili sull'aereo */
+	/** Numero di posti prenotati sull'aereo */
 	private Integer  postiDisponibili;
 	
-	/** Numero di posti per pallet ancora disponibili sull'aereo */
+	/** Numero di posti per pallet prenotati sull'aereo */
 	private Integer  palletDisponibili;
 	
 	/** Prezzo del volo (espresso in euro) */
@@ -75,8 +75,10 @@ public class Volo extends Model {
 		this.lastGroupID = lastGroupID;
 	}
 	
-	public Volo(Integer id, Date dataOra, Integer aeroportoPartenza, Integer aeroportoDestinazione, Integer aereo, Integer postiDisponibili, Integer palletDisponibili, Double prezzo, StatoVolo stato, TipoAereo tipoAereo){
-		this(id, dataOra, aeroportoPartenza, aeroportoDestinazione, aereo, postiDisponibili, palletDisponibili, prezzo, stato, tipoAereo, new Integer(0), new Integer(0), new Integer(0));
+	public Volo(Integer id, Date dataOra, Integer aeroportoPartenza, Integer aeroportoDestinazione, Integer aereo, Double prezzo, StatoVolo stato, TipoAereo tipoAereo){
+		this(id, dataOra, aeroportoPartenza, aeroportoDestinazione, aereo, 0, 0, prezzo, stato, tipoAereo, new Integer(0), new Integer(0), new Integer(0));
+		setPostiDisponibili(tipoAereo.getFilePasseggeri() * tipoAereo.getColonnePasseggeri());
+		setPalletDisponibili(tipoAereo.getFilePallet() * tipoAereo.getColonnePallet());
 	}
 	
 	/**

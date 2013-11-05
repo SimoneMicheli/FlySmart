@@ -82,11 +82,20 @@ public class SmartCheckin {
 		
 		
 		//calcola disposizione
-		
+		posizionePallet(pallets, v);
+		posizionePasseggeri(passeggeri, v);
 		
 		
 		//salva risultato su file
 		//passLocks.get(idVolo).releaseWriteLock();
 		palletLocks.get(idVolo).releaseWriteLock();
+	}
+	
+	private void posizionePallet(List<Pallet> pallets, Volo volo){
+		
+	}
+	
+	private void posizionePasseggeri(List<Passeggero> passeggeri, Volo volo){
+		
 	}
 }
