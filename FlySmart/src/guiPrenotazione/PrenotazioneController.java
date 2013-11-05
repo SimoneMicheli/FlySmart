@@ -16,13 +16,12 @@ import network.ServerInterface;
 /**Il controller della vista di prenotazione
  * @author Demarinis - Micheli - Scarpellini
  */
-public class PrenotazioneController{
+public class PrenotazioneController extends Controller{
 
 	/** Il riferimento alla vista */
 	PrenotazioneView view;
 
-	/** L'oggetto per la connessione con il server */
-	ServerInterface serv;
+	
 
 	/**
 	 * Crea un controller per la fase di prenotazione
@@ -74,9 +73,13 @@ public class PrenotazioneController{
 				if(view.passeggeri){ //se sono su passeggeri
 					view.passeggeri=false;
 					view.cardEsterno.show(view.panelCardLayoutEsterno,"panelPallet");
+					view.cardPallet.show(view.panelPallet,"panelPalletAeroporti");
+					view.mntmSwitch.setText("Prenota Passeggeri");
 				}else{ //se sono su pallet
 					view.passeggeri=true;
 					view.cardEsterno.show(view.panelCardLayoutEsterno,"panelPasseggeri");
+					view.cardPasseggeri.show(view.panelPasseggeri,"panelPasseggeriAeroporti");
+					view.mntmSwitch.setText("Prenota Pallet");
 				}
 			}
 
@@ -129,12 +132,12 @@ public class PrenotazioneController{
 
 		//conferma di pallet:aeroporti
 
-		 view.buttonPalletCercaVoli.addMouseListener(new MouseAdapter() {
+		view.buttonPalletCercaVoli.addMouseListener(new MouseAdapter() {
 
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				
-				
+
+
 				int p=0,a=0;
 				try{
 					p = ((Aeroporto)view.comboPalletAeroportoPartenza.getSelectedItem()).getId();  //codice aeroporto di partenza
@@ -161,13 +164,13 @@ public class PrenotazioneController{
 
 					}
 				}
-				
-				
-				
-				
-				
-				
-				
+
+
+
+
+
+
+
 			}
 		});
 
@@ -212,7 +215,16 @@ public class PrenotazioneController{
 		view.buttonPasseggeriProssimo.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				view.passeggeroSuccessivo(); 
+
+				if(Integer.parseInt(view.labelNumeroPasseggero.getText())<view.voloSelezionatoPasseggeri.getPostiDisponibili()){
+					if(Integer.parseInt(view.labelNumeroPasseggero.getText())<8){
+						view.passeggeroSuccessivo(); 
+					}else{
+						JOptionPane.showMessageDialog(null,"Non è possibile effettuare prenotazioni per più di 8 persone","Errore", 0); 
+					}
+				}else{
+					JOptionPane.showMessageDialog(null,"Questo volo ha solo "+view.voloSelezionatoPasseggeri.getPostiDisponibili()+" posti disponibili","Errore", 0); 
+				}
 
 			}
 
@@ -260,7 +272,11 @@ public class PrenotazioneController{
 						} catch (FlightNotFoundException e) {
 							JOptionPane.showMessageDialog(null,"Volo non trovato, ritentare","Errore", 0);
 						} catch (SeatsSoldOutException e) {
+<<<<<<< HEAD
 							JOptionPane.showMessageDialog(null,"I posti non sono piÃ¹ disponibili","Errore", 0);
+=======
+							JOptionPane.showMessageDialog(null,"Attenzione: i posti non sono più disponibili","Errore", 0);
+>>>>>>> refs/heads/gui
 						}
 					}else{
 
@@ -290,7 +306,7 @@ public class PrenotazioneController{
 	 */
 	private void registraControllerFase2Pallet() {
 
-		
+
 		//confermo pallet:voli
 		view.buttonPalletConfermaVolo.addMouseListener(new MouseAdapter() {
 			@Override
@@ -302,8 +318,8 @@ public class PrenotazioneController{
 			}
 
 		});
-		
-		
+
+
 		//annulla pallet:voli
 		view.buttonPalletAnnullaVolo.addMouseListener(new MouseAdapter() {
 			@Override
@@ -313,7 +329,7 @@ public class PrenotazioneController{
 			}
 
 		});
-		 
+
 	}
 
 
@@ -325,7 +341,7 @@ public class PrenotazioneController{
 	 */
 
 	private void registraControllerFase3Pallet() { 
-		
+
 
 		//confermo pallet:pallet
 		view.buttonPalletConfermaPrenotazione.addMouseListener(new MouseAdapter() {

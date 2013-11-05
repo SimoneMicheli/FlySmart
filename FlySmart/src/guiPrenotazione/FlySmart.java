@@ -3,7 +3,7 @@
  */
 package guiPrenotazione;
 
-/** The Class FlySmart. Compagnia aerea
+/** FlySmart. Compagnia aerea. Gui di prenotazione passeggeri e pallet
  *
  * @author Demarinis - Micheli - Scarpellini
  * 
