@@ -29,13 +29,12 @@ import model.*;
  *
  */
 public class Server extends UnicastRemoteObject implements ServerInterface {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -1112973689097758070L;
-	private FileLock aeroportiLock, voliLock;
+	
+	/**lock assegnato al file contenente i voli */
+	private FileLock voliLock;
+	/**hash map contenente per goni volo (id) il lock assegnato passeggeri/pallet */
 	private HashMap<Integer, FileLock> passLocks, palletLocks;
-	//private Properties config;
 	
 	/**
 	 * costruttore dell'oggetto server, crea i lock necessari a garantire l'accesso
@@ -48,8 +47,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 	protected Server(RMISSLClientSocketFactory clientFactory, RMISSLServerSocketFactory serverFactory) throws RemoteException {
 		super(0, clientFactory, serverFactory);
 		
-		//lock per accesso al file aeroporti.xml
-		aeroportiLock = new FileLockImpl();
+		//lock per accesso al file voli.xml
 		voliLock = new FileLockImpl();
 		
 		//leggo elenco voli
@@ -97,14 +95,9 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 		
 		List<Aeroporto> aeroporti = new LinkedList<Aeroporto>();
 		XMLToObj parserXML = new XMLToObj();
-		//acquisisco lock in lettura
-		aeroportiLock.acquireReadLock();
-		
-		//parse xml data
+	
+		//parse xml data lock non richiesto perchè file usato in sola lettura
 		aeroporti = parserXML.createAeroportoList(Options.aeroportiFileName);
-
-		//release lock
-		aeroportiLock.releaseReadLock();
 		
 		//ordina eroport in base al nome
 		Collections.sort(aeroporti, AeroportoComparator.NAME_ORDER);

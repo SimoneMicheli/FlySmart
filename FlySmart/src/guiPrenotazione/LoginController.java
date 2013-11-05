@@ -91,7 +91,7 @@ public class LoginController {
 			try {
 				serv = (ServerInterface) Naming.lookup(url);
 				view.dispose();  //elimino la vecchia view
-				p = new PrenotazioneController(serv); //creo il nuovo controller (che creer‡ la nuova view)
+				p = new PrenotazioneController(serv); //creo il nuovo controller (che creer√† la nuova view)
 			} catch (MalformedURLException e) {
 				e.printStackTrace();
 			} catch (RemoteException e) {

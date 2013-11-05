@@ -250,7 +250,7 @@ public class PrenotazioneController{
 			public void mouseReleased(MouseEvent arg0) {
 				if(view.controllaCampi() || (view.campiVuoti() && view.listaPasseggeri.size()!=0)){ //se sono pieni oppure vuoti
 					view.passeggeroSuccessivo(); 
-					if (JOptionPane.showConfirmDialog(null,"Vuoi confermare la spesa di "+view.prezzoTotaleVolo+" €?","Conferma prenotazione passeggeri",JOptionPane.YES_NO_OPTION,JOptionPane.NO_OPTION) == JOptionPane.OK_OPTION) {
+					if (JOptionPane.showConfirmDialog(null,"Vuoi confermare la spesa di "+view.prezzoTotaleVolo+" â‚¬?","Conferma prenotazione passeggeri",JOptionPane.YES_NO_OPTION,JOptionPane.NO_OPTION) == JOptionPane.OK_OPTION) {
 						try {
 							serv.prenotaPasseggero(view.listaPasseggeri, view.voloSelezionatoPasseggeri.getId());
 							JOptionPane.showMessageDialog(null,"Prenotazione effettuata con successo","", 1);
@@ -263,7 +263,7 @@ public class PrenotazioneController{
 						} catch (FlightNotFoundException e) {
 							JOptionPane.showMessageDialog(null,"Volo non trovato, ritentare","Errore", 0);
 						} catch (SeatsSoldOutException e) {
-							JOptionPane.showMessageDialog(null,"I posti non sono più disponibili","Errore", 0);
+							JOptionPane.showMessageDialog(null,"I posti non sono piÃ¹ disponibili","Errore", 0);
 						}
 					}else{
 
@@ -349,7 +349,7 @@ public class PrenotazioneController{
 						} catch (FlightNotFoundException e) {
 							JOptionPane.showMessageDialog(null,"Volo non trovato, ritentare","Errore", 0);
 						} catch (SeatsSoldOutException e) {
-							JOptionPane.showMessageDialog(null,"I posti non sono più disponibili","Errore", 0);
+							JOptionPane.showMessageDialog(null,"I posti non sono piÃ¹ disponibili","Errore", 0);
 						}
 					}
 				}

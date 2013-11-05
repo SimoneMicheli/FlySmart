@@ -30,7 +30,7 @@ public class XMLCreate<E extends GetFields> {
 	}
 	
 	/**
-	 * Crea un Document XML a partire da un Document già esistente
+	 * Crea un Document XML a partire da un Document giÃ  esistente
 	 *
 	 * @param d Il Document
 	 * @param list Lista degli oggetti
@@ -42,9 +42,9 @@ public class XMLCreate<E extends GetFields> {
 		Element root = null; // senza DTD
 		Element childToAdd = null;
 		// Il documento deve includere un elemento di livello superiore, 
-		//cioè l' elemento principale: tutti gli altri elementi 
+		//cioÃ¨ l' elemento principale: tutti gli altri elementi 
 		//devono essere nidificati al loro interno. 
-		// A questo elemento è stato assegnato il nome di "flySmart"
+		// A questo elemento Ã¨ stato assegnato il nome di "flySmart"
 		Element upperRoot = d.createElement("flySmart");
 		//Element radice = d.getDocumentElement();  //versione con DTD
 		
@@ -64,13 +64,13 @@ public class XMLCreate<E extends GetFields> {
 						String attributeNameMaiusc = attributeName.substring(0, 1).toUpperCase() + attributeName.substring(1);
 						Method m = elem.getClass().getMethod("get"+attributeNameMaiusc); // Ottengo il Metodo 
 						String s;
-						//se l'elemento è null scrivo stringa vuota
+						//se l'elemento Ã¨ null scrivo stringa vuota
 						try{
 							s = m.invoke(elem).toString();// Invoco il metodo
 						}catch (NullPointerException e) {
 							s = "";
 						}
-						childToAdd = d.createElement(attributeName); // Costruisco l'albero degli elementi, che successivamente inserirò del documento
+						childToAdd = d.createElement(attributeName); // Costruisco l'albero degli elementi, che successivamente inserirÃ² del documento
 						childToAdd.setTextContent(s);
 						root.appendChild(childToAdd);
 					}
@@ -133,7 +133,7 @@ public class XMLCreate<E extends GetFields> {
 		try {
 			DocumentBuilder db = dbf.newDocumentBuilder(); //ottengo un document builder
 			DOMImplementation dbi = db.getDOMImplementation(); //Ottengo un'implementazione DOM
-			//Creo un doctype che userò per la creazione del documento
+			//Creo un doctype che userï¿½ per la creazione del documento
 			DocumentType doctype = dbi.createDocumentType(radice,pubid,sysid);
 			//Creo il document
 			Document d = dbi.createDocument("",radice,doctype);
@@ -151,7 +151,7 @@ public class XMLCreate<E extends GetFields> {
 	 *
 	 * @param d Il Document che si vuole salvare
 	 * @param w Il writer che si vuole utilizzare
-	 * @return true, Se il salvataggio è avvenuto correttamente
+	 * @return true, Se il salvataggio Ã¨ avvenuto correttamente
 	 */
 	public boolean saveDocument(Document d, Writer w) {
 
@@ -185,7 +185,7 @@ public class XMLCreate<E extends GetFields> {
 	 * @param d Il Document che si vuole stampare su file
 	 * @param name_file Nome del file in output
 	 * @return true, Se scrittura avvenuta con successo
-	 * @throws IOException Indica che è avvuta un accezione durante l'operazione di I/O
+	 * @throws IOException Indica che Ã¨ avvuta un accezione durante l'operazione di I/O
 	 */
 	public boolean printDocument(Document d, String name_file) throws IOException
 	{

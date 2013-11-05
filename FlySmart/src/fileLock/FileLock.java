@@ -4,7 +4,7 @@
 package fileLock;
 
 /**Interfaccia che definisce i metodi da usare per i lock sui file.
- * implementa il paradigma dei lettori scrittori con priorità agli scrittori
+ * implementa il paradigma dei lettori scrittori con priorit√† agli scrittori
  * @author Demarinis - Micheli - Scarpellini
  *
  */
