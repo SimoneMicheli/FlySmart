@@ -15,12 +15,6 @@ public class Aeroporto extends Model {
 	/** Il nome dell'aeroporto */
 	private String nome;
 	
-	/** Il prezzo del carburante */
-	private Double prezzoCarburante;
-	
-	/** Le tasse pagate nell'aeroporto specifico */
-	private Double tasse;
-	
 	
 	/**
 	 * Istanzia un nuovo aeroporto (Supercostruttore)
@@ -30,18 +24,16 @@ public class Aeroporto extends Model {
 	 * @param prezzoCarburante Prezzo del carburante
 	 * @param tasse Tasse pagate
 	 */
-	public Aeroporto(Integer id, String nome, Double prezzoCarburante, Double tasse) {
+	public Aeroporto(Integer id, String nome) {
 		this.id = id;
 		this.nome = nome;
-		this.prezzoCarburante = prezzoCarburante;
-		this.tasse = tasse;
 	}
 	
 	/**
 	 * Istanzia un nuovo aeroporto
 	 */
 	public Aeroporto(){
-		this(null, "", 0.0, 0.0);
+		this(null, "");
 	}
 
 	/**
@@ -60,42 +52,6 @@ public class Aeroporto extends Model {
 	 */
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-	
-	/**
-	 * Ottiene il prezzo del carburante
-	 *
-	 * @return Il prezzo del carburante
-	 */
-	public Double getPrezzoCarburante() {
-		return prezzoCarburante;
-	}
-	
-	/**
-	 * Set del prezzo del carburante
-	 *
-	 * @param prezzoCarburante Il prezzo del carburante
-	 */
-	public void setPrezzoCarburante(Double prezzoCarburante) {
-		this.prezzoCarburante = prezzoCarburante;
-	}
-	
-	/**
-	 * Ottiene le tasse 
-	 *
-	 * @return Le tasse dell'aeroporto
-	 */
-	public Double getTasse() {
-		return tasse;
-	}
-	
-	/**
-	 * Set delle tasse dell'aeroporto
-	 *
-	 * @param tasse Le tasse dell'aeroporto
-	 */
-	public void setTasse(Double tasse) {
-		this.tasse = tasse;
 	}
 	
 	

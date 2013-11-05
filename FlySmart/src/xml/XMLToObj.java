@@ -140,7 +140,7 @@ public class XMLToObj{
 						}
 					}
 					
-					Aeroporto toAdd = new Aeroporto((Integer) map.get("id"), (String) map.get("nome"), (Double) map.get("prezzoCarburante"), (Double) map.get("tasse"));
+					Aeroporto toAdd = new Aeroporto((Integer) map.get("id"), (String) map.get("nome"));
 					list.add(toAdd);
 
 				}
