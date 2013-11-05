@@ -7,7 +7,8 @@ import java.util.Collection;
 import java.util.LinkedList;
 
 /**
- * @author simone
+ * la classe implementa la gestione dei gruppi, in particolare permette di aggiungere i passeggeri
+ * che si trovano nello stesso gruppo
  *
  */
 @SuppressWarnings("serial")
@@ -20,7 +21,7 @@ public class Gruppo extends LinkedList<Passeggero> implements Comparable<Gruppo>
 	private int id;
 	
 	/**
-	 * 
+	 * costruttore della classe, riceve l'id del gruppo
 	 */
 	public Gruppo(int id) {
 		super();
@@ -28,6 +29,8 @@ public class Gruppo extends LinkedList<Passeggero> implements Comparable<Gruppo>
 	}
 
 	/**
+	 * costruttore, riceve l'id del gruppo e una collezione di passeggeri
+	 * da aggiungere nel gruppo
 	 * @param c
 	 */
 	public Gruppo(int id, Collection<? extends Passeggero> c) {
@@ -43,14 +46,14 @@ public class Gruppo extends LinkedList<Passeggero> implements Comparable<Gruppo>
 	
 	/**
 	 * restituisce il peso totale del gruppo
-	 * @return
+	 * @return peso totale del gruppo
 	 */
 	public int getPesoTotale(){
 		return peso;
 	}
 
 	/**
-	 * @return the id
+	 * @return restituisce l'id del gruppo
 	 */
 	public int getId() {
 		return id;

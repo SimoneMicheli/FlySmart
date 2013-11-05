@@ -1,6 +1,3 @@
-/**
- * 
- */
 package network;
 
 import java.io.IOException;
@@ -10,6 +7,7 @@ import java.rmi.registry.Registry;
 
 /**
  * @author Demarinis - Micheli - Scarpellini
+ * Avvia il server RMI
  *
  */
 public class ServerLauncher {
@@ -20,7 +18,7 @@ public class ServerLauncher {
 	 */
 	public static void main(String[] args) {
 		
-		//imposta le proprietà di ssl
+		//imposta le propriet√† di ssl
 		System.setProperty("javax.net.ssl.keyStore", "src/network/mykey");
 		System.setProperty("javax.net.ssl.keyStorePassword", "keypassword");
 		

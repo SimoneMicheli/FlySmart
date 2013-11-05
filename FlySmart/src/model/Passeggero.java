@@ -25,7 +25,7 @@ public class Passeggero extends Model {
 	/** Cognome del passeggero */
 	private String cognome;
 	
-	/** Et� del passeggero (numero intero di anni) */
+	/** età del passeggero (numero intero di anni) */
 	private Integer eta;
 	
 	/** Giorno di nascita */
@@ -62,11 +62,12 @@ public class Passeggero extends Model {
 	 * @param idGruppo Id del gruppo di passeggero
 	 * @param nome Nome del passeggero
 	 * @param cognome Cognome del passeggero
-	 * @param eta Età del passeggero (numero intero di anni)
+	 * @param eta età del passeggero (numero intero di anni)
 	 * @param sesso Sesso del passeggero
 	 * @param pesoBagagli Peso dei bagagli del passeggero (in Kilogrammi)
 	 * @param idVolo Id del volo del passeggero 
-	 * @param posto Numero di posto sul volo prenotato dal passeggero
+	 * @param fila numero di fila assegnata al passeggero
+	 * @param colonna numero id colonna assegnata al passeggero
 	 * @param giorno Giorno di nascita
 	 * @param mese Mese di nascita
 	 * @param anno Anno di nascita
@@ -129,7 +130,7 @@ public class Passeggero extends Model {
 	 * @param g Giorno di nascita
 	 * @param m Mese di nascita
 	 * @param a Anno di nascita
-	 * @return Et� del passeggero (numero intero di anni)
+	 * @return età del passeggero (numero intero di anni)
 	 */
 	protected static int calcolaEta(String g, String m, String a){
 		return calcolaEta(Integer.parseInt(g), Integer.parseInt(m), Integer.parseInt(a));
@@ -142,7 +143,7 @@ public class Passeggero extends Model {
 	 * @param g Giorno di nascita
 	 * @param m Mese di nascita
 	 * @param a Anno di nascita
-	 * @return Et� del passeggero (numero intero di anni)
+	 * @return età del passeggero (numero intero di anni)
 	 */
 	protected static int calcolaEta(int g, int m, int a){
 		Calendar c = Calendar.getInstance();
@@ -309,9 +310,9 @@ public class Passeggero extends Model {
 
 
 	/**
-	 * Ottiene l' Et� del passeggero (numero intero di anni)
+	 * Ottiene l' età del passeggero (numero intero di anni)
 	 *
-	 * @return Et� del passeggero (numero intero di anni)
+	 * @return età del passeggero (numero intero di anni)
 	 */
 	public Integer getEta() {
 		return eta;
@@ -319,9 +320,9 @@ public class Passeggero extends Model {
 
 
 	/**
-	 * Set l'et� del passeggero (numero intero di anni)
+	 * Set l'età del passeggero (numero intero di anni)
 	 *
-	 * @param eta Et� del passeggero (numero intero di anni)
+	 * @param eta età del passeggero (numero intero di anni)
 	 */
 	public void setEta(Integer eta) {
 		this.eta = eta;

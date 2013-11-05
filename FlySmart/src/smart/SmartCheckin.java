@@ -35,7 +35,6 @@ public class SmartCheckin {
 	/**
 	 * crea l'oggetto che implementa l'algoritmo per il calcolo
 	 * dell'assegnazione dei posti e dei pallet
-	 * @param aeroportiLock
 	 * @param voliLock
 	 * @param passLocks
 	 * @param palletLocks
@@ -110,7 +109,9 @@ public class SmartCheckin {
 		//calcola disposizione
 
 
-
+		//posizionePallet(pallets, v);
+		//posizionePasseggeri(passeggeri, v);
+		
 		//salva risultato su file
 		//passLocks.get(idVolo).releaseWriteLock();
 		palletLocks.get(idVolo).releaseWriteLock();

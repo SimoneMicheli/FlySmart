@@ -9,9 +9,12 @@ package model;
  */
 public enum TipoAereo {
 	//numero di colonne pallet, numero di fila pallet, numero di colonne passeggeri, numero file passeggeri
-	S (2,4,6,10), 
-	M (2,12,6,30), 
-	L (2,24,6,70);
+	/**Aereo piccolo*/
+	S (2,4,6,12), 
+	/**Aereo medio*/
+	M (2,12,6,36), 
+	/**Aereo grande*/
+	L (2,24,6,72);
 	
 	private final int filePallet;
 	private final int colonnePallet;
@@ -25,18 +28,34 @@ public enum TipoAereo {
 		this.colonnePasseggeri = colonnePasseggeri;
 	}
 
+	/**
+	 * restituisce il numero di file disponibili per i pallet sull'aereo
+	 * @return numero file pallet
+	 */
 	public int getFilePallet() {
 		return filePallet;
 	}
 
+	/**
+	 * restituisce il numero di colonne disponibili per i pallet sull'aereo
+	 * @return numero colonne pallet
+	 */
 	public int getColonnePallet() {
 		return colonnePallet;
 	}
 
+	/**
+	 * restituisce il numero di file disponibili per i passeggeri sull'aereo
+	 * @return numero file passeggeri
+	 */
 	public int getFilePasseggeri() {
 		return filePasseggeri;
 	}
 
+	/**
+	 * restituisce il numero di colonne disponibili per i passeggeri sull'aereo
+	 * @return numero di colonne passeggeri
+	 */
 	public int getColonnePasseggeri() {
 		return colonnePasseggeri;
 	} 

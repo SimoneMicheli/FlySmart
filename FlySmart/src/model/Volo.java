@@ -28,10 +28,10 @@ public class Volo extends Model {
 	/** Id dell'aereo assegnato al volo */
 	private Integer  aereo;
 	
-	/** Numero di posti per passeggeri ancora disponibili sull'aereo */
+	/** Numero di posti prenotati sull'aereo */
 	private Integer  postiDisponibili;
 	
-	/** Numero di posti per pallet ancora disponibili sull'aereo */
+	/** Numero di posti per pallet prenotati sull'aereo */
 	private Integer  palletDisponibili;
 	
 	/** Prezzo del volo (espresso in euro) */
@@ -47,7 +47,7 @@ public class Volo extends Model {
 	private Integer lastID=0, lastPalletID=0, lastGroupID=0;
 	
 	/**
-	 * Istanzia un nuovo volo (supercostruttore)
+	 * Istanzia un nuovo volo (supercostruttore) usato solo nella classe XMLToObj
 	 *
 	 * @param id Id del volo
 	 * @param dataOra Data del volo (in particolare la partenza)
@@ -58,6 +58,10 @@ public class Volo extends Model {
 	 * @param palletDisponibili  Numero di posti per pallet ancora disponibili sull'aereo
 	 * @param prezzo Prezzo del volo (espresso in euro)
 	 * @param stato stato del volo
+	 * @param tipoAereo tipo di aereo usato per il volo
+	 * @param lastID ultimo id passeggeri assegnato
+	 * @param lastPalletID ultimo id pallet assegnato
+	 * @param lastGroupID ultimo id gruppo assegnato
 	 */
 	public Volo(Integer id, Date dataOra, Integer aeroportoPartenza, Integer aeroportoDestinazione, Integer aereo, Integer postiDisponibili, Integer palletDisponibili, Double prezzo, StatoVolo stato, TipoAereo tipoAereo, Integer lastID, Integer lastPalletID, Integer lastGroupID) {
 		this.id = id;
@@ -75,8 +79,21 @@ public class Volo extends Model {
 		this.lastGroupID = lastGroupID;
 	}
 	
-	public Volo(Integer id, Date dataOra, Integer aeroportoPartenza, Integer aeroportoDestinazione, Integer aereo, Integer postiDisponibili, Integer palletDisponibili, Double prezzo, StatoVolo stato, TipoAereo tipoAereo){
-		this(id, dataOra, aeroportoPartenza, aeroportoDestinazione, aereo, postiDisponibili, palletDisponibili, prezzo, stato, tipoAereo, new Integer(0), new Integer(0), new Integer(0));
+	/**
+	 * costruttore da utilizzare per creare un volo valido
+	 * @param id Id del volo
+	 * @param dataOra Data del volo (in particolare la partenza)
+	 * @param aeroportoPartenza Id dell'aeroporto di partenza
+	 * @param aeroportoDestinazione Id dell'aeroporto di destinazione
+	 * @param aereo Id dell'aereo assegnato al volo
+	 * @param prezzo Prezzo del volo (espresso in euro)
+	 * @param stato stato del volo
+	 * @param tipoAereo tipo di aereo usato per il volo
+	 */
+	public Volo(Integer id, Date dataOra, Integer aeroportoPartenza, Integer aeroportoDestinazione, Integer aereo, Double prezzo, StatoVolo stato, TipoAereo tipoAereo){
+		this(id, dataOra, aeroportoPartenza, aeroportoDestinazione, aereo, 0, 0, prezzo, stato, tipoAereo, new Integer(0), new Integer(0), new Integer(0));
+		setPostiDisponibili(tipoAereo.getFilePasseggeri() * tipoAereo.getColonnePasseggeri());
+		setPalletDisponibili(tipoAereo.getFilePallet() * tipoAereo.getColonnePallet());
 	}
 	
 	/**
@@ -280,7 +297,7 @@ public class Volo extends Model {
 
 	/**
 	 * ritorna il tipo di aereo utilizzato per il volo
-	 * @return
+	 * @return tipo di aereo
 	 */
 	public TipoAereo getTipoAereo() {
 		return tipoAereo;
@@ -296,7 +313,7 @@ public class Volo extends Model {
 	
 	/**
 	 * restituisce il primo id passeggero libero e blocca tutti i successivi length id
-	 * metodo synchronized perch� condiviso tra tutti i server thread
+	 * metodo synchronized perchè condiviso tra tutti i server thread
 	 * @param length numero id da bloccare
 	 * @return primo id disponibile
 	 */
@@ -315,7 +332,7 @@ public class Volo extends Model {
 	
 	/**
 	 * restituisce il primo id pallet libero e blocca tutti i successivi length id
-	 * metodo synchronized perch� condiviso tra tutti i server thread
+	 * metodo synchronized perchè condiviso tra tutti i server thread
 	 * @param length numero id da bloccare
 	 * @return primo id disponibile
 	 */
