@@ -685,8 +685,8 @@ public class PrenotazioneView extends View {
 			panelResoconto.add(label);
 			verticalPosition=verticalPosition+24;
 		}
-
-		prezzoTotaleVolo = ((int)listaPasseggeri.size()*voloSelezionatoPasseggeri.getPrezzo()*100)/100; // per tenere solo 2 cifre dopo la virgola
+		prezzoTotaleVolo = listaPasseggeri.size()*voloSelezionatoPasseggeri.getPrezzo();
+		prezzoTotaleVolo= Math.floor(prezzoTotaleVolo * 100) / 100.0;
 		labelPrezzoTotale.setText("Totale: " + prezzoTotaleVolo+ " €  ("+listaPasseggeri.size()+" passeggeri)");
 		repaint();
 	}
