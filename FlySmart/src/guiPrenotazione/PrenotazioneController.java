@@ -2,7 +2,6 @@ package guiPrenotazione;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.List;
 import exception.FlightNotFoundException;
@@ -258,8 +257,6 @@ public class PrenotazioneController{
 						} catch (RemoteException e) {
 							JOptionPane.showMessageDialog(null,"Connessione persa","Errore", 1);
 							System.exit(0);
-						} catch (IOException e) {
-							JOptionPane.showMessageDialog(null,"Errore di input","Errore", 0);
 						} catch (FlightNotFoundException e) {
 							JOptionPane.showMessageDialog(null,"Volo non trovato, ritentare","Errore", 0);
 						} catch (SeatsSoldOutException e) {
@@ -344,8 +341,6 @@ public class PrenotazioneController{
 						} catch (RemoteException e) {
 							JOptionPane.showMessageDialog(null,"Connessione persa","Errore", 1);
 							System.exit(0);
-						} catch (IOException e) {
-							JOptionPane.showMessageDialog(null,"Errore di input","Errore", 0);
 						} catch (FlightNotFoundException e) {
 							JOptionPane.showMessageDialog(null,"Volo non trovato, ritentare","Errore", 0);
 						} catch (SeatsSoldOutException e) {
