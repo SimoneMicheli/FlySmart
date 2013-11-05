@@ -17,13 +17,12 @@ import network.ServerInterface;
 /**Il controller della vista di prenotazione
  * @author Demarinis - Micheli - Scarpellini
  */
-public class PrenotazioneController{
+public class PrenotazioneController extends Controller{
 
 	/** Il riferimento alla vista */
 	PrenotazioneView view;
 
-	/** L'oggetto per la connessione con il server */
-	ServerInterface serv;
+	
 
 	/**
 	 * Crea un controller per la fase di prenotazione
