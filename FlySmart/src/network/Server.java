@@ -232,11 +232,8 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 			throw new SeatsSoldOutException(idVolo); //posti insufficienti
 		}
 		
-		System.out.println("pallet disp: "+v.getPalletDisponibili());
-		System.err.println("size: "+listToAdd.size());
 		v.setPalletDisponibili(v.getPalletDisponibili() - listToAdd.size());
 		
-		System.out.println("nuovo pallet disp:" + v.getPalletDisponibili());
 		
 		//ottengo lock su file richiesto
 		FileLock lock = palletLocks.get(idVolo);
@@ -245,12 +242,10 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 		//ottengo lista passeggeri
 		pallets = parserXML.createPalletList(String.format(Options.voloPalletFileName, idVolo));
 		
-		System.out.println("last pallet id"+v.getLastPalletID());
 		//aggiungo nuovi passeggeri alla lista
 		int id = v.getNextPalletID(listToAdd.size());
 		Iterator<Pallet> i = listToAdd.iterator();
 		
-		System.out.println("new last pallet id"+v.getLastPalletID());
 		while (i.hasNext()) {
 			Pallet p = (Pallet) i.next();
 			//assegno id
