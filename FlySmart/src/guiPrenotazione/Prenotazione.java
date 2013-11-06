@@ -8,7 +8,7 @@ package guiPrenotazione;
  * @author Demarinis - Micheli - Scarpellini
  * 
  */
-public class FlySmart {
+public class Prenotazione {
 
 	
 	/**

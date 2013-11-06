@@ -366,6 +366,35 @@ public class PrenotazioneView extends View {
 		panelPasseggeriVoli.add(comboVoliDisponibili, BorderLayout.NORTH);
 
 
+		labelAeroportoPartenzaPasseggeri.setText("Aeroporto di partenza: ");
+		labelAeroportoPartenzaPasseggeri.setFont(new Font("Arial", Font.PLAIN, 12));
+		labelAeroportoPartenzaPasseggeri.setBounds(16, 100, 482, 25);
+		panelPasseggeriVoli.add(labelAeroportoPartenzaPasseggeri);
+
+		labelAeroportoArrivoPasseggeri.setText("Aeroporto di arrivo: ");
+		labelAeroportoArrivoPasseggeri.setFont(new Font("Arial", Font.PLAIN, 12));
+		labelAeroportoArrivoPasseggeri.setBounds(16, 130, 482, 25);
+		panelPasseggeriVoli.add(labelAeroportoArrivoPasseggeri);
+
+		labelDataOraVoloPasseggeri.setText("Data e ora volo: ");
+		labelDataOraVoloPasseggeri.setFont(new Font("Arial", Font.PLAIN, 12));
+		labelDataOraVoloPasseggeri.setBounds(16, 160, 482, 25);
+		panelPasseggeriVoli.add(labelDataOraVoloPasseggeri);
+
+		labelStatoVoloPasseggeri.setText("Stato volo: ");
+		labelStatoVoloPasseggeri.setFont(new Font("Arial", Font.PLAIN, 12));
+		labelStatoVoloPasseggeri.setBounds(16, 190, 482, 25);
+		panelPasseggeriVoli.add(labelStatoVoloPasseggeri);
+
+		labelPasseggeriDisponibili.setText("Numero posti disponibili: ");
+		labelPasseggeriDisponibili.setFont(new Font("Arial", Font.PLAIN, 12));
+		labelPasseggeriDisponibili.setBounds(16, 220, 482, 25);
+		panelPasseggeriVoli.add(labelPasseggeriDisponibili);
+
+		labelPrezzoPasseggeri.setText("Prezzo singolo: ");
+		labelPrezzoPasseggeri.setFont(new Font("Arial", Font.PLAIN, 12));
+		labelPrezzoPasseggeri.setBounds(16, 250, 482, 25);
+		panelPasseggeriVoli.add(labelPrezzoPasseggeri);
 
 		buttonPasseggeriConfermaVolo = new JButton("Conferma");
 		buttonPasseggeriConfermaVolo.setBounds(400, 287, 89, 23);
