@@ -27,7 +27,9 @@ public class ClientTest {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		System.setProperty("javax.net.ssl.trustStore", "src/network/client/cacert.jks");
+		//System.setProperty("javax.net.ssl.keyStore", "src/network/client/clientkeystore.jks");	//imposto certificato del client da verificare sul server
+		//System.setProperty("javax.net.ssl.keyStorePassword", "clientstore");
+		System.setProperty("javax.net.ssl.trustStore", "src/network/client/cacert.jks");	//imposto certificati validi del server
 		System.setProperty("javax.net.ssl.trustStorePassword", "clienttruststore");
 		
 		try {
