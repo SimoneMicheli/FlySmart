@@ -120,6 +120,7 @@ public class PrenotazioneController extends Controller {
 						}
 						view.aeroportoPartenzaPasseggeri=((Aeroporto)view.comboPasseggeriAeroportoPartenza.getSelectedItem()).getNome();
 						view.aeroportoArrivoPasseggeri=((Aeroporto)view.comboPasseggeriAeroportoArrivo.getSelectedItem()).getNome();
+						annullaListener(); //tolgo i listener che ho aggiunto la prima volta che ho eseguito questa funzione
 						view.setPasseggeriVoli(voli);  //carico gli oggetti nella facciata passeggeri:voli
 						registraControllerFase2Passeggeri(); //registro i listner della facciata passeggeri:voli
 						view.cardPasseggeri.show(view.panelPasseggeri,"panelPasseggeriVoli"); //visualizzo il pannello passeggeri:voli passandogli la lista dei voli
@@ -159,6 +160,7 @@ public class PrenotazioneController extends Controller {
 						}
 						view.aeroportoPartenzaPallet=((Aeroporto)view.comboPalletAeroportoPartenza.getSelectedItem()).getNome();
 						view.aeroportoArrivoPallet=((Aeroporto)view.comboPalletAeroportoArrivo.getSelectedItem()).getNome();
+						annullaListener(); //tolgo i listener che ho aggiunto la prima volta che ho eseguito questa funzione
 						view.setPalletVoli(voli);  //carico gli oggetti nella facciata pallet:voli
 						registraControllerFase2Pallet(); //registro i listner della facciata pallet:voli
 						view.cardPallet.show(view.panelPallet,"panelPalletVoli"); //visualizzo il pannello pallet:voli passandogli la lista dei voli
@@ -203,6 +205,22 @@ public class PrenotazioneController extends Controller {
 			}
 		});
 
+		//cambio il volo scelto per i passeggeri:voli 
+		view.comboVoliDisponibili.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				Volo voloCorrente = ((Volo)view.comboVoliDisponibili.getSelectedItem());
+				view.labelCodiceAeroportoPartenzaPasseggeri.setText("<html><b style='color:#242589'>Codice aeroporto di partenza: </b>"+" "+voloCorrente.getAeroportoPartenza()+"</html>");
+				view.labelCodiceAeroportoArrivoPasseggeri.setText("<html><b style='color:#242589'>Codice aeroporto di arrivo: </b>"+" "+voloCorrente.getAeroportoDestinazione()+"</html>");
+				view.labelDataOraVoloPasseggeri.setText("<html><b style='color:#242589'>Data e ora volo: </b>"+" "+voloCorrente.getDataOra()+"</html>");
+				view.labelStatoVoloPasseggeri.setText("<html><b style='color:#242589'>Stato volo: </b>"+" "+voloCorrente.getStato()+"</html>");
+				view.labelPasseggeriDisponibili.setText("<html><b style='color:#242589'>Numero posti disponibili: </b>"+" "+voloCorrente.getPostiDisponibili()+"</html>");
+				view.labelPrezzoPasseggeri.setText("<html><b style='color:#242589'>Prezzo singolo: </b>"+" "+voloCorrente.getPrezzo()+" €</html>");
+			}
+		});
+
+
 
 	}
 
@@ -212,6 +230,7 @@ public class PrenotazioneController extends Controller {
 	 * Aggiungo i listner agli oggetti della facciata passeggeri:passeggeri
 	 */
 	private void registraControllerFase3Passeggeri() { 
+
 
 		// prossimo passeggero
 		view.buttonPasseggeriProssimo.addMouseListener(new MouseAdapter() {
@@ -223,26 +242,13 @@ public class PrenotazioneController extends Controller {
 
 		});
 
-		//precedente
+		// passeggerp precedente
 		view.buttonPasseggeriPrecedente.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
 				if(view.currentIndex!=0){
 					view.passeggeroPrecedente();
 				}
-			}
-
-		});
-
-		//svuoto i campi del passeggero
-		view.buttonPasseggeriReset.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseReleased(MouseEvent arg0) {
-				view.textPasseggeriNome.setText("");
-				view.textPasseggeriCognome.setText("");
-				view.comboBoxGiorno.setSelectedIndex(0);
-				view.comboBoxMese.setSelectedIndex(0);
-				view.comboBoxAnno.setSelectedIndex(0);
 			}
 
 		});
@@ -319,20 +325,19 @@ public class PrenotazioneController extends Controller {
 
 		});
 
-		//cambio il volo scelto per i pallet:voli                DA ERRORE QUANDO ENTRO E POI ANNULLO E POI RITORNO QUI
+
+		//cambio il volo scelto per i pallet:voli 
 		view.comboVoliDisponibili.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
 				Volo voloCorrente = ((Volo)view.comboVoliDisponibili.getSelectedItem());
-				view.labelCodiceAeroportoPartenzaPallet.setText("<html><b style='color:#5555cc'>Codice aeroporto di partenza: </b>"+" "+voloCorrente.getAeroportoPartenza()+"</html>");
+				view.labelCodiceAeroportoPartenzaPallet.setText("<html><b style='color:#242589'>Codice aeroporto di partenza: </b>"+" "+voloCorrente.getAeroportoPartenza()+"</html>");
 				view.labelCodiceAeroportoArrivoPallet.setText("<html><b style='color:#242589'>Codice aeroporto di arrivo: </b>"+" "+voloCorrente.getAeroportoDestinazione()+"</html>");
-				view.labelDataOraVoloPallet.setText("<html><b style='color:#444444'>Data e ora volo: </b>"+" "+voloCorrente.getDataOra()+"</html>");
-				view.labelStatoVoloPallet.setText("<html><b style='color:#888888'>Stato volo: </b>"+" "+voloCorrente.getStato()+"</html>");
-				view.labelPalletDisponibili.setText("<html><b style='color:#008855'>Numero pallet disponibili: </b>"+" "+voloCorrente.getPalletDisponibili()+"</html>");
-				view.labelPrezzoPallet.setText("<html><b style='color:#44ddee'>Prezzo singolo: </b>"+" "+voloCorrente.getPrezzo()+"</html>");
-				view.repaint();
+				view.labelDataOraVoloPallet.setText("<html><b style='color:#242589'>Data e ora volo: </b>"+" "+voloCorrente.getDataOra()+"</html>");
+				view.labelStatoVoloPallet.setText("<html><b style='color:#242589'>Stato volo: </b>"+" "+voloCorrente.getStato()+"</html>");
+				view.labelPalletDisponibili.setText("<html><b style='color:#242589'>Numero pallet disponibili: </b>"+" "+voloCorrente.getPalletDisponibili()+"</html>");
+				view.labelPrezzoPallet.setText("<html><b style='color:#242589'>Prezzo singolo: </b>"+" "+voloCorrente.getPrezzo()+"</html>");
 			}
 		});
 
@@ -381,6 +386,16 @@ public class PrenotazioneController extends Controller {
 			}
 
 		});
+	}
+
+
+	/**
+	 * Annulla i listener actionListeners
+	 */
+	private void annullaListener(){
+		for( ActionListener al : view.comboVoliDisponibili.getActionListeners() ) {
+			view.comboVoliDisponibili.removeActionListener( al );
+		}
 	}
 
 }
