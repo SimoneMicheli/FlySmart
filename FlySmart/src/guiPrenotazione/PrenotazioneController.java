@@ -1,5 +1,7 @@
 package guiPrenotazione;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.rmi.RemoteException;
@@ -194,12 +196,13 @@ public class PrenotazioneController extends Controller {
 		view.buttonPasseggeriConfermaVolo.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				view.voloSelezionatoPasseggeri = ((Volo)view.comboVoliDisponibili.getSelectedItem());  //codice del volo
+				view.voloSelezionatoPasseggeri = ((Volo)view.comboVoliDisponibili.getSelectedItem());
 				view.setPasseggeriPasseggeri();
 				registraControllerFase3Passeggeri();
 				view.cardPasseggeri.show(view.panelPasseggeri,"panelPasseggeriPasseggeri");
 			}
 		});
+
 
 	}
 
@@ -316,8 +319,24 @@ public class PrenotazioneController extends Controller {
 
 		});
 
-	}
+		//cambio il volo scelto per i pallet:voli                DA ERRORE QUANDO ENTRO E POI ANNULLO E POI RITORNO QUI
+		view.comboVoliDisponibili.addActionListener(new ActionListener() {
 
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				Volo voloCorrente = ((Volo)view.comboVoliDisponibili.getSelectedItem());
+				view.labelCodiceAeroportoPartenzaPallet.setText("<html><b style='color:#5555cc'>Codice aeroporto di partenza: </b>"+" "+voloCorrente.getAeroportoPartenza()+"</html>");
+				view.labelCodiceAeroportoArrivoPallet.setText("<html><b style='color:#242589'>Codice aeroporto di arrivo: </b>"+" "+voloCorrente.getAeroportoDestinazione()+"</html>");
+				view.labelDataOraVoloPallet.setText("<html><b style='color:#444444'>Data e ora volo: </b>"+" "+voloCorrente.getDataOra()+"</html>");
+				view.labelStatoVoloPallet.setText("<html><b style='color:#888888'>Stato volo: </b>"+" "+voloCorrente.getStato()+"</html>");
+				view.labelPalletDisponibili.setText("<html><b style='color:#008855'>Numero pallet disponibili: </b>"+" "+voloCorrente.getPalletDisponibili()+"</html>");
+				view.labelPrezzoPallet.setText("<html><b style='color:#44ddee'>Prezzo singolo: </b>"+" "+voloCorrente.getPrezzo()+"</html>");
+				view.repaint();
+			}
+		});
+
+	}
 
 
 
