@@ -117,13 +117,13 @@ public class Creator {
 									repeat=true;
 						}
 						c.set(2014,(int) rMese, rGiorno, (int) (Math.random()*(23-0)+1), (int) (Math.random()*(59-0)+1));
-						double result =  (Math.random()*(110-40)+40)*100;
-						result = Math.round(result);
-						result = result/100;
-						double pallet =  (Math.random()*(110-40)+40)*100;
-						pallet = Math.round(pallet);
-						pallet = pallet/100;
-						voli.add(new Volo(idIncr, c.getTime(), i, j, (int) (Math.random()*(100-1)+1), result, pallet, StatoVolo.OPEN, TipoAereo.M));
+						double postiDisponibili =  (Math.random()*(110-40)+40)*100;
+						postiDisponibili = Math.round(postiDisponibili);
+						postiDisponibili = postiDisponibili/100;
+						double palletDisponibili =  (Math.random()*(110-40)+40)*100;
+						palletDisponibili = Math.round(palletDisponibili);
+						palletDisponibili = palletDisponibili/100;
+						voli.add(new Volo(idIncr, c.getTime(), i, j, (int) (Math.random()*(100-1)+1), postiDisponibili, palletDisponibili, StatoVolo.OPEN, TipoAereo.M));
 						idIncr++;
 					}
 			}
