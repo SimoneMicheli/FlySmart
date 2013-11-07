@@ -31,59 +31,35 @@ public class Creator {
 	public static void creaAeroporti() throws IOException{
 		List<Aeroporto> elencoAeroporti;
 		elencoAeroporti = new LinkedList<Aeroporto>();
-		elencoAeroporti.add(new Aeroporto(1, "Albenga"));
-		elencoAeroporti.add(new Aeroporto(2, "Alghero"));
-		elencoAeroporti.add(new Aeroporto(3, "Ancona"));
-		elencoAeroporti.add(new Aeroporto(4, "Aosta"));
-		elencoAeroporti.add(new Aeroporto(5, "Aviano"));
-		elencoAeroporti.add(new Aeroporto(6, "Bari"));
-		elencoAeroporti.add(new Aeroporto(7, "Belluno"));
-		elencoAeroporti.add(new Aeroporto(8, "Bergamo"));
-		elencoAeroporti.add(new Aeroporto(9, "Bologna"));
-		elencoAeroporti.add(new Aeroporto(10, "Bolzano"));
-		elencoAeroporti.add(new Aeroporto(11, "Brescia"));
-		elencoAeroporti.add(new Aeroporto(12, "Brindisi"));
-		elencoAeroporti.add(new Aeroporto(13, "Cagliari"));
-		elencoAeroporti.add(new Aeroporto(14, "Capri"));
-		elencoAeroporti.add(new Aeroporto(15, "Catania"));
-		elencoAeroporti.add(new Aeroporto(16, "Catanzaro"));
-		elencoAeroporti.add(new Aeroporto(17, "Crotone"));
-		elencoAeroporti.add(new Aeroporto(18, "Cuneo"));
-		elencoAeroporti.add(new Aeroporto(19, "Elba, Isola"));
-		elencoAeroporti.add(new Aeroporto(20, "Fano"));
-		elencoAeroporti.add(new Aeroporto(21, "Firenze"));
-		elencoAeroporti.add(new Aeroporto(22, "Foggia"));
-		elencoAeroporti.add(new Aeroporto(23, "Forlì"));
-		elencoAeroporti.add(new Aeroporto(24, "Genova"));
-		elencoAeroporti.add(new Aeroporto(25, "Grosseto"));
-		elencoAeroporti.add(new Aeroporto(26, "Lamezia"));
-		elencoAeroporti.add(new Aeroporto(27, "Lecce"));
-		elencoAeroporti.add(new Aeroporto(28, "Milano Linate"));
-		elencoAeroporti.add(new Aeroporto(29, "Milano Malpensa"));
-		elencoAeroporti.add(new Aeroporto(30, "Napoli"));
-		elencoAeroporti.add(new Aeroporto(31, "Olbia"));
-		elencoAeroporti.add(new Aeroporto(32, "Padova"));
-		elencoAeroporti.add(new Aeroporto(33, "Palermo"));
-		elencoAeroporti.add(new Aeroporto(34, "Parma"));
-		elencoAeroporti.add(new Aeroporto(35, "Perugia"));
-		elencoAeroporti.add(new Aeroporto(36, "Pescara"));
-		elencoAeroporti.add(new Aeroporto(37, "Pisa"));
-		elencoAeroporti.add(new Aeroporto(38, "Ragusa"));
-		elencoAeroporti.add(new Aeroporto(39, "Ravenna"));
-		elencoAeroporti.add(new Aeroporto(40, "Reggio Calabria"));
-		elencoAeroporti.add(new Aeroporto(41, "Reggio Emilia"));
-		elencoAeroporti.add(new Aeroporto(42, "Roma Ciampino"));
-		elencoAeroporti.add(new Aeroporto(43, "Roma Fiumicino"));
-		elencoAeroporti.add(new Aeroporto(44, "Salerno"));
-		elencoAeroporti.add(new Aeroporto(45, "Taranto"));
-		elencoAeroporti.add(new Aeroporto(46, "Trento"));
-		elencoAeroporti.add(new Aeroporto(47, "Treviso"));
-		elencoAeroporti.add(new Aeroporto(48, "Trieste"));
-		elencoAeroporti.add(new Aeroporto(49, "Torino"));
-		elencoAeroporti.add(new Aeroporto(50, "Udine"));
-		elencoAeroporti.add(new Aeroporto(51, "Venezia"));
-		elencoAeroporti.add(new Aeroporto(52, "Verona"));
-		elencoAeroporti.add(new Aeroporto(53, "Vicenza"));
+		elencoAeroporti.add(new Aeroporto(1, "Ancona"));
+		elencoAeroporti.add(new Aeroporto(2, "Bari"));
+		elencoAeroporti.add(new Aeroporto(3, "Bergamo"));
+		elencoAeroporti.add(new Aeroporto(4, "Bologna"));
+		elencoAeroporti.add(new Aeroporto(5, "Bolzano"));
+		elencoAeroporti.add(new Aeroporto(6, "Cagliari"));
+		elencoAeroporti.add(new Aeroporto(7, "Catania"));
+		elencoAeroporti.add(new Aeroporto(8, "Catanzaro"));
+		elencoAeroporti.add(new Aeroporto(9, "Firenze"));
+		elencoAeroporti.add(new Aeroporto(10, "Foggia"));
+		elencoAeroporti.add(new Aeroporto(11, "Genova"));
+		elencoAeroporti.add(new Aeroporto(12, "Lecce"));
+		elencoAeroporti.add(new Aeroporto(13, "Milano Linate"));
+		elencoAeroporti.add(new Aeroporto(14, "Milano Malpensa"));
+		elencoAeroporti.add(new Aeroporto(15, "Napoli"));
+		elencoAeroporti.add(new Aeroporto(16, "Palermo"));
+		elencoAeroporti.add(new Aeroporto(17, "Parma"));
+		elencoAeroporti.add(new Aeroporto(18, "Perugia"));
+		elencoAeroporti.add(new Aeroporto(19, "Pescara"));
+		elencoAeroporti.add(new Aeroporto(20, "Pisa"));
+		elencoAeroporti.add(new Aeroporto(21, "Reggio Emilia"));
+		elencoAeroporti.add(new Aeroporto(22, "Roma Ciampino"));
+		elencoAeroporti.add(new Aeroporto(23, "Roma Fiumicino"));
+		elencoAeroporti.add(new Aeroporto(24, "Trento"));
+		elencoAeroporti.add(new Aeroporto(25, "Torino"));
+		elencoAeroporti.add(new Aeroporto(26, "Udine"));
+		elencoAeroporti.add(new Aeroporto(27, "Venezia"));
+		elencoAeroporti.add(new Aeroporto(28, "Verona"));
+		elencoAeroporti.add(new Aeroporto(29, "Vicenza"));
 
 		XMLCreate<Aeroporto> XMLAeroporti = new XMLCreate<Aeroporto>();
 		Document d = XMLAeroporti.createFlySmartDocument(elencoAeroporti);
@@ -95,9 +71,9 @@ public class Creator {
 		Calendar c = Calendar.getInstance();
 		int idIncr = 0;
 
-		for(int i = 1; i<54; i++)
+		for(int i = 1; i<30; i++)
 		{
-			for(int j = 1; j<54; j++)
+			for(int j = 1; j<30; j++)
 			{
 				if(i!=j)
 					for(int n = 0; n < (int) (Math.random()*(7-2)+2); n++)
@@ -117,13 +93,13 @@ public class Creator {
 									repeat=true;
 						}
 						c.set(2014,(int) rMese, rGiorno, (int) (Math.random()*(23-0)+1), (int) (Math.random()*(59-0)+1));
-						double postiDisponibili =  (Math.random()*(110-40)+40)*100;
-						postiDisponibili = Math.round(postiDisponibili);
-						postiDisponibili = postiDisponibili/100;
-						double palletDisponibili =  (Math.random()*(110-40)+40)*100;
-						palletDisponibili = Math.round(palletDisponibili);
-						palletDisponibili = palletDisponibili/100;
-						voli.add(new Volo(idIncr, c.getTime(), i, j, (int) (Math.random()*(100-1)+1), postiDisponibili, palletDisponibili, StatoVolo.OPEN, TipoAereo.M));
+						double prezzoPasseggeri =  (Math.random()*(110-40)+40)*100;
+						prezzoPasseggeri = Math.round(prezzoPasseggeri);
+						prezzoPasseggeri = prezzoPasseggeri/100;
+						double prezzoPallet =  (Math.random()*(5-0.7)+0.7)*100;
+						prezzoPallet = Math.round(prezzoPallet);
+						prezzoPallet = prezzoPallet/100;
+						voli.add(new Volo(idIncr, c.getTime(), i, j, (int) (Math.random()*(100-1)+1), prezzoPasseggeri, prezzoPallet, StatoVolo.OPEN, TipoAereo.M));
 						idIncr++;
 					}
 			}
