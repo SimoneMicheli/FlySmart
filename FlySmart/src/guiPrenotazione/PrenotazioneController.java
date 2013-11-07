@@ -1,5 +1,7 @@
 package guiPrenotazione;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.rmi.RemoteException;
@@ -16,13 +18,11 @@ import network.ServerInterface;
 /**Il controller della vista di prenotazione
  * @author Demarinis - Micheli - Scarpellini
  */
-public class PrenotazioneController{
+public class PrenotazioneController extends Controller {
 
 	/** Il riferimento alla vista */
 	PrenotazioneView view;
 
-	/** L'oggetto per la connessione con il server */
-	ServerInterface serv;
 
 	/**
 	 * Crea un controller per la fase di prenotazione
@@ -74,9 +74,13 @@ public class PrenotazioneController{
 				if(view.passeggeri){ //se sono su passeggeri
 					view.passeggeri=false;
 					view.cardEsterno.show(view.panelCardLayoutEsterno,"panelPallet");
+					view.cardPallet.show(view.panelPallet,"panelPalletAeroporti");
+					view.mntmSwitch.setText("Prenota Passeggeri");
 				}else{ //se sono su pallet
 					view.passeggeri=true;
 					view.cardEsterno.show(view.panelCardLayoutEsterno,"panelPasseggeri");
+					view.cardPasseggeri.show(view.panelPasseggeri,"panelPasseggeriAeroporti");
+					view.mntmSwitch.setText("Prenota Pallet");
 				}
 			}
 
@@ -116,6 +120,7 @@ public class PrenotazioneController{
 						}
 						view.aeroportoPartenzaPasseggeri=((Aeroporto)view.comboPasseggeriAeroportoPartenza.getSelectedItem()).getNome();
 						view.aeroportoArrivoPasseggeri=((Aeroporto)view.comboPasseggeriAeroportoArrivo.getSelectedItem()).getNome();
+						annullaListener(); //tolgo i listener che ho aggiunto la prima volta che ho eseguito questa funzione
 						view.setPasseggeriVoli(voli);  //carico gli oggetti nella facciata passeggeri:voli
 						registraControllerFase2Passeggeri(); //registro i listner della facciata passeggeri:voli
 						view.cardPasseggeri.show(view.panelPasseggeri,"panelPasseggeriVoli"); //visualizzo il pannello passeggeri:voli passandogli la lista dei voli
@@ -129,12 +134,12 @@ public class PrenotazioneController{
 
 		//conferma di pallet:aeroporti
 
-		 view.buttonPalletCercaVoli.addMouseListener(new MouseAdapter() {
+		view.buttonPalletCercaVoli.addMouseListener(new MouseAdapter() {
 
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				
-				
+
+
 				int p=0,a=0;
 				try{
 					p = ((Aeroporto)view.comboPalletAeroportoPartenza.getSelectedItem()).getId();  //codice aeroporto di partenza
@@ -155,19 +160,20 @@ public class PrenotazioneController{
 						}
 						view.aeroportoPartenzaPallet=((Aeroporto)view.comboPalletAeroportoPartenza.getSelectedItem()).getNome();
 						view.aeroportoArrivoPallet=((Aeroporto)view.comboPalletAeroportoArrivo.getSelectedItem()).getNome();
+						annullaListener(); //tolgo i listener che ho aggiunto la prima volta che ho eseguito questa funzione
 						view.setPalletVoli(voli);  //carico gli oggetti nella facciata pallet:voli
 						registraControllerFase2Pallet(); //registro i listner della facciata pallet:voli
 						view.cardPallet.show(view.panelPallet,"panelPalletVoli"); //visualizzo il pannello pallet:voli passandogli la lista dei voli
 
 					}
 				}
-				
-				
-				
-				
-				
-				
-				
+
+
+
+
+
+
+
 			}
 		});
 
@@ -192,12 +198,29 @@ public class PrenotazioneController{
 		view.buttonPasseggeriConfermaVolo.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				view.voloSelezionatoPasseggeri = ((Volo)view.comboVoliDisponibili.getSelectedItem());  //codice del volo
+				view.voloSelezionatoPasseggeri = ((Volo)view.comboVoliDisponibili.getSelectedItem());
 				view.setPasseggeriPasseggeri();
 				registraControllerFase3Passeggeri();
 				view.cardPasseggeri.show(view.panelPasseggeri,"panelPasseggeriPasseggeri");
 			}
 		});
+
+		//cambio il volo scelto per i passeggeri:voli 
+		view.comboVoliDisponibili.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				Volo voloCorrente = ((Volo)view.comboVoliDisponibili.getSelectedItem());
+				view.labelCodiceAeroportoPartenzaPasseggeri.setText("<html><b style='color:#242589'>Codice aeroporto di partenza: </b>"+" "+voloCorrente.getAeroportoPartenza()+"</html>");
+				view.labelCodiceAeroportoArrivoPasseggeri.setText("<html><b style='color:#242589'>Codice aeroporto di arrivo: </b>"+" "+voloCorrente.getAeroportoDestinazione()+"</html>");
+				view.labelDataOraVoloPasseggeri.setText("<html><b style='color:#242589'>Data e ora volo: </b>"+" "+voloCorrente.getDataOra()+"</html>");
+				view.labelStatoVoloPasseggeri.setText("<html><b style='color:#242589'>Stato volo: </b>"+" "+voloCorrente.getStato()+"</html>");
+				view.labelPasseggeriDisponibili.setText("<html><b style='color:#242589'>Numero posti disponibili: </b>"+" "+voloCorrente.getPostiDisponibili()+"</html>");
+				view.labelPrezzoPasseggeri.setText("<html><b style='color:#242589'>Prezzo singolo: </b>"+" "+voloCorrente.getPrezzo()+" €</html>");
+			}
+		});
+
+
 
 	}
 
@@ -207,6 +230,7 @@ public class PrenotazioneController{
 	 * Aggiungo i listner agli oggetti della facciata passeggeri:passeggeri
 	 */
 	private void registraControllerFase3Passeggeri() { 
+
 
 		// prossimo passeggero
 		view.buttonPasseggeriProssimo.addMouseListener(new MouseAdapter() {
@@ -218,26 +242,13 @@ public class PrenotazioneController{
 
 		});
 
-		//precedente
+		// passeggerp precedente
 		view.buttonPasseggeriPrecedente.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
 				if(view.currentIndex!=0){
 					view.passeggeroPrecedente();
 				}
-			}
-
-		});
-
-		//svuoto i campi del passeggero
-		view.buttonPasseggeriReset.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseReleased(MouseEvent arg0) {
-				view.textPasseggeriNome.setText("");
-				view.textPasseggeriCognome.setText("");
-				view.comboBoxGiorno.setSelectedIndex(0);
-				view.comboBoxMese.setSelectedIndex(0);
-				view.comboBoxAnno.setSelectedIndex(0);
 			}
 
 		});
@@ -290,7 +301,7 @@ public class PrenotazioneController{
 	 */
 	private void registraControllerFase2Pallet() {
 
-		
+
 		//confermo pallet:voli
 		view.buttonPalletConfermaVolo.addMouseListener(new MouseAdapter() {
 			@Override
@@ -302,8 +313,8 @@ public class PrenotazioneController{
 			}
 
 		});
-		
-		
+
+
 		//annulla pallet:voli
 		view.buttonPalletAnnullaVolo.addMouseListener(new MouseAdapter() {
 			@Override
@@ -313,9 +324,24 @@ public class PrenotazioneController{
 			}
 
 		});
-		 
-	}
 
+
+		//cambio il volo scelto per i pallet:voli 
+		view.comboVoliDisponibili.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				Volo voloCorrente = ((Volo)view.comboVoliDisponibili.getSelectedItem());
+				view.labelCodiceAeroportoPartenzaPallet.setText("<html><b style='color:#242589'>Codice aeroporto di partenza: </b>"+" "+voloCorrente.getAeroportoPartenza()+"</html>");
+				view.labelCodiceAeroportoArrivoPallet.setText("<html><b style='color:#242589'>Codice aeroporto di arrivo: </b>"+" "+voloCorrente.getAeroportoDestinazione()+"</html>");
+				view.labelDataOraVoloPallet.setText("<html><b style='color:#242589'>Data e ora volo: </b>"+" "+voloCorrente.getDataOra()+"</html>");
+				view.labelStatoVoloPallet.setText("<html><b style='color:#242589'>Stato volo: </b>"+" "+voloCorrente.getStato()+"</html>");
+				view.labelPalletDisponibili.setText("<html><b style='color:#242589'>Numero pallet disponibili: </b>"+" "+voloCorrente.getPalletDisponibili()+"</html>");
+				view.labelPrezzoPallet.setText("<html><b style='color:#242589'>Prezzo singolo: </b>"+" "+voloCorrente.getPrezzo()+"</html>");
+			}
+		});
+
+	}
 
 
 
@@ -325,7 +351,7 @@ public class PrenotazioneController{
 	 */
 
 	private void registraControllerFase3Pallet() { 
-		
+
 
 		//confermo pallet:pallet
 		view.buttonPalletConfermaPrenotazione.addMouseListener(new MouseAdapter() {
@@ -360,6 +386,16 @@ public class PrenotazioneController{
 			}
 
 		});
+	}
+
+
+	/**
+	 * Annulla i listener actionListeners
+	 */
+	private void annullaListener(){
+		for( ActionListener al : view.comboVoliDisponibili.getActionListeners() ) {
+			view.comboVoliDisponibili.removeActionListener( al );
+		}
 	}
 
 }

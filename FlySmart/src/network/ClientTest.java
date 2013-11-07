@@ -3,7 +3,6 @@
  */
 package network;
 
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
@@ -57,8 +56,6 @@ public class ClientTest {
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		} catch (NotBoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (FlightNotFoundException e) {
 			e.printStackTrace();

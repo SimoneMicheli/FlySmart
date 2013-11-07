@@ -18,7 +18,7 @@ import network.ServerInterface;
  * @author Demarinis - Micheli - Scarpellini
  * 
  */
-public class LoginController {
+public class LoginController extends Controller {
 
 
 	/** Riferimento alla vista */
@@ -27,8 +27,6 @@ public class LoginController {
 	/** Il controller della nuova vista */
 	PrenotazioneController p;
 
-	/** Oggetto per la comunicazione col il server tramite messaggi RMI */
-	ServerInterface serv;
 
 
 
