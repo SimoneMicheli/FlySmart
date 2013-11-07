@@ -399,7 +399,7 @@ public class PrenotazioneView extends View {
 		labelPasseggeriDisponibili.setBounds(16, 220, 482, 25);
 		panelPasseggeriVoli.add(labelPasseggeriDisponibili);
 
-		labelPrezzoPasseggeri.setText("<html><b style='color:#242589'>Prezzo singolo: </b>"+" "+voloCorrente.getPrezzo()+"</html>");
+		labelPrezzoPasseggeri.setText("<html><b style='color:#242589'>Prezzo singolo: </b>"+" "+voloCorrente.getPrezzoPasseggero()+"</html>");
 		labelPrezzoPasseggeri.setFont(new Font("Arial", Font.PLAIN, 12));
 		labelPrezzoPasseggeri.setBounds(16, 250, 482, 25);
 		panelPasseggeriVoli.add(labelPrezzoPasseggeri);
@@ -671,7 +671,7 @@ public class PrenotazioneView extends View {
 		labelPalletDisponibili.setBounds(16, 220, 482, 25);
 		panelPalletVoli.add(labelPalletDisponibili);
 
-		labelPrezzoPallet.setText("<html><b style='color:#242589'>Prezzo singolo: </b>"+" "+voloCorrente.getPrezzo()+"€</html>"); //modificare in prezzo pallet
+		labelPrezzoPallet.setText("<html><b style='color:#242589'>Prezzo singolo: </b>"+" "+voloCorrente.getPrezzoPallet()+"€</html>"); //modificare in prezzo pallet
 		labelPrezzoPallet.setFont(new Font("Arial", Font.PLAIN, 12));
 		labelPrezzoPallet.setBounds(16, 250, 482, 25);
 		panelPalletVoli.add(labelPrezzoPallet);

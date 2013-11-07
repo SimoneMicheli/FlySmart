@@ -216,7 +216,7 @@ public class PrenotazioneController extends Controller {
 				view.labelDataOraVoloPasseggeri.setText("<html><b style='color:#242589'>Data e ora volo: </b>"+" "+voloCorrente.getDataOra()+"</html>");
 				view.labelStatoVoloPasseggeri.setText("<html><b style='color:#242589'>Stato volo: </b>"+" "+voloCorrente.getStato()+"</html>");
 				view.labelPasseggeriDisponibili.setText("<html><b style='color:#242589'>Numero posti disponibili: </b>"+" "+voloCorrente.getPostiDisponibili()+"</html>");
-				view.labelPrezzoPasseggeri.setText("<html><b style='color:#242589'>Prezzo singolo: </b>"+" "+voloCorrente.getPrezzo()+" €</html>");
+				view.labelPrezzoPasseggeri.setText("<html><b style='color:#242589'>Prezzo singolo: </b>"+" "+voloCorrente.getPrezzoPasseggero()+" ���</html>");
 			}
 		});
 
@@ -260,7 +260,7 @@ public class PrenotazioneController extends Controller {
 			public void mouseReleased(MouseEvent arg0) {
 				if(view.controllaCampi() || (view.campiVuoti() && view.listaPasseggeri.size()!=0)){ //se sono pieni oppure vuoti
 					view.passeggeroSuccessivo(); 
-					if (JOptionPane.showConfirmDialog(null,"Vuoi confermare la spesa di "+view.prezzoTotaleVolo+" €?","Conferma prenotazione passeggeri",JOptionPane.YES_NO_OPTION,JOptionPane.NO_OPTION) == JOptionPane.OK_OPTION) {
+					if (JOptionPane.showConfirmDialog(null,"Vuoi confermare la spesa di "+view.prezzoTotaleVolo+" ���?","Conferma prenotazione passeggeri",JOptionPane.YES_NO_OPTION,JOptionPane.NO_OPTION) == JOptionPane.OK_OPTION) {
 						try {
 							serv.prenotaPasseggero(view.listaPasseggeri, view.voloSelezionatoPasseggeri.getId());
 							JOptionPane.showMessageDialog(null,"Prenotazione effettuata con successo","", 1);
@@ -271,7 +271,7 @@ public class PrenotazioneController extends Controller {
 						} catch (FlightNotFoundException e) {
 							JOptionPane.showMessageDialog(null,"Volo non trovato, ritentare","Errore", 0);
 						} catch (SeatsSoldOutException e) {
-							JOptionPane.showMessageDialog(null,"I posti non sono più disponibili","Errore", 0);
+							JOptionPane.showMessageDialog(null,"I posti non sono pi�� disponibili","Errore", 0);
 						}
 					}else{
 
@@ -337,7 +337,7 @@ public class PrenotazioneController extends Controller {
 				view.labelDataOraVoloPallet.setText("<html><b style='color:#242589'>Data e ora volo: </b>"+" "+voloCorrente.getDataOra()+"</html>");
 				view.labelStatoVoloPallet.setText("<html><b style='color:#242589'>Stato volo: </b>"+" "+voloCorrente.getStato()+"</html>");
 				view.labelPalletDisponibili.setText("<html><b style='color:#242589'>Numero pallet disponibili: </b>"+" "+voloCorrente.getPalletDisponibili()+"</html>");
-				view.labelPrezzoPallet.setText("<html><b style='color:#242589'>Prezzo singolo: </b>"+" "+voloCorrente.getPrezzo()+"</html>");
+				view.labelPrezzoPallet.setText("<html><b style='color:#242589'>Prezzo singolo: </b>"+" "+voloCorrente.getPrezzoPallet()+"</html>");
 			}
 		});
 
@@ -370,7 +370,7 @@ public class PrenotazioneController extends Controller {
 						} catch (FlightNotFoundException e) {
 							JOptionPane.showMessageDialog(null,"Volo non trovato, ritentare","Errore", 0);
 						} catch (SeatsSoldOutException e) {
-							JOptionPane.showMessageDialog(null,"I posti non sono più disponibili","Errore", 0);
+							JOptionPane.showMessageDialog(null,"I posti non sono pi�� disponibili","Errore", 0);
 						}
 					}
 				}
