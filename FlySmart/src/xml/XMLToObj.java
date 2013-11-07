@@ -262,7 +262,7 @@ public class XMLToObj{
 					} catch (ParseException e) {
 						e.printStackTrace();
 					}
-					Volo toAdd = new Volo( Integer.parseInt(map.get("id")), dt, Integer.parseInt(map.get("aeroportoPartenza")) , Integer.parseInt(map.get("aeroportoDestinazione")), Integer.parseInt(map.get("aereo")), Integer.parseInt(map.get("postiDisponibili")), Integer.parseInt(map.get("palletDisponibili")), Double.parseDouble(map.get("prezzo")), StatoVolo.valueOf(map.get("stato")), TipoAereo.valueOf(map.get("tipoAereo")), Integer.parseInt(map.get("lastID")), Integer.parseInt(map.get("lastPalletID")), Integer.parseInt(map.get("lastGroupID")));
+					Volo toAdd = new Volo( Integer.parseInt(map.get("id")), dt, Integer.parseInt(map.get("aeroportoPartenza")) , Integer.parseInt(map.get("aeroportoDestinazione")), Integer.parseInt(map.get("aereo")), Integer.parseInt(map.get("postiDisponibili")), Integer.parseInt(map.get("palletDisponibili")), Double.parseDouble(map.get("prezzoPasseggero")), Double.parseDouble(map.get("prezzoPallet")), StatoVolo.valueOf(map.get("stato")), TipoAereo.valueOf(map.get("tipoAereo")), Integer.parseInt(map.get("lastID")), Integer.parseInt(map.get("lastPalletID")), Integer.parseInt(map.get("lastGroupID")));
 					list.add(toAdd);
 
 				}

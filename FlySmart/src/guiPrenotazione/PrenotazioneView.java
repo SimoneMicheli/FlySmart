@@ -727,7 +727,7 @@ public class PrenotazioneView extends View {
 			panelResoconto.add(label);
 			verticalPosition=verticalPosition+24;
 		}
-		prezzoTotaleVolo = listaPasseggeri.size()*voloSelezionatoPasseggeri.getPrezzo();
+		prezzoTotaleVolo = listaPasseggeri.size()*voloSelezionatoPasseggeri.getPrezzoPasseggero();
 		prezzoTotaleVolo= Math.floor(prezzoTotaleVolo * 100) / 100.0;
 		labelPrezzoTotale.setText("Totale: " + prezzoTotaleVolo+ " €  ("+listaPasseggeri.size()+" passeggeri)");
 		repaint();

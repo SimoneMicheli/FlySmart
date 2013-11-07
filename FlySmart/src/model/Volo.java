@@ -35,7 +35,10 @@ public class Volo extends Model {
 	private Integer  palletDisponibili;
 	
 	/** Prezzo del volo (espresso in euro) */
-	private Double prezzo;
+	private Double prezzoPasseggero;
+	
+	/** Prezzo del volo per pallet(in euro) */
+	private Double prezzoPallet;
 	
 	/** Stato del volo */
 	private StatoVolo stato;
@@ -56,14 +59,15 @@ public class Volo extends Model {
 	 * @param aereo Id dell'aereo assegnato al volo
 	 * @param postiDisponibili Numero di posti per passeggeri ancora disponibili sull'aereo
 	 * @param palletDisponibili  Numero di posti per pallet ancora disponibili sull'aereo
-	 * @param prezzo Prezzo del volo (espresso in euro)
+	 * @param prezzoPasseggero Prezzo del volo per ogni passeggero (espresso in euro)
+	 * @param prezzoPallet Prezzo del volo per ogni pallet (espresso in euro)
 	 * @param stato stato del volo
 	 * @param tipoAereo tipo di aereo usato per il volo
 	 * @param lastID ultimo id passeggeri assegnato
 	 * @param lastPalletID ultimo id pallet assegnato
 	 * @param lastGroupID ultimo id gruppo assegnato
 	 */
-	public Volo(Integer id, Date dataOra, Integer aeroportoPartenza, Integer aeroportoDestinazione, Integer aereo, Integer postiDisponibili, Integer palletDisponibili, Double prezzo, StatoVolo stato, TipoAereo tipoAereo, Integer lastID, Integer lastPalletID, Integer lastGroupID) {
+	public Volo(Integer id, Date dataOra, Integer aeroportoPartenza, Integer aeroportoDestinazione, Integer aereo, Integer postiDisponibili, Integer palletDisponibili, Double prezzoPasseggero, Double prezzoPallet, StatoVolo stato, TipoAereo tipoAereo, Integer lastID, Integer lastPalletID, Integer lastGroupID) {
 		this.id = id;
 		this.dataOra = dataOra;
 		this.aeroportoPartenza = aeroportoPartenza;
@@ -71,7 +75,8 @@ public class Volo extends Model {
 		this.aereo = aereo;
 		this.postiDisponibili = postiDisponibili;
 		this.palletDisponibili = palletDisponibili;
-		this.setPrezzo(prezzo);
+		this.prezzoPasseggero = prezzoPasseggero;
+		this.prezzoPallet = prezzoPallet;
 		this.stato = stato;
 		this.tipoAereo = tipoAereo;
 		this.lastID = lastID;
@@ -86,12 +91,13 @@ public class Volo extends Model {
 	 * @param aeroportoPartenza Id dell'aeroporto di partenza
 	 * @param aeroportoDestinazione Id dell'aeroporto di destinazione
 	 * @param aereo Id dell'aereo assegnato al volo
-	 * @param prezzo Prezzo del volo (espresso in euro)
+	 * @param prezzoPasseggero Prezzo del volo per ogni passeggero (espresso in euro)
+	 * @param prezzoPallet Prezzo del volo per ogni pallet (espresso in euro)
 	 * @param stato stato del volo
 	 * @param tipoAereo tipo di aereo usato per il volo
 	 */
-	public Volo(Integer id, Date dataOra, Integer aeroportoPartenza, Integer aeroportoDestinazione, Integer aereo, Double prezzo, StatoVolo stato, TipoAereo tipoAereo){
-		this(id, dataOra, aeroportoPartenza, aeroportoDestinazione, aereo, 0, 0, prezzo, stato, tipoAereo, new Integer(0), new Integer(0), new Integer(0));
+	public Volo(Integer id, Date dataOra, Integer aeroportoPartenza, Integer aeroportoDestinazione, Integer aereo, Double prezzoPasseggero, Double prezzoPallet, StatoVolo stato, TipoAereo tipoAereo){
+		this(id, dataOra, aeroportoPartenza, aeroportoDestinazione, aereo, 0, 0, prezzoPasseggero, prezzoPallet, stato, tipoAereo, new Integer(0), new Integer(0), new Integer(0));
 		setPostiDisponibili(tipoAereo.getFilePasseggeri() * tipoAereo.getColonnePasseggeri());
 		setPalletDisponibili(tipoAereo.getFilePallet() * tipoAereo.getColonnePallet());
 	}
@@ -123,6 +129,14 @@ public class Volo extends Model {
 		this.dataOra = dataOra;
 	}
 
+	/**
+	 * restituisce la data e lora del volo in formato stringa
+	 * @return stringa contentente data e ora
+	 */
+	public String getDataOraString(){
+		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy   hh:mm");
+		return format.format(dataOra);
+	}
 
 
 	/**
@@ -219,7 +233,7 @@ public class Volo extends Model {
 	@Override
 	public String toString() {
 		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy   hh:mm");
-		return  format.format(dataOra) + "          " +postiDisponibili+ " posti disponibili         "+palletDisponibili+ " pallet disponibili         " +prezzo+ " €";
+		return  format.format(dataOra) + "          " +postiDisponibili+ " posti disponibili         "+palletDisponibili+ " pallet disponibili         " +prezzoPasseggero+ " €";
 	}
 
 
@@ -263,8 +277,8 @@ public class Volo extends Model {
 	 *
 	 * @return Prezzo del volo (espresso in euro)
 	 */
-	public Double getPrezzo() {
-		return prezzo;
+	public Double getPrezzoPasseggero() {
+		return prezzoPasseggero;
 	}
 
 
@@ -274,11 +288,26 @@ public class Volo extends Model {
 	 *
 	 * @param prezzo Prezzo del volo (espresso in euro)
 	 */
-	public void setPrezzo(Double prezzo) {
-		this.prezzo = prezzo;
+	public void setPrezzoPasseggero(Double prezzo) {
+		this.prezzoPasseggero = prezzo;
 	}
 	
-	
+	/**
+	 * Restituisce il prezzo unitario per pallet 
+	 * @return prezzo unitario del pallet
+	 */
+	public Double getPrezzoPallet() {
+		return prezzoPallet;
+	}
+
+	/**
+	 * Setta il prezzo del pallet
+	 * @param prezzoPallet nuovo prezzo del pallet
+	 */
+	public void setPrezzoPallet(Double prezzoPallet) {
+		this.prezzoPallet = prezzoPallet;
+	}
+
 	/**
 	 * ottiene lo stato del volo
 	 * @return stato volo

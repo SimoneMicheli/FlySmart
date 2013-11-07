@@ -120,7 +120,10 @@ public class Creator {
 						double result =  (Math.random()*(110-40)+40)*100;
 						result = Math.round(result);
 						result = result/100;
-						voli.add(new Volo(idIncr, c.getTime(), i, j, (int) (Math.random()*(100-1)+1), result, StatoVolo.OPEN, TipoAereo.M));
+						double pallet =  (Math.random()*(110-40)+40)*100;
+						pallet = Math.round(pallet);
+						pallet = pallet/100;
+						voli.add(new Volo(idIncr, c.getTime(), i, j, (int) (Math.random()*(100-1)+1), result, pallet, StatoVolo.OPEN, TipoAereo.M));
 						idIncr++;
 					}
 			}
