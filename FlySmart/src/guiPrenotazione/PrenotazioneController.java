@@ -86,7 +86,7 @@ public class PrenotazioneController extends Controller {
 
 		});
 
-		//info->Chi siamo
+		//info->Copyright
 		view.mntmCopyright.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
@@ -94,6 +94,15 @@ public class PrenotazioneController extends Controller {
 			}
 
 		});
+		
+		//info->Chi siamo
+				view.mntmAboutFlySmart.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseReleased(MouseEvent arg0) {
+						JOptionPane.showMessageDialog(null,"FlySmart\nVersion: 2.0.0\n(c) Copyright FlySmart contributors and others 2000, 2014.\nAll rights reserved.\n Visit http://www.flysmart.it/","About FlySmart", 3);
+					}
+
+				});
 
 
 		//conferma di passeggeri:aeroporti

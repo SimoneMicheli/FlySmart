@@ -14,6 +14,7 @@ import java.util.Iterator;
 import java.util.List;
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -86,14 +87,14 @@ public class PrenotazioneView extends View {
 	protected JMenu mnInfo = new JMenu("Info");
 	//opzioni
 	/** opzione esci. */
-	protected JMenuItem mntmExit = new JMenuItem("Esci");
+	protected JMenuItem mntmExit = new JMenuItem("Esci",new ImageIcon("./img/spuntarossa.gif"));
 	/** opzione switch. */
-	protected JMenuItem mntmSwitch = new JMenuItem("Prenota Pallet");
+	protected JMenuItem mntmSwitch = new JMenuItem("Prenota Pallet",new ImageIcon("./img/spuntaazzurra.gif"));
 	/** opzione copyright. */
-	protected JMenuItem mntmCopyright = new JMenuItem("Copyright");
-	/** opzione chi siamo. */
-	protected JMenuItem mntmChiSiamo = new JMenuItem("Chi siamo");
-
+	protected JMenuItem mntmCopyright = new JMenuItem("Copyright",new ImageIcon("./img/spuntablu.gif"));
+	/** opzione about flysmart. */
+	protected JMenuItem mntmAboutFlySmart = new JMenuItem("About FlySmart",new ImageIcon("./img/spuntaverdescura.gif"));
+	
 	//combo box
 	/** La combo box per la scelta dell'aeroporto di partenza per i passeggeri. */
 	protected JComboBox comboPasseggeriAeroportoPartenza= new JComboBox();
@@ -247,8 +248,8 @@ public class PrenotazioneView extends View {
 		menuBar.add(mnInfo);
 		mnFile.add(mntmExit);
 		mnCambioTipoPrenotazione.add(mntmSwitch);
-		mnInfo.add(mntmChiSiamo);
 		mnInfo.add(mntmCopyright);
+		mnInfo.add(mntmAboutFlySmart);
 	}
 
 	/**
