@@ -73,15 +73,6 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 			passLocks.put(volo.getId(), new FileLockImpl());
 			palletLocks.put(volo.getId(), new FileLockImpl());
 		}
-		
-		//server shoutdown
-		Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
-		    @Override
-		    public void run() {
-		    	System.out.println("shutdown RMI Server");
-
-		    }
-		}));
 	
 	}
 	
