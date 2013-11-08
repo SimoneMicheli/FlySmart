@@ -10,3 +10,11 @@ aeroporti.xml
 config.xml
 voli.xml
 volo_*.xml
+
+*/bin
+.classpath
+.project
+*.tmp
+*/.settings
+*.xml
+.DS_Store
