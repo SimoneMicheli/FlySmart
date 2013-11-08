@@ -19,8 +19,11 @@ public class ServerLauncher {
 	public static void main(String[] args) {
 		
 		//imposta le proprietà di ssl
-		System.setProperty("javax.net.ssl.keyStore", "src/network/mykey");
-		System.setProperty("javax.net.ssl.keyStorePassword", "keypassword");
+		//System.setProperty("javax.net.debug", "SSL");
+		System.setProperty("javax.net.ssl.keyStore", "src/network/server/keystore.jks");	//imposto certificato server
+		System.setProperty("javax.net.ssl.keyStorePassword", "serverstore");
+		//System.setProperty("javax.net.ssl.trustStore", "src/network/server/servercacert.jks");	//imposto certificati validi dei client
+		//System.setProperty("javax.net.ssl.trustStorePassword", "servertruststore");
 		
 		//crea i socket per SSL
 		RMISSLClientSocketFactory clientfactory = new RMISSLClientSocketFactory();
