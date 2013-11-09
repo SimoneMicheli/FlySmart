@@ -51,7 +51,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 	protected Server(RMISSLClientSocketFactory clientFactory, RMISSLServerSocketFactory serverFactory) throws RemoteException {
 		super(0, clientFactory, serverFactory);
 		
-		log = LogManager.getLogger();
+		log = LogManager.getLogger(Server.class.getCanonicalName().toString());
 		
 		log.entry();
 		//lock per accesso al file voli.xml

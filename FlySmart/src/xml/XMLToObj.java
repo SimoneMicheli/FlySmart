@@ -2,7 +2,6 @@ package xml;
 
 import model.*;
 import java.io.File;
-import java.lang.reflect.Field;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -22,6 +21,7 @@ public class XMLToObj<T extends Model>{
 		this.cls = cls;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<T> readObj(String path){
 		List<T> lista = new ArrayList<T>();
 		//controlla se il file esiste, altrimenti ritorna lista vuota

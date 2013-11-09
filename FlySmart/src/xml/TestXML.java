@@ -1,7 +1,7 @@
 package xml;
 
 import java.io.*;
-import org.w3c.dom.*;         //Interfacce di DOM 
+//import org.w3c.dom.*;         //Interfacce di DOM 
 
 import util.Options;
 import model.*;
