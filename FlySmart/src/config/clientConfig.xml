@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<comment>FlySmart client configuration file</comment>
+<entry key="keyStore">src/network/client/clientkeystore.jks</entry>
+<entry key="keyStorePassword">clientstore</entry>
+<entry key="trustStore">src/network/client/cacert.jks</entry>
+<entry key="trustStorePassword">clienttruststore</entry>
+</properties>

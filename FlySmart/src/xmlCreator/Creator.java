@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.w3c.dom.Document;
 
+import util.Options;
 import xml.XMLCreate;
 import model.*;
 
@@ -19,6 +20,7 @@ public class Creator {
 	public static void main(String[] args)  {
 		System.out.println("Avvio generazione dati");
 		try {
+			Options.LoadDefaultOptions();
 			creaAeroporti();
 			creaVoli();
 			System.out.println("Generazione dati terminata");
@@ -63,7 +65,7 @@ public class Creator {
 
 		XMLCreate<Aeroporto> XMLAeroporti = new XMLCreate<Aeroporto>();
 		Document d = XMLAeroporti.createFlySmartDocument(elencoAeroporti);
-		XMLAeroporti.printDocument(d,"aeroporti.xml");
+		XMLAeroporti.printDocument(d,Options.aeroportiFileName);
 	}
 
 	public static void creaVoli() throws IOException{
@@ -117,6 +119,6 @@ public class Creator {
 		 */
 		XMLCreate<Volo> XMLVoli = new XMLCreate<Volo>();
 		Document d = XMLVoli.createFlySmartDocument(voli);
-		XMLVoli.printDocument(d,"voli.xml");
+		XMLVoli.printDocument(d,Options.voliFileName);
 	}
 }
