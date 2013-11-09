@@ -12,6 +12,8 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.w3c.dom.Document;
 
 import util.Options;
@@ -35,6 +37,8 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 	private FileLock voliLock;
 	/**hash map contenente per goni volo (id) il lock assegnato passeggeri/pallet */
 	private HashMap<Integer, FileLock> passLocks, palletLocks;
+	/** logger*/
+	Logger log;
 	
 	/**
 	 * costruttore dell'oggetto server, crea i lock necessari a garantire l'accesso
@@ -47,6 +51,9 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 	protected Server(RMISSLClientSocketFactory clientFactory, RMISSLServerSocketFactory serverFactory) throws RemoteException {
 		super(0, clientFactory, serverFactory);
 		
+		log = LogManager.getLogger();
+		
+		log.entry();
 		//lock per accesso al file voli.xml
 		voliLock = new FileLockImpl();
 		
@@ -73,7 +80,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 			passLocks.put(volo.getId(), new FileLockImpl());
 			palletLocks.put(volo.getId(), new FileLockImpl());
 		}
-	
+		log.exit();
 	}
 	
 	

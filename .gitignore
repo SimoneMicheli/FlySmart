@@ -1,7 +1,6 @@
 *.class
 
 # Package Files #
-*.jar
 *.war
 *.ear
 
@@ -16,5 +15,4 @@ volo_*.xml
 .project
 *.tmp
 */.settings
-*.xml
 .DS_Store
