@@ -75,11 +75,11 @@ public class SmartCheckin {
 		List<Volo> voli = new LinkedList<Volo>();
 		List<Passeggero> passeggeri = new ArrayList<Passeggero>();
 		List<Pallet> pallets = new ArrayList<Pallet>();
-		XMLToObj parserXML = new XMLToObj();
+		XMLToObj<Volo> parserXML = new XMLToObj<Volo>(Volo.class);
 
 		//blocca volo
 		voliLock.acquireWriteLock();
-		voli = parserXML.createVoloList(Options.voliFileName);
+		voli = parserXML.readObj(Options.voliFileName);
 
 		Collections.sort(voli, VoloComparator.ID_ORDER);
 		int pos = Collections.binarySearch(voli,new Integer(idVolo));
@@ -103,7 +103,8 @@ public class SmartCheckin {
 		palletLocks.get(idVolo).acquireWriteLock();
 
 		//passeggeri = parserXML.createPasseggeroList( String.format(Options.voloPassFileName, idVolo));
-		pallets = parserXML.createPalletList(String.format(Options.voloPalletFileName, idVolo));
+		XMLToObj<Pallet> parserXMLPallet = new XMLToObj<Pallet>(Pallet.class);
+		pallets = parserXMLPallet.readObj(String.format(Options.voloPalletFileName, idVolo));
 
 
 		//calcola disposizione

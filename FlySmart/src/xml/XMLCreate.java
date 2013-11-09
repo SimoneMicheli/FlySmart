@@ -54,10 +54,7 @@ public class XMLCreate<E extends GetFields> {
 				{
 					
 					List<Field> fieldArray = elem.getFields(); // Recupero la lista dei Campi della Classe
-					@SuppressWarnings("rawtypes")
-					Class myObjectClass = elem.getClass();   // Ottengo l'oggetto Class relativo all'elemento della lista
-					String simpleClassName = myObjectClass.getSimpleName(); //ottengo il nome della classe e in minuscolo
-					root = d.createElement(simpleClassName.substring(0, 1).toLowerCase() + simpleClassName.substring(1) ); //creo la radice, ovvero l'elemento con la tag uguale al nome della Classe
+					root = d.createElement("object"); //creo la radice, ovvero l'elemento con la tag uguale al nome della Classe
 					for(Field f : fieldArray) // Visualizzo i dati di ciascun campo
 					{
 						String attributeName = f.getName();

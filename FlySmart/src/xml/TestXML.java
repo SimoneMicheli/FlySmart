@@ -2,6 +2,8 @@ package xml;
 
 import java.io.*;
 import org.w3c.dom.*;         //Interfacce di DOM 
+
+import util.Options;
 import model.*;
 import java.util.*;
 
@@ -21,7 +23,7 @@ public class TestXML {
 	public static void main(String[] args) throws IOException {
 		
 		
-		List<Volo> elenco = new ArrayList<Volo>();
+		/*List<Volo> elenco = new ArrayList<Volo>();
 		Date dt = new Date(5483267067974L);
 		elenco.add(new Volo(0,dt,1,2,3,9.0, 25.0,StatoVolo.OPEN, TipoAereo.S));
 		XMLCreate<Volo> instance = new XMLCreate<Volo>();
@@ -74,7 +76,17 @@ public class TestXML {
 		listA2q = istanza5q.createAeroportoList("test3q.xml");
 		XMLCreate<Aeroporto> istanza6q = new XMLCreate<Aeroporto>();
 		Document documento4q = istanza6q.createFlySmartDocument(listA2q);
-		istanza6q.printDocument(documento4q,  "test4q.xml");
+		istanza6q.printDocument(documento4q,  "test4q.xml");*/
+		
+		XMLToObj<Aeroporto> ist = new XMLToObj<Aeroporto>(Aeroporto.class);
+		
+		List<Aeroporto> list = ist.readObj(Options.aeroportiFileName);
+		
+		System.out.println("lista eroporti");
+		
+		for(Aeroporto a : list){
+			System.out.println(a.toString());
+		}
 	}
 
 }

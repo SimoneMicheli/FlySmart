@@ -52,12 +52,12 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 		
 		//leggo elenco voli
 		List<Volo> voli = new LinkedList<Volo>();
-		XMLToObj parserXML = new XMLToObj();
+		XMLToObj<Volo> parserXML = new XMLToObj<Volo>(Volo.class);
 		
 		//lock in lettura su volo
 		voliLock.acquireReadLock();
 		
-		voli = parserXML.createVoloList(Options.voliFileName);
+		voli = parserXML.readObj(Options.voliFileName);
 		
 		voliLock.releaseReadLock();
 		
@@ -85,10 +85,10 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 	public List<Aeroporto> getAeroporti() throws RemoteException {
 		
 		List<Aeroporto> aeroporti = new LinkedList<Aeroporto>();
-		XMLToObj parserXML = new XMLToObj();
+		XMLToObj<Aeroporto> parserXML = new XMLToObj<Aeroporto>(Aeroporto.class);
 	
 		//parse xml data lock non richiesto perchè file usato in sola lettura
-		aeroporti = parserXML.createAeroportoList(Options.aeroportiFileName);
+		aeroporti = parserXML.readObj(Options.aeroportiFileName);
 		
 		//ordina eroport in base al nome
 		Collections.sort(aeroporti, AeroportoComparator.NAME_ORDER);
@@ -104,12 +104,12 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 	public List<Volo> getVoli(int idp, int ida) throws RemoteException {
 		List<Volo> voli = new LinkedList<Volo>();
 		List<Volo> voliRichiesti = new LinkedList<Volo>();
-		XMLToObj parserXML = new XMLToObj();
+		XMLToObj<Volo> parserXML = new XMLToObj<Volo>(Volo.class);
 		
 		//lock in lettura su volo
 		voliLock.acquireReadLock();
 		
-		voli = parserXML.createVoloList(Options.voliFileName);
+		voli = parserXML.readObj(Options.voliFileName);
 		
 		voliLock.releaseReadLock();
 		
@@ -134,11 +134,11 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 		
 		List<Passeggero> passeggeri = new ArrayList<Passeggero>();
 		ArrayList<Volo> voli = new ArrayList<Volo>();
-		XMLToObj parserXML = new XMLToObj();
+		XMLToObj<Volo> parserXML = new XMLToObj<Volo>(Volo.class);
 		
 		//aggiorno volo
 		voliLock.acquireWriteLock();
-		voli = (ArrayList<Volo>) parserXML.createVoloList(Options.voliFileName);
+		voli = (ArrayList<Volo>) parserXML.readObj(Options.voliFileName);
 				
 		//ottengo riferimento volo
 		Collections.sort(voli, VoloComparator.ID_ORDER);
@@ -161,7 +161,8 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 		lock.acquireWriteLock();
 		
 		//ottengo lista passeggeri
-		passeggeri = parserXML.createPasseggeroList( String.format(Options.voloPassFileName, idVolo));
+		XMLToObj<Passeggero> parserXMLPass = new XMLToObj<Passeggero>(Passeggero.class);
+		passeggeri = parserXMLPass.readObj( String.format(Options.voloPassFileName, idVolo));
 		
 		//aggiungo nuovi passeggeri alla lista
 		int id = v.getNextID(listToAdd.size());
@@ -203,11 +204,11 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 	public int prenotaPallet(List<Pallet> listToAdd, int idVolo) throws FlightNotFoundException, SeatsSoldOutException {
 		List<Pallet> pallets = new ArrayList<Pallet>();
 		ArrayList<Volo> voli = new ArrayList<Volo>();
-		XMLToObj parserXML = new XMLToObj();
+		XMLToObj<Volo> parserXML = new XMLToObj<Volo>(Volo.class);
 		
 		//aggiorno volo
 		voliLock.acquireWriteLock();
-		voli = (ArrayList<Volo>) parserXML.createVoloList(Options.voliFileName);
+		voli = (ArrayList<Volo>) parserXML.readObj(Options.voliFileName);
 				
 		//ottengo riferimento volo
 		Collections.sort(voli, VoloComparator.ID_ORDER);
@@ -231,7 +232,8 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 		lock.acquireWriteLock();
 		
 		//ottengo lista passeggeri
-		pallets = parserXML.createPalletList(String.format(Options.voloPalletFileName, idVolo));
+		XMLToObj<Pallet> parserXMLPallet = new XMLToObj<Pallet>(Pallet.class);
+		pallets = parserXMLPallet.readObj(String.format(Options.voloPalletFileName, idVolo));
 		
 		//aggiungo nuovi passeggeri alla lista
 		int id = v.getNextPalletID(listToAdd.size());
