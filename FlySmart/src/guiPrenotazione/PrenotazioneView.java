@@ -305,7 +305,7 @@ public class PrenotazioneView extends View {
 	public void setPasseggeriAeroporti(List<Aeroporto> aeroporti){
 		
 		
-		JLabel labelFlySmart = new JLabel("<html><span style='color:green'>Fly<span style='color:blue'>Smart</span></html>");
+		JLabel labelFlySmart = new JLabel("<html><span style='color:green'>Fly</span><span style='color:blue'>Smart</span><span style='font-size:15px;color:#666666'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Prenotazione passeggeri</span></html>");
 		labelFlySmart.setFont(new Font("Calibri", Font.BOLD, 50));
 		labelFlySmart.setForeground(Color.black);
 		labelFlySmart.setBounds(8, 0, 482, 70);
@@ -400,7 +400,7 @@ public class PrenotazioneView extends View {
 		labelPasseggeriDisponibili.setBounds(16, 220, 482, 25);
 		panelPasseggeriVoli.add(labelPasseggeriDisponibili);
 
-		labelPrezzoPasseggeri.setText("<html><b style='color:#242589'>Prezzo singolo: </b>"+" "+voloCorrente.getPrezzoPasseggero()+" &euro</html>");
+		labelPrezzoPasseggeri.setText("<html><b style='color:#242589'>Prezzo singolo: </b>"+" "+voloCorrente.getPrezzoPasseggero()+" &euro;</html>");
 		labelPrezzoPasseggeri.setFont(new Font("Arial", Font.PLAIN, 12));
 		labelPrezzoPasseggeri.setBounds(16, 250, 482, 25);
 		panelPasseggeriVoli.add(labelPrezzoPasseggeri);
@@ -571,7 +571,7 @@ public class PrenotazioneView extends View {
 	@SuppressWarnings("unchecked")
 	public void setPalletAeroporti(List<Aeroporto> aeroporti){
 		
-		JLabel labelFlySmart = new JLabel("<html><span style='color:green'>Fly<span style='color:blue'>Smart</span></html>");
+		JLabel labelFlySmart = new JLabel("<html><span style='color:green'>Fly</span><span style='color:blue'>Smart</span><span style='font-size:15px;color:#666666'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Prenotazione pallet</span></html>");
 		labelFlySmart.setFont(new Font("Calibri", Font.BOLD, 50));
 		labelFlySmart.setForeground(Color.black);
 		labelFlySmart.setBounds(8, 0, 482, 70);
@@ -672,7 +672,7 @@ public class PrenotazioneView extends View {
 		labelPalletDisponibili.setBounds(16, 220, 482, 25);
 		panelPalletVoli.add(labelPalletDisponibili);
 
-		labelPrezzoPallet.setText("<html><b style='color:#242589'>Prezzo al kg: </b>"+" "+voloCorrente.getPrezzoPallet()+" &euro</html>"); //modificare in prezzo pallet
+		labelPrezzoPallet.setText("<html><b style='color:#242589'>Prezzo al kg: </b>"+" "+voloCorrente.getPrezzoPallet()+" &euro;</html>"); //modificare in prezzo pallet
 		labelPrezzoPallet.setFont(new Font("Arial", Font.PLAIN, 12));
 		labelPrezzoPallet.setBounds(16, 250, 482, 25);
 		panelPalletVoli.add(labelPrezzoPallet);
@@ -769,7 +769,7 @@ public class PrenotazioneView extends View {
 		}
 		prezzoTotaleVolo = listaPasseggeri.size()*voloSelezionatoPasseggeri.getPrezzoPasseggero();
 		prezzoTotaleVolo= Math.floor(prezzoTotaleVolo * 100) / 100.0;
-		labelPrezzoTotale.setText("Totale: " + prezzoTotaleVolo+ " &euro  ("+listaPasseggeri.size()+" passeggeri)");
+		labelPrezzoTotale.setText("<html>Totale: " + prezzoTotaleVolo+ " &euro;  ("+listaPasseggeri.size()+" passeggeri)</html>");
 		repaint();
 	}
 

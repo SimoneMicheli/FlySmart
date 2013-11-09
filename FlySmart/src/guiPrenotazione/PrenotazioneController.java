@@ -94,15 +94,15 @@ public class PrenotazioneController extends Controller {
 			}
 
 		});
-		
-		//info->Chi siamo
-				view.mntmAboutFlySmart.addMouseListener(new MouseAdapter() {
-					@Override
-					public void mouseReleased(MouseEvent arg0) {
-						JOptionPane.showMessageDialog(null,"FlySmart\nVersion: 2.0.0\n(c) Copyright FlySmart contributors and others 2000, 2014.\nAll rights reserved.\n Visit http://www.flysmart.it/","About FlySmart", 3);
-					}
 
-				});
+		//info->Chi siamo
+		view.mntmAboutFlySmart.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				JOptionPane.showMessageDialog(null,"FlySmart\nVersion: 2.0.0\n(c) Copyright FlySmart contributors and others 2000, 2014.\nAll rights reserved.\n Visit http://www.flysmart.it/","About FlySmart", 3);
+			}
+
+		});
 
 
 		//conferma di passeggeri:aeroporti
@@ -225,7 +225,7 @@ public class PrenotazioneController extends Controller {
 				view.labelDataOraVoloPasseggeri.setText("<html><b style='color:#242589'>Data e ora volo: </b>"+" "+voloCorrente.getDataOraString()+"</html>");
 				view.labelStatoVoloPasseggeri.setText("<html><b style='color:#242589'>Stato volo: </b>"+" "+voloCorrente.getStato()+"</html>");
 				view.labelPasseggeriDisponibili.setText("<html><b style='color:#242589'>Numero posti disponibili: </b>"+" "+voloCorrente.getPostiDisponibili()+"</html>");
-				view.labelPrezzoPasseggeri.setText("<html><b style='color:#242589'>Prezzo singolo: </b>"+" "+voloCorrente.getPrezzoPasseggero()+" &euro</html>");
+				view.labelPrezzoPasseggeri.setText("<html><b style='color:#242589'>Prezzo singolo: </b>"+" "+voloCorrente.getPrezzoPasseggero()+" &euro;</html>");
 			}
 		});
 
@@ -269,7 +269,7 @@ public class PrenotazioneController extends Controller {
 			public void mouseReleased(MouseEvent arg0) {
 				if(view.controllaCampi() || (view.campiVuoti() && view.listaPasseggeri.size()!=0)){ //se sono pieni oppure vuoti
 					view.passeggeroSuccessivo(); 
-					if (JOptionPane.showConfirmDialog(null,"Vuoi confermare la spesa di "+view.prezzoTotaleVolo+" ���?","Conferma prenotazione passeggeri",JOptionPane.YES_NO_OPTION,JOptionPane.NO_OPTION) == JOptionPane.OK_OPTION) {
+					if (JOptionPane.showConfirmDialog(null,"<html>Vuoi confermare la spesa di "+view.prezzoTotaleVolo+" &euro;?</html>","Conferma prenotazione passeggeri",JOptionPane.YES_NO_OPTION,JOptionPane.NO_OPTION) == JOptionPane.OK_OPTION) {
 						try {
 							serv.prenotaPasseggero(view.listaPasseggeri, view.voloSelezionatoPasseggeri.getId());
 							JOptionPane.showMessageDialog(null,"Prenotazione effettuata con successo","", 1);
@@ -346,7 +346,7 @@ public class PrenotazioneController extends Controller {
 				view.labelDataOraVoloPallet.setText("<html><b style='color:#242589'>Data e ora volo: </b>"+" "+voloCorrente.getDataOraString()+"</html>");
 				view.labelStatoVoloPallet.setText("<html><b style='color:#242589'>Stato volo: </b>"+" "+voloCorrente.getStato()+"</html>");
 				view.labelPalletDisponibili.setText("<html><b style='color:#242589'>Numero pallet disponibili: </b>"+" "+voloCorrente.getPalletDisponibili()+"</html>");
-				view.labelPrezzoPallet.setText("<html><b style='color:#242589'>Prezzo al kg: </b>"+" "+voloCorrente.getPrezzoPallet()+" &euro</html>");
+				view.labelPrezzoPallet.setText("<html><b style='color:#242589'>Prezzo al kg: </b>"+" "+voloCorrente.getPrezzoPallet()+" &euro;</html>");
 			}
 		});
 
@@ -366,22 +366,29 @@ public class PrenotazioneController extends Controller {
 		view.buttonPalletConfermaPrenotazione.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				if(view.textFieldPesoPallet.getText().compareTo("")!=0 && view.textFieldTargaPallet.getText().compareTo("")!=0 ){
-					view.listaPallet.add(new Pallet(null,Double.parseDouble(view.textFieldPesoPallet.getText()),view.textFieldTargaPallet.getText(),view.voloSelezionatoPallet.getId(),null,null));
-					if (JOptionPane.showConfirmDialog(null,"Vuoi confermare?","Conferma prenotazione pallet",JOptionPane.YES_NO_OPTION,JOptionPane.NO_OPTION) == JOptionPane.OK_OPTION) {
-						try {
-							serv.prenotaPallet(view.listaPallet,view.voloSelezionatoPallet.getId());
-							JOptionPane.showMessageDialog(null,"Prenotazione effettuata con successo","", 1);
-							view.cardPallet.show(view.panelPallet,"panelPalletAeroporti"); //torno alla schermata iniziale
-						} catch (RemoteException e) {
-							JOptionPane.showMessageDialog(null,"Connessione persa","Errore", 1);
-							System.exit(0);
-						} catch (FlightNotFoundException e) {
-							JOptionPane.showMessageDialog(null,"Volo non trovato, ritentare","Errore", 0);
-						} catch (SeatsSoldOutException e) {
-							JOptionPane.showMessageDialog(null,"I posti non sono pi�� disponibili","Errore", 0);
+				if(view.textFieldPesoPallet.getText().compareTo("")!=0 && view.textFieldTargaPallet.getText().compareTo("")!=0 && view.textFieldPesoPallet.getText().matches ("\\d+") ){
+					if(Integer.parseInt(view.textFieldPesoPallet.getText())>10 && Integer.parseInt(view.textFieldPesoPallet.getText())<10000){
+						view.listaPallet.add(new Pallet(null,Double.parseDouble(view.textFieldPesoPallet.getText()),view.textFieldTargaPallet.getText(),view.voloSelezionatoPallet.getId(),null,null));
+						if (JOptionPane.showConfirmDialog(null,"Vuoi confermare?","Conferma prenotazione pallet",JOptionPane.YES_NO_OPTION,JOptionPane.NO_OPTION) == JOptionPane.OK_OPTION) {
+							try {
+								serv.prenotaPallet(view.listaPallet,view.voloSelezionatoPallet.getId());
+								JOptionPane.showMessageDialog(null,"Prenotazione effettuata con successo","", 1);
+								view.cardPallet.show(view.panelPallet,"panelPalletAeroporti"); //torno alla schermata iniziale
+							} catch (RemoteException e) {
+								JOptionPane.showMessageDialog(null,"Connessione persa","Errore", 1);
+								System.exit(0);
+							} catch (FlightNotFoundException e) {
+								JOptionPane.showMessageDialog(null,"Volo non trovato, ritentare","Errore", 0);
+							} catch (SeatsSoldOutException e) {
+								JOptionPane.showMessageDialog(null,"I posti non sono più disponibili","Errore", 0);
+							}
 						}
+
+					}else{
+						JOptionPane.showMessageDialog(null,"Peso troppo elevato","Errore", 0);
 					}
+				}else{
+					JOptionPane.showMessageDialog(null,"Errore nei dati inseriti","Errore", 0);
 				}
 			}
 
