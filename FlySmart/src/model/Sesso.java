@@ -6,7 +6,7 @@ package model;
  *
  */
 public enum Sesso {
-	M(80), F(50);
+	M(80), F(60);
 	
 	private int peso;
 	
