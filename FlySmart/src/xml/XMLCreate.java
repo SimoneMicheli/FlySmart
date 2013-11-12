@@ -58,6 +58,9 @@ public class XMLCreate<E extends GetFields> {
 					for(Field f : fieldArray) // Visualizzo i dati di ciascun campo
 					{
 						String attributeName = f.getName();
+						String attributeType = f.getType().toString();
+						String [] split = attributeType.split("\\.");
+						attributeType = split[split.length-1];
 						String attributeNameMaiusc = attributeName.substring(0, 1).toUpperCase() + attributeName.substring(1);
 						Method m = elem.getClass().getMethod("get"+attributeNameMaiusc); // Ottengo il Metodo 
 						String s;
@@ -69,6 +72,7 @@ public class XMLCreate<E extends GetFields> {
 						}
 						childToAdd = d.createElement(attributeName); // Costruisco l'albero degli elementi, che successivamente inserirò del documento
 						childToAdd.setTextContent(s);
+						childToAdd.setAttribute("tipo", attributeType);
 						root.appendChild(childToAdd);
 					}
 				}
