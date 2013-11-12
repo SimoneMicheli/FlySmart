@@ -14,7 +14,7 @@ public final class Coordinata {
 	}
 	
 	public static int YAbs(double y ,TipoAereo t){
-		return (int) (y - 0.5 + t.getFilePallet()/2);
+		return (int) (y - 0.5 + (t.getFilePallet()/2));
 		
 	}
 	

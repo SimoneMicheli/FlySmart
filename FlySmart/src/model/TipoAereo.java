@@ -21,7 +21,7 @@ public enum TipoAereo {
 	private final int filePasseggeri;
 	private final int colonnePasseggeri;
 	
-	TipoAereo(int filePallet,int colonnePallet,int filePasseggeri,int colonnePasseggeri){
+	TipoAereo(int colonnePallet,int filePallet,int colonnePasseggeri,int filePasseggeri){
 		this.filePallet = filePallet;
 		this.colonnePallet = colonnePallet;
 		this.filePasseggeri = filePasseggeri;
