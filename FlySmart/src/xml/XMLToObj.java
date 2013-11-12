@@ -36,7 +36,7 @@ public class XMLToObj<T extends Model>{
 			
 			for (int i = 0; i < nodeList.getLength(); i++){ //per ciascun oggetto nella lista
 				
-				Map<String, String> map= new HashMap<String, String>(); // crea un Hashmap con <nome del campo da inserire nel costruttore; oggetto contenuto nell'xml>
+				Map<String, Object> map= new HashMap<String, Object>(); // crea un Hashmap con <nome del campo da inserire nel costruttore; oggetto contenuto nell'xml>
 				Node object = nodeList.item(i); // prende un nodo della lista di nodi caricati dall'xml	
 				
 				NodeList atributes = object.getChildNodes(); //attributi oggetto
@@ -49,8 +49,36 @@ public class XMLToObj<T extends Model>{
 
 						String nome = attributo.getNodeName();	//ottengo nome attributo
 						Node cf = attributo.getFirstChild();
-						String value = cf.getNodeValue();		//ottengo valore
-
+						String tipoAttributo = attributo.getAttributes().getNamedItem("tipo").toString();
+						String [] split = tipoAttributo.split("\"");
+						tipoAttributo = split[split.length-1];
+						Object value = null;
+						switch(tipoAttributo) {
+						case "String":
+							value = (cf!=null) ? cf.getNodeValue() : null;
+							break;
+						case "Integer":
+							value = (cf!=null) ? Integer.parseInt(cf.getNodeValue()) : null;
+							break;
+						case "TipoAereo":
+							value = (cf!=null) ? TipoAereo.valueOf(cf.getNodeValue()) : null;
+							break;
+						case "Sesso":
+							value = (cf!=null) ? Sesso.valueOf(cf.getNodeValue()) : null;
+							break;
+						case "StatoVolo":
+							value = (cf!=null) ? StatoVolo.valueOf(cf.getNodeValue()) : null;
+							break;
+						case "Date":
+							value = (cf!=null) ? cf.getNodeValue() : null;
+							break;
+						case "Double":
+							value = (cf!=null) ? Double.parseDouble(cf.getNodeValue()) : null;
+							break;
+						case "long":
+							value = (cf!=null) ? Long.parseLong(cf.getNodeValue()) : null;
+							break;
+				}
 						map.put(nome, value);
 					}
 				}
@@ -58,17 +86,17 @@ public class XMLToObj<T extends Model>{
 				//determino oggetto
 				switch (cls.getCanonicalName()) {
 				case "model.Passeggero":
-					Passeggero p = new Passeggero(Integer.parseInt(map.get("id")), Integer.parseInt(map.get("idGruppo")), map.get("nome"), map.get("cognome"), Integer.parseInt(map.get("eta")), Sesso.valueOf(map.get("sesso")), Double.parseDouble(map.get("pesoBagagli")), Integer.parseInt(map.get("idVolo")), Integer.parseInt(map.get("fila")), Integer.parseInt(map.get("colonna")), Integer.parseInt(map.get("giorno")), Integer.parseInt(map.get("mese")), Integer.parseInt(map.get("anno")));
+					Passeggero p = new Passeggero((Integer) (map.get("id")), (Integer) (map.get("idGruppo")),(String) map.get("nome"),(String) map.get("cognome"), (Integer) (map.get("eta")), (Sesso) (map.get("sesso")), (Double) map.get("pesoBagagli"), (Integer) map.get("idVolo"), (Integer) map.get("fila"), (Integer) map.get("colonna"), (Integer) map.get("giorno"), (Integer) (map.get("mese")), (Integer) (map.get("anno")));
 					lista.add((T) p);
 					break;
 
 				case "model.Aeroporto":
-					Aeroporto a = new Aeroporto(Integer.parseInt(map.get("id")), map.get("nome"));
+					Aeroporto a = new Aeroporto((Integer) (map.get("id")),(String) map.get("nome"));
 					lista.add((T) a);
 					break;
 					
 				case "model.Pallet":
-					Pallet pall = new Pallet(Integer.parseInt(map.get("id")), Integer.parseInt(map.get("peso")), map.get("targa"), Integer.parseInt(map.get("idVolo")), Integer.parseInt(map.get("fila")), Integer.parseInt(map.get("colonna")) );
+					Pallet pall = new Pallet((Integer) (map.get("id")), (Integer) (map.get("peso")), (String) map.get("targa"), (Integer) (map.get("idVolo")), (Integer) (map.get("fila")), (Integer) (map.get("colonna")) );
 					lista.add((T) pall);
 					break;
 					
@@ -78,11 +106,11 @@ public class XMLToObj<T extends Model>{
 					Date dt=new Date();
 					try {
 						//parsing della data
-						dt=df.parse(map.get("dataOra"));
+						dt=df.parse((String) map.get("dataOra"));
 					} catch (ParseException e) {
 						e.printStackTrace();
 					}
-					Volo v = new Volo( Integer.parseInt(map.get("id")), dt, Integer.parseInt(map.get("aeroportoPartenza")) , Integer.parseInt(map.get("aeroportoDestinazione")), Integer.parseInt(map.get("aereo")), Integer.parseInt(map.get("postiDisponibili")), Integer.parseInt(map.get("palletDisponibili")), Double.parseDouble(map.get("prezzoPasseggero")), Double.parseDouble(map.get("prezzoPallet")), StatoVolo.valueOf(map.get("stato")), TipoAereo.valueOf(map.get("tipoAereo")), Integer.parseInt(map.get("lastID")), Integer.parseInt(map.get("lastPalletID")), Integer.parseInt(map.get("lastGroupID")));
+					Volo v = new Volo((Integer) (map.get("id")), dt, (Integer) (map.get("aeroportoPartenza")) , (Integer) (map.get("aeroportoDestinazione")), (Integer) (map.get("aereo")), (Integer) (map.get("postiDisponibili")), (Integer) (map.get("palletDisponibili")), (Double) (map.get("prezzoPasseggero")), (Double) (map.get("prezzoPallet")), (StatoVolo) (map.get("stato")), (TipoAereo) (map.get("tipoAereo")), (Integer) (map.get("lastID")), (Integer) (map.get("lastPalletID")), (Integer) (map.get("lastGroupID")));
 					lista.add((T) v);
 					break;
 					
