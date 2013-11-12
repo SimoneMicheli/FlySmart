@@ -10,7 +10,6 @@ import model.Passeggero;
 /**Gestione ordinamento passeggeri
  * ID_ORDER: ordinamento crescente per id
  * NAME_ORDER: ordinamento crescente per nome
- * POSTO_ORDER: ordinamento per posto cresente
  * @author Demarinis - Micheli - Scarpellini
  *
  */
@@ -31,10 +30,18 @@ public enum PasseggeroComparator implements Comparator<Passeggero> {
 			return o1.getId() - o2.getId();
 		}
 	},
-	/*POSTO_ORDER{
+	PESO_ORDER{
+
 		@Override
 		public int compare(Passeggero o1, Passeggero o2) {
-			return o1.getPosto() - o2.getPosto();
+			int p1 = o1.getPeso();
+			int p2 = o2.getPeso();
+			if(p1<p2)
+				return -1;
+			if(p1==p2)
+				return 0;
+			return 1;
 		}
-	}*/
+		
+	}
 }
