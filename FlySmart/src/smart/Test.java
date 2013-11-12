@@ -18,7 +18,6 @@ public class Test {
 	/**
 	 * @param args
 	 */
-	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 		
 		testAlg();
@@ -88,7 +87,6 @@ public class Test {
 		int idVolo = 0;
 		
 		Options.LoadDefaultOptions();
-		System.out.println(Options.voliFileName);
 		voli = parserXML.readObj(Options.voliFileName);
 		Collections.sort(voli, VoloComparator.ID_ORDER);
 		int pos = Collections.binarySearch(voli,new Integer(idVolo));

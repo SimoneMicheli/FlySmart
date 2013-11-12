@@ -140,7 +140,7 @@ public class SmartCheckin {
 
 		//setto occupato il primo posto del pallet
 		occupancyPallet[Coordinata.YAbs(0.5, v.getTipoAereo())][0] = true;
-		System.out.println("momX: "+momX+" momY: "+momY+" peso: "+p.getPeso()+" x: "+p.getColonna()+" y: "+p.getFila());
+		System.out.println("Nuovo peso: "+p.getPeso()+" [x:"+p.getColonna()+" y:"+p.getFila()+"] produce [momX:"+momX+" momY: "+momY+"]");
 
 		//calcolo posizione per i pallet successivi
 		while(i.hasNext()){
@@ -149,8 +149,8 @@ public class SmartCheckin {
 			//posizione ideale per annullare il momento
 			double distX = -momX / p.getPeso();
 			double distY = -momY / p.getPeso();
+			System.out.println("Calcolato: x:"+distX +" y:"+distY);
 
-			System.out.println("calc: x: "+distX +" y: "+distY);
 			//casting posizione (intervallo 1 shift 0.5)
 			if(distX <=0 && distX>=-0.5)
 				distX = -0.5;
@@ -161,7 +161,7 @@ public class SmartCheckin {
 			else
 				distY = 0.5 + (int)(distY - 0.5);
 
-			System.out.println("ottimo: x: "+distX +" y: "+distY);
+			System.out.println("Discretizzato: x:"+distX +" y:"+distY);
 
 			//controllo interno all'aereo
 			if(Coordinata.XAbs(distX ,v.getTipoAereo()) > v.getTipoAereo().getColonnePallet() )
@@ -172,19 +172,18 @@ public class SmartCheckin {
 				distY = Coordinata.YRel(v.getTipoAereo().getFilePallet(), v.getTipoAereo());
 			if(Coordinata.YAbs(distY ,v.getTipoAereo()) <0 )
 				distY = Coordinata.YRel(0, v.getTipoAereo());
-				
-			System.out.println("cast: x: "+distX +" y: "+distY);
-			System.out.println("abs: x: "+Coordinata.XAbs(distX ,v.getTipoAereo()) +" y: "+Coordinata.YAbs(distY ,v.getTipoAereo()));
+
+			System.out.println("Interno all'aereo: x:"+distX +" y:"+distY);
+			System.out.println("Coordinate assolute: x:"+Coordinata.XAbs(distX ,v.getTipoAereo()) +" y:"+Coordinata.YAbs(distY ,v.getTipoAereo()));
 			//aggiorno posto effettivo
 			int[] pos = postoLiberoPallet(Coordinata.XAbs(distX ,v.getTipoAereo()), Coordinata.YAbs(distY ,v.getTipoAereo()));
 			p.setFila(pos[1]);
 			p.setColonna(pos[0]);
 
-			//sbiglanciamento effettivo
+			//sbilanciamento effettivo
 			momX = momX + p.getPeso() * Coordinata.XRel(pos[0], v.getTipoAereo());
 			momY = momY + p.getPeso() * Coordinata.YRel(pos[1], v.getTipoAereo());
-
-			System.out.println("momX: "+momX+" momY: "+momY+" peso: "+p.getPeso()+" col: "+pos[0]+" riga: "+pos[1]);
+			System.out.println("Nuovo peso: "+p.getPeso()+" [x:"+p.getColonna()+" y:"+p.getFila()+"] produce [momX:"+momX+" momY: "+momY+"]");
 		}
 
 	} 
@@ -212,7 +211,7 @@ public class SmartCheckin {
 					}
 				}catch(ArrayIndexOutOfBoundsException e){
 				}
-				colonnaCalcolata=(colonnaScelta+(vicino+1))%3+((int)colonnaScelta/3)*3+((int)(vicino+1)/3)*3*(((int)colonnaScelta/3)*(-2)+1); //l'ultimo passo sar� il vicino 6 ma il for termina
+				colonnaCalcolata=(colonnaScelta+(vicino+1))%3+((int)colonnaScelta/3)*3+((int)(vicino+1)/3)*3*(((int)colonnaScelta/3)*(-2)+1); //l'ultimo passo sarà il vicino 6 ma il for termina
 				// System.err.println("+++++calcolata:"+colonnaCalcolata+" scelta: "+colonnaScelta);
 			}
 
