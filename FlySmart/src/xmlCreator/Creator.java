@@ -1,5 +1,6 @@
 package xmlCreator;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.LinkedList;
@@ -21,6 +22,8 @@ public class Creator {
 		System.out.println("Avvio generazione dati");
 		try {
 			Options.LoadDefaultOptions();
+			//create folder
+			new File("data/").mkdirs();
 			creaAeroporti();
 			creaVoli();
 			System.out.println("Generazione dati terminata");
