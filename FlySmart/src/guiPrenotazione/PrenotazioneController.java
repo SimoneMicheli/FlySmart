@@ -368,7 +368,7 @@ public class PrenotazioneController extends Controller {
 			public void mouseReleased(MouseEvent arg0) {
 				if(view.textFieldPesoPallet.getText().compareTo("")!=0 && view.textFieldTargaPallet.getText().compareTo("")!=0 && view.textFieldPesoPallet.getText().matches ("\\d+") ){
 					if(Integer.parseInt(view.textFieldPesoPallet.getText())>10 && Integer.parseInt(view.textFieldPesoPallet.getText())<10000){
-						view.listaPallet.add(new Pallet(null,Double.parseDouble(view.textFieldPesoPallet.getText()),view.textFieldTargaPallet.getText(),view.voloSelezionatoPallet.getId(),null,null));
+						view.listaPallet.add(new Pallet(null,Integer.parseInt(view.textFieldPesoPallet.getText()),view.textFieldTargaPallet.getText(),view.voloSelezionatoPallet.getId(),null,null));
 						if (JOptionPane.showConfirmDialog(null,"Vuoi confermare?","Conferma prenotazione pallet",JOptionPane.YES_NO_OPTION,JOptionPane.NO_OPTION) == JOptionPane.OK_OPTION) {
 							try {
 								serv.prenotaPallet(view.listaPallet,view.voloSelezionatoPallet.getId());

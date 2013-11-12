@@ -68,7 +68,7 @@ public class XMLToObj<T extends Model>{
 					break;
 					
 				case "model.Pallet":
-					Pallet pall = new Pallet(Integer.parseInt(map.get("id")), Double.parseDouble(map.get("peso")), map.get("targa"), Integer.parseInt(map.get("idVolo")), Integer.parseInt(map.get("fila")), Integer.parseInt(map.get("colonna")) );
+					Pallet pall = new Pallet(Integer.parseInt(map.get("id")), Integer.parseInt(map.get("peso")), map.get("targa"), Integer.parseInt(map.get("idVolo")), Integer.parseInt(map.get("fila")), Integer.parseInt(map.get("colonna")) );
 					lista.add((T) pall);
 					break;
 					

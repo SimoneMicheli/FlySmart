@@ -13,7 +13,7 @@ public class Pallet extends Model {
 	private static final long serialVersionUID = -5555020451242189950L;
 	
 	/** Il peso del pallet */
-	private Double peso;
+	private Integer peso;
 	
 	/** La targa del pallet */
 	private String targa;
@@ -37,7 +37,7 @@ public class Pallet extends Model {
 	 * @param fila
 	 * @param colonna 
 	 */
-	public Pallet(Integer id, Double peso, String targa, Integer idVolo, Integer fila, Integer colonna) {
+	public Pallet(Integer id, Integer peso, String targa, Integer idVolo, Integer fila, Integer colonna) {
 		this.id = id;
 		this.peso = peso;
 		this.targa = targa;
@@ -53,7 +53,7 @@ public class Pallet extends Model {
 	 * @param targa la targa del pallet
 	 * @param idVolo Id del volo su cui si trova il pallet
 	 */
-	public Pallet(Double peso, String targa, Integer idVolo) {
+	public Pallet(Integer peso, String targa, Integer idVolo) {
 		this(null, peso,  targa,  idVolo, null, null);
 	}
 	
@@ -68,7 +68,7 @@ public class Pallet extends Model {
 	 *
 	 * @return Il peso del pallet
 	 */
-	public double getPeso() {
+	public Integer getPeso() {
 		return peso;
 	}
 	
@@ -77,7 +77,7 @@ public class Pallet extends Model {
 	 *
 	 * @param peso Il peso del pallet
 	 */
-	public void setPeso(Double peso) {
+	public void setPeso(Integer peso) {
 		this.peso = peso;
 	}
 	

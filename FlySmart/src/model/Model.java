@@ -45,11 +45,6 @@ public abstract class Model implements Comparable<Integer>, GetFields, Serializa
 	 */
 	@Override
 	public int compareTo(Integer o) {
-		/*if (id o)
-			return -1;
-		if (id == 0)
-			return 0;
-		return 1;*/
 		return id.compareTo(o);
 	}
 	
