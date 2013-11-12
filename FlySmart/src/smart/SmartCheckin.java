@@ -4,13 +4,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
 import org.w3c.dom.Document;
 
+import comparator.PalletComparator;
 import comparator.VoloComparator;
 
+import model.Coordinata;
 import model.Pallet;
 import model.Passeggero;
 import model.StatoVolo;
@@ -118,6 +121,59 @@ public void calcolaCheckin(int idVolo) throws FlightNotFoundException, IOExcepti
 	palletLocks.get(idVolo).releaseWriteLock();
 }
 
+private void posizionePallet(List<Pallet> lista, Volo v){
+	
+	
+	Collections.sort(lista, PalletComparator.PESO_ORDER);
+	
+	Iterator<Pallet> i = lista.iterator();
+	
+	//ottengo primo pallet
+	Pallet p = i.next();
+	
+	//posizione pallet in pos default
+	p.setFila(Coordinata.YAbs(0.5, v.getTipoAereo()));
+	System.out.println(Coordinata.YAbs(0.5, v.getTipoAereo()));
+	p.setColonna(0);
+	
+	double momX = p.getPeso() * -0.5;
+	double momY = p.getPeso() * 0.5;
+	
+	//calcolo posizione per i pallet successivi
+	while(i.hasNext()){
+		p = i.next();
+		
+		//posizione ideale per annullare il momento
+		double distX = -momX / p.getPeso();
+		double distY = -momY / p.getPeso();
+		
+		//casting posizione (intervallo 1 shift 0.5)
+		distX = 0.5 + (int)(distX - 0.5);
+		distY = 0.5 + (int)(distY - 0.5);
+		
+		//controllo interno all'aereo
+		if(Coordinata.XAbs(distX ,v.getTipoAereo()) > v.getTipoAereo().getColonnePallet() )
+			distX = Coordinata.XRel(v.getTipoAereo().getColonnePallet(), v.getTipoAereo());
+		if(Coordinata.XAbs(distX ,v.getTipoAereo()) < 0 )
+			distX = Coordinata.XRel(0, v.getTipoAereo());
+		if(Coordinata.YAbs(distY ,v.getTipoAereo()) > v.getTipoAereo().getFilePallet() )
+			distY = Coordinata.YRel(v.getTipoAereo().getFilePallet(), v.getTipoAereo());
+		if(Coordinata.YAbs(distY ,v.getTipoAereo()) <0 )
+			distY = Coordinata.YRel(0, v.getTipoAereo());
+		
+		//aggiorno posto effettivo
+		int[] pos = postoLiberoPallet(Coordinata.XAbs(distX ,v.getTipoAereo()), Coordinata.YAbs(distY ,v.getTipoAereo()));
+		p.setFila(pos[0]);
+		p.setColonna(pos[1]);
+		
+		//sbiglanciamento effettivo
+		momX = momX + p.getPeso() * Coordinata.XRel(pos[0], v.getTipoAereo());
+		momY = momY + p.getPeso() * Coordinata.YRel(pos[1], v.getTipoAereo());
+	}
+	
+} 
+
+
 public int[] postoLiberoPasseggeri(int colonnaScelta, int rigaScelta){
 
 	int maxRighe =occupancyPasseggeri.length;
@@ -140,7 +196,7 @@ public int[] postoLiberoPasseggeri(int colonnaScelta, int rigaScelta){
 				}
 			}catch(ArrayIndexOutOfBoundsException e){
 			}
-			colonnaCalcolata=(colonnaScelta+(vicino+1))%3+((int)colonnaScelta/3)*3+((int)(vicino+1)/3)*3*(((int)colonnaScelta/3)*(-2)+1); //l'ultimo passo sarà il vicino 6 ma il for termina
+			colonnaCalcolata=(colonnaScelta+(vicino+1))%3+((int)colonnaScelta/3)*3+((int)(vicino+1)/3)*3*(((int)colonnaScelta/3)*(-2)+1); //l'ultimo passo sarï¿½ il vicino 6 ma il for termina
 			// System.err.println("+++++calcolata:"+colonnaCalcolata+" scelta: "+colonnaScelta);
 		}
 
