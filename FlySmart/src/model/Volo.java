@@ -1,9 +1,13 @@
 package model;
 
-import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
+
+import com.google.code.morphia.annotations.Embedded;
+import com.google.code.morphia.annotations.Entity;
+import com.google.code.morphia.annotations.Reference;
 
 /**
  * Rappresenta uno specifico volo che collega due aeroporti in una determinata data.
@@ -11,10 +15,8 @@ import java.util.List;
  * @author Demarinis - Micheli - Scarpellini
  * 
  */
+@Entity
 public class Volo extends Model {
-	
-	/** La costante serialVersionUID */
-	private static final long serialVersionUID = 1L;
 	
 	/** Data del volo (in particolare la partenza) */
 	private Date dataOra;
@@ -24,9 +26,6 @@ public class Volo extends Model {
 	
 	/** Id dell'aeroporto di destinazione */
 	private Integer  aeroportoDestinazione;
-	
-	/** Id dell'aereo assegnato al volo */
-	private Integer  aereo;
 	
 	/** Numero di posti prenotati sull'aereo */
 	private Integer  postiDisponibili;
@@ -41,22 +40,30 @@ public class Volo extends Model {
 	private Double prezzoPallet;
 	
 	/** Stato del volo */
+	@Embedded
 	private StatoVolo stato;
 	
 	/** Tipo di aereo per il volo*/
+	@Embedded
 	private TipoAereo tipoAereo;
 	
 	/** ultimi id assegnati */
-	private Integer lastID=0, lastPalletID=0, lastGroupID=0;
+	private Integer lastGroupID=0;
+	
+	/**elenco dei passeggeri sul volo*/
+	@Reference
+	private List<Passeggero> passeggeri;
+	
+	/**elenco dei pallet sul volo */
+	@Reference
+	private List<Pallet> pallet;
 	
 	/**
 	 * Istanzia un nuovo volo (supercostruttore) usato solo nella classe XMLToObj
 	 *
-	 * @param id Id del volo
 	 * @param dataOra Data del volo (in particolare la partenza)
 	 * @param aeroportoPartenza Id dell'aeroporto di partenza
 	 * @param aeroportoDestinazione Id dell'aeroporto di destinazione
-	 * @param aereo Id dell'aereo assegnato al volo
 	 * @param postiDisponibili Numero di posti per passeggeri ancora disponibili sull'aereo
 	 * @param palletDisponibili  Numero di posti per pallet ancora disponibili sull'aereo
 	 * @param prezzoPasseggero Prezzo del volo per ogni passeggero (espresso in euro)
@@ -67,37 +74,33 @@ public class Volo extends Model {
 	 * @param lastPalletID ultimo id pallet assegnato
 	 * @param lastGroupID ultimo id gruppo assegnato
 	 */
-	public Volo(Integer id, Date dataOra, Integer aeroportoPartenza, Integer aeroportoDestinazione, Integer aereo, Integer postiDisponibili, Integer palletDisponibili, Double prezzoPasseggero, Double prezzoPallet, StatoVolo stato, TipoAereo tipoAereo, Integer lastID, Integer lastPalletID, Integer lastGroupID) {
-		this.id = id;
+	public Volo(Date dataOra, Integer aeroportoPartenza, Integer aeroportoDestinazione, Integer postiDisponibili, Integer palletDisponibili, Double prezzoPasseggero, Double prezzoPallet, StatoVolo stato, TipoAereo tipoAereo, Integer lastGroupID) {
 		this.dataOra = dataOra;
 		this.aeroportoPartenza = aeroportoPartenza;
 		this.aeroportoDestinazione = aeroportoDestinazione;
-		this.aereo = aereo;
 		this.postiDisponibili = postiDisponibili;
 		this.palletDisponibili = palletDisponibili;
 		this.prezzoPasseggero = prezzoPasseggero;
 		this.prezzoPallet = prezzoPallet;
 		this.stato = stato;
 		this.tipoAereo = tipoAereo;
-		this.lastID = lastID;
-		this.lastPalletID = lastPalletID;
 		this.lastGroupID = lastGroupID;
+		passeggeri = new LinkedList<Passeggero>();
+		pallet = new LinkedList<Pallet>();
 	}
 	
 	/**
 	 * costruttore da utilizzare per creare un volo valido
-	 * @param id Id del volo
 	 * @param dataOra Data del volo (in particolare la partenza)
 	 * @param aeroportoPartenza Id dell'aeroporto di partenza
 	 * @param aeroportoDestinazione Id dell'aeroporto di destinazione
-	 * @param aereo Id dell'aereo assegnato al volo
 	 * @param prezzoPasseggero Prezzo del volo per ogni passeggero (espresso in euro)
 	 * @param prezzoPallet Prezzo del volo per ogni pallet (espresso in euro)
 	 * @param stato stato del volo
 	 * @param tipoAereo tipo di aereo usato per il volo
 	 */
-	public Volo(Integer id, Date dataOra, Integer aeroportoPartenza, Integer aeroportoDestinazione, Integer aereo, Double prezzoPasseggero, Double prezzoPallet, StatoVolo stato, TipoAereo tipoAereo){
-		this(id, dataOra, aeroportoPartenza, aeroportoDestinazione, aereo, 0, 0, prezzoPasseggero, prezzoPallet, stato, tipoAereo, new Integer(0), new Integer(0), new Integer(0));
+	public Volo(Date dataOra, Integer aeroportoPartenza, Integer aeroportoDestinazione, Double prezzoPasseggero, Double prezzoPallet, StatoVolo stato, TipoAereo tipoAereo){
+		this(dataOra, aeroportoPartenza, aeroportoDestinazione, 0, 0, prezzoPasseggero, prezzoPallet, stato, tipoAereo, new Integer(0));
 		setPostiDisponibili(tipoAereo.getFilePasseggeri() * tipoAereo.getColonnePasseggeri());
 		setPalletDisponibili(tipoAereo.getFilePallet() * tipoAereo.getColonnePallet());
 	}
@@ -136,16 +139,6 @@ public class Volo extends Model {
 	public String getDataOraString(){
 		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy   hh:mm");
 		return format.format(dataOra);
-	}
-
-
-	/**
-	 * Ottiene il serial version UID
-	 *
-	 * @return the serial version UID
-	 */
-	public static long getSerialVersionUID() {
-		return serialVersionUID;
 	}
 
 
@@ -191,30 +184,6 @@ public class Volo extends Model {
 	public void setAeroportoDestinazione(Integer aeroportoDestinazione) {
 		this.aeroportoDestinazione = aeroportoDestinazione;
 	}
-
-
-
-	/**
-	 * Ottiene Id dell'aereo assegnato al volo
-	 *
-	 * @return Id dell'aereo assegnato al volo
-	 */
-	public Integer getAereo() {
-		return aereo;
-	}
-
-
-
-	/**
-	 * Set Id dell'aereo assegnato al volo
-	 *
-	 * @param aereo Id dell'aereo assegnato al volo
-	 */
-	public void setAereo(Integer aereo) {
-		this.aereo = aereo;
-	}
-
-
 
 	/**
 	 * Ottiene il Numero di posti per passeggeri ancora disponibili sull'aereo
@@ -341,45 +310,6 @@ public class Volo extends Model {
 	}
 	
 	/**
-	 * restituisce il primo id passeggero libero e blocca tutti i successivi length id
-	 * metodo synchronized perchè condiviso tra tutti i server thread
-	 * @param length numero id da bloccare
-	 * @return primo id disponibile
-	 */
-	public synchronized int getNextID(int length){
-		int oldID = lastID;
-		lastID += length;
-		return oldID;
-	}
-	
-	/**
-	 * @return il primo id libero da assegnare ad un passeggero
-	 */
-	public synchronized int getNextID(){
-		return getNextID(1);
-	}
-	
-	/**
-	 * restituisce il primo id pallet libero e blocca tutti i successivi length id
-	 * metodo synchronized perchè condiviso tra tutti i server thread
-	 * @param length numero id da bloccare
-	 * @return primo id disponibile
-	 */
-	public synchronized int getNextPalletID(int length){
-		int oldID = lastPalletID;
-		lastPalletID += length;
-		return oldID;
-	}
-
-	/**
-	 * 
-	 * @return primo id libero per i pallet
-	 */
-	public synchronized int getNextPalletID(){
-		return getNextPalletID(1);
-	}
-	
-	/**
 	 * 
 	 * @return oldId primo id libero per gruppi
 	 */
@@ -394,38 +324,39 @@ public class Volo extends Model {
 	}
 
 	/**
-	 * @return the lastID
-	 */
-	public Integer getLastID() {
-		return lastID;
-	}
-
-	/**
-	 * @return the lastPalletID
-	 */
-	public Integer getLastPalletID() {
-		return lastPalletID;
-	}
-
-	/**
 	 * @return the lastGroupID
 	 */
 	public Integer getLastGroupID() {
 		return lastGroupID;
 	}
 
-	/* (non-Javadoc)
-	 * @see model.Model#getFields()
+	/**
+	 * @return the passeggeri
 	 */
-	@Override
-	//ottiene i campi della classe Volo
-	public List<Field> getFields() {
-		List<Field>  fields = super.getFields();
-		Field[] currentFields = Volo.class.getDeclaredFields();
-		for(Field f : currentFields)
-			fields.add(f);
-		return  fields;
+	public List<Passeggero> getPasseggeri() {
+		return passeggeri;
+	}
+
+	/**
+	 * @param passeggeri the passeggeri to set
+	 */
+	public void setPasseggeri(List<Passeggero> passeggeri) {
+		this.passeggeri = passeggeri;
+	}
+
+	/**
+	 * @return the pallet
+	 */
+	public List<Pallet> getPallet() {
+		return pallet;
+	}
+
+	/**
+	 * @param pallet the pallet to set
+	 */
+	public void setPallet(List<Pallet> pallet) {
+		this.pallet = pallet;
 	}
 	
-
+	
 }

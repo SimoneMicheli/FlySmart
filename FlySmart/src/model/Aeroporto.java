@@ -7,10 +7,10 @@ import java.util.List;
  * @author Demarinis - Micheli - Scarpellini
  * 
  */
-public class Aeroporto extends Model {
+public class Aeroporto{
 	
-	/** La costante serialVersionUID. */
-	private static final long serialVersionUID = -5654644415727177592L;
+	/**id Aeroporto*/
+	private Integer id;
 	
 	/** Il nome dell'aeroporto */
 	private String nome;
@@ -30,10 +30,10 @@ public class Aeroporto extends Model {
 	}
 	
 	/**
-	 * Istanzia un nuovo aeroporto
+	 * @return the id
 	 */
-	public Aeroporto(){
-		this(null, "");
+	public Integer getId() {
+		return id;
 	}
 
 	/**
@@ -54,16 +54,6 @@ public class Aeroporto extends Model {
 		this.nome = nome;
 	}
 	
-	
-	/**
-	 * Ottiene il serial version UID.
-	 *
-	 * @return Il serial version UID
-	 */
-	public static long getSerialVersionUID() {
-		return serialVersionUID;
-	}
-	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
@@ -71,18 +61,5 @@ public class Aeroporto extends Model {
 	//override del metodo toString
 	public String toString() {
 		return nome;
-	}
-
-	/* (non-Javadoc)
-	 * @see model.Model#getFields()
-	 */
-	@Override
-	//ottiene i campi della classe Aeroporto
-	public List<Field> getFields() {
-		List<Field>  fields = super.getFields();
-		Field[] currentFields = Aeroporto.class.getDeclaredFields();
-		for(Field f : currentFields)
-			fields.add(f);
-		return  fields;
 	}
 }

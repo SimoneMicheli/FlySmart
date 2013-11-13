@@ -4,6 +4,11 @@ import java.lang.reflect.Field;
 import java.util.Calendar;
 import java.util.List;
 
+import org.bson.types.ObjectId;
+
+import com.google.code.morphia.annotations.Embedded;
+import com.google.code.morphia.annotations.Entity;
+
 /**Rappresenta un cliente della compagnia aerea, e le sue informazioni personali.
  * Sono contenute inoltre informazioni circa il volo da lui prenotato e il posto assegnatogli
  * 
@@ -11,10 +16,8 @@ import java.util.List;
  * 
  * 
  */
+@Entity
 public class Passeggero extends Model {
-	
-	/** La costante serialVersionUID */
-	private static final long serialVersionUID = -7403817763041464772L;
 	
 	/** Id del gruppo di passeggero */
 	private Integer idGruppo;
@@ -41,13 +44,14 @@ public class Passeggero extends Model {
 	 * 'm' per maschio
 	 * 'f' per femmina
 	 */
+	@Embedded
 	private Sesso sesso;
 	
 	/** Peso dei bagagli del passeggero (in Kilogrammi) */
 	private Double pesoBagagli;
 	
 	/** Id del volo del passeggero */
-	private Integer idVolo;
+	private ObjectId idVolo;
 	
 	/** Fila del posto del passeggero */
 	private Integer fila;
@@ -58,7 +62,6 @@ public class Passeggero extends Model {
 	/**
 	 * Istanzia un nuovo passeggero (supercostruttore)
 	 *
-	 * @param id Id del gruppo di passeggero
 	 * @param idGruppo Id del gruppo di passeggero
 	 * @param nome Nome del passeggero
 	 * @param cognome Cognome del passeggero
@@ -72,8 +75,7 @@ public class Passeggero extends Model {
 	 * @param mese Mese di nascita
 	 * @param anno Anno di nascita
 	 */
-	public Passeggero(Integer id, Integer idGruppo, String nome, String cognome, Integer eta, Sesso sesso, Double pesoBagagli, Integer idVolo, Integer fila, Integer colonna, Integer giorno, Integer mese, Integer anno) {
-		this.id = id;
+	public Passeggero(Integer idGruppo, String nome, String cognome, Integer eta, Sesso sesso, Double pesoBagagli, ObjectId idVolo, Integer fila, Integer colonna, Integer giorno, Integer mese, Integer anno) {
 		this.idGruppo = idGruppo;
 		this.nome = nome;
 		this.cognome = cognome;
@@ -106,7 +108,7 @@ public class Passeggero extends Model {
 	 * @param sesso Sesso del passeggero
 	 */
 	public Passeggero(String nome, String cognome,String giorno, String mese, String anno, Sesso sesso) {
-		this(null, null, nome,  cognome,  calcolaEta(giorno, mese, anno),  sesso,  null,  null,  null, null, Integer.parseInt(giorno), Integer.parseInt(mese), Integer.parseInt(anno));
+		this(null, nome,  cognome,  calcolaEta(giorno, mese, anno),  sesso,  null,  null,  null, null, Integer.parseInt(giorno), Integer.parseInt(mese), Integer.parseInt(anno));
 	}
 	
 	
@@ -121,7 +123,7 @@ public class Passeggero extends Model {
 	 * @param sesso Sesso del passeggero
 	 */
 	public Passeggero(String nome, String cognome,int giorno, int mese, int anno, Sesso sesso) {
-		this(null, null, nome,  cognome,  calcolaEta(giorno, mese, anno),  sesso,  null,  null,  null, null, giorno, mese, anno);
+		this(null, nome,  cognome,  calcolaEta(giorno, mese, anno),  sesso,  null,  null,  null, null, giorno, mese, anno);
 	}
 
 	/**
@@ -216,7 +218,7 @@ public class Passeggero extends Model {
 	 *
 	 * @return Id del volo del passeggero 
 	 */
-	public Integer getIdVolo() {
+	public ObjectId getIdVolo() {
 		return idVolo;
 	}
 
@@ -226,7 +228,7 @@ public class Passeggero extends Model {
 	 *
 	 * @param idVolo Id del volo del passeggero 
 	 */
-	public void setIdVolo(Integer idVolo) {
+	public void setIdVolo(ObjectId idVolo) {
 		this.idVolo = idVolo;
 	}
 
@@ -408,16 +410,6 @@ public class Passeggero extends Model {
 		this.idGruppo = idGruppo;
 	}
 	
-
-	/**
-	 * Ottiene il serial version UID
-	 *
-	 * @return the serial version UID
-	 */
-	public static long getSerialVersionUID() {
-		return serialVersionUID;
-	}
-	
 	/**
 	 * restituisce il peso di un passeggero in base al sesso e all'età
 	 * @return peso del passeggero
@@ -430,19 +422,6 @@ public class Passeggero extends Model {
 			p = (int) ((int) p*0.8);
 		}
 		return p;
-	}
-	
-	/* (non-Javadoc)
-	 * @see model.Model#getFields()
-	 */
-	//ottiene i campi della classe passeggero
-	@Override
-	public List<Field> getFields() {
-		List<Field>  fields = super.getFields();
-		Field[] currentFields = Passeggero.class.getDeclaredFields();
-		for(Field f : currentFields)
-			fields.add(f);
-		return  fields;
 	}
 
 }

@@ -2,15 +2,17 @@ package model;
 
 import java.lang.reflect.Field;
 import java.util.List;
+
+import org.bson.types.ObjectId;
+
+import com.google.code.morphia.annotations.Entity;
  
 /**
  * @author Demarinis - Micheli - Scarpellini
  * 
  */
+@Entity
 public class Pallet extends Model {
-	
-	/** La costante serialVersionUID. */
-	private static final long serialVersionUID = -5555020451242189950L;
 	
 	/** Il peso del pallet */
 	private Integer peso;
@@ -19,7 +21,7 @@ public class Pallet extends Model {
 	private String targa;
 	
 	/** Id del volo su cui si trova il pallet */
-	private Integer idVolo;
+	private ObjectId idVolo;
 	
 	/** Indica la fila in cui posizionare il pallet*/
 	private Integer fila;
@@ -37,8 +39,7 @@ public class Pallet extends Model {
 	 * @param fila
 	 * @param colonna 
 	 */
-	public Pallet(Integer id, Integer peso, String targa, Integer idVolo, Integer fila, Integer colonna) {
-		this.id = id;
+	public Pallet(Integer peso, String targa, ObjectId idVolo, Integer fila, Integer colonna) {
 		this.peso = peso;
 		this.targa = targa;
 		this.idVolo = idVolo;
@@ -53,8 +54,8 @@ public class Pallet extends Model {
 	 * @param targa la targa del pallet
 	 * @param idVolo Id del volo su cui si trova il pallet
 	 */
-	public Pallet(Integer peso, String targa, Integer idVolo) {
-		this(null, peso,  targa,  idVolo, null, null);
+	public Pallet(Integer peso, String targa, ObjectId idVolo) {
+		this(peso,  targa,  idVolo, null, null);
 	}
 	
 	/**
@@ -104,7 +105,7 @@ public class Pallet extends Model {
 	 *
 	 * @return L'id del volo su cui si trova il pallet
 	 */
-	public Integer getIdVolo() {
+	public ObjectId getIdVolo() {
 		return idVolo;
 	}
 	
@@ -113,18 +114,10 @@ public class Pallet extends Model {
 	 *
 	 * @param idVolo Id del volo su cui si trova il pallet
 	 */
-	public void setIdVolo(Integer idVolo) {
+	public void setIdVolo(ObjectId idVolo) {
 		this.idVolo = idVolo;
 	}
-	
-	/**
-	 * Ottiene il serial version UID
-	 *
-	 * @return Il serial version UID
-	 */
-	public static long getSerialVersionUID() {
-		return serialVersionUID;
-	}
+
 	
 	/** Restituisce la fila in cui posizionare del pallet*/
 	public Integer getFila() {
@@ -145,17 +138,10 @@ public class Pallet extends Model {
 	public void setColonna(Integer colonna) {
 		this.colonna = colonna;
 	}
-
-	/* (non-Javadoc)
-	 * @see model.Model#getFields()
-	 */
+	
 	@Override
-	// ottiene la lista dei campi della classe pallet
-	public List<Field> getFields() {
-		List<Field>  fields = super.getFields();
-		Field[] currentFields = Pallet.class.getDeclaredFields();
-		for(Field f : currentFields)
-			fields.add(f);
-		return  fields;
+	public String toString() {
+		// TODO Auto-generated method stub
+		return "id: "+id+ " peso: "+peso+" targa: "+targa+" idVolo: "+idVolo;
 	}
 }
