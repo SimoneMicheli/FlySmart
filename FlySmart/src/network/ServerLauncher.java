@@ -35,11 +35,7 @@ public class ServerLauncher {
 		
 		try {
 			opt.loadFromXML(file);
-			
-			Options.voliFileName = opt.getProperty("voliFileName");
 			Options.aeroportiFileName = opt.getProperty("aeroportiFileName");
-			Options.voloPassFileName = opt.getProperty("voloPassFileName");
-			Options.voloPalletFileName = opt.getProperty("voloPalletFileName");
 			
 		}catch (Exception e) {
 			log.catching(e);

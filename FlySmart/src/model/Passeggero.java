@@ -1,13 +1,12 @@
 package model;
 
-import java.lang.reflect.Field;
 import java.util.Calendar;
-import java.util.List;
 
 import org.bson.types.ObjectId;
 
 import com.google.code.morphia.annotations.Embedded;
 import com.google.code.morphia.annotations.Entity;
+import com.google.code.morphia.annotations.Indexed;
 
 /**Rappresenta un cliente della compagnia aerea, e le sue informazioni personali.
  * Sono contenute inoltre informazioni circa il volo da lui prenotato e il posto assegnatogli
@@ -20,6 +19,7 @@ import com.google.code.morphia.annotations.Entity;
 public class Passeggero extends Model {
 	
 	/** Id del gruppo di passeggero */
+	@Indexed
 	private Integer idGruppo;
 	
 	/** Nome del passeggero */
@@ -47,10 +47,8 @@ public class Passeggero extends Model {
 	@Embedded
 	private Sesso sesso;
 	
-	/** Peso dei bagagli del passeggero (in Kilogrammi) */
-	private Double pesoBagagli;
-	
 	/** Id del volo del passeggero */
+	@Indexed
 	private ObjectId idVolo;
 	
 	/** Fila del posto del passeggero */
@@ -75,13 +73,12 @@ public class Passeggero extends Model {
 	 * @param mese Mese di nascita
 	 * @param anno Anno di nascita
 	 */
-	public Passeggero(Integer idGruppo, String nome, String cognome, Integer eta, Sesso sesso, Double pesoBagagli, ObjectId idVolo, Integer fila, Integer colonna, Integer giorno, Integer mese, Integer anno) {
+	public Passeggero(Integer idGruppo, String nome, String cognome, Integer eta, Sesso sesso, ObjectId idVolo, Integer fila, Integer colonna, Integer giorno, Integer mese, Integer anno) {
 		this.idGruppo = idGruppo;
 		this.nome = nome;
 		this.cognome = cognome;
 		this.eta = eta;
 		this.sesso = sesso;
-		this.pesoBagagli = pesoBagagli;
 		this.idVolo = idVolo;
 		this.fila = fila;
 		this.colonna = colonna;
@@ -108,7 +105,7 @@ public class Passeggero extends Model {
 	 * @param sesso Sesso del passeggero
 	 */
 	public Passeggero(String nome, String cognome,String giorno, String mese, String anno, Sesso sesso) {
-		this(null, nome,  cognome,  calcolaEta(giorno, mese, anno),  sesso,  null,  null,  null, null, Integer.parseInt(giorno), Integer.parseInt(mese), Integer.parseInt(anno));
+		this(null, nome,  cognome,  calcolaEta(giorno, mese, anno),  sesso, null,  null, null, Integer.parseInt(giorno), Integer.parseInt(mese), Integer.parseInt(anno));
 	}
 	
 	
@@ -123,7 +120,7 @@ public class Passeggero extends Model {
 	 * @param sesso Sesso del passeggero
 	 */
 	public Passeggero(String nome, String cognome,int giorno, int mese, int anno, Sesso sesso) {
-		this(null, nome,  cognome,  calcolaEta(giorno, mese, anno),  sesso,  null,  null,  null, null, giorno, mese, anno);
+		this(null, nome,  cognome,  calcolaEta(giorno, mese, anno),  sesso,  null,  null, null, giorno, mese, anno);
 	}
 
 	/**
@@ -191,27 +188,6 @@ public class Passeggero extends Model {
 	public void setSesso(Sesso sesso) {
 		this.sesso = sesso;
 	}
-
-
-	/**
-	 * Ottiene il peso dei bagagli in Kilogrammi
-	 *
-	 * @return Il peso dei bagagli in Kilogrammi
-	 */
-	public Double getPesoBagagli() {
-		return pesoBagagli;
-	}
-
-
-	/**
-	 * Set il peso dei bagali in Kilogrammi
-	 *
-	 * @param pesoBagagli Il peso dei bagagli in Kilogrammi
-	 */
-	public void setPesoBagagli(Double pesoBagagli) {
-		this.pesoBagagli = pesoBagagli;
-	}
-
 
 	/**
 	 * Ottiene l'Id del volo del passeggero 
@@ -335,7 +311,7 @@ public class Passeggero extends Model {
 	 */
 	@Override
 	public String toString() {
-		return nome + " " + cognome;
+		return nome + " " + cognome+ "idVolo: "+idVolo;
 	}
 
 	/**

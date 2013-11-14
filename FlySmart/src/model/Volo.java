@@ -1,5 +1,6 @@
 package model;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
@@ -7,6 +8,7 @@ import java.util.List;
 
 import com.google.code.morphia.annotations.Embedded;
 import com.google.code.morphia.annotations.Entity;
+import com.google.code.morphia.annotations.Indexed;
 import com.google.code.morphia.annotations.Reference;
 
 /**
@@ -16,15 +18,18 @@ import com.google.code.morphia.annotations.Reference;
  * 
  */
 @Entity
-public class Volo extends Model {
+public class Volo extends Model{
 	
 	/** Data del volo (in particolare la partenza) */
+	@Indexed
 	private Date dataOra;
 	
 	/** Id dell'aeroporto di partenza */
+	@Indexed
 	private Integer  aeroportoPartenza;
 	
 	/** Id dell'aeroporto di destinazione */
+	@Indexed
 	private Integer  aeroportoDestinazione;
 	
 	/** Numero di posti prenotati sull'aereo */

@@ -6,6 +6,7 @@ import java.util.List;
 import org.bson.types.ObjectId;
 
 import com.google.code.morphia.annotations.Entity;
+import com.google.code.morphia.annotations.Indexed;
  
 /**
  * @author Demarinis - Micheli - Scarpellini
@@ -15,12 +16,14 @@ import com.google.code.morphia.annotations.Entity;
 public class Pallet extends Model {
 	
 	/** Il peso del pallet */
+	@Indexed
 	private Integer peso;
 	
 	/** La targa del pallet */
 	private String targa;
 	
 	/** Id del volo su cui si trova il pallet */
+	@Indexed
 	private ObjectId idVolo;
 	
 	/** Indica la fila in cui posizionare il pallet*/

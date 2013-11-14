@@ -2,9 +2,6 @@ package xml;
 
 import model.*;
 import java.io.File;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 import org.w3c.dom.*;
@@ -13,7 +10,7 @@ import org.w3c.dom.*;
  * Carica il Document XML e crea una lista di oggetti contenuti nel file xml
  * @author Demarinis - Micheli - Scarpellini
  */
-public class XMLToObj<T extends Model>{
+public class XMLToObj<T extends GetFields>{
 	
 	private Class<T> cls;
 	
@@ -85,33 +82,11 @@ public class XMLToObj<T extends Model>{
 				
 				//determino oggetto
 				switch (cls.getCanonicalName()) {
-				case "model.Passeggero":
-					Passeggero p = new Passeggero((Integer) (map.get("id")), (Integer) (map.get("idGruppo")),(String) map.get("nome"),(String) map.get("cognome"), (Integer) (map.get("eta")), (Sesso) (map.get("sesso")), (Double) map.get("pesoBagagli"), (Integer) map.get("idVolo"), (Integer) map.get("fila"), (Integer) map.get("colonna"), (Integer) map.get("giorno"), (Integer) (map.get("mese")), (Integer) (map.get("anno")));
-					lista.add((T) p);
-					break;
+				
 
 				case "model.Aeroporto":
 					Aeroporto a = new Aeroporto((Integer) (map.get("id")),(String) map.get("nome"));
 					lista.add((T) a);
-					break;
-					
-				case "model.Pallet":
-					Pallet pall = new Pallet((Integer) (map.get("id")), (Integer) (map.get("peso")), (String) map.get("targa"), (Integer) (map.get("idVolo")), (Integer) (map.get("fila")), (Integer) (map.get("colonna")) );
-					lista.add((T) pall);
-					break;
-					
-				case "model.Volo":
-					//sistemo il formato delle date
-					DateFormat df = new SimpleDateFormat("EEE MMM d HH:mm:ss z yyyy", Locale.ROOT);
-					Date dt=new Date();
-					try {
-						//parsing della data
-						dt=df.parse((String) map.get("dataOra"));
-					} catch (ParseException e) {
-						e.printStackTrace();
-					}
-					Volo v = new Volo((Integer) (map.get("id")), dt, (Integer) (map.get("aeroportoPartenza")) , (Integer) (map.get("aeroportoDestinazione")), (Integer) (map.get("aereo")), (Integer) (map.get("postiDisponibili")), (Integer) (map.get("palletDisponibili")), (Double) (map.get("prezzoPasseggero")), (Double) (map.get("prezzoPallet")), (StatoVolo) (map.get("stato")), (TipoAereo) (map.get("tipoAereo")), (Integer) (map.get("lastID")), (Integer) (map.get("lastPalletID")), (Integer) (map.get("lastGroupID")));
-					lista.add((T) v);
 					break;
 					
 				default:

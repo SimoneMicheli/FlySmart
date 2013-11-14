@@ -32,14 +32,17 @@ public class readTest {
 		List<Passeggero> passl = ds.createQuery(Passeggero.class).asList();
 		
 		VoloDAO vDAO = DBSession.getVoloDAO();
-		
+		PasseggeroDAO passDAO = DBSession.getPasseggeroDAO();
 		/*for(Passeggero p : passl)
 			System.out.println(p);*/
 		
-		Volo vl = vDAO.getById("5283e2c80364fcb7ffc1cc93");
+		Volo vl = vDAO.getById("5284a29603644ce526d91488");
 		
 			
-			//for(Passeggero p : passl)
+			/*for(Passeggero p : passl){
+				p.setIdVolo(vl.getId());
+				passDAO.save(p);
+			}*/
 				//vl.getPasseggeri().add(p);
 			
 			//vDAO.save(vl);

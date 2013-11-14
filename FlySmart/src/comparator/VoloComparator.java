@@ -8,7 +8,6 @@ import java.util.Comparator;
 import model.Volo;
 
 /** Gestione ordinamento voli secondo i seguenti criteri:
- * ID_ORDER,
  * DATA_ORDER,
  * POSTI_ORDER,
  * PALLET_ORDER
@@ -18,12 +17,6 @@ import model.Volo;
  */
 public enum VoloComparator implements Comparator<Volo> {
 
-	ID_ORDER{
-		@Override
-		public int compare(Volo o1, Volo o2) {
-			return o1.getId() - o2.getId();
-		}
-	},
 	DATA_ORDER{
 		@Override
 		public int compare(Volo o1, Volo o2) {

@@ -1,13 +1,15 @@
 package model;
 
+import java.io.Serializable;
 import java.lang.reflect.Field;
+import java.util.LinkedList;
 import java.util.List;
 
 /**Rappresenta un determinato aeroporto, e informazioni circa tasse e prezzo del carburante.
  * @author Demarinis - Micheli - Scarpellini
  * 
  */
-public class Aeroporto{
+public class Aeroporto implements GetFields, Serializable{
 	
 	/**id Aeroporto*/
 	private Integer id;
@@ -21,8 +23,6 @@ public class Aeroporto{
 	 *
 	 * @param id Id dell'aeroporto
 	 * @param nome Nome dell'aeroporto
-	 * @param prezzoCarburante Prezzo del carburante
-	 * @param tasse Tasse pagate
 	 */
 	public Aeroporto(Integer id, String nome) {
 		this.id = id;
@@ -58,8 +58,17 @@ public class Aeroporto{
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
-	//override del metodo toString
 	public String toString() {
 		return nome;
+	}
+
+	@Override
+	public List<Field> getFields() {
+		Field[] currentFields = Aeroporto.class.getDeclaredFields();
+		List<Field> fields = new LinkedList<Field>();
+		for (Field f : currentFields){
+				fields.add(f);
+		}
+		return fields;
 	}
 }

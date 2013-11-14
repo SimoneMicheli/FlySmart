@@ -8,7 +8,6 @@ import java.util.Comparator;
 import model.Passeggero;
 
 /**Gestione ordinamento passeggeri
- * ID_ORDER: ordinamento crescente per id
  * NAME_ORDER: ordinamento crescente per nome
  * @author Demarinis - Micheli - Scarpellini
  *
@@ -22,12 +21,6 @@ public enum PasseggeroComparator implements Comparator<Passeggero> {
 				cmp = o1.getNome().compareTo(o2.getNome());
 			return cmp;
 			
-		}
-	},
-	ID_ORDER{
-		@Override
-		public int compare(Passeggero o1, Passeggero o2) {
-			return o1.getId() - o2.getId();
 		}
 	},
 	PESO_ORDER{

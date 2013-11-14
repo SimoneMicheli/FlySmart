@@ -14,15 +14,16 @@ import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.bson.types.ObjectId;
 import org.w3c.dom.Document;
 
 import util.Options;
 import xml.XMLCreate;
 import xml.XMLToObj;
 import comparator.*;
+import db.DBSession;
 import exception.FlightNotFoundException;
 import exception.SeatsSoldOutException;
-import fileLock.*;
 import model.*;
 
 /** Implementa i metodi definiti nell'interfaccia del server
@@ -33,10 +34,6 @@ import model.*;
 public class Server extends UnicastRemoteObject implements ServerInterface {
 	private static final long serialVersionUID = -1112973689097758070L;
 	
-	/**lock assegnato al file contenente i voli */
-	private FileLock voliLock;
-	/**hash map contenente per goni volo (id) il lock assegnato passeggeri/pallet */
-	private HashMap<Integer, FileLock> passLocks, palletLocks;
 	/** logger*/
 	Logger log;
 	
@@ -53,34 +50,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 		
 		log = LogManager.getLogger(Server.class.getCanonicalName().toString());
 		
-		log.entry();
-		//lock per accesso al file voli.xml
-		voliLock = new FileLockImpl();
-		
-		//leggo elenco voli
-		List<Volo> voli = new LinkedList<Volo>();
-		XMLToObj<Volo> parserXML = new XMLToObj<Volo>(Volo.class);
-		
-		//lock in lettura su volo
-		voliLock.acquireReadLock();
-		
-		voli = parserXML.readObj(Options.voliFileName);
-		
-		voliLock.releaseReadLock();
-		
-		//creo file lock
-		int l = voli.size();
-		//preparo hasmap di capacitˆ l
-		passLocks = new HashMap<Integer, FileLock>(l);
-		palletLocks = new HashMap<Integer, FileLock>(l);
-		Iterator<Volo> i = voli.iterator();
-		while (i.hasNext()) {
-			Volo volo = (Volo) i.next();
-			//creo lock per ogni volo
-			passLocks.put(volo.getId(), new FileLockImpl());
-			palletLocks.put(volo.getId(), new FileLockImpl());
-		}
-		log.exit();
+		log.info("Creazione oggetto Server");
 	}
 	
 	
@@ -91,6 +61,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 	@Override
 	public List<Aeroporto> getAeroporti() throws RemoteException {
 		
+		log.entry();
 		List<Aeroporto> aeroporti = new LinkedList<Aeroporto>();
 		XMLToObj<Aeroporto> parserXML = new XMLToObj<Aeroporto>(Aeroporto.class);
 	
@@ -101,6 +72,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 		Collections.sort(aeroporti, AeroportoComparator.NAME_ORDER);
 		
 		//restituisce elnco aeroporti al client
+		log.exit();
 		return aeroporti;
 	}
 
@@ -109,37 +81,22 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 	 */
 	@Override
 	public List<Volo> getVoli(int idp, int ida) throws RemoteException {
-		List<Volo> voli = new LinkedList<Volo>();
-		List<Volo> voliRichiesti = new LinkedList<Volo>();
-		XMLToObj<Volo> parserXML = new XMLToObj<Volo>(Volo.class);
+		log.entry();
+		List<Volo> voli = null;
 		
-		//lock in lettura su volo
-		voliLock.acquireReadLock();
+		voli = DBSession.getVoloDAO().getByPartenzaDestinazione(idp, ida);
 		
-		voli = parserXML.readObj(Options.voliFileName);
-		
-		voliLock.releaseReadLock();
-		
-		//estrai voli richiesti
-		Iterator<Volo> i = voli.iterator();
-		
-		while (i.hasNext()) {
-			Volo volo = (Volo) i.next();
-			if (volo.getAeroportoPartenza() == idp && volo.getAeroportoDestinazione() == ida && volo.getDataOra().compareTo(new Date()) > 0 && volo.getPostiDisponibili()>0){
-				voliRichiesti.add(volo);
-			}
-		}
-		Collections.sort(voliRichiesti, VoloComparator.DATA_ORDER);
-		return voliRichiesti;
+		log.exit();
+		return voli;
 	}
 
 	/* (non-Javadoc)
 	 * @see network.ServerInterface#prenotaPasseggero(java.util.List, int)
 	 */
 	@Override
-	public int prenotaPasseggero(List<Passeggero> listToAdd, int idVolo) throws FlightNotFoundException, SeatsSoldOutException {
+	public int prenotaPasseggero(List<Passeggero> listToAdd, ObjectId idVolo) throws FlightNotFoundException, SeatsSoldOutException {
 		
-		List<Passeggero> passeggeri = new ArrayList<Passeggero>();
+		/*List<Passeggero> passeggeri = new ArrayList<Passeggero>();
 		ArrayList<Volo> voli = new ArrayList<Volo>();
 		XMLToObj<Volo> parserXML = new XMLToObj<Volo>(Volo.class);
 		
@@ -200,7 +157,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 			voliLock.releaseWriteLock();
 			lock.releaseWriteLock();
 		}
-		
+		*/
 		return 0;
 	}
 
@@ -208,8 +165,8 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 	 * @see network.ServerInterface#prenotaPallet(java.util.List, int)
 	 */
 	@Override
-	public int prenotaPallet(List<Pallet> listToAdd, int idVolo) throws FlightNotFoundException, SeatsSoldOutException {
-		List<Pallet> pallets = new ArrayList<Pallet>();
+	public int prenotaPallet(List<Pallet> listToAdd, ObjectId idVolo) throws FlightNotFoundException, SeatsSoldOutException {
+		/*List<Pallet> pallets = new ArrayList<Pallet>();
 		ArrayList<Volo> voli = new ArrayList<Volo>();
 		XMLToObj<Volo> parserXML = new XMLToObj<Volo>(Volo.class);
 		
@@ -269,7 +226,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 			voliLock.releaseWriteLock();
 			lock.releaseWriteLock();
 		}
-		
+		*/
 		return 0;
 	}
 
