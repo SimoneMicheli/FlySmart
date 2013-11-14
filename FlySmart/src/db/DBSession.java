@@ -5,31 +5,39 @@ import java.net.UnknownHostException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import util.Options;
+
 import model.Pallet;
 import model.Passeggero;
 import model.Volo;
 
 import com.google.code.morphia.Datastore;
 import com.google.code.morphia.Morphia;
+import com.google.code.morphia.logging.MorphiaLoggerFactory;
 import com.mongodb.Mongo;
 
 /**
- * crea il gestore db db con un design pattern di tipo singleton
+ * crea il gestore del db 
+ * implementazione con design pattern di tipo singleton
  *
  */
-public class DBSession{
-	
-	//configuration----------------------
-	private static String DBName = "FlySmart";
-	
-	//runtime var------------------------
-	
+public final class DBSession{
+
 	private static Logger log = LogManager.getLogger(DBSession.class.getCanonicalName().toString());
-	
+
+	/**
+	 * connessione a mongoDB
+	 */
 	private static Mongo mongo = null;
 	
+	/**
+	 * mapper to/from mongoDB
+	 */
 	private static Morphia morphia = null;
 	
+	/**
+	 * gestisce lo scambio di dati da e per il DB
+	 */
 	private static Datastore ds = null;
 
 	private static DBSession session = null;
@@ -40,22 +48,33 @@ public class DBSession{
 	
 	private static PalletDAO pallDAO=null;
 	
+	/**
+	 * costruttore privato per singleton
+	 * @throws UnknownHostException
+	 */
 	private DBSession() throws UnknownHostException{
 		
-		log.info("Connessione a mongo DB");
-		mongo = new Mongo();
+		log.info("Connessione a MongoDB");
+		
+		MorphiaLoggerFactory.registerLogger( SilentLogrFactory.class);
+		
+		mongo = new Mongo(Options.mongoHost, Options.mongoPort);
 		morphia = new Morphia();
+		
 		
 		setMapper();
 		
-		ds = morphia.createDatastore(mongo, DBName);
+		ds = morphia.createDatastore(mongo, Options.mongoDBName);
 		
 		ds.ensureIndexes();
 		ds.ensureCaps();
 		
-		log.info("Connessione Riuscita");
+		log.info("Connesso a MongoDB");
 	}
 	
+	/**
+	 * configura morphia per eseguire il mapping degli oggetti
+	 */
 	private void setMapper(){
 		
 		log.info("Mapping object to DB");
@@ -65,7 +84,10 @@ public class DBSession{
 		
 	}
 
-	
+	/**
+	 * ritorna l'istanza del datastore che permette di eseguire query sul DB
+	 * @return datastore
+	 */
 	public static Datastore getInstance() {
 		log.entry();
 		if(session == null)
@@ -78,6 +100,10 @@ public class DBSession{
 		return ds;
 	}
 	
+	/**
+	 * ritorna un istanza di VoloDAO
+	 * @return VoloDAO
+	 */
 	public static VoloDAO getVoloDAO(){
 		log.entry();
 		if(session == null)
@@ -92,6 +118,10 @@ public class DBSession{
 		return vDAO;
 	}
 	
+	/**
+	 * ritorna un istanza di PasseggeroDAO
+	 * @return PasseggeroDAO
+	 */
 	public static PasseggeroDAO getPasseggeroDAO(){
 		log.entry();
 		if(session == null)
@@ -106,6 +136,10 @@ public class DBSession{
 		return passDAO;
 	}
 	
+	/**
+	 * ritorna un istanza di PalletDAO
+	 * @return PalletDAO
+	 */
 	public static PalletDAO getPalletDAO(){
 		log.entry();
 		if(session == null)

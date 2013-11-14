@@ -29,7 +29,7 @@ public class Creator {
 			//create folder
 			new File("data/xml/").mkdirs();
 			creaAeroporti();
-			//creaVoli();
+			creaVoli();
 			System.out.println("Generazione dati terminata");
 		} catch (IOException e) {
 			e.printStackTrace();

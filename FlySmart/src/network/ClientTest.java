@@ -39,9 +39,9 @@ public class ClientTest {
 			
 			System.out.println(s);
 			
-			java.util.List<Volo> v = serv.getVoli(1, 2);
+			java.util.List<Volo> voli = serv.getVoli(1,2);
 			
-			System.out.println(v);
+			System.out.println(voli);
 			
 			java.util.List<Passeggero> passToAdd = new LinkedList<Passeggero>();
 			
@@ -49,15 +49,21 @@ public class ClientTest {
 			passToAdd.add(new Passeggero("andrea", "bianchi", 5, 2, 1960, Sesso.M));
 			passToAdd.add(new Passeggero("valentina", "carrara", 22, 7, 1995, Sesso.F));
 			
-			//int rx = serv.prenotaPasseggero(passToAdd, 2);
+			int rx = serv.prenotaPasseggero(passToAdd, voli.get(0).getId());
 			
-			//System.out.println(rx);
+			System.out.println(rx);
 			
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		} catch (NotBoundException e) {
+			e.printStackTrace();
+		} catch (FlightNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SeatsSoldOutException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
 	}

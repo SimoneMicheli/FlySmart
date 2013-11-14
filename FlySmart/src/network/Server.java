@@ -15,6 +15,7 @@ import util.Options;
 import xml.XMLToObj;
 import comparator.*;
 import db.DBSession;
+import db.Lock;
 import exception.FlightNotFoundException;
 import exception.SeatsSoldOutException;
 import model.*;
@@ -60,7 +61,6 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 	
 		//parse xml data lock non richiesto perchè file usato in sola lettura
 		aeroporti = parserXML.readObj(Options.aeroportiFileName);
-		System.out.println(Options.aeroportiFileName);
 		//ordina eroport in base al nome
 		Collections.sort(aeroporti, AeroportoComparator.NAME_ORDER);
 		
@@ -89,30 +89,45 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 	@Override
 	public int prenotaPasseggero(List<Passeggero> listToAdd, ObjectId idVolo) throws FlightNotFoundException, SeatsSoldOutException {
 		
-		Volo v = DBSession.getVoloDAO().get(idVolo);
-		
-		if(v == null)
-			throw new FlightNotFoundException(idVolo);
-		
-		if (v.getPostiDisponibili() - listToAdd.size() < 0){
-			throw new SeatsSoldOutException(idVolo); //posti insufficienti
+		try {
+			//accesso esclusivo al volo
+			Lock.getInstance().acquireLock(idVolo);
+			
+			//recupero volo da DB
+			Volo v = DBSession.getVoloDAO().get(idVolo);
+			
+			//volo non trovato
+			if(v == null){
+				throw new FlightNotFoundException(idVolo);
+			}
+			
+			//posti insufficienti
+			if (v.getPostiDisponibili() - listToAdd.size() < 0){
+				throw new SeatsSoldOutException(idVolo); //posti insufficienti
+			}
+			
+			v.setPostiDisponibili(v.getPostiDisponibili() - listToAdd.size());
+			int idGruppo = v.getNextGroupID();
+			
+			//registro passeggeri su volo
+			for(Passeggero p : listToAdd){
+				//update pass and volo
+				p.setIdVolo(idVolo);
+				p.setIdGruppo(idGruppo);
+				v.getPasseggeri().add(p);
+				
+				//salva passeggero
+				DBSession.getPasseggeroDAO().save(p);
+				
+			}
+			//salvo volo
+			DBSession.getVoloDAO().save(v);
+		} finally  {
+			//rilascio il lock
+			Lock.getInstance().releaseLock(idVolo);
 		}
 		
-		v.setPostiDisponibili(v.getPostiDisponibili() - listToAdd.size());
-		int idGruppo = v.getNextGroupID();
 		
-		for(Passeggero p : listToAdd){
-			//update pass and volo
-			p.setIdVolo(idVolo);
-			p.setIdGruppo(idGruppo);
-			v.getPasseggeri().add(p);
-			
-			//salva passeggero
-			DBSession.getPasseggeroDAO().save(p);
-			
-		}
-		//salvo volo
-		DBSession.getVoloDAO().save(v);
 		
 		return 0;
 	}

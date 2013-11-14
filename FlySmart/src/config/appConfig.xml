@@ -3,6 +3,9 @@
 <properties>
 <comment>FlySmart configuration file</comment>
 <entry key="aeroportiFileName">data/xml/aeroporti.xml</entry>
+<entry key="mongoHost">127.0.0.1</entry>
+<entry key="mongoPort">27017</entry>
+<entry key="mongoDBName">FlySmart</entry>
 <entry key="keyStore">src/network/server/keystore.jks</entry>
 <entry key="keyStorePassword">serverstore</entry>
 <entry key="trustStore">src/network/server/servercacert.jks</entry>

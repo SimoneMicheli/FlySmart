@@ -36,6 +36,9 @@ public class ServerLauncher {
 		try {
 			opt.loadFromXML(file);
 			Options.aeroportiFileName = opt.getProperty("aeroportiFileName");
+			Options.mongoHost = opt.getProperty("mongoHost");
+			Options.mongoPort = Integer.parseInt(opt.getProperty("mongoPort"));
+			Options.mongoDBName = opt.getProperty("mongoDBName");
 			
 		}catch (Exception e) {
 			log.catching(e);
@@ -44,7 +47,6 @@ public class ServerLauncher {
 			Options.LoadDefaultOptions();
 		}
 		
-		System.out.println(Options.aeroportiFileName);
 	}
 	
 	/**
@@ -88,7 +90,7 @@ public class ServerLauncher {
 
 			//avvia il server
 			r.rebind(url, s );
-
+			
 			log.info("Server RMI avviato");
 
 		} catch (RemoteException e) {
