@@ -2,10 +2,7 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 <comment>FlySmart configuration file</comment>
-<entry key="voliFileName">data/voli.xml</entry>
-<entry key="voloPalletFileName">data/volo_%s_pallet.xml</entry>
-<entry key="aeroportiFileName">data/aeroporti.xml</entry>
-<entry key="voloPassFileName">data/volo_%s_pass.xml</entry>
+<entry key="aeroportiFileName">data/xml/aeroporti.xml</entry>
 <entry key="keyStore">src/network/server/keystore.jks</entry>
 <entry key="keyStorePassword">serverstore</entry>
 <entry key="trustStore">src/network/server/servercacert.jks</entry>

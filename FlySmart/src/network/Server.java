@@ -60,7 +60,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 	
 		//parse xml data lock non richiesto perchè file usato in sola lettura
 		aeroporti = parserXML.readObj(Options.aeroportiFileName);
-		
+		System.out.println(Options.aeroportiFileName);
 		//ordina eroport in base al nome
 		Collections.sort(aeroporti, AeroportoComparator.NAME_ORDER);
 		

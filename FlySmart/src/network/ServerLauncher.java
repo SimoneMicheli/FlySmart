@@ -43,6 +43,8 @@ public class ServerLauncher {
 
 			Options.LoadDefaultOptions();
 		}
+		
+		System.out.println(Options.aeroportiFileName);
 	}
 	
 	/**
