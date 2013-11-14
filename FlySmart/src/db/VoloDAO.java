@@ -10,9 +10,7 @@ import model.Volo;
 import org.bson.types.ObjectId;
 
 import com.google.code.morphia.Datastore;
-import com.google.code.morphia.Morphia;
 import com.google.code.morphia.dao.BasicDAO;
-import com.mongodb.Mongo;
 
 /**
  *
@@ -24,11 +22,7 @@ public class VoloDAO extends BasicDAO<Volo, ObjectId> {
 	}
 	
 	public Volo getById(String id){
-		return getById(new ObjectId(id));
-	}
-	
-	public Volo getById(ObjectId id){
-		return ds.createQuery(Volo.class).field("id").equal(id).get();
+		return get(new ObjectId(id));
 	}
 	
 	public List<Volo> getByPartenzaDestinazione(Integer p, Integer a){

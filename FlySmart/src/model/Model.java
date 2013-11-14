@@ -15,6 +15,8 @@ import com.google.code.morphia.annotations.Id;
  * @author Demarinis - Micheli - Scarpellini
  *
  */
+
+@SuppressWarnings("serial")
 @Entity
 public abstract class Model implements Serializable{
 

@@ -1,5 +1,7 @@
 package exception;
 
+import org.bson.types.ObjectId;
+
 /**Eccezione lanciata se il volo cercato
  * non esiste o non � stato trovato nella lista
  * @author Demarinis - Micheli - Scarpellini
@@ -14,8 +16,8 @@ public class FlightNotFoundException extends Exception {
 		super("required flight NOT FOUND!");
 	}
 	
-	public FlightNotFoundException(int id){
-		super("required flight "+ Integer.toString(id) +"NOT FOUND!");
+	public FlightNotFoundException(ObjectId id){
+		super("required flight "+ id.toString() +"NOT FOUND!");
 	}
 	
 	public FlightNotFoundException(String message){

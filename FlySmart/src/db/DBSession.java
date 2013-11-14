@@ -1,6 +1,3 @@
-/**
- * 
- */
 package db;
 
 import java.net.UnknownHostException;
@@ -14,7 +11,6 @@ import model.Volo;
 
 import com.google.code.morphia.Datastore;
 import com.google.code.morphia.Morphia;
-import com.google.code.morphia.logging.MorphiaLoggerFactory;
 import com.mongodb.Mongo;
 
 /**

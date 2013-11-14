@@ -49,9 +49,9 @@ public class ClientTest {
 			passToAdd.add(new Passeggero("andrea", "bianchi", 5, 2, 1960, Sesso.M));
 			passToAdd.add(new Passeggero("valentina", "carrara", 22, 7, 1995, Sesso.F));
 			
-			int rx = serv.prenotaPasseggero(passToAdd, 2);
+			//int rx = serv.prenotaPasseggero(passToAdd, 2);
 			
-			System.out.println(rx);
+			//System.out.println(rx);
 			
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
@@ -59,11 +59,7 @@ public class ClientTest {
 			e.printStackTrace();
 		} catch (NotBoundException e) {
 			e.printStackTrace();
-		} catch (FlightNotFoundException e) {
-			e.printStackTrace();
-		} catch (SeatsSoldOutException e) {
-			e.printStackTrace();
-		}
+		} 
 	}
 
 }

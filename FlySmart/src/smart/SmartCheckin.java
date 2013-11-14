@@ -24,14 +24,12 @@ import xml.XMLCreate;
 import xml.XMLToObj;
 
 import exception.FlightNotFoundException;
-import fileLock.FileLock;
 
 /**
  *
  */
 public class SmartCheckin {
-	private FileLock voliLock;
-	private HashMap<Integer, FileLock> passLocks, palletLocks;
+	
 	private boolean[][] occupancyPasseggeri= {{false,false,false,false,false,false},{false,false,false,false,false,false},{false,false,false,false,false,false},{false,false,false,false,false,false},{false,false,false,false,false,false},{false,false,false,false,false,false},{false,false,false,false,false,false},{false,false,false,false,false,false},{false,false,false,false,false,false},{false,false,false,false,false,false},{false,false,false,false,false,false},{false,false,false,false,false,false}};
 	private boolean[][] occupancyPallet= {{false,false},{false,false},{false,false},{false,false}};
 
@@ -42,12 +40,8 @@ public class SmartCheckin {
 	 * @param passLocks
 	 * @param palletLocks
 	 */
-	public SmartCheckin(FileLock voliLock,
-			HashMap<Integer, FileLock> passLocks,
-			HashMap<Integer, FileLock> palletLocks) {
-		this.voliLock = voliLock;
-		this.passLocks = passLocks;
-		this.palletLocks = palletLocks;
+	public SmartCheckin() {
+		
 
 	}
 

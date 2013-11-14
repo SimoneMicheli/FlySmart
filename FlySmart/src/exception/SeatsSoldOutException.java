@@ -1,5 +1,7 @@
 package exception;
 
+import org.bson.types.ObjectId;
+
 /** Eccezione lanciata se il volo cercato
  * ha posti residui insufficienti
  * @author Demarinis - Micheli - Scarpellini
@@ -13,8 +15,8 @@ public class SeatsSoldOutException extends Exception {
 		super("seats sold out!");
 	}
 	
-	public SeatsSoldOutException(int id){
-		super("seats sold out for flight: "+ Integer.toString(id));
+	public SeatsSoldOutException(ObjectId id){
+		super("seats sold out for flight: "+ id.toString());
 	}
 	
 	public SeatsSoldOutException(String message){
