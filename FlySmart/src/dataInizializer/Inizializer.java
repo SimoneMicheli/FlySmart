@@ -1,4 +1,4 @@
-package xmlCreator;
+package dataInizializer;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,7 +16,7 @@ import util.Options;
 import xml.XMLCreate;
 import model.*;
 
-public class Creator {
+public class Inizializer {
 
 	/**
 	 * @param args

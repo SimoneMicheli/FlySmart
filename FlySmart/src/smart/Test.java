@@ -1,17 +1,9 @@
 package smart;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
+import org.bson.types.ObjectId;
 
-import comparator.VoloComparator;
+import exception.FlightNotFoundException;
 
-import model.Pallet;
-import model.Passeggero;
-import model.Volo;
-import util.Options;
-import xml.XMLToObj;
 
 public class Test {
 
@@ -26,7 +18,7 @@ public class Test {
 	
 	public static void esempio(){
 		/*Prova passeggeri*/
-		SmartCheckin provaPasseggeri = new SmartCheckin(null, null, null);
+		/*SmartCheckin provaPasseggeri = new SmartCheckin();
 		
 		int[] resultPasseggeri = provaPasseggeri.postoLiberoPasseggeri(2,3);
 		resultPasseggeri = provaPasseggeri.postoLiberoPasseggeri(2,3);
@@ -65,7 +57,7 @@ public class Test {
 		//		resultPasseggeri = provaPasseggeri.postoLiberoPasseggeri(,);
 		//      System.out.println("Posto: "+resultPasseggeri[1]+" "+resultPasseggeri[0]);
 		
-		/*Prova pallet
+		
 		SmartCheckin provaPallet = new SmartCheckin(null, null, null);
 		int[] resultPallet = provaPallet.postoLiberoPallet(0,2);
 		resultPallet = provaPallet.postoLiberoPallet(1,1);
@@ -80,25 +72,17 @@ public class Test {
 	}
 	
 	public static void testAlg(){
-		List<Volo> voli = new LinkedList<Volo>();
-		List<Pallet> pallets = new ArrayList<Pallet>();
-		XMLToObj<Volo> parserXML = new XMLToObj<Volo>(Volo.class);
+		ObjectId idVolo = new ObjectId();
 		
-		int idVolo = 0;
+		SmartCheckin c = null;
+		try {
+			c = new SmartCheckin(idVolo);
+		} catch (FlightNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		Options.LoadDefaultOptions();
-		voli = parserXML.readObj(Options.voliFileName);
-		Collections.sort(voli, VoloComparator.ID_ORDER);
-		int pos = Collections.binarySearch(voli,new Integer(idVolo));
-		
-		Volo v = voli.get(pos);
-		
-		XMLToObj<Pallet> parserXMLPallet = new XMLToObj<Pallet>(Pallet.class);
-		pallets = parserXMLPallet.readObj(String.format(Options.voloPalletFileName, idVolo));
-		
-		SmartCheckin c = new SmartCheckin(null, null, null);
-		
-		c.posizionaPallet(pallets, v);
+		c.calcolaCheckin();
 	}
 
 }

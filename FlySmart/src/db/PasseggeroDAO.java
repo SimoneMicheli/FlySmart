@@ -1,5 +1,7 @@
 package db;
 
+import java.util.List;
+
 import org.bson.types.ObjectId;
 
 import model.Passeggero;
@@ -15,5 +17,24 @@ public class PasseggeroDAO extends BasicDAO<Passeggero, ObjectId> {
 
 	public PasseggeroDAO(Datastore ds){
 		super(Passeggero.class, ds);
+	}
+	
+	/**
+	 * ottiene l'elenco dei passegeri di un certo volo
+	 * @param idVolo id del volo da cercare
+	 * @return elenco dei passeggeri del volo
+	 */
+	public List<Passeggero> getByIdVolo(ObjectId idVolo){
+		return ds.createQuery(Passeggero.class).filter("idVolo =", idVolo).asList();
+	}
+	
+	/**
+	 * salva una lista di passeggeri
+	 * @param list lista di passeggeri da salvare
+	 */
+	public void saveList(List<Passeggero> list){
+		for(Passeggero p : list){
+			this.save(p);
+		}
 	}
 }

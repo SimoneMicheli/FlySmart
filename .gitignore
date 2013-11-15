@@ -6,9 +6,6 @@
 
 #project file#
 aeroporti.xml
-config.xml
-voli.xml
-volo_*.xml
 
 */bin
 .classpath
@@ -16,3 +13,4 @@ volo_*.xml
 *.tmp
 */.settings
 .DS_Store
+*/data

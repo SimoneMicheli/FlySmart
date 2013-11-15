@@ -8,10 +8,13 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.bson.types.ObjectId;
 import org.w3c.dom.Document;
 
 import comparator.PalletComparator;
 import comparator.VoloComparator;
+import db.DBSession;
+import db.Lock;
 
 import model.Coordinata;
 import model.Pallet;
@@ -32,17 +35,25 @@ public class SmartCheckin {
 	
 	private boolean[][] occupancyPasseggeri= {{false,false,false,false,false,false},{false,false,false,false,false,false},{false,false,false,false,false,false},{false,false,false,false,false,false},{false,false,false,false,false,false},{false,false,false,false,false,false},{false,false,false,false,false,false},{false,false,false,false,false,false},{false,false,false,false,false,false},{false,false,false,false,false,false},{false,false,false,false,false,false},{false,false,false,false,false,false}};
 	private boolean[][] occupancyPallet= {{false,false},{false,false},{false,false},{false,false}};
+	
+	private Volo v;
 
-	/**
-	 * crea l'oggetto che implementa l'algoritmo per il calcolo
-	 * dell'assegnazione dei posti e dei pallet
-	 * @param voliLock
-	 * @param passLocks
-	 * @param palletLocks
-	 */
-	public SmartCheckin() {
+	public SmartCheckin(ObjectId idVolo) throws FlightNotFoundException{
 		
-
+		Lock.getInstance().acquireLock(idVolo);
+		
+		v = DBSession.getVoloDAO().get(idVolo);
+		
+		//volo non trovato
+		if(v == null)
+			throw new FlightNotFoundException(idVolo);
+		
+		//chiudo il volo
+		v.setStato(StatoVolo.CLOSED);
+		
+		DBSession.getVoloDAO().save(v);
+		
+		Lock.getInstance().releaseLock(idVolo);
 	}
 
 	public void stampaOccupancyPasseggeri(int x){
@@ -68,54 +79,23 @@ public class SmartCheckin {
 	}
 
 
-	public void calcolaCheckin(int idVolo) throws FlightNotFoundException, IOException{
-		List<Volo> voli = new LinkedList<Volo>();
-		List<Passeggero> passeggeri = new ArrayList<Passeggero>();
-		List<Pallet> pallets = new ArrayList<Pallet>();
-		XMLToObj<Volo> parserXML = new XMLToObj<Volo>(Volo.class);
-
-		//blocca volo
-		voliLock.acquireWriteLock();
-		voli = parserXML.readObj(Options.voliFileName);
-
-		Collections.sort(voli, VoloComparator.ID_ORDER);
-		int pos = Collections.binarySearch(voli,new Integer(idVolo));
-		if (pos < 0)
-			throw new FlightNotFoundException(idVolo); //volo non trovato
-
-		Volo v = voli.get(pos);
-
-		v.setStato(StatoVolo.CLOSED);
-		//salva volo aggiornato
-		XMLCreate<Volo> XMLVoloWriter = new XMLCreate<Volo>();
-		Document VoliDocument = XMLVoloWriter.createFlySmartDocument(voli);
-		try {
-			XMLVoloWriter.printDocument(VoliDocument, Options.voliFileName);
-		} finally {
-			voliLock.releaseWriteLock();
-		}
-
-		//ottieni elenco passeggeri e pallet
-		//passLocks.get(idVolo).acquireWriteLock();
-		palletLocks.get(idVolo).acquireWriteLock();
-
-		//passeggeri = parserXML.createPasseggeroList( String.format(Options.voloPassFileName, idVolo));
-		XMLToObj<Pallet> parserXMLPallet = new XMLToObj<Pallet>(Pallet.class);
-		pallets = parserXMLPallet.readObj(String.format(Options.voloPalletFileName, idVolo));
-
+	public void calcolaCheckin() {
+		//ottengo lista passeggeri e pallet
+		List<Passeggero> passeggeri = DBSession.getPasseggeroDAO().getByIdVolo(v.getId());
+		List<Pallet> pallets = DBSession.getPalletDAO().getByIdVolo(v.getId());
+		
 
 		//calcola disposizione
-
-
-		//posizionePallet(pallets, v);
+		posizionaPallet(pallets);
 		//posizionePasseggeri(passeggeri, v);
 
-		//salva risultato su file
-		//passLocks.get(idVolo).releaseWriteLock();
-		palletLocks.get(idVolo).releaseWriteLock();
+		//salva dati aggiornati nel db
+		DBSession.getPasseggeroDAO().saveList(passeggeri);
+		DBSession.getPalletDAO().saveList(pallets);
+		
 	}
 
-	public void posizionaPallet(List<Pallet> lista, Volo v){
+	private void posizionaPallet(List<Pallet> lista){
 
 
 		Collections.sort(lista, PalletComparator.PESO_ORDER);
@@ -183,7 +163,7 @@ public class SmartCheckin {
 	} 
 
 
-	public int[] postoLiberoPasseggeri(int colonnaScelta, int rigaScelta){
+	private int[] postoLiberoPasseggeri(int colonnaScelta, int rigaScelta){
 
 		int maxRighe =occupancyPasseggeri.length;
 		int distanzaMassima = maxRighe-rigaScelta-1;
@@ -234,7 +214,7 @@ public class SmartCheckin {
 		return posto;
 	}
 
-	public int[] postoLiberoPallet(int colonnaScelta, int rigaScelta){
+	private int[] postoLiberoPallet(int colonnaScelta, int rigaScelta){
 		int maxRighe =occupancyPallet.length;
 		int distanzaMassima = maxRighe-rigaScelta-1;
 		if(rigaScelta>distanzaMassima) distanzaMassima=rigaScelta;
