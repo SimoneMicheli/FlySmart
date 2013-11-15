@@ -9,6 +9,7 @@ import java.util.List;
  * @author Demarinis - Micheli - Scarpellini
  * 
  */
+@SuppressWarnings("serial")
 public class Aeroporto implements GetFields, Serializable{
 	
 	/**id Aeroporto*/

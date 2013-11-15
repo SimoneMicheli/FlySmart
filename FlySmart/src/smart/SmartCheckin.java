@@ -1,18 +1,13 @@
 package smart;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
+
 import java.util.Iterator;
-import java.util.LinkedList;
+
 import java.util.List;
 
 import org.bson.types.ObjectId;
-import org.w3c.dom.Document;
 
-import comparator.PalletComparator;
-import comparator.VoloComparator;
+
 import db.DBSession;
 import db.Lock;
 
@@ -21,10 +16,6 @@ import model.Pallet;
 import model.Passeggero;
 import model.StatoVolo;
 import model.Volo;
-
-import util.Options;
-import xml.XMLCreate;
-import xml.XMLToObj;
 
 import exception.FlightNotFoundException;
 
@@ -54,6 +45,8 @@ public class SmartCheckin {
 		DBSession.getVoloDAO().save(v);
 		
 		Lock.getInstance().releaseLock(idVolo);
+		
+		//creo matrici
 	}
 
 	public void stampaOccupancyPasseggeri(int x){
@@ -81,8 +74,8 @@ public class SmartCheckin {
 
 	public void calcolaCheckin() {
 		//ottengo lista passeggeri e pallet
-		List<Passeggero> passeggeri = DBSession.getPasseggeroDAO().getByIdVolo(v.getId());
-		List<Pallet> pallets = DBSession.getPalletDAO().getByIdVolo(v.getId());
+		List<Passeggero> passeggeri = DBSession.getPasseggeroDAO().getByIdVolo(v.getId()).order("-peso").asList();
+		List<Pallet> pallets = DBSession.getPalletDAO().getByIdVolo(v.getId()).order("-peso").asList();
 		
 
 		//calcola disposizione
@@ -96,10 +89,6 @@ public class SmartCheckin {
 	}
 
 	private void posizionaPallet(List<Pallet> lista){
-
-
-		Collections.sort(lista, PalletComparator.PESO_ORDER);
-
 		Iterator<Pallet> i = lista.iterator();
 
 		//ottengo primo pallet

@@ -1,6 +1,5 @@
 package model;
 
-import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
@@ -17,6 +16,7 @@ import com.google.code.morphia.annotations.Reference;
  * @author Demarinis - Micheli - Scarpellini
  * 
  */
+@SuppressWarnings("serial")
 @Entity
 public class Volo extends Model{
 	

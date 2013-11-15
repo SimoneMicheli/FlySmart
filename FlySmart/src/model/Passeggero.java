@@ -15,6 +15,7 @@ import com.google.code.morphia.annotations.Indexed;
  * 
  * 
  */
+@SuppressWarnings("serial")
 @Entity
 public class Passeggero extends Model {
 	
@@ -56,6 +57,9 @@ public class Passeggero extends Model {
 	
 	/** Colonna del posto del passeggero */
 	private Integer colonna;
+	
+	/** Peso del passeggero */
+	private Integer peso;
 
 	/**
 	 * Istanzia un nuovo passeggero (supercostruttore)
@@ -85,6 +89,7 @@ public class Passeggero extends Model {
 		this.giorno = giorno;
 		this.mese = mese;
 		this.anno = anno;
+		peso = setPeso();
 	}
 
 	/**
@@ -391,6 +396,15 @@ public class Passeggero extends Model {
 	 * @return peso del passeggero
 	 */
 	public int getPeso(){
+		return peso;
+	}
+	
+	/**
+	 * setta il peso in base al sesso e all'età
+	 * può essere chiamato solo dal costruttore dell'oggetto
+	 * @return peso da settare
+	 */
+	private int setPeso(){
 		int p = sesso.getPeso();
 		if (eta < 14){
 			p = (int) ((int) p*0.5);

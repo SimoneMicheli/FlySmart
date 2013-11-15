@@ -1,8 +1,5 @@
 package model;
 
-import java.lang.reflect.Field;
-import java.util.List;
-
 import org.bson.types.ObjectId;
 
 import com.google.code.morphia.annotations.Entity;
@@ -12,6 +9,7 @@ import com.google.code.morphia.annotations.Indexed;
  * @author Demarinis - Micheli - Scarpellini
  * 
  */
+@SuppressWarnings("serial")
 @Entity
 public class Pallet extends Model {
 	

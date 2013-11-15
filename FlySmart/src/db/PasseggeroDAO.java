@@ -8,6 +8,7 @@ import model.Passeggero;
 
 import com.google.code.morphia.Datastore;
 import com.google.code.morphia.dao.BasicDAO;
+import com.google.code.morphia.query.Query;
 
 /**
  * Implementa il paradigma DAO (Data Access Object) di java per la classe Passeggero
@@ -24,8 +25,8 @@ public class PasseggeroDAO extends BasicDAO<Passeggero, ObjectId> {
 	 * @param idVolo id del volo da cercare
 	 * @return elenco dei passeggeri del volo
 	 */
-	public List<Passeggero> getByIdVolo(ObjectId idVolo){
-		return ds.createQuery(Passeggero.class).filter("idVolo =", idVolo).asList();
+	public Query<Passeggero> getByIdVolo(ObjectId idVolo){
+		return ds.createQuery(Passeggero.class).filter("idVolo =", idVolo);
 	}
 	
 	/**
