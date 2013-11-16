@@ -62,6 +62,16 @@ public class Aeroporto implements GetFields, Serializable{
 	public String toString() {
 		return nome;
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!(obj instanceof Aeroporto))
+			return false;
+		Aeroporto a = (Aeroporto) obj;
+		return this.id.equals(a.id) && this.nome.equals(a.nome);
+	}
 
 	@Override
 	public List<Field> getFields() {

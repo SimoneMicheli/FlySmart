@@ -13,7 +13,6 @@ import model.Volo;
 
 import com.google.code.morphia.Datastore;
 import com.google.code.morphia.Morphia;
-import com.google.code.morphia.logging.MorphiaLoggerFactory;
 import com.mongodb.Mongo;
 
 /**
@@ -38,7 +37,7 @@ public final class DBSession{
 	/**
 	 * gestisce lo scambio di dati da e per il DB
 	 */
-	private static Datastore ds = null;
+	protected static Datastore ds = null;
 
 	private static DBSession session = null;
 	
@@ -52,11 +51,11 @@ public final class DBSession{
 	 * costruttore privato per singleton
 	 * @throws UnknownHostException
 	 */
-	private DBSession() throws UnknownHostException{
+	protected DBSession() throws UnknownHostException{
 		
 		log.info("Connessione a MongoDB");
 		
-		MorphiaLoggerFactory.registerLogger( SilentLogrFactory.class);
+		//MorphiaLoggerFactory.registerLogger( SilentLogrFactory.class);
 		
 		mongo = new Mongo(Options.mongoHost, Options.mongoPort);
 		morphia = new Morphia();

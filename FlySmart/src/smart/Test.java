@@ -76,7 +76,7 @@ public class Test {
 	}
 	
 	public static void testAlg(){
-		Options.LoadDefaultOptions();
+		Options.initOptions();
 		
 		Volo v = DBSession.getVoloDAO().getByPartenzaDestinazione(1, 2).get(0);
 		
