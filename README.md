@@ -19,3 +19,8 @@ testare l'app
 
 ogni volta bisogna avviare il server MonogDB prima di testare l'applicaizone: bin/mongod --dbpath ../FlySmart/FlySmart/data
 per terminarlo ctrl+c nella shell
+
+JUnit
+=======
+Per usare Junit tasto dx sul progetto -> properties -> Java Build Path -> Libraries -> Add Library -> JUnit -> JUnit4
+http://www.vogella.com/articles/JUnit/article.html
