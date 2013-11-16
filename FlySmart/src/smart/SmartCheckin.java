@@ -22,29 +22,42 @@ import exception.FlightNotFoundException;
 /**
  *
  */
-public class SmartCheckin {
+public class SmartCheckin implements SmartAlgorithm{
 
+	/**
+	 * indica i posti liberi ed occupati sull'aereo per i passeggeri
+	 */
 	private boolean[][] occupancyPasseggeri= {{false,false,false,false,false,false},{false,false,false,false,false,false},{false,false,false,false,false,false},{false,false,false,false,false,false},{false,false,false,false,false,false},{false,false,false,false,false,false},{false,false,false,false,false,false},{false,false,false,false,false,false},{false,false,false,false,false,false},{false,false,false,false,false,false},{false,false,false,false,false,false},{false,false,false,false,false,false}};
+	/**
+	 * indica i posti liberi ed occupati sull'aereo per i pallet
+	 */
 	private boolean[][] occupancyPallet= {{false,false},{false,false},{false,false},{false,false}};
 
+	/**
+	 * volo su cui calcolare i dati
+	 */
 	private Volo v;
 
 	public SmartCheckin(ObjectId idVolo) throws FlightNotFoundException{
 
-		Lock.getInstance().acquireLock(idVolo);
+		try{
+			Lock.getInstance().acquireLock(idVolo);
 
-		v = DBSession.getVoloDAO().get(idVolo);
+			v = DBSession.getVoloDAO().get(idVolo);
 
-		//volo non trovato
-		if(v == null)
-			throw new FlightNotFoundException(idVolo);
+			//volo non trovato
+			if(v == null)
+				throw new FlightNotFoundException(idVolo);
 
-		//chiudo il volo
-		v.setStato(StatoVolo.CLOSED);
+			//chiudo il volo
+			v.setStato(StatoVolo.CLOSED);
 
-		DBSession.getVoloDAO().save(v);
+			DBSession.getVoloDAO().save(v);
+		}finally{
 
-		Lock.getInstance().releaseLock(idVolo);
+			Lock.getInstance().releaseLock(idVolo);
+
+		}
 
 		//creo matrici
 	}
@@ -72,6 +85,7 @@ public class SmartCheckin {
 	}
 
 
+	@Override
 	public void calcolaCheckin() {
 		//ottengo lista passeggeri e pallet
 		List<Passeggero> passeggeri = DBSession.getPasseggeroDAO().getByIdVolo(v.getId()).order("-peso").asList();
@@ -91,7 +105,16 @@ public class SmartCheckin {
 
 	}
 
-	private void posizionaPallet(List<Pallet> lista){
+	/**
+	 * calcola dove posizionare i pallet sul volo
+	 * mediante algoritmo greedy
+	 * @param lista lista di pallet da posizionare
+	 */
+	protected void posizionaPallet(List<Pallet> lista){
+		//lista vuota (uso lazy evaluation)
+		if(lista == null || lista.size() == 0)
+			return;
+		
 		Iterator<Pallet> i = lista.iterator();
 
 		//ottengo primo pallet
@@ -134,8 +157,7 @@ public class SmartCheckin {
 	} 
 
 
-	@SuppressWarnings("unused")
-	private int[] postoLiberoPasseggeri(int colonnaCellaOttimaAss, int rigaCellaOttimaAss){
+	protected int[] postoLiberoPasseggeri(int colonnaCellaOttimaAss, int rigaCellaOttimaAss){
 
 		int maxRighe =occupancyPasseggeri.length;
 		int distanzaMassima = maxRighe-rigaCellaOttimaAss-1;
@@ -186,7 +208,14 @@ public class SmartCheckin {
 		return posto;
 	}
 
-	private int[] postoLiberoPallet(double distX, double distY){
+	/**
+	 * restituisce il primo posto libero in cui posizionare il
+	 * pallet secondo l'algoritmo greedy, le posizioni sono in valore assoluto
+	 * @param distX posizione ideale sulle colonne 
+	 * @param distY posizione idale sulle righe
+	 * @return posto da assegnare (x,y)
+	 */
+	protected int[] postoLiberoPallet(double distX, double distY){
 
 		double rigaCellaOttimaRel=distY; //in coordinate relative
 		double colonnaCellaOttimaRel=distX; //in coordinate relative

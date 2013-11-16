@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import java.net.UnknownHostException;
 
-import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.google.code.morphia.Datastore;
@@ -14,7 +14,7 @@ import util.Options;
 
 public class DBSessionTest {
 
-	@Before
+	@BeforeClass
 	public void setUp() throws Exception {
 		Options.initOptions();
 	}

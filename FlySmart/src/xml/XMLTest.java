@@ -9,8 +9,8 @@ import java.util.List;
 
 import model.Aeroporto;
 
-import org.junit.After;
-import org.junit.Before;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.w3c.dom.Document;
 
@@ -20,7 +20,7 @@ public class XMLTest {
 
 	private List<Aeroporto> elencoAeroporti;
 	
-	@Before
+	@BeforeClass
 	public void setUp() throws Exception {
 		//preparo lista di aeroporti da salvare su file
 		elencoAeroporti = new LinkedList<Aeroporto>();
@@ -39,7 +39,7 @@ public class XMLTest {
 		Options.initOptions();
 	}
 
-	@After
+	@AfterClass
 	public void tearDown() throws Exception {
 	}
 

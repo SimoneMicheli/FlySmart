@@ -39,7 +39,7 @@ public interface ServerInterface extends Remote {
 	 * consente la prenotazione di un volo da parte di una lista di passeggeri
 	 * @param listToAdd elnco passeggeri da prenotare
 	 * @param idVolo id del volo da prenotare
-	 * @return codice di errore
+	 * @return id gruppo
 	 * @throws RemoteException
 	 * @throws FlightNotFoundException 
 	 * @throws SeatsSoldOutException 

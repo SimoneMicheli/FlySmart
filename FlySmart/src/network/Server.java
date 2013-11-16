@@ -11,11 +11,14 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.bson.types.ObjectId;
 
+import prenotazione.Prenotazione;
+import prenotazione.PrenotazionePallet;
+import prenotazione.PrenotazionePasseggero;
+
 import util.Options;
 import xml.XMLToObj;
 import comparator.*;
 import db.DBSession;
-import db.Lock;
 import exception.FlightNotFoundException;
 import exception.SeatsSoldOutException;
 import model.*;
@@ -31,6 +34,9 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 	/** logger*/
 	Logger log;
 	
+	Prenotazione<Passeggero> prenotaPass = null;
+	Prenotazione<Pallet> PrenotaPallet = null;
+	
 	/**
 	 * costruttore dell'oggetto server, crea i lock necessari a garantire l'accesso
 	 * ai file xml
@@ -43,11 +49,11 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 		super(0, clientFactory, serverFactory);
 		
 		log = LogManager.getLogger(Server.class.getCanonicalName().toString());
+		prenotaPass = new PrenotazionePasseggero();
+		PrenotaPallet = new PrenotazionePallet();
 		
 		log.info("Creazione oggetto Server");
 	}
-	
-	
 	
 	/* (non-Javadoc)
 	 * @see network.ServerInterface#getAeroporti()
@@ -88,48 +94,10 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 	 */
 	@Override
 	public int prenotaPasseggero(List<Passeggero> listToAdd, ObjectId idVolo) throws FlightNotFoundException, SeatsSoldOutException {
-		
-		try {
-			//accesso esclusivo al volo
-			Lock.getInstance().acquireLock(idVolo);
-			
-			//recupero volo da DB
-			Volo v = DBSession.getVoloDAO().get(idVolo);
-			
-			//volo non trovato
-			if(v == null){
-				throw new FlightNotFoundException(idVolo);
-			}
-			
-			//posti insufficienti
-			if (v.getPostiDisponibili() - listToAdd.size() < 0){
-				throw new SeatsSoldOutException(idVolo); //posti insufficienti
-			}
-			
-			v.setPostiDisponibili(v.getPostiDisponibili() - listToAdd.size());
-			int idGruppo = v.getNextGroupID();
-			
-			//registro passeggeri su volo
-			for(Passeggero p : listToAdd){
-				//update pass and volo
-				p.setIdVolo(idVolo);
-				p.setIdGruppo(idGruppo);
-				v.getPasseggeri().add(p);
-				
-				//salva passeggero
-				DBSession.getPasseggeroDAO().save(p);
-				
-			}
-			//salvo volo
-			DBSession.getVoloDAO().save(v);
-		} finally  {
-			//rilascio il lock
-			Lock.getInstance().releaseLock(idVolo);
-		}
-		
-		
-		
-		return 0;
+		log.entry();
+		int id = prenotaPass.prenota(listToAdd, idVolo);
+		log.exit(id);
+		return id;
 	}
 
 	/* (non-Javadoc)
@@ -139,26 +107,11 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 	public int prenotaPallet(List<Pallet> listToAdd, ObjectId idVolo) throws FlightNotFoundException, SeatsSoldOutException {
 		log.entry();
 		
-		Volo v = DBSession.getVoloDAO().get(idVolo);
+		int id = prenotaPallet(listToAdd, idVolo);
+				
+		log.exit(id);
 		
-		if(v == null)
-			throw new FlightNotFoundException(idVolo);
-		
-		if (v.getPalletDisponibili() - listToAdd.size() < 0){
-			throw new SeatsSoldOutException(idVolo); //posti insufficienti
-		}
-		
-		v.setPalletDisponibili(v.getPalletDisponibili() - listToAdd.size());
-		
-		for(Pallet p : listToAdd){
-			p.setIdVolo(idVolo);
-			v.getPallet().add(p);
-			DBSession.getPalletDAO().save(p);
-		}
-		
-		DBSession.getVoloDAO().save(v);
-	
-		return 0;
+		return id;
 	}
 
 }

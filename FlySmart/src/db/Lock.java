@@ -100,7 +100,7 @@ public final class Lock implements LockInterface{
 	 * ritorna l'istanza dell'oggetto se esiste, altrimenti istanzia un nuovo oggetto
 	 * @return istanza della classe lock
 	 */
-	public static Lock getInstance(){
+	public synchronized static Lock getInstance(){
 		if(l == null)
 			l = new Lock();
 		return l;
