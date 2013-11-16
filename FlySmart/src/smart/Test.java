@@ -1,6 +1,8 @@
 package smart;
 
-import org.bson.types.ObjectId;
+import model.Volo;
+
+import db.DBSession;
 
 import util.Options;
 
@@ -75,11 +77,14 @@ public class Test {
 	
 	public static void testAlg(){
 		Options.LoadDefaultOptions();
-		ObjectId idVolo = new ObjectId("5287451a036447b203cabd62");
+		
+		Volo v = DBSession.getVoloDAO().getByPartenzaDestinazione(1, 2).get(0);
+		
+		System.out.println(v);
 		
 		SmartCheckin c = null;
 		try {
-			c = new SmartCheckin(idVolo);
+			c = new SmartCheckin(v.getId());
 		} catch (FlightNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

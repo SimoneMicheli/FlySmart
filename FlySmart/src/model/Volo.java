@@ -206,7 +206,7 @@ public class Volo extends Model{
 	 */
 	@Override
 	public String toString() {
-		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy   hh:mm");
+		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy   H:mm");
 		return  format.format(dataOra) + "          " +postiDisponibili+ " posti disponibili         "+palletDisponibili+ " pallet disponibili         " +prezzoPasseggero+ " €";
 	}
 

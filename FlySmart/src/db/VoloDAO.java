@@ -3,6 +3,7 @@
  */
 package db;
 
+import java.util.Date;
 import java.util.List;
 
 import model.Volo;
@@ -41,7 +42,8 @@ public class VoloDAO extends BasicDAO<Volo, ObjectId> {
 		return ds.createQuery(Volo.class)
 				.filter("aeroportoPartenza =",p)
 				.filter("aeroportoDestinazione =", a)
-				.order("-dataOra")
+				.filter("dataOra >", new Date())
+				.order("dataOra")
 				.asList();
 	}
 }
