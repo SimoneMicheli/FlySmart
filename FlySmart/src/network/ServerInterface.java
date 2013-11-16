@@ -7,8 +7,9 @@ import java.util.List;
 
 import org.bson.types.ObjectId;
 
-import exception.FlightNotFoundException;
-import exception.SeatsSoldOutException;
+import prenotazione.FlightNotFoundException;
+import prenotazione.SeatsSoldOutException;
+
 
 import model.*;
 

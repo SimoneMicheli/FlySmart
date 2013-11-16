@@ -6,9 +6,10 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.rmi.RemoteException;
 import java.util.List;
-import exception.FlightNotFoundException;
-import exception.SeatsSoldOutException;
 import javax.swing.JOptionPane;
+
+import prenotazione.FlightNotFoundException;
+import prenotazione.SeatsSoldOutException;
 import model.Aeroporto;
 import model.Pallet;
 import model.Volo;

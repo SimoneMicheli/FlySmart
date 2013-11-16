@@ -9,8 +9,9 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.LinkedList;
 
-import exception.FlightNotFoundException;
-import exception.SeatsSoldOutException;
+import prenotazione.FlightNotFoundException;
+import prenotazione.SeatsSoldOutException;
+
 
 import model.Aeroporto;
 import model.Passeggero;

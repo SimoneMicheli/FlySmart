@@ -1,8 +1,7 @@
-package comparator;
+package model;
 
 import java.util.Comparator;
 
-import model.Aeroporto;
 
 /**Implementa l'intefaccia comparator che permette di ordinare gli aeroporti secondo i seguenti criteri
  * ID_ORDER: ordinamento crescente per id

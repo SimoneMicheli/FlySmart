@@ -5,7 +5,10 @@ import java.util.Iterator;
 
 import java.util.List;
 
+
 import org.bson.types.ObjectId;
+
+import prenotazione.FlightNotFoundException;
 
 
 import db.DBSession;
@@ -17,7 +20,6 @@ import model.Passeggero;
 import model.StatoVolo;
 import model.Volo;
 
-import exception.FlightNotFoundException;
 
 /**
  *

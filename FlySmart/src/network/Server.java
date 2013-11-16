@@ -11,16 +11,15 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.bson.types.ObjectId;
 
+import prenotazione.FlightNotFoundException;
 import prenotazione.Prenotazione;
 import prenotazione.PrenotazionePallet;
 import prenotazione.PrenotazionePasseggero;
+import prenotazione.SeatsSoldOutException;
 
 import util.Options;
 import xml.XMLToObj;
-import comparator.*;
 import db.DBSession;
-import exception.FlightNotFoundException;
-import exception.SeatsSoldOutException;
 import model.*;
 
 /** Implementa i metodi definiti nell'interfaccia del server

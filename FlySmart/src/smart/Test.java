@@ -1,12 +1,12 @@
 package smart;
 
+import prenotazione.FlightNotFoundException;
 import model.Volo;
 
 import db.DBSession;
 
 import util.Options;
 
-import exception.FlightNotFoundException;
 
 
 public class Test {

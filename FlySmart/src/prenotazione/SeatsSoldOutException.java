@@ -1,4 +1,4 @@
-package exception;
+package prenotazione;
 
 import org.bson.types.ObjectId;
 
@@ -7,20 +7,20 @@ import org.bson.types.ObjectId;
  * @author Demarinis - Micheli - Scarpellini
  *
  */
-public class SeatsSoldOutException extends Exception {
+public class SeatsSoldOutException extends PrenotazioneException {
 
 	private static final long serialVersionUID = -3732723768131457927L;
 
 	public SeatsSoldOutException() {
-		super("seats sold out!");
+		super("Seats sold out!");
 	}
 	
 	public SeatsSoldOutException(ObjectId id){
-		super("seats sold out for flight: "+ id.toString());
+		super("Seats sold out for flight: "+ id.toString());
 	}
 	
 	public SeatsSoldOutException(String message){
-		super("seats sold out: " + message);
+		super("Seats sold out: " + message);
 	}
 	
 	public SeatsSoldOutException(Throwable e){
