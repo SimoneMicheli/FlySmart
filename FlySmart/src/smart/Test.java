@@ -2,6 +2,8 @@ package smart;
 
 import org.bson.types.ObjectId;
 
+import util.Options;
+
 import exception.FlightNotFoundException;
 
 
@@ -72,7 +74,8 @@ public class Test {
 	}
 	
 	public static void testAlg(){
-		ObjectId idVolo = new ObjectId();
+		Options.LoadDefaultOptions();
+		ObjectId idVolo = new ObjectId("5287451a036447b203cabd62");
 		
 		SmartCheckin c = null;
 		try {

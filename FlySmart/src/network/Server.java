@@ -152,6 +152,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 		
 		for(Pallet p : listToAdd){
 			p.setIdVolo(idVolo);
+			v.getPallet().add(p);
 			DBSession.getPalletDAO().save(p);
 		}
 		

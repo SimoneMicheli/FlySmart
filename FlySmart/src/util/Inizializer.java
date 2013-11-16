@@ -1,4 +1,4 @@
-package dataInizializer;
+package util;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,7 +12,6 @@ import com.google.code.morphia.Datastore;
 
 import db.DBSession;
 
-import util.Options;
 import xml.XMLCreate;
 import model.*;
 

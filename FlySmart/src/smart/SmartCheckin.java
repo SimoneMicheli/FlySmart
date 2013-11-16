@@ -78,6 +78,9 @@ public class SmartCheckin {
 		List<Pallet> pallets = DBSession.getPalletDAO().getByIdVolo(v.getId()).order("-peso").asList();
 
 
+		for(Pallet p : pallets)
+			System.out.println(p);
+		
 		//calcola disposizione
 		posizionaPallet(pallets);
 		//posizionePasseggeri(passeggeri, v);
