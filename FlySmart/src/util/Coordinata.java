@@ -1,7 +1,9 @@
 /**
  * 
  */
-package model;
+package util;
+
+import model.TipoAereo;
 
 /**
  * la classe gestisce le coordinate di pallet/passeggeri sull'aereo

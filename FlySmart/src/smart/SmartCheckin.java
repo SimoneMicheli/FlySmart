@@ -9,12 +9,12 @@ import java.util.List;
 import org.bson.types.ObjectId;
 
 import prenotazione.FlightNotFoundException;
+import util.Coordinata;
 
 
 import db.DBSession;
 import db.Lock;
 
-import model.Coordinata;
 import model.Pallet;
 import model.Passeggero;
 import model.StatoVolo;
