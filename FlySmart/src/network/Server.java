@@ -35,7 +35,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 	Logger log;
 	
 	Prenotazione<Passeggero> prenotaPass = null;
-	Prenotazione<Pallet> PrenotaPallet = null;
+	Prenotazione<Pallet> prenotaPall = null;
 	
 	/**
 	 * costruttore dell'oggetto server, crea i lock necessari a garantire l'accesso
@@ -50,7 +50,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 		
 		log = LogManager.getLogger(Server.class.getCanonicalName().toString());
 		prenotaPass = new PrenotazionePasseggero();
-		PrenotaPallet = new PrenotazionePallet();
+		prenotaPall = new PrenotazionePallet();
 		
 		log.info("Creazione oggetto Server");
 	}
@@ -107,7 +107,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 	public int prenotaPallet(List<Pallet> listToAdd, ObjectId idVolo) throws FlightNotFoundException, SeatsSoldOutException {
 		log.entry();
 		
-		int id = prenotaPallet(listToAdd, idVolo);
+		int id = prenotaPall.prenota(listToAdd, idVolo);
 				
 		log.exit(id);
 		
