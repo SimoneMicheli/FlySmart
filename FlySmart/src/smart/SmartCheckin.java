@@ -23,29 +23,29 @@ import exception.FlightNotFoundException;
  *
  */
 public class SmartCheckin {
-	
+
 	private boolean[][] occupancyPasseggeri= {{false,false,false,false,false,false},{false,false,false,false,false,false},{false,false,false,false,false,false},{false,false,false,false,false,false},{false,false,false,false,false,false},{false,false,false,false,false,false},{false,false,false,false,false,false},{false,false,false,false,false,false},{false,false,false,false,false,false},{false,false,false,false,false,false},{false,false,false,false,false,false},{false,false,false,false,false,false}};
 	private boolean[][] occupancyPallet= {{false,false},{false,false},{false,false},{false,false}};
-	
+
 	private Volo v;
 
 	public SmartCheckin(ObjectId idVolo) throws FlightNotFoundException{
-		
+
 		Lock.getInstance().acquireLock(idVolo);
-		
+
 		v = DBSession.getVoloDAO().get(idVolo);
-		
+
 		//volo non trovato
 		if(v == null)
 			throw new FlightNotFoundException(idVolo);
-		
+
 		//chiudo il volo
 		v.setStato(StatoVolo.CLOSED);
-		
+
 		DBSession.getVoloDAO().save(v);
-		
+
 		Lock.getInstance().releaseLock(idVolo);
-		
+
 		//creo matrici
 	}
 
@@ -76,7 +76,7 @@ public class SmartCheckin {
 		//ottengo lista passeggeri e pallet
 		List<Passeggero> passeggeri = DBSession.getPasseggeroDAO().getByIdVolo(v.getId()).order("-peso").asList();
 		List<Pallet> pallets = DBSession.getPalletDAO().getByIdVolo(v.getId()).order("-peso").asList();
-		
+
 
 		//calcola disposizione
 		posizionaPallet(pallets);
@@ -85,7 +85,7 @@ public class SmartCheckin {
 		//salva dati aggiornati nel db
 		DBSession.getPasseggeroDAO().saveList(passeggeri);
 		DBSession.getPalletDAO().saveList(pallets);
-		
+
 	}
 
 	private void posizionaPallet(List<Pallet> lista){
@@ -114,27 +114,6 @@ public class SmartCheckin {
 			double distY = -momY / p.getPeso();
 			System.out.println("Calcolato: x:"+distX +" y:"+distY);
 
-			//casting posizione (intervallo 1 shift 0.5)
-			if(distX <=0 && distX>=-0.5)
-				distX = -0.5;
-			else
-				distX = 0.5 + (int)(distX - 0.5);
-			if(distY <=0 && distY>=-0.5)
-				distY =-0.5;
-			else
-				distY = 0.5 + (int)(distY - 0.5);
-
-			System.out.println("Discretizzato: x:"+distX +" y:"+distY);
-
-			//controllo interno all'aereo
-			if(Coordinata.XAbs(distX ,v.getTipoAereo()) > v.getTipoAereo().getColonnePallet() )
-				distX = Coordinata.XRel(v.getTipoAereo().getColonnePallet(), v.getTipoAereo());
-			if(Coordinata.XAbs(distX ,v.getTipoAereo()) < 0 )
-				distX = Coordinata.XRel(0, v.getTipoAereo());
-			if(Coordinata.YAbs(distY ,v.getTipoAereo()) > v.getTipoAereo().getFilePallet() )
-				distY = Coordinata.YRel(v.getTipoAereo().getFilePallet(), v.getTipoAereo());
-			if(Coordinata.YAbs(distY ,v.getTipoAereo()) <0 )
-				distY = Coordinata.YRel(0, v.getTipoAereo());
 
 			System.out.println("Interno all'aereo: x:"+distX +" y:"+distY);
 			System.out.println("Coordinate assolute: x:"+Coordinata.XAbs(distX ,v.getTipoAereo()) +" y:"+Coordinata.YAbs(distY ,v.getTipoAereo()));
@@ -152,49 +131,50 @@ public class SmartCheckin {
 	} 
 
 
-	private int[] postoLiberoPasseggeri(int colonnaScelta, int rigaScelta){
+	@SuppressWarnings("unused")
+	private int[] postoLiberoPasseggeri(int colonnaCellaOttimaAss, int rigaCellaOttimaAss){
 
 		int maxRighe =occupancyPasseggeri.length;
-		int distanzaMassima = maxRighe-rigaScelta-1;
-		if(rigaScelta>distanzaMassima) distanzaMassima=rigaScelta;
+		int distanzaMassima = maxRighe-rigaCellaOttimaAss-1;
+		if(rigaCellaOttimaAss>distanzaMassima) distanzaMassima=rigaCellaOttimaAss;
 
 		for(int i=0;i<=distanzaMassima;i++){
 			// System.err.println("i:"+i);
 
 			// System.err.println("++++++++++++++++++++++++++");
-			int colonnaCalcolata = colonnaScelta;
+			int colonnaCalcolata = colonnaCellaOttimaAss;
 			for(int vicino=0;vicino<6;vicino++){
 				// System.err.println("vicino:"+vicino);
 				try{
-					if(!occupancyPasseggeri[rigaScelta+i][colonnaCalcolata]){
-						occupancyPasseggeri[rigaScelta+i][colonnaCalcolata]=true;
-						int[] posto = {rigaScelta+i, colonnaCalcolata};
+					if(!occupancyPasseggeri[rigaCellaOttimaAss+i][colonnaCalcolata]){
+						occupancyPasseggeri[rigaCellaOttimaAss+i][colonnaCalcolata]=true;
+						int[] posto = {rigaCellaOttimaAss+i, colonnaCalcolata};
 						// System.err.println("++++++++++trovato");
 						return posto;
 					}
 				}catch(ArrayIndexOutOfBoundsException e){
 				}
-				colonnaCalcolata=(colonnaScelta+(vicino+1))%3+((int)colonnaScelta/3)*3+((int)(vicino+1)/3)*3*(((int)colonnaScelta/3)*(-2)+1); //l'ultimo passo sarà il vicino 6 ma il for termina
-				// System.err.println("+++++calcolata:"+colonnaCalcolata+" scelta: "+colonnaScelta);
+				colonnaCalcolata=(colonnaCellaOttimaAss+(vicino+1))%3+((int)colonnaCellaOttimaAss/3)*3+((int)(vicino+1)/3)*3*(((int)colonnaCellaOttimaAss/3)*(-2)+1); //l'ultimo passo sarà il vicino 6 ma il for termina
+				// System.err.println("+++++calcolata:"+colonnaCalcolata+" scelta: "+colonnaCellaOttimaAss);
 			}
 
 
 			// System.err.println("------------------------------------------");
-			colonnaCalcolata = colonnaScelta;
+			colonnaCalcolata = colonnaCellaOttimaAss;
 			for(int vicino=0;vicino<6;vicino++){
 				try{
 
-					// System.err.println("matrice nel posto"+(rigaScelta-i)+" "+colonnaCalcolata+": "+occupancyPasseggeri[rigaScelta-i][colonnaCalcolata]);
-					if(!occupancyPasseggeri[rigaScelta-i][colonnaCalcolata]){
-						occupancyPasseggeri[rigaScelta-i][colonnaCalcolata]=true;
-						int[] posto = {rigaScelta-i, colonnaCalcolata};
-						// System.err.println("-------trovato"+(rigaScelta-i)+" "+colonnaCalcolata);
+					// System.err.println("matrice nel posto"+(rigaCellaOttimaAss-i)+" "+colonnaCalcolata+": "+occupancyPasseggeri[rigaCellaOttimaAss-i][colonnaCalcolata]);
+					if(!occupancyPasseggeri[rigaCellaOttimaAss-i][colonnaCalcolata]){
+						occupancyPasseggeri[rigaCellaOttimaAss-i][colonnaCalcolata]=true;
+						int[] posto = {rigaCellaOttimaAss-i, colonnaCalcolata};
+						// System.err.println("-------trovato"+(rigaCellaOttimaAss-i)+" "+colonnaCalcolata);
 						return posto;
 					}
 				}catch(ArrayIndexOutOfBoundsException e){
 				}
-				colonnaCalcolata=(colonnaScelta+(vicino+1))%3+((int)colonnaScelta/3)*3+((int)(vicino+1)/3)*3*(((int)colonnaScelta/3)*(-2)+1);
-				// System.err.println("-----calcolata:"+colonnaCalcolata+" scelta: "+colonnaScelta);
+				colonnaCalcolata=(colonnaCellaOttimaAss+(vicino+1))%3+((int)colonnaCellaOttimaAss/3)*3+((int)(vicino+1)/3)*3*(((int)colonnaCellaOttimaAss/3)*(-2)+1);
+				// System.err.println("-----calcolata:"+colonnaCalcolata+" scelta: "+colonnaCellaOttimaAss);
 			}
 		}
 
@@ -203,65 +183,158 @@ public class SmartCheckin {
 		return posto;
 	}
 
-	private int[] postoLiberoPallet(int colonnaScelta, int rigaScelta){
-		int maxRighe =occupancyPallet.length;
-		int distanzaMassima = maxRighe-rigaScelta-1;
-		if(rigaScelta>distanzaMassima) distanzaMassima=rigaScelta;
+	private int[] postoLiberoPallet(double distX, double distY){
+
+		double rigaCellaOttimaRel=distY; //in coordinate relative
+		double colonnaCellaOttimaRel=distX; //in coordinate relative
+
+
+		//casting posizione (intervallo 1 shift 0.5)
+		if(colonnaCellaOttimaRel <=0 && colonnaCellaOttimaRel>=-0.5)
+			colonnaCellaOttimaRel = -0.5;
+		else
+			colonnaCellaOttimaRel = 0.5 + (int)(colonnaCellaOttimaRel - 0.5);
+		if(rigaCellaOttimaRel <=0 && rigaCellaOttimaRel>=-0.5)
+			rigaCellaOttimaRel =-0.5;
+		else
+			rigaCellaOttimaRel = 0.5 + (int)(rigaCellaOttimaRel - 0.5);
+
+		System.out.println("Discretizzato: x:"+colonnaCellaOttimaRel +" y:"+rigaCellaOttimaRel);
+
+
+
+
+		//controllo interno all'aereo
+		if(Coordinata.XAbs(colonnaCellaOttimaRel ,v.getTipoAereo()) > v.getTipoAereo().getColonnePallet() )
+			colonnaCellaOttimaRel = Coordinata.XRel(v.getTipoAereo().getColonnePallet(), v.getTipoAereo());
+		if(Coordinata.XAbs(colonnaCellaOttimaRel ,v.getTipoAereo()) < 0 )
+			colonnaCellaOttimaRel = Coordinata.XRel(0, v.getTipoAereo());
+		if(Coordinata.YAbs(rigaCellaOttimaRel ,v.getTipoAereo()) > v.getTipoAereo().getFilePallet() )
+			rigaCellaOttimaRel = Coordinata.YRel(v.getTipoAereo().getFilePallet(), v.getTipoAereo());
+		if(Coordinata.YAbs(rigaCellaOttimaRel ,v.getTipoAereo()) <0 )
+			rigaCellaOttimaRel = Coordinata.YRel(0, v.getTipoAereo());
+
+		//tengo le variabili anche assolute cosi non devo sempre fare il cambio di sistema di riferimento
+		int colonnaCellaOttimaAss = Coordinata.XAbs(colonnaCellaOttimaRel ,v.getTipoAereo());
+		int rigaCellaOttimaAss = Coordinata.YAbs(rigaCellaOttimaRel ,v.getTipoAereo());
 
 		//provo lo scelto
-		try{
-			if(!occupancyPallet[rigaScelta][colonnaScelta]){
-				occupancyPallet[rigaScelta][colonnaScelta]=true;
-				int[] posto = {colonnaScelta, rigaScelta};
-				return posto;
-			}
-		}catch(ArrayIndexOutOfBoundsException e){
+		System.out.println("provo lo scelto");
+		if(!occupancyPallet[rigaCellaOttimaAss][colonnaCellaOttimaAss]){
+			occupancyPallet[rigaCellaOttimaAss][colonnaCellaOttimaAss]=true;
+			int[] posto = {colonnaCellaOttimaAss, rigaCellaOttimaAss};
+			System.out.println("trovato scelto");
+			return posto;
 		}
 
+		//se arrivo qui significa che la cella ottima è occupata
 
-		for(int i=0;i<=distanzaMassima;i++){
 
-			try{
-				//Salgo di i e cambio colonna
-				if(!occupancyPallet[rigaScelta-i][1-colonnaScelta]){
-					occupancyPallet[rigaScelta-i][1-colonnaScelta]=true;
-					int[] posto = {1-colonnaScelta, rigaScelta-i};
-					return posto;
-				}
-			}catch(ArrayIndexOutOfBoundsException e){
-			}
 
-			try{
-				//Salgo di i
-				if(!occupancyPallet[rigaScelta+i][colonnaScelta]){
-					occupancyPallet[rigaScelta+i][colonnaScelta]=true;
-					int[] posto = {colonnaScelta, rigaScelta+i};
-					return posto;
-				}
-			}catch(ArrayIndexOutOfBoundsException e){
-			}
+		int maxRighe =occupancyPallet.length;
+		int maxColonne = 2;
 
-			try{
-				//Scendo di i
-				if(!occupancyPallet[rigaScelta-i][colonnaScelta]){
-					occupancyPallet[rigaScelta-i][colonnaScelta]=true;
-					int[] posto = {colonnaScelta, rigaScelta-i};
-					return posto;
-				}
-			}catch(ArrayIndexOutOfBoundsException e){
-			}
 
-			try{
-				//Scendo di i e cambio colonna
-				if(!occupancyPallet[rigaScelta+i][1-colonnaScelta]){
-					occupancyPallet[rigaScelta+i][1-colonnaScelta]=true;
-					int[] posto = {1-colonnaScelta, rigaScelta+i};
-					return posto;
-				}
-			}catch(ArrayIndexOutOfBoundsException e){
-			}
-		}
+
+		//calcolo la distanza massima da verificare (controllare)
+		int distanzaMassima = maxRighe-rigaCellaOttimaAss-1;
+		if(rigaCellaOttimaAss>distanzaMassima) distanzaMassima=rigaCellaOttimaAss;
+		//va fatto anche sulla colonna
+		if(colonnaCellaOttimaAss>distanzaMassima) distanzaMassima=colonnaCellaOttimaAss;
+		if(maxColonne-colonnaCellaOttimaAss-1>distanzaMassima) distanzaMassima=maxColonne-colonnaCellaOttimaAss-1;
+
+
+
+
+
+
+		int rigaVertice = rigaCellaOttimaAss;
+		int colonnaVertice = colonnaCellaOttimaAss;
+		int raggioSpirale=1;
+		double pitagora; //mi dice la distanza di una cella dal punto dove l'avrei voluto mettere,
+		double pitagoraMin=2147483647;
+		boolean trovatoAlmenoUno=false;
 		int[] posto = {-1, -1};
-		return posto;
+		while(raggioSpirale<=distanzaMassima){
+			trovatoAlmenoUno=false;
+			System.out.println("dist="+raggioSpirale);
+			rigaVertice = rigaCellaOttimaAss-raggioSpirale;
+			colonnaVertice = colonnaCellaOttimaAss-raggioSpirale; //mi posiziono nel vertice del quadrato di centro rigaCellaOttimaAss colonnaCellaOttimaAss
+
+			//vado orizzontale
+			for(int a=colonnaVertice;a<=colonnaCellaOttimaAss+raggioSpirale;a++){
+
+				System.out.println("["+rigaVertice+";"+a+"]");
+				if(!occupancyPallet[rigaVertice][a]){ //se non è occupato calcolo la distanza
+					pitagora = Math.pow(distX-Coordinata.XRel(a, v.getTipoAereo()), 2)+Math.pow(distY-Coordinata.YRel(rigaVertice, v.getTipoAereo()), 2);//calcolo la distanza tra due punti
+					if(pitagora<pitagoraMin){ 
+						pitagoraMin=pitagora;
+						trovatoAlmenoUno=true;
+						//invertiti
+						posto[0] = a;
+						posto[1] = rigaVertice;
+					}
+				}
+			}
+
+			//scendo verticale
+			for(int b=rigaVertice+1;b<=rigaCellaOttimaAss+raggioSpirale;b++){
+
+				System.out.println("["+b+";"+(colonnaCellaOttimaAss+raggioSpirale+"]"));
+				if(!occupancyPallet[b][colonnaCellaOttimaAss+raggioSpirale]){
+					pitagora = Math.pow(distX-Coordinata.XRel(colonnaCellaOttimaAss+raggioSpirale, v.getTipoAereo()), 2)+Math.pow(distY-Coordinata.YRel(b, v.getTipoAereo()), 2);//calcolo la distanza tra due punti
+					if(pitagora<pitagoraMin){ 
+						pitagoraMin=pitagora;
+						trovatoAlmenoUno=true;
+						//invertiti
+						posto[0] = colonnaCellaOttimaAss+raggioSpirale;
+						posto[1] = b;
+					}
+				}
+			}
+
+			//ritorno orizzontale
+			for(int c=colonnaCellaOttimaAss+raggioSpirale-1;c>=colonnaVertice;c--){
+				System.out.println("["+(rigaCellaOttimaAss+raggioSpirale)+";"+c+"]");
+				if(!occupancyPallet[rigaCellaOttimaAss+raggioSpirale][c]){
+					pitagora = Math.pow(distX-Coordinata.XRel(c, v.getTipoAereo()), 2)+Math.pow(distY-Coordinata.YRel(rigaCellaOttimaAss+raggioSpirale, v.getTipoAereo()), 2);//calcolo la distanza tra due punti
+					if(pitagora<pitagoraMin){ 
+						pitagoraMin=pitagora;
+						trovatoAlmenoUno=true;
+						//invertiti
+						posto[0] = rigaCellaOttimaAss+raggioSpirale;
+						posto[1] = c;
+					}
+				}
+			}
+
+
+			//salgo verticale
+			for(int d=rigaCellaOttimaAss+raggioSpirale-1;d>rigaVertice;d--){
+
+				System.out.println("["+d+";"+colonnaVertice+"]");
+				if(!occupancyPallet[d][colonnaVertice]){
+					pitagora = Math.pow(distX-Coordinata.XRel(colonnaVertice, v.getTipoAereo()), 2)+Math.pow(distY-Coordinata.YRel(d, v.getTipoAereo()), 2);//calcolo la distanza tra due punti
+					if(pitagora<pitagoraMin){ 
+						pitagoraMin=pitagora;
+						trovatoAlmenoUno=true;
+						//invertiti
+						posto[0] = colonnaVertice+raggioSpirale;
+						posto[1] = d;
+					}
+				}
+			}
+
+			if(trovatoAlmenoUno) return posto;
+
+			raggioSpirale++;
+			System.out.println("aumento raggio");
+		}
+
+		int[] postoNullo = {-1, -1};
+		System.out.println("Posto:"+postoNullo[1]+" "+postoNullo[0]);
+		return postoNullo;
 	}
+
+
 }
