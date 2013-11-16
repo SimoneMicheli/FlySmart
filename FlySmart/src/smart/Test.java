@@ -75,7 +75,7 @@ public class Test {
 	
 	public static void testAlg(){
 		Options.LoadDefaultOptions();
-		ObjectId idVolo = new ObjectId("5287451a036447b203cabd62");
+		ObjectId idVolo = new ObjectId("52874697395622ac367f45af");
 		
 		SmartCheckin c = null;
 		try {
