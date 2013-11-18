@@ -719,8 +719,8 @@ public class PrenotazioneView extends View {
 		panelPalletPallet.add(textFieldTargaPallet);
 		textFieldTargaPallet.setColumns(10);
 
-		JLabel lblPeso = new JLabel("Peso complessivo");
-		lblPeso.setBounds(141, 160, 112, 14);
+		JLabel lblPeso = new JLabel("Peso complessivo [600-1400]");
+		lblPeso.setBounds(141, 160, 212, 14);
 		panelPalletPallet.add(lblPeso);
 
 		textFieldPesoPallet.setBounds(141, 177, 220, 20);

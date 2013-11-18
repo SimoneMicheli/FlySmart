@@ -15,41 +15,41 @@ import com.google.code.morphia.Datastore;
 import com.google.code.morphia.Morphia;
 import com.mongodb.Mongo;
 
+// TODO: Auto-generated Javadoc
 /**
- * crea il gestore del db 
- * implementazione con design pattern di tipo singleton
- *
+ * crea il gestore del db
+ * implementazione con design pattern di tipo singleton.
  */
 public final class DBSession{
 
+	/** The log. */
 	private static Logger log = LogManager.getLogger(DBSession.class.getCanonicalName().toString());
 
-	/**
-	 * connessione a mongoDB
-	 */
+	/** connessione a mongoDB. */
 	private static Mongo mongo = null;
 	
-	/**
-	 * mapper to/from mongoDB
-	 */
+	/** mapper to/from mongoDB. */
 	private static Morphia morphia = null;
 	
-	/**
-	 * gestisce lo scambio di dati da e per il DB
-	 */
+	/** gestisce lo scambio di dati da e per il DB. */
 	protected static Datastore ds = null;
 
+	/** The session. */
 	private static DBSession session = null;
 	
+	/** The v dao. */
 	private static VoloDAO vDAO=null;
 	
+	/** The pass dao. */
 	private static PasseggeroDAO passDAO=null;
 	
+	/** The pall dao. */
 	private static PalletDAO pallDAO=null;
 	
 	/**
-	 * costruttore privato per singleton
-	 * @throws UnknownHostException
+	 * costruttore privato per singleton.
+	 *
+	 * @throws UnknownHostException the unknown host exception
 	 */
 	protected DBSession() throws UnknownHostException{
 		
@@ -72,7 +72,7 @@ public final class DBSession{
 	}
 	
 	/**
-	 * configura morphia per eseguire il mapping degli oggetti
+	 * configura morphia per eseguire il mapping degli oggetti.
 	 */
 	private void setMapper(){
 		
@@ -84,7 +84,8 @@ public final class DBSession{
 	}
 
 	/**
-	 * ritorna l'istanza del datastore che permette di eseguire query sul DB
+	 * ritorna l'istanza del datastore che permette di eseguire query sul DB.
+	 *
 	 * @return datastore
 	 */
 	public static Datastore getInstance() {
@@ -100,7 +101,8 @@ public final class DBSession{
 	}
 	
 	/**
-	 * ritorna un istanza di VoloDAO
+	 * ritorna un istanza di VoloDAO.
+	 *
 	 * @return VoloDAO
 	 */
 	public static VoloDAO getVoloDAO(){
@@ -118,7 +120,8 @@ public final class DBSession{
 	}
 	
 	/**
-	 * ritorna un istanza di PasseggeroDAO
+	 * ritorna un istanza di PasseggeroDAO.
+	 *
 	 * @return PasseggeroDAO
 	 */
 	public static PasseggeroDAO getPasseggeroDAO(){
@@ -136,7 +139,8 @@ public final class DBSession{
 	}
 	
 	/**
-	 * ritorna un istanza di PalletDAO
+	 * ritorna un istanza di PalletDAO.
+	 *
 	 * @return PalletDAO
 	 */
 	public static PalletDAO getPalletDAO(){

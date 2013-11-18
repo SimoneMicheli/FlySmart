@@ -73,6 +73,7 @@ public class SmartCheckin implements SmartAlgorithm{
 				if(occupancyPasseggeri[i][j]) System.out.print(" ");
 			}
 		}
+		System.out.println("\n");
 	}
 
 	public void stampaOccupancyPallet(int x){
@@ -84,6 +85,7 @@ public class SmartCheckin implements SmartAlgorithm{
 				if(occupancyPallet[i][j]) System.out.print(" ");
 			}
 		}
+		System.out.println("\n");
 	}
 
 
@@ -92,11 +94,11 @@ public class SmartCheckin implements SmartAlgorithm{
 		//ottengo lista passeggeri e pallet
 		List<Passeggero> passeggeri = DBSession.getPasseggeroDAO().getByIdVolo(v.getId()).order("-peso").asList();
 		List<Pallet> pallets = DBSession.getPalletDAO().getByIdVolo(v.getId()).order("-peso").asList();
-
+		
 
 		for(Pallet p : pallets)
 			System.out.println(p);
-		
+
 		//calcola disposizione
 		posizionaPallet(pallets);
 		//posizionePasseggeri(passeggeri, v);
@@ -119,6 +121,7 @@ public class SmartCheckin implements SmartAlgorithm{
 		
 		Iterator<Pallet> i = lista.iterator();
 
+		System.out.println("Primo pallet");
 		//ottengo primo pallet
 		Pallet p = i.next();
 
@@ -129,33 +132,37 @@ public class SmartCheckin implements SmartAlgorithm{
 		double momX = p.getPeso() * -0.5;
 		double momY = p.getPeso() * 0.5;
 
+		System.out.println("momX: "+momX);
+		System.out.println("momY: "+momY);
 		//setto occupato il primo posto del pallet
 		occupancyPallet[Coordinata.YAbs(0.5, v.getTipoAereo())][0] = true;
-		System.out.println("Nuovo peso: "+p.getPeso()+" [x:"+p.getColonna()+" y:"+p.getFila()+"] produce [momX:"+momX+" momY: "+momY+"]");
-
+		System.out.println("Questo peso: di "+p.getPeso()+"kg va in [x:"+p.getColonna()+" y:"+p.getFila()+"] produce [momX:"+momX+" momY: "+momY+"]");
+		int passo=1;
 		//calcolo posizione per i pallet successivi
 		while(i.hasNext()){
+			stampaOccupancyPallet(passo);
+			passo++;
 			p = i.next();
 
+			System.out.println("Prossimo peso di "+p.getPeso());
 			//posizione ideale per annullare il momento
 			double distX = -momX / p.getPeso();
 			double distY = -momY / p.getPeso();
 			System.out.println("Calcolato: x:"+distX +" y:"+distY);
 
+			int[] pos = postoLiberoPallet(distX,distY); //ritorno in modo XY quindi prima posizione è la colonna
 
-			System.out.println("Interno all'aereo: x:"+distX +" y:"+distY);
-			System.out.println("Coordinate assolute: x:"+Coordinata.XAbs(distX ,v.getTipoAereo()) +" y:"+Coordinata.YAbs(distY ,v.getTipoAereo()));
-			//aggiorno posto effettivo
-			int[] pos = postoLiberoPallet(Coordinata.XAbs(distX ,v.getTipoAereo()), Coordinata.YAbs(distY ,v.getTipoAereo()));
+			p.setColonna(pos[0]); 
 			p.setFila(pos[1]);
-			p.setColonna(pos[0]);
 
 			//sbilanciamento effettivo
-			momX = momX + p.getPeso() * Coordinata.XRel(pos[0], v.getTipoAereo());
-			momY = momY + p.getPeso() * Coordinata.YRel(pos[1], v.getTipoAereo());
-			System.out.println("Nuovo peso: "+p.getPeso()+" [x:"+p.getColonna()+" y:"+p.getFila()+"] produce [momX:"+momX+" momY: "+momY+"]");
+			System.out.println("Calcolo lo sbilanciamento effettivo, nuovo");
+			momX = momX + p.getPeso() * Coordinata.XRel(pos[0], v.getTipoAereo()); //sbilanciamento sulle x è la colonna
+			momY = momY + p.getPeso() * Coordinata.YRel(pos[1], v.getTipoAereo()); //sbilanciamento sulle y è la fila
+			System.out.println("Questo peso: di "+p.getPeso()+"kg va in [x:"+p.getColonna()+" y:"+p.getFila()+"] e lascia un mom di [momX:"+momX+" momY: "+momY+"]");
 		}
 
+		stampaOccupancyPallet(passo);
 	} 
 
 
@@ -213,11 +220,12 @@ public class SmartCheckin implements SmartAlgorithm{
 	/**
 	 * restituisce il primo posto libero in cui posizionare il
 	 * pallet secondo l'algoritmo greedy, le posizioni sono in valore assoluto
-	 * @param distX posizione ideale sulle colonne 
-	 * @param distY posizione idale sulle righe
-	 * @return posto da assegnare (x,y)
+	 * @param distX il punto X dove lo sbilanciamento sulle X risulterebbe 0
+	 * @param distY il punto Y dove lo sbilanciamento sulle Y risulterebbe 0
+	 * @return un vettore in cui la prima posizione indica la colonna (X) dove posizionare il pallet, e la seconda posizione indica la riga (Y)
 	 */
-	protected int[] postoLiberoPallet(double distX, double distY){
+	private int[] postoLiberoPallet(double distX, double distY){
+
 
 		double rigaCellaOttimaRel=distY; //in coordinate relative
 		double colonnaCellaOttimaRel=distX; //in coordinate relative
@@ -247,19 +255,23 @@ public class SmartCheckin implements SmartAlgorithm{
 			rigaCellaOttimaRel = Coordinata.YRel(v.getTipoAereo().getFilePallet(), v.getTipoAereo());
 		if(Coordinata.YAbs(rigaCellaOttimaRel ,v.getTipoAereo()) <0 )
 			rigaCellaOttimaRel = Coordinata.YRel(0, v.getTipoAereo());
+		System.out.println("Interno all'aereo: x:"+colonnaCellaOttimaRel +" y:"+rigaCellaOttimaRel);
 
 		//tengo le variabili anche assolute cosi non devo sempre fare il cambio di sistema di riferimento
 		int colonnaCellaOttimaAss = Coordinata.XAbs(colonnaCellaOttimaRel ,v.getTipoAereo());
 		int rigaCellaOttimaAss = Coordinata.YAbs(rigaCellaOttimaRel ,v.getTipoAereo());
 
+		System.out.println("Interno all'aereo assoluto: x:"+colonnaCellaOttimaAss +" y:"+rigaCellaOttimaAss);
+		
+		
 		//provo lo scelto
 		System.out.println("provo lo scelto");
 		if(!occupancyPallet[rigaCellaOttimaAss][colonnaCellaOttimaAss]){
 			occupancyPallet[rigaCellaOttimaAss][colonnaCellaOttimaAss]=true;
 			int[] posto = {colonnaCellaOttimaAss, rigaCellaOttimaAss};
-			System.out.println("trovato scelto");
+			System.out.println("trovato scelto: [x:"+colonnaCellaOttimaAss+" y:"+rigaCellaOttimaAss+"]"); 
 			return posto;
-		}
+		}else System.out.println("è occupato");
 
 		//se arrivo qui significa che la cella ottima è occupata
 
@@ -291,75 +303,109 @@ public class SmartCheckin implements SmartAlgorithm{
 		int[] posto = {-1, -1};
 		while(raggioSpirale<=distanzaMassima){
 			trovatoAlmenoUno=false;
-			System.out.println("dist="+raggioSpirale);
+			System.out.println("raggioSpirale="+raggioSpirale);
 			rigaVertice = rigaCellaOttimaAss-raggioSpirale;
 			colonnaVertice = colonnaCellaOttimaAss-raggioSpirale; //mi posiziono nel vertice del quadrato di centro rigaCellaOttimaAss colonnaCellaOttimaAss
 
 			//vado orizzontale
+			System.out.println("vado orizzontale");
 			for(int a=colonnaVertice;a<=colonnaCellaOttimaAss+raggioSpirale;a++){
-
-				System.out.println("["+rigaVertice+";"+a+"]");
-				if(!occupancyPallet[rigaVertice][a]){ //se non è occupato calcolo la distanza
-					pitagora = Math.pow(distX-Coordinata.XRel(a, v.getTipoAereo()), 2)+Math.pow(distY-Coordinata.YRel(rigaVertice, v.getTipoAereo()), 2);//calcolo la distanza tra due punti
-					if(pitagora<pitagoraMin){ 
-						pitagoraMin=pitagora;
-						trovatoAlmenoUno=true;
-						//invertiti
-						posto[0] = a;
-						posto[1] = rigaVertice;
-					}
+				System.out.println("["+a+";"+rigaVertice+"]");
+				try{
+					if(!occupancyPallet[rigaVertice][a]){ //se non è occupato calcolo la distanza
+						pitagora = Math.pow(distX-Coordinata.XRel(a, v.getTipoAereo()), 2)+Math.pow(distY-Coordinata.YRel(rigaVertice, v.getTipoAereo()), 2);//calcolo la distanza tra due punti
+						System.out.println("pitagora:"+pitagora);
+						if(pitagora<pitagoraMin){ 
+							System.out.println("nuovo minimo");
+							pitagoraMin=pitagora;
+							trovatoAlmenoUno=true;
+							//invertiti
+							posto[0] = a;
+							posto[1] = rigaVertice;
+						}
+					}else System.out.println("è occupato");
+				}catch(ArrayIndexOutOfBoundsException e){
+					System.out.println("sono fuori");
 				}
 			}
 
 			//scendo verticale
-			for(int b=rigaVertice+1;b<=rigaCellaOttimaAss+raggioSpirale;b++){
+			System.out.println("scendo verticale");
+			for(int a=rigaVertice+1;a<=rigaCellaOttimaAss+raggioSpirale;a++){
 
-				System.out.println("["+b+";"+(colonnaCellaOttimaAss+raggioSpirale+"]"));
-				if(!occupancyPallet[b][colonnaCellaOttimaAss+raggioSpirale]){
-					pitagora = Math.pow(distX-Coordinata.XRel(colonnaCellaOttimaAss+raggioSpirale, v.getTipoAereo()), 2)+Math.pow(distY-Coordinata.YRel(b, v.getTipoAereo()), 2);//calcolo la distanza tra due punti
-					if(pitagora<pitagoraMin){ 
-						pitagoraMin=pitagora;
-						trovatoAlmenoUno=true;
-						//invertiti
-						posto[0] = colonnaCellaOttimaAss+raggioSpirale;
-						posto[1] = b;
-					}
+				System.out.println("["+(colonnaCellaOttimaAss+raggioSpirale)+";"+a+"]");
+
+				try{
+					if(!occupancyPallet[a][colonnaCellaOttimaAss+raggioSpirale]){
+						pitagora = Math.pow(distX-Coordinata.XRel(colonnaCellaOttimaAss+raggioSpirale, v.getTipoAereo()), 2)+Math.pow(distY-Coordinata.YRel(a, v.getTipoAereo()), 2);//calcolo la distanza tra due punti
+						System.out.println("pitagora:"+pitagora);
+						if(pitagora<pitagoraMin){ 
+							System.out.println("nuovo minimo");
+							pitagoraMin=pitagora;
+							trovatoAlmenoUno=true;
+							//invertiti
+							posto[0] = colonnaCellaOttimaAss+raggioSpirale;
+							posto[1] = a;
+						}
+					}else System.out.println("è occupato");
+				}catch(ArrayIndexOutOfBoundsException e){
+					System.out.println("sono fuori");
 				}
 			}
 
 			//ritorno orizzontale
-			for(int c=colonnaCellaOttimaAss+raggioSpirale-1;c>=colonnaVertice;c--){
-				System.out.println("["+(rigaCellaOttimaAss+raggioSpirale)+";"+c+"]");
-				if(!occupancyPallet[rigaCellaOttimaAss+raggioSpirale][c]){
-					pitagora = Math.pow(distX-Coordinata.XRel(c, v.getTipoAereo()), 2)+Math.pow(distY-Coordinata.YRel(rigaCellaOttimaAss+raggioSpirale, v.getTipoAereo()), 2);//calcolo la distanza tra due punti
-					if(pitagora<pitagoraMin){ 
-						pitagoraMin=pitagora;
-						trovatoAlmenoUno=true;
-						//invertiti
-						posto[0] = rigaCellaOttimaAss+raggioSpirale;
-						posto[1] = c;
-					}
+			System.out.println("ritorno orizzontale");
+			for(int a=colonnaCellaOttimaAss+raggioSpirale-1;a>=colonnaVertice;a--){
+				System.out.println("["+a+";"+(rigaCellaOttimaAss+raggioSpirale)+"]");
+
+				try{
+					if(!occupancyPallet[rigaCellaOttimaAss+raggioSpirale][a]){
+						pitagora = Math.pow(distX-Coordinata.XRel(a, v.getTipoAereo()), 2)+Math.pow(distY-Coordinata.YRel(rigaCellaOttimaAss+raggioSpirale, v.getTipoAereo()), 2);//calcolo la distanza tra due punti
+						System.out.println("pitagora:"+pitagora);
+						if(pitagora<pitagoraMin){ 
+							System.out.println("nuovo minimo");
+							pitagoraMin=pitagora;
+							trovatoAlmenoUno=true;
+							//invertiti
+							posto[0] = a;
+							posto[1] = rigaCellaOttimaAss+raggioSpirale;
+						}
+					}else System.out.println("è occupato");
+				}catch(ArrayIndexOutOfBoundsException e){
+					System.out.println("sono fuori");
 				}
 			}
 
 
 			//salgo verticale
-			for(int d=rigaCellaOttimaAss+raggioSpirale-1;d>rigaVertice;d--){
+			System.out.println("salgo verticale");
+			for(int a=rigaCellaOttimaAss+raggioSpirale-1;a>rigaVertice;a--){
 
-				System.out.println("["+d+";"+colonnaVertice+"]");
-				if(!occupancyPallet[d][colonnaVertice]){
-					pitagora = Math.pow(distX-Coordinata.XRel(colonnaVertice, v.getTipoAereo()), 2)+Math.pow(distY-Coordinata.YRel(d, v.getTipoAereo()), 2);//calcolo la distanza tra due punti
-					if(pitagora<pitagoraMin){ 
-						pitagoraMin=pitagora;
-						trovatoAlmenoUno=true;
-						//invertiti
-						posto[0] = colonnaVertice+raggioSpirale;
-						posto[1] = d;
-					}
+				System.out.println("["+colonnaVertice+";"+a+"]");
+
+				try{
+					if(!occupancyPallet[a][colonnaVertice]){
+						pitagora = Math.pow(distX-Coordinata.XRel(colonnaVertice, v.getTipoAereo()), 2)+Math.pow(distY-Coordinata.YRel(a, v.getTipoAereo()), 2);//calcolo la distanza tra due punti
+						System.out.println("pitagora:"+pitagora);
+						if(pitagora<pitagoraMin){ 
+							System.out.println("nuovo minimo");
+							pitagoraMin=pitagora;
+							trovatoAlmenoUno=true;
+							//invertiti
+							posto[0] = colonnaVertice+raggioSpirale;
+							posto[1] = a;
+						}
+					}else System.out.println("è occupato");
+				}catch(ArrayIndexOutOfBoundsException e){
+					System.out.println("sono fuori");
 				}
 			}
 
-			if(trovatoAlmenoUno) return posto;
+			if(trovatoAlmenoUno){
+				System.out.println("ne ho trovato almeno uno, il migliore è: [x:"+posto[0]+" y:"+posto[1]+"]");
+				occupancyPallet[posto[1]][posto[0]]=true;
+				return posto;
+			}
 
 			raggioSpirale++;
 			System.out.println("aumento raggio");
