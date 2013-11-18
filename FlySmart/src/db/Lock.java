@@ -83,7 +83,7 @@ public final class Lock implements LockInterface{
 		
 		//il thread corrente cerca di rilasciare un lock
 		//assegnato ad un'altro thread
-		if(saved != current){
+		if(!saved.equals(current)){
 			log.warn("Il thread "+current.getName()+" cerca di rilasciare un lock a lui non assegnato id: "+idVolo.toString());
 			return;
 		}
