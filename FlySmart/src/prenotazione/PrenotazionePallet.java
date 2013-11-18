@@ -15,6 +15,7 @@ import db.Lock;
 
 
 import model.Pallet;
+import model.StatoVolo;
 import model.Volo;
 
 /**
@@ -43,6 +44,11 @@ public class PrenotazionePallet implements Prenotazione<Pallet> {
 			if(v == null){
 				log.warn("Volo richiesto non trovato id: "+idVolo);
 				throw new FlightNotFoundException(idVolo);
+			}
+			
+			if(v.getStato() != StatoVolo.OPEN){
+				log.warn("Il volo richiesto è già chiuso id: "+idVolo);
+				throw new BookingException("Flight already closed! id: "+idVolo);
 			}
 			
 			if (v.getPalletDisponibili() - listToAdd.size() < 0){

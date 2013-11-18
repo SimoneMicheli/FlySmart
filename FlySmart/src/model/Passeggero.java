@@ -316,7 +316,7 @@ public class Passeggero extends Model {
 	 */
 	@Override
 	public String toString() {
-		return nome + " " + cognome+ "idVolo: "+idVolo;
+		return "Nome: "+ nome + " Cognome: " + cognome+ " Peso: "+getPeso();
 	}
 
 	/**

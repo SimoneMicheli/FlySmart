@@ -77,4 +77,10 @@ public class Gruppo extends LinkedList<Passeggero> implements Comparable<Gruppo>
 			return -1;
 		return 1;
 	}
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return  "peso: "+peso+ super.toString();
+	}
 }

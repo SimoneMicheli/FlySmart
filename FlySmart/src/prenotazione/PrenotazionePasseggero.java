@@ -9,6 +9,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.bson.types.ObjectId;
 import model.Passeggero;
+import model.StatoVolo;
 import model.Volo;
 
 import db.DBSession;
@@ -44,6 +45,11 @@ public class PrenotazionePasseggero implements Prenotazione<Passeggero> {
 				throw new FlightNotFoundException(idVolo);
 			}
 			
+			if(v.getStato() != StatoVolo.OPEN){
+				log.warn("Il volo richiesto è già chiuso id: "+idVolo);
+				throw new BookingException("Flight already closed! id: "+idVolo);
+			}
+			
 			//posti insufficienti
 			if (v.getPostiDisponibili() - listToAdd.size() < 0){
 				log.warn("Posti insufficienti sul volo id: "+idVolo);
@@ -66,7 +72,7 @@ public class PrenotazionePasseggero implements Prenotazione<Passeggero> {
 			}
 			//salvo volo
 			DBSession.getVoloDAO().save(v);
-			log.info("Prenotazione effettuata con successo per il gruppo: "+idGruppo+" + di: "+listToAdd.size()+" passeggeri sul volo id: "+idVolo);
+			log.info("Prenotazione effettuata con successo per il gruppo: "+idGruppo[0]+" + di: "+listToAdd.size()+" passeggeri sul volo id: "+idVolo);
 		} finally  {
 			//rilascio il lock
 			Lock.getInstance().releaseLock(idVolo);

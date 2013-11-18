@@ -4,6 +4,7 @@
 package smart;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -25,7 +26,7 @@ public class SmartGroupOrdering {
 	 * @param numeroGruppi numero di gruppi da creare (dipende dal numero di prenotazioni)
 	 * @return lista ordinate per peso dei gruppi
 	 */
-	public Gruppo[] sortGroup(List<Passeggero> lista, int numeroGruppi){
+	public static Gruppo[] sortGroup(List<Passeggero> lista){
 		
 		//creo mappa hash contentente id gruppo e gruppo, dimensione iniziale pari al numero di passeggeri
 		//da analizzare (caso peggiore per migliorare le prestaioni)
@@ -50,7 +51,7 @@ public class SmartGroupOrdering {
 		
 		//ordino gruppi per peso (merge sort)
 		Gruppo[] gruppi = map.values().toArray(new Gruppo[0]);
-		Arrays.sort(gruppi);
+		Arrays.sort(gruppi, Collections.reverseOrder());
 		
 		return gruppi;
 	}

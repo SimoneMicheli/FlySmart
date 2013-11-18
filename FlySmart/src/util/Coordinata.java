@@ -1,31 +1,39 @@
-/**
- * 
- */
+
 package util;
 
-import model.TipoAereo;
 
 /**
- * la classe gestisce le coordinate di pallet/passeggeri sull'aereo
- *
+ * l'interfaccia gestisce le coordinate di pallet/passeggeri sull'aereo
+ * coordinate assolute Zero-based
  */
-public final class Coordinata {
+public interface Coordinata {
 
-	public static int XAbs(double x ,TipoAereo t){
-		return (int) (x - 0.5 + t.getColonnePallet()/2);
-	}
+	/**
+	 * passa da coordinata relativa ad assoluta sulla X
+	 * @param x coordinata relativa
+	 * @return coordinata assoluta
+	 */
+	public int XAbs(double x);
 	
-	public static int YAbs(double y ,TipoAereo t){
-		return (int) (y - 0.5 + (t.getFilePallet()/2));
-		
-	}
+	/**
+	 * passa da coordinata relativa ad assoluta sulla Y
+	 * @param Y coordinata relativa
+	 * @return coordinata assoluta
+	 */
+	public int YAbs(double y);
 	
-	public static double XRel(int x ,TipoAereo t){
-		return (double) (x + 0.5 - t.getColonnePallet()/2);
-	}
+	/**
+	 * passa da coordinata assoluta a relativa sulla X
+	 * @param x coordinata assoluta
+	 * @return coordinata relativa
+	 */
+	public double XRel(int x);
 	
-	public static double YRel(int y ,TipoAereo t){
-		return (double) (y + 0.5 - t.getFilePallet()/2);
-	}
+	/**
+	 * passa da coordinata assoluta a relativa sulla Y
+	 * @param x coordinata assoluta
+	 * @return coordinata relativa
+	 */
+	public double YRel(int y);
 	
 }

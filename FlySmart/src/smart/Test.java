@@ -1,6 +1,12 @@
 package smart;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import prenotazione.FlightNotFoundException;
+import prenotazione.PrenotazionePasseggero;
+import model.Passeggero;
+import model.Sesso;
 import model.Volo;
 
 import db.DBSession;
@@ -75,6 +81,45 @@ public class Test {
 		 */
 	}
 	
+	public static void prenotaPass(Volo v){
+		
+		List<Passeggero> l = new LinkedList<Passeggero>();
+		
+		PrenotazionePasseggero prenotaz = new PrenotazionePasseggero();
+		
+		l.add(new Passeggero("mario", "rossi", 10, 3, 1960, Sesso.M));
+		l.add(new Passeggero("andrea", "bianchi", 4, 4, 1980, Sesso.M));
+		l.add(new Passeggero("valentina", "verdi", 15, 8, 1990, Sesso.F));
+		
+		//prenotazione 1
+		prenotaz.prenota(l, v.getId());
+		l.clear();
+		
+		
+		l.add(new Passeggero("ggg", "rossi", 10, 3, 2005, Sesso.M));
+		l.add(new Passeggero("hhh", "bianchi", 4, 4, 2005, Sesso.M));
+		l.add(new Passeggero("yyy", "verdi", 15, 8, 2005, Sesso.F));
+		
+		//prenotazione 2
+		prenotaz.prenota(l, v.getId());
+		l.clear();
+		
+		l.add(new Passeggero("aaa", "rossi", 10, 3, 1960, Sesso.M));
+		l.add(new Passeggero("bbb", "bianchi", 4, 4, 1980, Sesso.M));
+		l.add(new Passeggero("ccc", "verdi", 15, 8, 1990, Sesso.M));
+		//prenotazione 3
+		prenotaz.prenota(l, v.getId());
+		l.clear();
+		
+		l.add(new Passeggero("xxx", "rossi", 10, 3, 1950, Sesso.F));
+		l.add(new Passeggero("fff", "bianchi", 4, 4, 1950, Sesso.F));
+		l.add(new Passeggero("zzz", "verdi", 15, 8, 1950, Sesso.F));
+		//prenotazione 4
+		prenotaz.prenota(l, v.getId());
+		l.clear();
+		
+	}
+	
 	public static void testAlg(){
 
 		Options.initOptions();
@@ -82,6 +127,8 @@ public class Test {
 		Volo v = DBSession.getVoloDAO().getByPartenzaDestinazione(1, 2).get(0);
 		
 		System.out.println(v);
+		
+		//prenotaPass(v);
 		
 		SmartCheckin c = null;
 		try {

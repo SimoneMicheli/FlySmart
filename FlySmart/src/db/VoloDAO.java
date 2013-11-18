@@ -6,6 +6,7 @@ package db;
 import java.util.Date;
 import java.util.List;
 
+import model.StatoVolo;
 import model.Volo;
 
 import org.bson.types.ObjectId;
@@ -43,6 +44,7 @@ public class VoloDAO extends BasicDAO<Volo, ObjectId> {
 				.filter("aeroportoPartenza =",p)
 				.filter("aeroportoDestinazione =", a)
 				.filter("dataOra >", new Date())
+				.filter("stato =", StatoVolo.OPEN)
 				.order("dataOra")
 				.asList();
 	}

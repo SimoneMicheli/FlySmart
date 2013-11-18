@@ -1,6 +1,7 @@
 package smart;
 
 
+import java.util.Arrays;
 import java.util.Iterator;
 
 import java.util.List;
@@ -10,11 +11,13 @@ import org.bson.types.ObjectId;
 
 import prenotazione.FlightNotFoundException;
 import util.Coordinata;
+import util.CoordinataPallet;
 
 
 import db.DBSession;
 import db.Lock;
 
+import model.Gruppo;
 import model.Pallet;
 import model.Passeggero;
 import model.StatoVolo;
@@ -29,11 +32,11 @@ public class SmartCheckin implements SmartAlgorithm{
 	/**
 	 * indica i posti liberi ed occupati sull'aereo per i passeggeri
 	 */
-	private boolean[][] occupancyPasseggeri= {{false,false,false,false,false,false},{false,false,false,false,false,false},{false,false,false,false,false,false},{false,false,false,false,false,false},{false,false,false,false,false,false},{false,false,false,false,false,false},{false,false,false,false,false,false},{false,false,false,false,false,false},{false,false,false,false,false,false},{false,false,false,false,false,false},{false,false,false,false,false,false},{false,false,false,false,false,false}};
+	private boolean[][] occupancyPasseggeri= null;
 	/**
 	 * indica i posti liberi ed occupati sull'aereo per i pallet
 	 */
-	private boolean[][] occupancyPallet= {{false,false},{false,false},{false,false},{false,false}};
+	private boolean[][] occupancyPallet= null;
 
 	/**
 	 * volo su cui calcolare i dati
@@ -62,6 +65,8 @@ public class SmartCheckin implements SmartAlgorithm{
 		}
 
 		//creo matrici
+		occupancyPallet = new boolean[v.getTipoAereo().getFilePallet()][v.getTipoAereo().getColonnePallet()];
+		occupancyPasseggeri = new boolean[v.getTipoAereo().getFilePasseggeri()][v.getTipoAereo().getColonnePasseggeri()];
 	}
 
 	public void stampaOccupancyPasseggeri(int x){
@@ -100,12 +105,12 @@ public class SmartCheckin implements SmartAlgorithm{
 			System.out.println(p);
 
 		//calcola disposizione
-		posizionaPallet(pallets);
-		//posizionePasseggeri(passeggeri, v);
+		//posizionaPallet(pallets);
+		posizionaPasseggeri(passeggeri);
 
 		//salva dati aggiornati nel db
-		DBSession.getPasseggeroDAO().saveList(passeggeri);
-		DBSession.getPalletDAO().saveList(pallets);
+		//DBSession.getPasseggeroDAO().saveList(passeggeri);
+		//DBSession.getPalletDAO().saveList(pallets);
 
 	}
 
@@ -120,13 +125,14 @@ public class SmartCheckin implements SmartAlgorithm{
 			return;
 		
 		Iterator<Pallet> i = lista.iterator();
+		Coordinata coord = new CoordinataPallet(v.getTipoAereo());
 
 		System.out.println("Primo pallet");
 		//ottengo primo pallet
 		Pallet p = i.next();
 
 		//posizione pallet in pos default
-		p.setFila(Coordinata.YAbs(0.5, v.getTipoAereo()));
+		p.setFila(coord.YAbs(0.5));
 		p.setColonna(0);
 
 		double momX = p.getPeso() * -0.5;
@@ -135,7 +141,7 @@ public class SmartCheckin implements SmartAlgorithm{
 		System.out.println("momX: "+momX);
 		System.out.println("momY: "+momY);
 		//setto occupato il primo posto del pallet
-		occupancyPallet[Coordinata.YAbs(0.5, v.getTipoAereo())][0] = true;
+		occupancyPallet[coord.YAbs(0.5)][0] = true;
 		System.out.println("Questo peso: di "+p.getPeso()+"kg va in [x:"+p.getColonna()+" y:"+p.getFila()+"] produce [momX:"+momX+" momY: "+momY+"]");
 		int passo=1;
 		//calcolo posizione per i pallet successivi
@@ -157,14 +163,37 @@ public class SmartCheckin implements SmartAlgorithm{
 
 			//sbilanciamento effettivo
 			System.out.println("Calcolo lo sbilanciamento effettivo, nuovo");
-			momX = momX + p.getPeso() * Coordinata.XRel(pos[0], v.getTipoAereo()); //sbilanciamento sulle x è la colonna
-			momY = momY + p.getPeso() * Coordinata.YRel(pos[1], v.getTipoAereo()); //sbilanciamento sulle y è la fila
+			momX = momX + p.getPeso() * coord.XRel(pos[0]); //sbilanciamento sulle x è la colonna
+			momY = momY + p.getPeso() * coord.YRel(pos[1]); //sbilanciamento sulle y è la fila
 			System.out.println("Questo peso: di "+p.getPeso()+"kg va in [x:"+p.getColonna()+" y:"+p.getFila()+"] e lascia un mom di [momX:"+momX+" momY: "+momY+"]");
 		}
 
 		stampaOccupancyPallet(passo);
 	} 
 
+	protected void posizionaPasseggeri(List<Passeggero> lista){
+		//lista vuota
+		if(lista == null || lista.size() == 0)
+			return;
+			
+		//genero elenco gruppi ordinati per peso
+		Gruppo[] gruppi = SmartGroupOrdering.sortGroup(lista);
+		
+		System.out.println(Arrays.deepToString(gruppi));
+		
+		//ottengo primo gruppo
+		Gruppo g = gruppi[0];
+		
+		//posiziono primo gruppo
+		//posizionaGruppo(5, 5, g);
+	}
+	
+	protected void posizionaGruppo(int colonnaScelta, int rigaScelta, Gruppo g){
+		
+		for(Passeggero p : g){
+			//implementare logica
+		}
+	}
 
 	protected int[] postoLiberoPasseggeri(int colonnaCellaOttimaAss, int rigaCellaOttimaAss){
 
@@ -244,22 +273,22 @@ public class SmartCheckin implements SmartAlgorithm{
 		System.out.println("Discretizzato: x:"+colonnaCellaOttimaRel +" y:"+rigaCellaOttimaRel);
 
 
-
+		Coordinata coord = new CoordinataPallet(v.getTipoAereo());
 
 		//controllo interno all'aereo
-		if(Coordinata.XAbs(colonnaCellaOttimaRel ,v.getTipoAereo()) > v.getTipoAereo().getColonnePallet() )
-			colonnaCellaOttimaRel = Coordinata.XRel(v.getTipoAereo().getColonnePallet(), v.getTipoAereo());
-		if(Coordinata.XAbs(colonnaCellaOttimaRel ,v.getTipoAereo()) < 0 )
-			colonnaCellaOttimaRel = Coordinata.XRel(0, v.getTipoAereo());
-		if(Coordinata.YAbs(rigaCellaOttimaRel ,v.getTipoAereo()) > v.getTipoAereo().getFilePallet() )
-			rigaCellaOttimaRel = Coordinata.YRel(v.getTipoAereo().getFilePallet(), v.getTipoAereo());
-		if(Coordinata.YAbs(rigaCellaOttimaRel ,v.getTipoAereo()) <0 )
-			rigaCellaOttimaRel = Coordinata.YRel(0, v.getTipoAereo());
+		if(coord.XAbs(colonnaCellaOttimaRel) > v.getTipoAereo().getColonnePallet() )
+			colonnaCellaOttimaRel = coord.XRel(v.getTipoAereo().getColonnePallet() );
+		if(coord.XAbs(colonnaCellaOttimaRel ) < 0 )
+			colonnaCellaOttimaRel = coord.XRel(0);
+		if(coord.YAbs(rigaCellaOttimaRel ) > v.getTipoAereo().getFilePallet() )
+			rigaCellaOttimaRel = coord.YRel(v.getTipoAereo().getFilePallet() );
+		if(coord.YAbs(rigaCellaOttimaRel ) <0 )
+			rigaCellaOttimaRel = coord.YRel(0);
 		System.out.println("Interno all'aereo: x:"+colonnaCellaOttimaRel +" y:"+rigaCellaOttimaRel);
 
 		//tengo le variabili anche assolute cosi non devo sempre fare il cambio di sistema di riferimento
-		int colonnaCellaOttimaAss = Coordinata.XAbs(colonnaCellaOttimaRel ,v.getTipoAereo());
-		int rigaCellaOttimaAss = Coordinata.YAbs(rigaCellaOttimaRel ,v.getTipoAereo());
+		int colonnaCellaOttimaAss = coord.XAbs(colonnaCellaOttimaRel);
+		int rigaCellaOttimaAss = coord.YAbs(rigaCellaOttimaRel);
 
 		System.out.println("Interno all'aereo assoluto: x:"+colonnaCellaOttimaAss +" y:"+rigaCellaOttimaAss);
 		
@@ -313,7 +342,7 @@ public class SmartCheckin implements SmartAlgorithm{
 				System.out.println("["+a+";"+rigaVertice+"]");
 				try{
 					if(!occupancyPallet[rigaVertice][a]){ //se non è occupato calcolo la distanza
-						pitagora = Math.pow(distX-Coordinata.XRel(a, v.getTipoAereo()), 2)+Math.pow(distY-Coordinata.YRel(rigaVertice, v.getTipoAereo()), 2);//calcolo la distanza tra due punti
+						pitagora = Math.pow(distX-coord.XRel(a), 2)+Math.pow(distY-coord.YRel(rigaVertice), 2);//calcolo la distanza tra due punti
 						System.out.println("pitagora:"+pitagora);
 						if(pitagora<pitagoraMin){ 
 							System.out.println("nuovo minimo");
@@ -337,7 +366,7 @@ public class SmartCheckin implements SmartAlgorithm{
 
 				try{
 					if(!occupancyPallet[a][colonnaCellaOttimaAss+raggioSpirale]){
-						pitagora = Math.pow(distX-Coordinata.XRel(colonnaCellaOttimaAss+raggioSpirale, v.getTipoAereo()), 2)+Math.pow(distY-Coordinata.YRel(a, v.getTipoAereo()), 2);//calcolo la distanza tra due punti
+						pitagora = Math.pow(distX-coord.XRel(colonnaCellaOttimaAss+raggioSpirale), 2)+Math.pow(distY-coord.YRel(a), 2);//calcolo la distanza tra due punti
 						System.out.println("pitagora:"+pitagora);
 						if(pitagora<pitagoraMin){ 
 							System.out.println("nuovo minimo");
@@ -360,7 +389,7 @@ public class SmartCheckin implements SmartAlgorithm{
 
 				try{
 					if(!occupancyPallet[rigaCellaOttimaAss+raggioSpirale][a]){
-						pitagora = Math.pow(distX-Coordinata.XRel(a, v.getTipoAereo()), 2)+Math.pow(distY-Coordinata.YRel(rigaCellaOttimaAss+raggioSpirale, v.getTipoAereo()), 2);//calcolo la distanza tra due punti
+						pitagora = Math.pow(distX-coord.XRel(a), 2)+Math.pow(distY-coord.YRel(rigaCellaOttimaAss+raggioSpirale), 2);//calcolo la distanza tra due punti
 						System.out.println("pitagora:"+pitagora);
 						if(pitagora<pitagoraMin){ 
 							System.out.println("nuovo minimo");
@@ -385,7 +414,7 @@ public class SmartCheckin implements SmartAlgorithm{
 
 				try{
 					if(!occupancyPallet[a][colonnaVertice]){
-						pitagora = Math.pow(distX-Coordinata.XRel(colonnaVertice, v.getTipoAereo()), 2)+Math.pow(distY-Coordinata.YRel(a, v.getTipoAereo()), 2);//calcolo la distanza tra due punti
+						pitagora = Math.pow(distX-coord.XRel(colonnaVertice), 2)+Math.pow(distY-coord.YRel(a), 2);//calcolo la distanza tra due punti
 						System.out.println("pitagora:"+pitagora);
 						if(pitagora<pitagoraMin){ 
 							System.out.println("nuovo minimo");
