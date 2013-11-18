@@ -6,6 +6,8 @@ package model;
 import java.util.Collection;
 import java.util.LinkedList;
 
+import org.bson.types.ObjectId;
+
 /**
  * la classe implementa la gestione dei gruppi, in particolare permette di aggiungere i passeggeri
  * che si trovano nello stesso gruppo
@@ -18,12 +20,20 @@ public class Gruppo extends LinkedList<Passeggero> implements Comparable<Gruppo>
 	private int peso;
 	
 	/** id del gruppo */
-	private int id;
+	private ObjectId id;
+	
+	/**
+	 * costruttore di default
+	 */
+	public Gruppo(){
+		peso = 0;
+		id = null;
+	}
 	
 	/**
 	 * costruttore della classe, riceve l'id del gruppo
 	 */
-	public Gruppo(int id) {
+	public Gruppo(ObjectId id) {
 		super();
 		this.id = id;
 	}
@@ -33,7 +43,7 @@ public class Gruppo extends LinkedList<Passeggero> implements Comparable<Gruppo>
 	 * da aggiungere nel gruppo
 	 * @param c
 	 */
-	public Gruppo(int id, Collection<? extends Passeggero> c) {
+	public Gruppo(ObjectId id, Collection<? extends Passeggero> c) {
 		super(c);
 		this.id = id;
 	}
@@ -55,7 +65,7 @@ public class Gruppo extends LinkedList<Passeggero> implements Comparable<Gruppo>
 	/**
 	 * @return restituisce l'id del gruppo
 	 */
-	public int getId() {
+	public ObjectId getId() {
 		return id;
 	}
 

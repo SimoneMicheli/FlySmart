@@ -21,7 +21,7 @@ public class Passeggero extends Model {
 	
 	/** Id del gruppo di passeggero */
 	@Indexed
-	private Integer idGruppo;
+	private ObjectId idGruppo;
 	
 	/** Nome del passeggero */
 	private String nome;
@@ -77,7 +77,7 @@ public class Passeggero extends Model {
 	 * @param mese Mese di nascita
 	 * @param anno Anno di nascita
 	 */
-	public Passeggero(Integer idGruppo, String nome, String cognome, Integer eta, Sesso sesso, ObjectId idVolo, Integer fila, Integer colonna, Integer giorno, Integer mese, Integer anno) {
+	public Passeggero(ObjectId idGruppo, String nome, String cognome, Integer eta, Sesso sesso, ObjectId idVolo, Integer fila, Integer colonna, Integer giorno, Integer mese, Integer anno) {
 		this.idGruppo = idGruppo;
 		this.nome = nome;
 		this.cognome = cognome;
@@ -378,7 +378,7 @@ public class Passeggero extends Model {
 	 *
 	 * @return Id del gruppo di passeggeri
 	 */
-	public Integer getIdGruppo() {
+	public ObjectId getIdGruppo() {
 		return idGruppo;
 	}
 
@@ -387,7 +387,7 @@ public class Passeggero extends Model {
 	 *
 	 * @param idGruppo Id del gruppo di passeggeri
 	 */
-	public void setIdGruppo(Integer idGruppo) {
+	public void setIdGruppo(ObjectId idGruppo) {
 		this.idGruppo = idGruppo;
 	}
 	

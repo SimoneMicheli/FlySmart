@@ -21,9 +21,9 @@ public interface Prenotazione<T extends Model> {
 	 * consente di prenotare un volo
 	 * @param listToAdd lista di elementi da prenotare
 	 * @param idVolo id del volo da prenotare
-	 * @return groupid/palletid
+	 * @return id gruppo / id pallet prenotati
 	 * @throws FlightNotFoundException volo non trovato
 	 * @throws SeatsSoldOutException volo pieno
 	 */
-	public int prenota(List<T> listToAdd, ObjectId idVolo) throws FlightNotFoundException, SeatsSoldOutException;
+	public ObjectId[] prenota(List<T> listToAdd, ObjectId idVolo) throws FlightNotFoundException, SeatsSoldOutException;
 }

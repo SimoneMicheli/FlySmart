@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.bson.types.ObjectId;
+
 import com.google.code.morphia.annotations.Embedded;
 import com.google.code.morphia.annotations.Entity;
 import com.google.code.morphia.annotations.Indexed;
@@ -52,9 +54,6 @@ public class Volo extends Model{
 	@Embedded
 	private TipoAereo tipoAereo;
 	
-	/** ultimi id assegnati */
-	private Integer lastGroupID=0;
-	
 	/**elenco dei passeggeri sul volo*/
 	@Reference
 	private List<Passeggero> passeggeri;
@@ -79,7 +78,7 @@ public class Volo extends Model{
 	 * @param lastPalletID ultimo id pallet assegnato
 	 * @param lastGroupID ultimo id gruppo assegnato
 	 */
-	public Volo(Date dataOra, Integer aeroportoPartenza, Integer aeroportoDestinazione, Integer postiDisponibili, Integer palletDisponibili, Double prezzoPasseggero, Double prezzoPallet, StatoVolo stato, TipoAereo tipoAereo, Integer lastGroupID) {
+	public Volo(Date dataOra, Integer aeroportoPartenza, Integer aeroportoDestinazione, Integer postiDisponibili, Integer palletDisponibili, Double prezzoPasseggero, Double prezzoPallet, StatoVolo stato, TipoAereo tipoAereo) {
 		this.dataOra = dataOra;
 		this.aeroportoPartenza = aeroportoPartenza;
 		this.aeroportoDestinazione = aeroportoDestinazione;
@@ -89,7 +88,6 @@ public class Volo extends Model{
 		this.prezzoPallet = prezzoPallet;
 		this.stato = stato;
 		this.tipoAereo = tipoAereo;
-		this.lastGroupID = lastGroupID;
 		passeggeri = new LinkedList<Passeggero>();
 		pallet = new LinkedList<Pallet>();
 	}
@@ -105,7 +103,7 @@ public class Volo extends Model{
 	 * @param tipoAereo tipo di aereo usato per il volo
 	 */
 	public Volo(Date dataOra, Integer aeroportoPartenza, Integer aeroportoDestinazione, Double prezzoPasseggero, Double prezzoPallet, StatoVolo stato, TipoAereo tipoAereo){
-		this(dataOra, aeroportoPartenza, aeroportoDestinazione, 0, 0, prezzoPasseggero, prezzoPallet, stato, tipoAereo, new Integer(0));
+		this(dataOra, aeroportoPartenza, aeroportoDestinazione, 0, 0, prezzoPasseggero, prezzoPallet, stato, tipoAereo);
 		setPostiDisponibili(tipoAereo.getFilePasseggeri() * tipoAereo.getColonnePasseggeri());
 		setPalletDisponibili(tipoAereo.getFilePallet() * tipoAereo.getColonnePallet());
 	}
@@ -315,24 +313,11 @@ public class Volo extends Model{
 	}
 	
 	/**
-	 * 
-	 * @return oldId primo id libero per gruppi
+	 * restituisce l'id del gruppo da prenotare
+	 * @return id degl gruppo
 	 */
-	public synchronized int getNextGroupID(){
-		int oldID = lastGroupID;
-		lastGroupID ++;
-		return oldID;
-	}
-	
-	public synchronized int getGroupNumber(){
-		return lastGroupID;
-	}
-
-	/**
-	 * @return the lastGroupID
-	 */
-	public Integer getLastGroupID() {
-		return lastGroupID;
+	public ObjectId getGroupNumber(){
+		return new ObjectId();
 	}
 
 	/**

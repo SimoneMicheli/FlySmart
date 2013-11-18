@@ -40,22 +40,22 @@ public interface ServerInterface extends Remote {
 	 * consente la prenotazione di un volo da parte di una lista di passeggeri
 	 * @param listToAdd elnco passeggeri da prenotare
 	 * @param idVolo id del volo da prenotare
-	 * @return id gruppo
+	 * @return id del gruppo (posizione 0 dell'array)
 	 * @throws RemoteException
 	 * @throws FlightNotFoundException 
 	 * @throws SeatsSoldOutException 
 	 */
-	public int prenotaPasseggero(List<Passeggero> listToAdd, ObjectId idVolo) throws RemoteException, FlightNotFoundException, SeatsSoldOutException;
+	public ObjectId[] prenotaPasseggero(List<Passeggero> listToAdd, ObjectId idVolo) throws RemoteException, FlightNotFoundException, SeatsSoldOutException;
 	
 	/**
 	 * consente la prenotazione di un volo da parte di una lista di pallet
 	 * @param listToAdd elnco pallet da prenotare
 	 * @param idVolo id del volo da prenotare
-	 * @return codice di errore
+	 * @return id dei pallet prenotati
 	 * @throws RemoteException
 	 * @throws IOException 
 	 * @throws FlightNotFoundException 
 	 * @throws SeatsSoldOutException 
 	 */
-	public int prenotaPallet(List<Pallet> listToAdd, ObjectId idVolo) throws RemoteException, FlightNotFoundException, SeatsSoldOutException;
+	public ObjectId[] prenotaPallet(List<Pallet> listToAdd, ObjectId idVolo) throws RemoteException, FlightNotFoundException, SeatsSoldOutException;
 }

@@ -30,8 +30,9 @@ public class PrenotazionePallet implements Prenotazione<Pallet> {
 	}
 
 	@Override
-	public int prenota(List<Pallet> listToAdd, ObjectId idVolo)
+	public ObjectId[] prenota(List<Pallet> listToAdd, ObjectId idVolo)
 			throws FlightNotFoundException, SeatsSoldOutException {
+		ObjectId[] ids = new ObjectId[listToAdd.size()];
 		
 		try {
 			//accesso esclusivo al volo
@@ -51,10 +52,14 @@ public class PrenotazionePallet implements Prenotazione<Pallet> {
 			
 			v.setPalletDisponibili(v.getPalletDisponibili() - listToAdd.size());
 			
+			int i = 0;
 			for(Pallet p : listToAdd){
 				p.setIdVolo(idVolo);
 				v.getPallet().add(p);
+				//save pallet
 				DBSession.getPalletDAO().save(p);
+				ids[i] = p.getId();
+				i++;
 			}
 			
 			DBSession.getVoloDAO().save(v);
@@ -64,6 +69,6 @@ public class PrenotazionePallet implements Prenotazione<Pallet> {
 			Lock.getInstance().releaseLock(idVolo);
 		}
 	
-		return 0;
+		return ids;
 	}
 }

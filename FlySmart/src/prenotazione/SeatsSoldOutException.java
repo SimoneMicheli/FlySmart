@@ -7,7 +7,7 @@ import org.bson.types.ObjectId;
  * @author Demarinis - Micheli - Scarpellini
  *
  */
-public class SeatsSoldOutException extends PrenotazioneException {
+public class SeatsSoldOutException extends BookingException {
 
 	private static final long serialVersionUID = -3732723768131457927L;
 

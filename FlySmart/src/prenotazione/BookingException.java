@@ -6,31 +6,31 @@ import org.bson.types.ObjectId;
  * definisce una generica eccezione durante la prenotazione
  *
  */
-public class PrenotazioneException extends RuntimeException {
+public class BookingException extends RuntimeException {
 
 	private static final long serialVersionUID = -7830660559787847126L;
 
 	/**
 	 * 
 	 */
-	public PrenotazioneException() {
+	public BookingException() {
 	}
 	
-	public PrenotazioneException(ObjectId id){
+	public BookingException(ObjectId id){
 		super("Exception during booking process on flight id: "+ id.toString());
 	}
 
 	/**
 	 * @param message
 	 */
-	public PrenotazioneException(String message) {
+	public BookingException(String message) {
 		super(message);
 	}
 
 	/**
 	 * @param cause
 	 */
-	public PrenotazioneException(Throwable cause) {
+	public BookingException(Throwable cause) {
 		super(cause);
 	}
 
@@ -38,7 +38,7 @@ public class PrenotazioneException extends RuntimeException {
 	 * @param message
 	 * @param cause
 	 */
-	public PrenotazioneException(String message, Throwable cause) {
+	public BookingException(String message, Throwable cause) {
 		super(message, cause);
 	}
 
@@ -48,7 +48,7 @@ public class PrenotazioneException extends RuntimeException {
 	 * @param enableSuppression
 	 * @param writableStackTrace
 	 */
-	public PrenotazioneException(String message, Throwable cause,
+	public BookingException(String message, Throwable cause,
 			boolean enableSuppression, boolean writableStackTrace) {
 		super(message, cause, enableSuppression, writableStackTrace);
 	}

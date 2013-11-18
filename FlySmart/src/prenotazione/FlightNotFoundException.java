@@ -8,7 +8,7 @@ import org.bson.types.ObjectId;
  * 
  *
  */
-public class FlightNotFoundException extends PrenotazioneException {
+public class FlightNotFoundException extends BookingException {
 
 	private static final long serialVersionUID = -3732723768131457927L;
 

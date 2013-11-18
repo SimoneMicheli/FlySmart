@@ -3,6 +3,7 @@ package network;
 import java.io.FileNotFoundException;
 import java.rmi.RemoteException;
 import java.rmi.server.*;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -92,10 +93,12 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 	 * @see network.ServerInterface#prenotaPasseggero(java.util.List, int)
 	 */
 	@Override
-	public int prenotaPasseggero(List<Passeggero> listToAdd, ObjectId idVolo) throws FlightNotFoundException, SeatsSoldOutException {
+	public ObjectId[] prenotaPasseggero(List<Passeggero> listToAdd, ObjectId idVolo) throws FlightNotFoundException, SeatsSoldOutException {
 		log.entry();
-		int id = prenotaPass.prenota(listToAdd, idVolo);
+		ObjectId[] id = prenotaPass.prenota(listToAdd, idVolo);
 		log.exit(id);
+		
+		System.out.println(Arrays.deepToString(id));
 		return id;
 	}
 
@@ -103,12 +106,14 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 	 * @see network.ServerInterface#prenotaPallet(java.util.List, int)
 	 */
 	@Override
-	public int prenotaPallet(List<Pallet> listToAdd, ObjectId idVolo) throws FlightNotFoundException, SeatsSoldOutException {
+	public ObjectId[] prenotaPallet(List<Pallet> listToAdd, ObjectId idVolo) throws FlightNotFoundException, SeatsSoldOutException {
 		log.entry();
 		
-		int id = prenotaPall.prenota(listToAdd, idVolo);
+		ObjectId[] id = prenotaPall.prenota(listToAdd, idVolo);
 				
 		log.exit(id);
+		
+		System.out.println(Arrays.deepToString(id));
 		
 		return id;
 	}

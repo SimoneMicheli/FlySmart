@@ -28,8 +28,8 @@ public class PrenotazionePasseggero implements Prenotazione<Passeggero> {
 	}
 
 	@Override
-	public int prenota(List<Passeggero> listToAdd, ObjectId idVolo) throws FlightNotFoundException, SeatsSoldOutException {
-		int idGruppo;
+	public ObjectId[] prenota(List<Passeggero> listToAdd, ObjectId idVolo) throws FlightNotFoundException, SeatsSoldOutException {
+		ObjectId[] idGruppo = new ObjectId[1];
 		
 		try {
 			//accesso esclusivo al volo
@@ -51,13 +51,13 @@ public class PrenotazionePasseggero implements Prenotazione<Passeggero> {
 			}
 			
 			v.setPostiDisponibili(v.getPostiDisponibili() - listToAdd.size());
-			idGruppo = v.getNextGroupID();
+			idGruppo[0] = v.getGroupNumber();
 			
 			//registro passeggeri su volo
 			for(Passeggero p : listToAdd){
 				//update pass and volo
 				p.setIdVolo(idVolo);
-				p.setIdGruppo(idGruppo);
+				p.setIdGruppo(idGruppo[0]);
 				v.getPasseggeri().add(p);
 				
 				//salva passeggero
