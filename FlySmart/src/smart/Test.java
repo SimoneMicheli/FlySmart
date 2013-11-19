@@ -1,5 +1,6 @@
 package smart;
 
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -124,7 +125,12 @@ public class Test {
 
 		Options.initOptions();
 		
-		Volo v = DBSession.getVoloDAO().getByPartenzaDestinazione(1, 2).get(0);
+		Volo v = DBSession.getInstance().createQuery(Volo.class)
+				.filter("aeroportoPartenza =",1)
+				.filter("aeroportoDestinazione =", 2)
+				.filter("dataOra >", new Date())
+				.order("dataOra")
+				.asList().get(0);
 		
 		System.out.println(v);
 		

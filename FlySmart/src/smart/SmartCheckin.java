@@ -81,10 +81,17 @@ public class SmartCheckin implements SmartAlgorithm{
 			System.out.println(p);
 
 		//calcola disposizione
-		//posizionaPallet(pallets);
-		double mom[] = new double[2];
-		Arrays.fill(mom, 0);
-		mom = posizionaPasseggeri(passeggeri, mom);
+		double momPallet[] = new double[2];
+		Arrays.fill(momPallet, 0);
+		momPallet = posizionaPallet(pallets);
+		
+		
+		//fino a qui va
+		
+		
+		double momPasseggeri[] = new double[2];
+		Arrays.fill(momPasseggeri, 0);
+		momPasseggeri = posizionaPasseggeri(passeggeri, momPallet);
 
 		//salva dati aggiornati nel db
 		//DBSession.getPasseggeroDAO().saveList(passeggeri);
@@ -109,6 +116,7 @@ public class SmartCheckin implements SmartAlgorithm{
 		Iterator<Pallet> i = lista.iterator();
 		Coordinata coord = new CoordinataPallet(v.getTipoAereo());
 		
+		System.out.println("Primo pallet");
 		//ottengo primo pallet
 		Pallet p = i.next();
 
@@ -116,13 +124,21 @@ public class SmartCheckin implements SmartAlgorithm{
 		p.setFila(coord.YAbs(0.5));
 		p.setColonna(0);
 
-		mom[1] = p.getPeso() * -0.5;
-		mom[0] = p.getPeso() * 0.5;
+		mom[0] = p.getPeso() * -0.5;
+		mom[1] = p.getPeso() * +0.5;
+		
+		System.out.println("momX: "+mom[1]);
+		System.out.println("momY: "+mom[0]);
 
 		//posizono il primo pallet
 		int[] pos = posti.postoLiberoPallet(-0.5,0.5);
+		System.out.println("Questo peso: di "+p.getPeso()+"kg va in [x:"+p.getColonna()+" y:"+p.getFila()+"] produce [momX:"+mom[1]+" momY: "+mom[0]+"]");
+		
 		//calcolo posizione per i pallet successivi
+		int passo=1;
 		while(i.hasNext()){
+			posti.stampaOccupancyPallet(passo);
+			passo++;
 			p = i.next();
 
 			System.out.println("Prossimo peso di "+p.getPeso());
@@ -142,7 +158,9 @@ public class SmartCheckin implements SmartAlgorithm{
 			mom[0] = mom[0] + p.getPeso() * coord.XRel(pos[0]); //sbilanciamento sulle x è la colonna
 			mom[1] = mom[1] + p.getPeso() * coord.YRel(pos[1]); //sbilanciamento sulle y è la fila
 			System.out.println("Questo peso: di "+p.getPeso()+"kg va in [x:"+p.getColonna()+" y:"+p.getFila()+"] e lascia un mom di [momX:"+mom[0]+" momY: "+mom[1]+"]");
+		
 		}
+		posti.stampaOccupancyPallet(passo);
 		return mom;
 	} 
 
