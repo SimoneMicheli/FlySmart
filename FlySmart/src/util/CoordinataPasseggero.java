@@ -22,7 +22,7 @@ public class CoordinataPasseggero implements Coordinata{
 
 	@Override
 	public int YAbs(double y) {
-		return (int) ((t.getFilePasseggeri() / 2) - y - 0.5);
+		return (int) ((t.getFilePasseggeri() / 2) + y - 0.5);
 	}
 
 	@Override
@@ -32,7 +32,7 @@ public class CoordinataPasseggero implements Coordinata{
 
 	@Override
 	public double YRel(int y) {
-		return (t.getFilePasseggeri() / 2) - y - 0.5;
+		return -(t.getFilePasseggeri() / 2) + y + 0.5;
 	}
 
 }

@@ -25,7 +25,7 @@ public class CoordinataPallet implements Coordinata{
 
 	@Override
 	public int YAbs(double y) {
-		return (int) (-y - 0.5 + (t.getFilePallet()/2));
+		return (int) (y - 0.5 + (t.getFilePallet()/2));
 	}
 
 	@Override
@@ -35,7 +35,7 @@ public class CoordinataPallet implements Coordinata{
 
 	@Override
 	public double YRel(int y) {
-		return (double) (-y - 0.5 + t.getFilePallet()/2);
+		return (double) (y + 0.5 - t.getFilePallet()/2);
 	}
 
 }

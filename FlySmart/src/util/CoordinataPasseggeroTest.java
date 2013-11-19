@@ -34,16 +34,16 @@ public class CoordinataPasseggeroTest {
 	@Test
 	public final void testYAbs() {
 		int actual = coord.YAbs(5.5);
-		assertEquals(0, actual);
+		assertEquals(11, actual);
 		
 		actual = coord.YAbs(0.5);
-		assertEquals(5, actual);
-		
-		actual = coord.YAbs(-0.5);
 		assertEquals(6, actual);
 		
+		actual = coord.YAbs(-0.5);
+		assertEquals(5, actual);
+		
 		actual = coord.YAbs(-5.5);
-		assertEquals(11, actual);
+		assertEquals(0, actual);
 	}
 
 	@Test
@@ -64,16 +64,16 @@ public class CoordinataPasseggeroTest {
 	@Test
 	public final void testYRel() {
 		double actual = coord.YRel(0);
-		assertEquals(5.5, actual, 0.1);
+		assertEquals(-5.5, actual, 0.1);
 		
 		actual = coord.YRel(5);
-		assertEquals(0.5, actual, 0.1);
-		
-		actual = coord.YRel(6);
 		assertEquals(-0.5, actual, 0.1);
 		
+		actual = coord.YRel(6);
+		assertEquals(0.5, actual, 0.1);
+		
 		actual = coord.YRel(11);
-		assertEquals(-5.5, actual, 0.1);
+		assertEquals(5.5, actual, 0.1);
 	}
 
 }

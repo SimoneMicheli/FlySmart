@@ -27,16 +27,16 @@ public class CoordinataPalletTest {
 
 	@Test
 	public final void testYAbs() {
-		int actual = coord.YAbs(1.5);
+		int actual = coord.YAbs(-1.5);
 		assertEquals(0, actual);
 		
-		actual = coord.YAbs(0.5);
+		actual = coord.YAbs(-0.5);
 		assertEquals(1, actual);
 		
-		actual = coord.YAbs(-0.5);
+		actual = coord.YAbs(0.5);
 		assertEquals(2, actual);
 		
-		actual = coord.YAbs(-1.5);
+		actual = coord.YAbs(1.5);
 		assertEquals(3, actual);
 	}
 
@@ -52,16 +52,16 @@ public class CoordinataPalletTest {
 	@Test
 	public final void testYRel() {
 		double actual = coord.YRel(0);
-		assertEquals(1.5, actual, 0.1);
+		assertEquals(-1.5, actual, 0.1);
 		
 		actual = coord.YRel(1);
-		assertEquals(0.5, actual, 0.1);
-		
-		actual = coord.YRel(2);
 		assertEquals(-0.5, actual, 0.1);
 		
+		actual = coord.YRel(2);
+		assertEquals(0.5, actual, 0.1);
+		
 		actual = coord.YRel(3);
-		assertEquals(-1.5, actual, 0.1);
+		assertEquals(1.5, actual, 0.1);
 	}
 
 }
