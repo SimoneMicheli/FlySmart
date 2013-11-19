@@ -36,8 +36,8 @@ Options.initOptions();
 		
 		System.out.println(v);
 		
-		prenotaPallet(v);
-		prenotaPass(v);
+		//prenotaPallet(v);
+		//prenotaPass(v);
 		
 		SmartCheckin c = null;
 		try {

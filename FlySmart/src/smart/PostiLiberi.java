@@ -111,8 +111,8 @@ public class PostiLiberi {
 
 		//provo lo scelto
 		System.out.println("provo lo scelto");
-		if(!occupancyPallet[rigaCellaOttimaAss][colonnaCellaOttimaAss]){
-			occupancyPallet[rigaCellaOttimaAss][colonnaCellaOttimaAss]=true;
+		if(!occupancy[rigaCellaOttimaAss][colonnaCellaOttimaAss]){
+			occupancy[rigaCellaOttimaAss][colonnaCellaOttimaAss]=true;
 			int[] posto = {colonnaCellaOttimaAss, rigaCellaOttimaAss}; //le ritorno in XY
 			System.out.println("trovato scelto: [x:"+colonnaCellaOttimaAss+" y:"+rigaCellaOttimaAss+"]"); 
 			return posto;
@@ -150,7 +150,7 @@ public class PostiLiberi {
 			for(int a=colonnaVertice;a<=colonnaCellaOttimaAss+raggioSpirale;a++){
 				System.out.println("["+a+";"+rigaVertice+"]");
 				try{
-					if(!occupancyPallet[rigaVertice][a]){ //se non è occupato calcolo la distanza
+					if(!occupancy[rigaVertice][a]){ //se non è occupato calcolo la distanza
 						pitagora = Math.pow(distX-coord.XRel(a), 2)+Math.pow(distY-coord.YRel(rigaVertice), 2);//calcolo la distanza tra due punti anche se e relativa va bene tanto distanza funziona sempre
 						System.out.println("pitagora:"+pitagora);
 						if(pitagora<pitagoraMin){ 
@@ -173,7 +173,7 @@ public class PostiLiberi {
 				System.out.println("["+(colonnaCellaOttimaAss+raggioSpirale)+";"+a+"]");
 
 				try{
-					if(!occupancyPallet[a][colonnaCellaOttimaAss+raggioSpirale]){
+					if(!occupancy[a][colonnaCellaOttimaAss+raggioSpirale]){
 						pitagora = Math.pow(distX-coord.XRel(colonnaCellaOttimaAss+raggioSpirale), 2)+Math.pow(distY-coord.YRel(a), 2);//calcolo la distanza tra due punti
 						System.out.println("pitagora:"+pitagora);
 						if(pitagora<pitagoraMin){ 
@@ -195,7 +195,7 @@ public class PostiLiberi {
 				System.out.println("["+a+";"+(rigaCellaOttimaAss+raggioSpirale)+"]");
 
 				try{
-					if(!occupancyPallet[rigaCellaOttimaAss+raggioSpirale][a]){
+					if(!occupancy[rigaCellaOttimaAss+raggioSpirale][a]){
 						pitagora = Math.pow(distX-coord.XRel(a), 2)+Math.pow(distY-coord.YRel(rigaCellaOttimaAss+raggioSpirale), 2);//calcolo la distanza tra due punti
 						System.out.println("pitagora:"+pitagora);
 						if(pitagora<pitagoraMin){ 
@@ -219,7 +219,7 @@ public class PostiLiberi {
 				System.out.println("["+colonnaVertice+";"+a+"]");
 
 				try{
-					if(!occupancyPallet[a][colonnaVertice]){
+					if(!occupancy[a][colonnaVertice]){
 						pitagora = Math.pow(distX-coord.XRel(colonnaVertice), 2)+Math.pow(distY-coord.YRel(a), 2);//calcolo la distanza tra due punti
 						System.out.println("pitagora:"+pitagora);
 						if(pitagora<pitagoraMin){ 
@@ -237,7 +237,7 @@ public class PostiLiberi {
 
 			if(trovatoAlmenoUno){
 				System.out.println("ne ho trovato almeno uno, il migliore è: [x:"+posto[0]+" y:"+posto[1]+"]");
-				occupancyPallet[posto[1]][posto[0]]=true;
+				occupancy[posto[1]][posto[0]]=true;
 				return posto;
 			}
 
