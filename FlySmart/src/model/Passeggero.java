@@ -89,7 +89,7 @@ public class Passeggero extends Model {
 		this.giorno = giorno;
 		this.mese = mese;
 		this.anno = anno;
-		peso = setPeso();
+		this.peso = setPeso();
 	}
 
 	/**

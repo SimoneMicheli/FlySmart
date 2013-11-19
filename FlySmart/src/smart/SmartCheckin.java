@@ -81,17 +81,15 @@ public class SmartCheckin implements SmartAlgorithm{
 			System.out.println(p);
 
 		//calcola disposizione
-		double momPallet[] = new double[2];
-		Arrays.fill(momPallet, 0);
-		momPallet = posizionaPallet(pallets);
+		double mom[] = new double[2];
+		mom = posizionaPallet(pallets);
 		
 		
 		//fino a qui va
 		
+		System.out.println("ordinamento passeggeri---------------------");
 		
-		double momPasseggeri[] = new double[2];
-		Arrays.fill(momPasseggeri, 0);
-		momPasseggeri = posizionaPasseggeri(passeggeri, momPallet);
+		mom = posizionaPasseggeri(passeggeri, mom);
 
 		//salva dati aggiornati nel db
 		//DBSession.getPasseggeroDAO().saveList(passeggeri);

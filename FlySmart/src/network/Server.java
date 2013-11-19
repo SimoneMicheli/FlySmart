@@ -3,7 +3,6 @@ package network;
 import java.io.FileNotFoundException;
 import java.rmi.RemoteException;
 import java.rmi.server.*;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -97,8 +96,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 		log.entry();
 		ObjectId[] id = prenotaPass.prenota(listToAdd, idVolo);
 		log.exit(id);
-		
-		System.out.println(Arrays.deepToString(id));
+
 		return id;
 	}
 
@@ -112,8 +110,6 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 		ObjectId[] id = prenotaPall.prenota(listToAdd, idVolo);
 				
 		log.exit(id);
-		
-		System.out.println(Arrays.deepToString(id));
 		
 		return id;
 	}

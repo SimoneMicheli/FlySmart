@@ -5,7 +5,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 import prenotazione.FlightNotFoundException;
+import prenotazione.PrenotazionePallet;
 import prenotazione.PrenotazionePasseggero;
+import model.Pallet;
 import model.Passeggero;
 import model.Sesso;
 import model.Volo;
@@ -23,63 +25,68 @@ public class Test {
 	 */
 	public static void main(String[] args) {
 		
-		testAlg();
+Options.initOptions();
+		
+		Volo v = DBSession.getInstance().createQuery(Volo.class)
+				.filter("aeroportoPartenza =",1)
+				.filter("aeroportoDestinazione =", 2)
+				.filter("dataOra >", new Date())
+				.order("dataOra")
+				.asList().get(0);
+		
+		System.out.println(v);
+		
+		prenotaPallet(v);
+		prenotaPass(v);
+		
+		SmartCheckin c = null;
+		try {
+			c = new SmartCheckin(v.getId());
+		} catch (FlightNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		c.calcolaCheckin();
 		
 	}
 	
-	public static void esempio(){
-		/*Prova passeggeri*/
-		/*SmartCheckin provaPasseggeri = new SmartCheckin();
+	public static void prenotaPallet(Volo v){
 		
-		int[] resultPasseggeri = provaPasseggeri.postoLiberoPasseggeri(2,3);
-		resultPasseggeri = provaPasseggeri.postoLiberoPasseggeri(2,3);
-		resultPasseggeri = provaPasseggeri.postoLiberoPasseggeri(2,3);
-		resultPasseggeri = provaPasseggeri.postoLiberoPasseggeri(2,3);
-		resultPasseggeri = provaPasseggeri.postoLiberoPasseggeri(2,3);
-		resultPasseggeri = provaPasseggeri.postoLiberoPasseggeri(2,3);
+		List<Pallet> l = new LinkedList<Pallet>();
 		
-		resultPasseggeri = provaPasseggeri.postoLiberoPasseggeri(2,5);
-		resultPasseggeri = provaPasseggeri.postoLiberoPasseggeri(2,5);
-		resultPasseggeri = provaPasseggeri.postoLiberoPasseggeri(2,5);
-		resultPasseggeri = provaPasseggeri.postoLiberoPasseggeri(2,5);
-		resultPasseggeri = provaPasseggeri.postoLiberoPasseggeri(2,5);
-		resultPasseggeri = provaPasseggeri.postoLiberoPasseggeri(2,5);
+		PrenotazionePallet prenotaz = new PrenotazionePallet();
 		
-		resultPasseggeri = provaPasseggeri.postoLiberoPasseggeri(2,5);
-		resultPasseggeri = provaPasseggeri.postoLiberoPasseggeri(2,5);
-		resultPasseggeri = provaPasseggeri.postoLiberoPasseggeri(2,5);
-		resultPasseggeri = provaPasseggeri.postoLiberoPasseggeri(2,5);
-		resultPasseggeri = provaPasseggeri.postoLiberoPasseggeri(2,5);
+		l.add(new Pallet(1000, "a", v.getId()));
+		l.add(new Pallet(600, "b", v.getId()));
+		l.add(new Pallet(1400, "c", v.getId()));
 		
-		resultPasseggeri = provaPasseggeri.postoLiberoPasseggeri(2,5);
-		resultPasseggeri = provaPasseggeri.postoLiberoPasseggeri(2,5);
-		resultPasseggeri = provaPasseggeri.postoLiberoPasseggeri(2,5);
-		resultPasseggeri = provaPasseggeri.postoLiberoPasseggeri(2,5);
-		resultPasseggeri = provaPasseggeri.postoLiberoPasseggeri(2,5);
-		
-		resultPasseggeri = provaPasseggeri.postoLiberoPasseggeri(2,5);
-		System.out.println("Posto: "+resultPasseggeri[1]+" "+resultPasseggeri[0]);
-		resultPasseggeri = provaPasseggeri.postoLiberoPasseggeri(2,5);
-		System.out.println("Posto: "+resultPasseggeri[1]+" "+resultPasseggeri[0]);
-		resultPasseggeri = provaPasseggeri.postoLiberoPasseggeri(2,5);
-		System.out.println("Posto: "+resultPasseggeri[1]+" "+resultPasseggeri[0]);
-		
-// 		continuiamo da qua!!! 
-		//		resultPasseggeri = provaPasseggeri.postoLiberoPasseggeri(,);
-		//      System.out.println("Posto: "+resultPasseggeri[1]+" "+resultPasseggeri[0]);
+		//prenotazione 1
+		prenotaz.prenota(l, v.getId());
+		l.clear();
 		
 		
-		SmartCheckin provaPallet = new SmartCheckin(null, null, null);
-		int[] resultPallet = provaPallet.postoLiberoPallet(0,2);
-		resultPallet = provaPallet.postoLiberoPallet(1,1);
-		resultPallet = provaPallet.postoLiberoPallet(1,0);
-		resultPallet = provaPallet.postoLiberoPallet(0,3);
-		resultPallet = provaPallet.postoLiberoPallet(1,2);
-		resultPallet = provaPallet.postoLiberoPallet(0,1);
-		resultPallet = provaPallet.postoLiberoPallet(0,0);
-		resultPallet = provaPallet.postoLiberoPallet(1,3);
-		System.out.println("Posto: "+resultPallet[1]+" "+resultPallet[0]);
-		 */
+		l.add(new Pallet(978, "d", v.getId()));
+		l.add(new Pallet(1236, "e", v.getId()));
+		l.add(new Pallet(1338, "f", v.getId()));
+		
+		//prenotazione 2
+		prenotaz.prenota(l, v.getId());
+		l.clear();
+		
+		l.add(new Pallet(445, "g", v.getId()));
+		l.add(new Pallet(778, "h", v.getId()));
+		//prenotazione 3
+		prenotaz.prenota(l, v.getId());
+		l.clear();
+		
+		/*l.add(new Pallet(1000, "a", v.getId()));
+		l.add(new Pallet(600, "b", v.getId()));
+		l.add(new Pallet(1400, "c", v.getId()));
+		//prenotazione 4
+		prenotaz.prenota(l, v.getId());
+		l.clear();*/
+		
 	}
 	
 	public static void prenotaPass(Volo v){
@@ -119,32 +126,6 @@ public class Test {
 		prenotaz.prenota(l, v.getId());
 		l.clear();
 		
-	}
-	
-	public static void testAlg(){
-
-		Options.initOptions();
-		
-		Volo v = DBSession.getInstance().createQuery(Volo.class)
-				.filter("aeroportoPartenza =",1)
-				.filter("aeroportoDestinazione =", 2)
-				.filter("dataOra >", new Date())
-				.order("dataOra")
-				.asList().get(0);
-		
-		System.out.println(v);
-		
-		//prenotaPass(v);
-		
-		SmartCheckin c = null;
-		try {
-			c = new SmartCheckin(v.getId());
-		} catch (FlightNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		c.calcolaCheckin();
 	}
 
 }
