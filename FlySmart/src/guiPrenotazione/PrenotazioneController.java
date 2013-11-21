@@ -128,13 +128,18 @@ public class PrenotazioneController extends Controller {
 							JOptionPane.showMessageDialog(null, "Impossibile connettersi al server","Error", 0);
 							e.printStackTrace();
 						}
-						view.aeroportoPartenzaPasseggeri=((Aeroporto)view.comboPasseggeriAeroportoPartenza.getSelectedItem()).getNome();
-						view.aeroportoArrivoPasseggeri=((Aeroporto)view.comboPasseggeriAeroportoArrivo.getSelectedItem()).getNome();
-						annullaListener(); //tolgo i listener che ho aggiunto la prima volta che ho eseguito questa funzione
-						view.setPasseggeriVoli(voli);  //carico gli oggetti nella facciata passeggeri:voli
-						registraControllerFase2Passeggeri(); //registro i listner della facciata passeggeri:voli
-						view.cardPasseggeri.show(view.panelPasseggeri,"panelPasseggeriVoli"); //visualizzo il pannello passeggeri:voli passandogli la lista dei voli
+						if(voli.size()==0){
+							JOptionPane.showMessageDialog(null, "Nessun volo trovato","Error", 0);
+						}else{
+							view.aeroportoPartenzaPasseggeri=((Aeroporto)view.comboPasseggeriAeroportoPartenza.getSelectedItem()).getNome();
+							view.aeroportoArrivoPasseggeri=((Aeroporto)view.comboPasseggeriAeroportoArrivo.getSelectedItem()).getNome();
+							annullaListener(); //tolgo i listener che ho aggiunto la prima volta che ho eseguito questa funzione
+							view.setPasseggeriVoli(voli);  //carico gli oggetti nella facciata passeggeri:voli
+							registraControllerFase2Passeggeri(); //registro i listner della facciata passeggeri:voli
+							view.cardPasseggeri.show(view.panelPasseggeri,"panelPasseggeriVoli"); //visualizzo il pannello passeggeri:voli passandogli la lista dei voli
 
+
+						}
 					}
 				}
 
