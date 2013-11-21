@@ -64,5 +64,5 @@ public interface ServerInterface extends Remote {
 	 * @param idVolo
 	 * @throws FlightNotFoundException
 	 */
-	public void calcolaCheckin(ObjectId idVolo) throws FlightNotFoundException;
+	public void calcolaCheckin(ObjectId idVolo) throws RemoteException, FlightNotFoundException;
 }
