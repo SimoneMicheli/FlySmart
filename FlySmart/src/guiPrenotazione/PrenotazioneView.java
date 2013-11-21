@@ -738,7 +738,7 @@ public class PrenotazioneView extends View {
 
 		JLabel labelFondo = new JLabel("<html><span style='font-size:10px;font-weight:bold'>Pallet</span>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>Selezione tratta</span><span style='font-size:16px'>&nbsp;&nbsp;&nbsp;→&nbsp;&nbsp;</span><span>Ricerca volo</span><span style='font-size:16px'>&nbsp;&nbsp;→&nbsp;&nbsp;&nbsp;&nbsp;</span><span style='color:red'>Inserimento dati pallet</span></html>");
 		labelFondo.setBounds(10, 310, 480, 50);
-		panelPalletVoli.add(labelFondo);
+		panelPalletPallet.add(labelFondo);
 
 		//azzeramento dati pallet
 		listaPallet.clear();
