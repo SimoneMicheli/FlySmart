@@ -59,6 +59,7 @@ public class SmartCheckin implements SmartAlgorithm{
 
 			//chiudo il volo
 			v.setStato(StatoVolo.CLOSED);
+			
 
 			DBSession.getVoloDAO().save(v);
 			

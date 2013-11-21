@@ -58,4 +58,11 @@ public interface ServerInterface extends Remote {
 	 * @throws SeatsSoldOutException 
 	 */
 	public ObjectId[] prenotaPallet(List<Pallet> listToAdd, ObjectId idVolo) throws RemoteException, FlightNotFoundException, SeatsSoldOutException;
+	
+	/**
+	 * chiude il volo richiesto e calcola la posizione dei passeggeri e dei pallet
+	 * @param idVolo
+	 * @throws FlightNotFoundException
+	 */
+	public void calcolaCheckin(ObjectId idVolo) throws FlightNotFoundException;
 }
