@@ -145,4 +145,16 @@ public class Pallet extends Model {
 		// TODO Auto-generated method stub
 		return "id: "+id+ " peso: "+peso+" targa: "+targa+" idVolo: "+idVolo;
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if(this == obj)
+			return true;
+		if(!(obj instanceof Pallet))
+			return false;
+		Pallet p = (Pallet) obj;
+		if(p.id.equals(this.id) && p.peso.equals(this.peso) && p.targa.equals(this.targa))
+			return true;
+		return false;
+	}
 }

@@ -414,4 +414,16 @@ public class Passeggero extends Model {
 		return p;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if(this == obj)
+			return true;
+		if(!(obj instanceof Passeggero))
+			return false;
+		Passeggero p = (Passeggero) obj;
+		if(this.nome.equals(p.nome) && this.cognome.equals(p.cognome) && this.eta.equals(p.eta))
+			return true;
+		return false;
+	}
+
 }

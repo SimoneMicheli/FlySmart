@@ -38,4 +38,13 @@ public class PasseggeroDAO extends BasicDAO<Passeggero, ObjectId> {
 			this.save(p);
 		}
 	}
+	
+	/**
+	 * ritorna la query contenente i passeggeri di un certo gruppo
+	 * @param id del gruppo
+	 * @return query dei passeggeri
+	 */
+	public Query<Passeggero> getByGroupId(ObjectId id){
+		return ds.createQuery(Passeggero.class).filter("idGruppo =", id);
+	}
 }

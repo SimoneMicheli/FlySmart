@@ -7,6 +7,8 @@ import java.util.List;
 
 import org.bson.types.ObjectId;
 
+import cancellazione.DeleteException;
+
 import prenotazione.FlightNotFoundException;
 import prenotazione.SeatsSoldOutException;
 
@@ -63,6 +65,31 @@ public interface ServerInterface extends Remote {
 	 * chiude il volo richiesto e calcola la posizione dei passeggeri e dei pallet
 	 * @param idVolo
 	 * @throws FlightNotFoundException
+	 * @throws RemoteException
 	 */
 	public void calcolaCheckin(ObjectId idVolo) throws RemoteException, FlightNotFoundException;
+	
+	/**
+	 * fornendo l'id del gruppo restituisce l'elenco dei passeggeri nel gruppo
+	 * @param idGruppo
+	 * @return elenco passeggeri del gruppo
+	 * @throws RemoteException
+	 */
+	public List<Passeggero> getPasseggeriGruppo(ObjectId idGruppo) throws RemoteException;
+	
+	/**
+	 * cancella la prenotazione per il passeggero con un certo id
+	 * @param idPass id del passeggero da cancellare
+	 * @throws RemoteException
+	 * @throws DeleteException
+	 */
+	public void cancellaPasseggero(ObjectId idPass) throws RemoteException, DeleteException;
+	
+	/**
+	 * cancella il pallet richiesto
+	 * @param idPallet del pallet da cancellare
+	 * @throws RemoteException
+	 * @throws DeleteException
+	 */
+	public void cacnellaPallet(ObjectId idPallet) throws RemoteException, DeleteException;
 }

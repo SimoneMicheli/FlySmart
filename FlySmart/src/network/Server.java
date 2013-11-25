@@ -11,6 +11,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.bson.types.ObjectId;
 
+import cancellazione.CancellaPallet;
+import cancellazione.CancellaPasseggero;
+import cancellazione.DeleteException;
+
 import prenotazione.FlightNotFoundException;
 import prenotazione.Prenotazione;
 import prenotazione.PrenotazionePallet;
@@ -117,13 +121,44 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 	
 	@Override
 	public void calcolaCheckin(ObjectId idVolo) throws FlightNotFoundException{
-		
+		log.entry();
 		SmartCheckin checkin = null;
 		
 		checkin = new SmartCheckin(idVolo);
 		
 		checkin.calcolaCheckin();
-		
+		log.exit();
 	}
 
+	@Override
+	public List<Passeggero> getPasseggeriGruppo(ObjectId idGruppo)
+			throws RemoteException {
+		log.entry();
+		log.info("Ottengo lista passeggeri gruppo: "+idGruppo);
+		CancellaPasseggero cp = new CancellaPasseggero();
+		log.exit();
+		return cp.getPasseggeriGruppo(idGruppo);
+	}
+
+	@Override
+	public void cancellaPasseggero(ObjectId idPass) throws RemoteException,
+			DeleteException {
+		log.entry();
+		CancellaPasseggero cp = new CancellaPasseggero();
+		log.info("Cancello passeggero: "+idPass);
+		cp.cancellaPasseggero(idPass);
+		log.exit();
+	}
+
+	@Override
+	public void cacnellaPallet(ObjectId idPallet) throws RemoteException,
+			DeleteException {
+		log.entry();
+		CancellaPallet cp = new CancellaPallet();
+		log.info("Cancello pallet: "+idPallet);
+		cp.cancellaPallet(idPallet);
+		log.exit();
+	}
+
+	
 }
