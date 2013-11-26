@@ -78,12 +78,19 @@ public interface ServerInterface extends Remote {
 	public List<Passeggero> getPasseggeriGruppo(ObjectId idGruppo) throws RemoteException;
 	
 	/**
-	 * cancella la prenotazione per il passeggero con un certo id
-	 * @param idPass id del passeggero da cancellare
+	 * cancella la prenotazione per una lista di passeggeri
+	 * @param list lista di passeggeri da cancellare
 	 * @throws RemoteException
 	 * @throws DeleteException
 	 */
-	public void cancellaPasseggero(ObjectId idPass) throws RemoteException, DeleteException;
+	public void cancellaPasseggeri(List<Passeggero> list) throws RemoteException,  DeleteException;
+	
+	/**
+	 * ottene le informazioni sul pallet richiesto
+	 * @param id del pallet
+	 * @return pallet
+	 */
+	public Pallet getInfoPallet(ObjectId id) throws RemoteException;
 	
 	/**
 	 * cancella il pallet richiesto

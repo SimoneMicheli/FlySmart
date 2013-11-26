@@ -64,5 +64,11 @@ public class CancellaPasseggeroTest {
 		assertEquals(posti + 1, posti2);
 		assertNull(DBSession.getPasseggeroDAO().get(p1.getId()));
 	}
+	
+	@Test (expected = DeleteException.class)
+	public void testCancellaPasseggeroException(){
+		CancellaPasseggero cp = new CancellaPasseggero();
+		cp.cancellaPasseggero(new ObjectId());
+	}
 
 }
