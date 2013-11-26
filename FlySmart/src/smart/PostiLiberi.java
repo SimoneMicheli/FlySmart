@@ -59,11 +59,13 @@ public class PostiLiberi {
 	 * @return
 	 */
 	private int[] controllaPosto(double distX, double distY, boolean occupancy[][],Coordinata coord){
+
 		
 		//dimensioni dell'aereo
 		int maxRighe = occupancy.length;
 		int maxColonne =occupancy[0].length;
 
+		System.out.println("maxRighe:"+occupancy.length +" maxColonne:"+occupancy[0].length);
 
 		//copio le coordinate
 		double rigaCellaOttimaRel=distY; //in coordinate relative
@@ -85,15 +87,16 @@ public class PostiLiberi {
 		System.out.println("Discretizzato: x:"+colonnaCellaOttimaRel +" y:"+rigaCellaOttimaRel);
 
 
+		
 		//controllo interno all'aereo riga
-		if(coord.XAbs(colonnaCellaOttimaRel) > v.getTipoAereo().getColonnePallet() )
-			colonnaCellaOttimaRel = coord.XRel(v.getTipoAereo().getColonnePallet() );
+		if(coord.XAbs(colonnaCellaOttimaRel) > (maxColonne-1))
+			colonnaCellaOttimaRel = coord.XRel(maxColonne-1);
 		if(coord.XAbs(colonnaCellaOttimaRel ) < 0 )
 			colonnaCellaOttimaRel = coord.XRel(0);
 		//controllo interno all'aereo colonna
-		if(coord.YAbs(rigaCellaOttimaRel ) > v.getTipoAereo().getFilePallet() )
-			rigaCellaOttimaRel = coord.YRel(v.getTipoAereo().getFilePallet() );
-		if(coord.YAbs(rigaCellaOttimaRel ) <0 )
+		if(coord.YAbs(rigaCellaOttimaRel) > (maxRighe-1) )
+			rigaCellaOttimaRel = coord.YRel(maxRighe-1);
+		if(coord.YAbs(rigaCellaOttimaRel) <0 )
 			rigaCellaOttimaRel = coord.YRel(0);
 
 
@@ -175,6 +178,7 @@ public class PostiLiberi {
 				try{
 					if(!occupancy[a][colonnaCellaOttimaAss+raggioSpirale]){
 						pitagora = Math.pow(distX-coord.XRel(colonnaCellaOttimaAss+raggioSpirale), 2)+Math.pow(distY-coord.YRel(a), 2);//calcolo la distanza tra due punti
+						
 						System.out.println("pitagora:"+pitagora);
 						if(pitagora<pitagoraMin){ 
 							System.out.println("nuovo minimo");
@@ -226,7 +230,7 @@ public class PostiLiberi {
 							System.out.println("nuovo minimo");
 							pitagoraMin=pitagora;
 							trovatoAlmenoUno=true;
-							posto[0] = colonnaVertice+raggioSpirale;
+							posto[0] = colonnaVertice;
 							posto[1] = a;
 						}
 					}else System.out.println("è occupato");

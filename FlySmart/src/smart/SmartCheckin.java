@@ -13,11 +13,8 @@ import prenotazione.FlightNotFoundException;
 import util.Coordinata;
 import util.CoordinataPallet;
 import util.CoordinataPasseggero;
-
-
 import db.DBSession;
 import db.Lock;
-
 import model.Gruppo;
 import model.Pallet;
 import model.Passeggero;
@@ -58,10 +55,10 @@ public class SmartCheckin implements SmartAlgorithm{
 				throw new FlightNotFoundException(idVolo);
 
 			//chiudo il volo
-			v.setStato(StatoVolo.CLOSED);
+			//v.setStato(StatoVolo.CLOSED);
 			
 
-			DBSession.getVoloDAO().save(v);
+			//DBSession.getVoloDAO().save(v);
 			
 			posti = new PostiLiberi(v);
 		}finally{
@@ -91,6 +88,8 @@ public class SmartCheckin implements SmartAlgorithm{
 		System.out.println("ordinamento passeggeri---------------------");
 		
 		mom = posizionaPasseggeri(passeggeri, mom);
+
+		System.out.println("FINE");
 
 		//salva dati aggiornati nel db
 		//DBSession.getPasseggeroDAO().saveList(passeggeri);
@@ -173,7 +172,6 @@ public class SmartCheckin implements SmartAlgorithm{
 		
 		System.out.println(Arrays.deepToString(gruppi));
 		
-		Coordinata coord = new CoordinataPasseggero(v.getTipoAereo());
 		Gruppo g = null;
 		
 		//moltiplico momento
@@ -184,40 +182,60 @@ public class SmartCheckin implements SmartAlgorithm{
 		
 		for(int i = 0; i < gruppi.length ; i++){
 			g = gruppi[i];
-			
+
+			System.out.println("Prossimo gruppo che pesa "+ g.getPesoTotale());
 			//calcolo posizione ideale gruppo
 			pos[0] = -mom[0] / g.getPesoTotale();
 			pos[1] = -mom[1] / g.getPesoTotale();
+			System.out.println("Calcolato: x:"+pos[0] +" y:"+pos[1]);
 			
 			//posiziono il gruppo e mo faccio dare il momento rispetto a quello ideale
-			double momg[] = posizionaGruppo(coord.XAbs(pos[0]), coord.YAbs(pos[1]), g);
+			double momg[] = posizionaGruppo(pos[0], pos[1], g);
 			
 			//aggiorno momento per prossima iterazione
 			mom[0] += momg[0];
 			mom[1] += momg[1];
+			System.out.println("######################## Questo peso: di "+g.getPesoTotale()+"kg lascia un mom di [momX:"+mom[0]+" momY: "+mom[1]+"]");
+			
 			
 		}
 		
 		return mom;
 	}
 	
-	protected double[] posizionaGruppo(int colonnaScelta, int rigaScelta, Gruppo g){
+	protected double[] posizionaGruppo(double colonnaScelta, double rigaScelta, Gruppo g){
 		Coordinata coord = new CoordinataPasseggero(v.getTipoAereo());
 		
 		double[] mom = new double[2];
 		
+		//solo per test
+		int i=0;
+		
+		
 		for(Passeggero p : g){
+			
+			
+			//test
+			i++;
+			
+			
 			//cerco posizione effettiva
 			int[] pos = posti.postoLiberoPasseggeri(colonnaScelta, rigaScelta);
 			//assegno posizioni effettive
 			p.setFila(pos[1]);
 			p.setColonna(pos[0]);
+			colonnaScelta = coord.XRel(pos[0]);
+			rigaScelta = coord.YRel(pos[1]);
 			
 			//calcolo sbilanciamento effettivo rispetto all'ottimo
+			System.out.println("Calcolo lo sbilanciamento effettivo, nuovo per passeggero "+i);
+			
 			mom[0] += p.getPeso() * coord.XRel(pos[0]); //sbilanciamento colonna
 			mom[1] += p.getPeso() * coord.YRel(pos[1]); //sbilanciamento riga
+			System.out.println("Questo passeggero: di "+p.getPeso()+"kg va in [x:"+p.getColonna()+" y:"+p.getFila()+"] e lascia un mom di [momX:"+mom[0]+" momY: "+mom[1]+"]");
 			
 		}
+		System.out.println("***************mom dopo gruppo [x:"+mom[0]+" y:"+mom[1]+"]");
 		
 		return mom;
 	}
