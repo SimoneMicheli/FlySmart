@@ -178,7 +178,7 @@ public class PostiLiberi {
 				try{
 					if(!occupancy[a][colonnaCellaOttimaAss+raggioSpirale]){
 						pitagora = Math.pow(distX-coord.XRel(colonnaCellaOttimaAss+raggioSpirale), 2)+Math.pow(distY-coord.YRel(a), 2);//calcolo la distanza tra due punti
-						
+						if(a==rigaCellaOttimaAss) pitagora -=0.1; //premio per la stessa riga 
 						System.out.println("pitagora:"+pitagora);
 						if(pitagora<pitagoraMin){ 
 							System.out.println("nuovo minimo");
@@ -225,6 +225,7 @@ public class PostiLiberi {
 				try{
 					if(!occupancy[a][colonnaVertice]){
 						pitagora = Math.pow(distX-coord.XRel(colonnaVertice), 2)+Math.pow(distY-coord.YRel(a), 2);//calcolo la distanza tra due punti
+						if(a==rigaCellaOttimaAss) pitagora -=0.1; //premio per la stessa riga 
 						System.out.println("pitagora:"+pitagora);
 						if(pitagora<pitagoraMin){ 
 							System.out.println("nuovo minimo");

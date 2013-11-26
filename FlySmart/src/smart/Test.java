@@ -60,7 +60,7 @@ public class Test {
 		PrenotazionePallet prenotaz = new PrenotazionePallet();
 
 		l.add(new Pallet(1400, "a", v.getId()));
-		l.add(new Pallet(700, "b", v.getId()));
+		l.add(new Pallet(800, "b", v.getId()));
 		l.add(new Pallet(1300, "c", v.getId()));
 
 		//prenotazione 1
