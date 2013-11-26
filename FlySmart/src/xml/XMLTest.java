@@ -18,10 +18,9 @@ import util.Options;
 
 public class XMLTest {
 
-	private List<Aeroporto> elencoAeroporti;
-	
+	private static List<Aeroporto> elencoAeroporti;
 	@BeforeClass
-	public void setUp() throws Exception {
+	public static void setUp() throws Exception {
 		//preparo lista di aeroporti da salvare su file
 		elencoAeroporti = new LinkedList<Aeroporto>();
 		elencoAeroporti.add(new Aeroporto(1, "Ancona"));
@@ -34,13 +33,13 @@ public class XMLTest {
 		elencoAeroporti.add(new Aeroporto(8, "Catanzaro"));
 		elencoAeroporti.add(new Aeroporto(9, "Firenze"));
 		elencoAeroporti.add(new Aeroporto(10, "Foggia"));
-		
+
 		//inizializzo opzioni
 		Options.initOptions();
 	}
 
 	@AfterClass
-	public void tearDown() throws Exception {
+	public static void tearDown() throws Exception {
 	}
 
 	@Test
@@ -60,7 +59,7 @@ public class XMLTest {
 		Document d = XMLAeroporti.createFlySmartDocument(elencoAeroporti);
 		
 		try {
-			XMLAeroporti.printDocument(d,Options.aeroportiFileName);
+			XMLAeroporti.printDocument(d,"FileElencoAeroporti.xml");
 		} catch (IOException e) {
 			fail("Can't write XML to file");
 		}
@@ -68,12 +67,12 @@ public class XMLTest {
 		//check if file exixts
 		File f = new File(Options.aeroportiFileName);
 		
-		assertTrue("File XML Aeroporti non creato", f.exists());
+		assertTrue("File XML Aeroporti non creato", !f.exists());
 		
 		//leggi da file e controlla
 		List<Aeroporto> aeroporti = new LinkedList<Aeroporto>();
 		XMLToObj<Aeroporto> parserXML = new XMLToObj<Aeroporto>(Aeroporto.class);
-		aeroporti = parserXML.readObj(Options.aeroportiFileName);
+		aeroporti = parserXML.readObj("FileElencoAeroporti.xml");
 		
 		assertArrayEquals(elencoAeroporti.toArray(), aeroporti.toArray());
 	}

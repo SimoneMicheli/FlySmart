@@ -38,6 +38,7 @@ public final class ServerLauncher {
 	 */
 	private static void configureLogger(){
 		log = LogManager.getLogger(ServerLauncher.class.getName());
+		log.info("================Launching Server=============");
 	}
 
 	/**

@@ -7,6 +7,7 @@ import java.util.Date;
 import model.Pallet;
 import model.Volo;
 
+import org.bson.types.ObjectId;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -57,6 +58,13 @@ public class CancellaPalletTest {
 		assertEquals(posti + 1, posti2);
 		
 		assertNull(DBSession.getPalletDAO().get(p1.getId()));
+		
+	}
+	
+	@Test(expected = DeleteException.class)
+	public void testCancellaPalletException(){
+		CancellaPallet cp = new CancellaPallet();
+		cp.cancellaPallet(new ObjectId());
 	}
 
 }
