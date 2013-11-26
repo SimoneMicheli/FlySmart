@@ -141,7 +141,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 	}
 
 	@Override
-	public void cacnellaPallet(ObjectId idPallet) throws RemoteException,
+	public void cancellaPallet(ObjectId idPallet) throws RemoteException,
 			DeleteException {
 		log.entry();
 		CancellaPallet cp = new CancellaPallet();

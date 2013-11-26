@@ -98,5 +98,5 @@ public interface ServerInterface extends Remote {
 	 * @throws RemoteException
 	 * @throws DeleteException
 	 */
-	public void cacnellaPallet(ObjectId idPallet) throws RemoteException, DeleteException;
+	public void cancellaPallet(ObjectId idPallet) throws RemoteException, DeleteException;
 }

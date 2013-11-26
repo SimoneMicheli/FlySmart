@@ -8,6 +8,8 @@ import java.rmi.RemoteException;
 import java.util.List;
 import javax.swing.JOptionPane;
 
+import org.bson.types.ObjectId;
+
 import prenotazione.FlightNotFoundException;
 import prenotazione.SeatsSoldOutException;
 import model.Aeroporto;
@@ -277,8 +279,8 @@ public class PrenotazioneController extends Controller {
 					view.passeggeroSuccessivo(); 
 					if (JOptionPane.showConfirmDialog(null,"<html>Vuoi confermare la spesa di "+view.prezzoTotaleVolo+" &euro;?</html>","Conferma prenotazione passeggeri",JOptionPane.YES_NO_OPTION,JOptionPane.NO_OPTION) == JOptionPane.OK_OPTION) {
 						try {
-							serv.prenotaPasseggero(view.listaPasseggeri, view.voloSelezionatoPasseggeri.getId());
-							JOptionPane.showMessageDialog(null,"Prenotazione effettuata con successo","", 1);
+							ObjectId idGruppo = serv.prenotaPasseggero(view.listaPasseggeri, view.voloSelezionatoPasseggeri.getId())[0];
+							JOptionPane.showMessageDialog(null,"Prenotazione effettuata con successo;\n Codice prenotazione: "+idGruppo.toString()+" ","Conferma prenotazione", 1);
 							view.cardPasseggeri.show(view.panelPasseggeri,"panelPasseggeriAeroporti"); //torno alla schermata iniziale
 						} catch (RemoteException e) {
 							JOptionPane.showMessageDialog(null,"Connessione persa","Errore", 1);
@@ -377,8 +379,8 @@ public class PrenotazioneController extends Controller {
 						view.listaPallet.add(new Pallet(Integer.parseInt(view.textFieldPesoPallet.getText()),view.textFieldTargaPallet.getText(),view.voloSelezionatoPallet.getId(),null,null));
 						if (JOptionPane.showConfirmDialog(null,"Vuoi confermare?","Conferma prenotazione pallet",JOptionPane.YES_NO_OPTION,JOptionPane.NO_OPTION) == JOptionPane.OK_OPTION) {
 							try {
-								serv.prenotaPallet(view.listaPallet,view.voloSelezionatoPallet.getId());
-								JOptionPane.showMessageDialog(null,"Prenotazione effettuata con successo","", 1);
+								ObjectId idPallet = serv.prenotaPallet(view.listaPallet,view.voloSelezionatoPallet.getId())[0];
+								JOptionPane.showMessageDialog(null,"Prenotazione effettuata con successo;\n Codice prenotazione: "+idPallet.toString()+" ","Conferma prenotazione", 1);
 								view.cardPallet.show(view.panelPallet,"panelPalletAeroporti"); //torno alla schermata iniziale
 							} catch (RemoteException e) {
 								JOptionPane.showMessageDialog(null,"Connessione persa","Errore", 1);
