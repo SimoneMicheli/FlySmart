@@ -74,26 +74,33 @@ public class PrenotazioneController extends Controller {
 		view.mntmSwitch.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				if(view.passeggeri){ //se sono su passeggeri
+				if(view.passeggeri){ //se ero su passeggeri
 					view.passeggeri=false;
 					view.cardEsterno.show(view.panelCardLayoutEsterno,"panelPallet");
 					view.cardPallet.show(view.panelPallet,"panelPalletAeroporti");
-					view.mntmSwitch.setText("Prenota Passeggeri");
-				}else{ //se sono su pallet
+					view.mntmSwitch.setText("Prenotazioni passeggeri...");
+				}else{ //se ero su pallet
 					view.passeggeri=true;
 					view.cardEsterno.show(view.panelCardLayoutEsterno,"panelPasseggeri");
 					view.cardPasseggeri.show(view.panelPasseggeri,"panelPasseggeriAeroporti");
-					view.mntmSwitch.setText("Prenota Pallet");
+					view.mntmSwitch.setText("Prenotazioni pallet...");
 				}
 			}
 
 		});
 
-		//info->Copyright
-		view.mntmCopyright.addMouseListener(new MouseAdapter() {
+
+		//cancella prenotazione
+		view.mntmRimuovi.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				JOptionPane.showMessageDialog(null,"Copyright by Demarinis Gianluca, Micheli Simone and Scarpellini Alan ","Copyright", 3);
+				if(view.passeggeri){ //se sono su passeggeri
+					JOptionPane.showMessageDialog(null,"Elimino passeggeri","Copyright", 3);
+
+				}else{ //se sono su pallet
+					JOptionPane.showMessageDialog(null,"Elimino pallet","Copyright", 3);
+
+				}
 			}
 
 		});

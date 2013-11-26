@@ -81,17 +81,17 @@ public class PrenotazioneView extends View {
 	//pulsanti 
 	/** strumento file. */
 	protected JMenu mnFile = new JMenu("File");
-	/** strumento cambio tipo di prenotazione. */
-	protected JMenu mnCambioTipoPrenotazione = new JMenu("Cambia tipo di prenotazione");
+	/** strumento modifica. */
+	protected JMenu mnModifica = new JMenu("Modifica");
 	/** strumento info. */
 	protected JMenu mnInfo = new JMenu("Info");
 	//opzioni
 	/** opzione esci. */
 	protected JMenuItem mntmExit = new JMenuItem("Esci",new ImageIcon("./img/spuntarossa.gif"));
+	/** opzione rimuovi prenotazione. */
+	protected JMenuItem mntmRimuovi = new JMenuItem("Elimina prenotazione",new ImageIcon("./img/spuntagialla.gif"));
 	/** opzione switch. */
-	protected JMenuItem mntmSwitch = new JMenuItem("Prenota Pallet",new ImageIcon("./img/spuntaazzurra.gif"));
-	/** opzione copyright. */
-	protected JMenuItem mntmCopyright = new JMenuItem("Copyright",new ImageIcon("./img/spuntablu.gif"));
+	protected JMenuItem mntmSwitch = new JMenuItem("Prenotazioni pallet...",new ImageIcon("./img/spuntablu.gif"));
 	/** opzione about flysmart. */
 	protected JMenuItem mntmAboutFlySmart = new JMenuItem("About FlySmart",new ImageIcon("./img/spuntaverdescura.gif"));
 	
@@ -244,11 +244,11 @@ public class PrenotazioneView extends View {
 	private void setMenu(){
 		setJMenuBar(menuBar);
 		menuBar.add(mnFile);
-		menuBar.add(mnCambioTipoPrenotazione);
+		menuBar.add(mnModifica);
 		menuBar.add(mnInfo);
 		mnFile.add(mntmExit);
-		mnCambioTipoPrenotazione.add(mntmSwitch);
-		mnInfo.add(mntmCopyright);
+		mnModifica.add(mntmSwitch);
+		mnModifica.add(mntmRimuovi);
 		mnInfo.add(mntmAboutFlySmart);
 	}
 
