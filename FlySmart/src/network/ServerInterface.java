@@ -83,7 +83,7 @@ public interface ServerInterface extends Remote {
 	 * @throws RemoteException
 	 * @throws DeleteException
 	 */
-	public void cancellaPasseggeri(List<Passeggero> list) throws RemoteException,  DeleteException;
+	public boolean cancellaPasseggeri(List<Passeggero> list) throws RemoteException,  DeleteException;
 	
 	/**
 	 * ottene le informazioni sul pallet richiesto
@@ -95,8 +95,9 @@ public interface ServerInterface extends Remote {
 	/**
 	 * cancella il pallet richiesto
 	 * @param idPallet del pallet da cancellare
+	 * @return 
 	 * @throws RemoteException
 	 * @throws DeleteException
 	 */
-	public void cancellaPallet(ObjectId idPallet) throws RemoteException, DeleteException;
+	public boolean cancellaPallet(ObjectId idPallet) throws RemoteException, DeleteException;
 }

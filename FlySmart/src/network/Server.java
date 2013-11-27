@@ -141,18 +141,18 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 	}
 
 	@Override
-	public void cancellaPallet(ObjectId idPallet) throws RemoteException,
+	public boolean cancellaPallet(ObjectId idPallet) throws RemoteException,
 			DeleteException {
 		log.entry();
 		CancellaPallet cp = new CancellaPallet();
 		log.info("Cancello pallet: "+idPallet);
 		cp.cancellaPallet(idPallet);
 		log.exit();
+		return true;
 	}
 
 	@Override
-	public void cancellaPasseggeri(List<Passeggero> list)
-			throws RemoteException, DeleteException {
+	public boolean cancellaPasseggeri(List<Passeggero> list) throws RemoteException, DeleteException {
 		log.entry();
 		CancellaPasseggero cp = new CancellaPasseggero();
 		
@@ -161,6 +161,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 			cp.cancellaPasseggero(p.getId());
 		}
 		log.exit();
+		return true;
 	}
 
 	@Override

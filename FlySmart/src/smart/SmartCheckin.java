@@ -3,12 +3,8 @@ package smart;
 
 import java.util.Arrays;
 import java.util.Iterator;
-
 import java.util.List;
-
-
 import org.bson.types.ObjectId;
-
 import prenotazione.FlightNotFoundException;
 import util.Coordinata;
 import util.CoordinataPallet;
@@ -18,7 +14,6 @@ import db.Lock;
 import model.Gruppo;
 import model.Pallet;
 import model.Passeggero;
-import model.StatoVolo;
 import model.Volo;
 
 
