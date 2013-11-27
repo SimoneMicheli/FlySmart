@@ -84,12 +84,12 @@ public class PrenotazioneController extends Controller {
 					view.passeggeri=false;
 					view.cardEsterno.show(view.panelCardLayoutEsterno,"panelPallet");
 					view.cardPallet.show(view.panelPallet,"panelPalletAeroporti");
-					view.mntmSwitch.setText("Prenotazioni passeggeri...");
+					view.mntmSwitch.setText("Prenotazioni passeggeri");
 				}else{ //se ero su pallet
 					view.passeggeri=true;
 					view.cardEsterno.show(view.panelCardLayoutEsterno,"panelPasseggeri");
 					view.cardPasseggeri.show(view.panelPasseggeri,"panelPasseggeriAeroporti");
-					view.mntmSwitch.setText("Prenotazioni pallet...");
+					view.mntmSwitch.setText("Prenotazioni pallet");
 				}
 			}
 
@@ -111,50 +111,49 @@ public class PrenotazioneController extends Controller {
 						} catch (RemoteException e) {
 							JOptionPane.showMessageDialog(null, "Impossibile connettersi al server","Errore", 0);
 						}
-						List<JCheckBox> listaCB = new ArrayList<JCheckBox>();
-						for (Passeggero p : myList){
-							listaCB.add(new JCheckBox(p.getCognome()+" "+p.getNome()));
-						}
-						Object[] params = new Object[listaCB.size()+1];
-						String message = "Selezionare i passeggeri da rimuovere";
-						params[0] = message;
-						int i=1;
-						for (JCheckBox j : listaCB){
-							params[i]=j;
-							i++;
-						}
-						if (JOptionPane.showConfirmDialog(null, params, "Rimozione passeggeri", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) { 
-							int passo=0;
-							for (JCheckBox cb : listaCB){
-								if(!cb.isSelected()){
-									myList.remove(passo); //rimuovo dalla lista quelli da tenere
-								}else{
-									passo++; //quando rimuovo non devo andare avanti con il passo
-								}
-
+						if(myList.size()>0){
+							List<JCheckBox> listaCB = new ArrayList<JCheckBox>();
+							for (Passeggero p : myList){
+								listaCB.add(new JCheckBox(p.getCognome()+" "+p.getNome()));
 							}
-
-
-							if(passo!=0){ //ne ho selezionato almeno uno
-
-								String pass = "";
-								for (Passeggero p : myList){
-									pass += "\n"+p.getCognome()+" " +p.getNome();
-								}
-								boolean ok = false; //tutto ok?
-								try {
-									ok = serv.cancellaPasseggeri(myList);
-								} catch (RemoteException e) {
-									JOptionPane.showMessageDialog(null, "Impossibile connettersi al server","Errore", 0);
-								} catch (DeleteException e) {
-									JOptionPane.showMessageDialog(null, "Errore durante la cancellazione","Errore", 0);
-								}
-								if(ok){
-									JOptionPane.showMessageDialog(null, "Dalla prenotazione "+ option +" sono stati rimossi i passeggeri:"+pass,"Prenotazione eliminata", 1);
-								}
-
+							Object[] params = new Object[listaCB.size()+1];
+							String message = "Selezionare i passeggeri da rimuovere";
+							params[0] = message;
+							int i=1;
+							for (JCheckBox j : listaCB){
+								params[i]=j;
+								i++;
 							}
+							if (JOptionPane.showConfirmDialog(null, params, "Rimozione passeggeri", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) { 
+								int passo=0;
+								for (JCheckBox cb : listaCB){
+									if(!cb.isSelected()){
+										myList.remove(passo); //rimuovo dalla lista quelli da tenere
+									}else{
+										passo++; //quando rimuovo non devo andare avanti con il passo
+									}
 
+								}
+								if(passo!=0){ //ne ho selezionato almeno uno
+									String pass = "";
+									for (Passeggero p : myList){
+										pass += "\n"+p.getCognome()+" " +p.getNome();
+									}
+									boolean ok = false; //tutto ok?
+									try {
+										ok = serv.cancellaPasseggeri(myList);
+									} catch (RemoteException e) {
+										JOptionPane.showMessageDialog(null, "Impossibile connettersi al server","Errore", 0);
+									} catch (DeleteException e) {
+										JOptionPane.showMessageDialog(null, "Errore durante la cancellazione","Errore", 0);
+									}
+									if(ok){
+										JOptionPane.showMessageDialog(null, "Dalla prenotazione "+ option +" sono stati rimossi i passeggeri:"+pass,"Prenotazione eliminata", 1);
+									}
+								}
+							}
+						}else{
+							JOptionPane.showMessageDialog(null, "La prenotazione non esiste più","Errore", 0);
 						}
 					}
 

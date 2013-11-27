@@ -87,13 +87,13 @@ public class PrenotazioneView extends View {
 	protected JMenu mnInfo = new JMenu("Info");
 	//opzioni
 	/** opzione esci. */
-	protected JMenuItem mntmExit = new JMenuItem("Esci",new ImageIcon("./img/spuntarossa.gif"));
+	protected JMenuItem mntmExit = new JMenuItem("Esci",new ImageIcon("./img/exit.gif"));
 	/** opzione rimuovi prenotazione. */
-	protected JMenuItem mntmRimuovi = new JMenuItem("Elimina prenotazione",new ImageIcon("./img/spuntagialla.gif"));
+	protected JMenuItem mntmRimuovi = new JMenuItem("Elimina prenotazione",new ImageIcon("./img/trash.gif"));
 	/** opzione switch. */
-	protected JMenuItem mntmSwitch = new JMenuItem("Prenotazioni pallet...",new ImageIcon("./img/spuntablu.gif"));
+	protected JMenuItem mntmSwitch = new JMenuItem("Prenotazioni pallet",new ImageIcon("./img/folder.gif"));
 	/** opzione about flysmart. */
-	protected JMenuItem mntmAboutFlySmart = new JMenuItem("About FlySmart",new ImageIcon("./img/spuntaverdescura.gif"));
+	protected JMenuItem mntmAboutFlySmart = new JMenuItem("About FlySmart",new ImageIcon("./img/info.gif"));
 	
 	//combo box
 	/** La combo box per la scelta dell'aeroporto di partenza per i passeggeri. */
@@ -429,7 +429,8 @@ public class PrenotazioneView extends View {
 	@SuppressWarnings("unchecked")
 	protected void setPasseggeriPasseggeri(){
 
-
+		panelPasseggeriPasseggeri.removeAll(); //rimuovo tutti gli oggetti
+		
 		labelResocontoVolo.setText("");
 		labelResocontoVolo.setText("<html><span style='color:orange'>"+aeroportoPartenzaPasseggeri+"</span><span style='font-size:18px'>  →  </span><span style='color:orange'>"+aeroportoArrivoPasseggeri+"</span></html>");
 		labelResocontoVolo.setFont(new Font("Calibri", Font.PLAIN, 24));
@@ -482,6 +483,7 @@ public class PrenotazioneView extends View {
 		for(int i=1;i<31;i++){
 			comboBoxGiorno.addItem(""+i);
 		}
+		comboBoxGiorno.setSelectedIndex(1);
 		comboBoxGiorno.setBounds(80, 230, 42, 20);
 		panelPasseggeriPasseggeri.add(comboBoxGiorno);
 
@@ -491,15 +493,19 @@ public class PrenotazioneView extends View {
 		for(int i=1;i<12;i++){
 			comboBoxMese.addItem(""+i);
 		}
+		comboBoxMese.setSelectedIndex(1);
 		comboBoxMese.setBounds(137, 230, 42, 20);
 		panelPasseggeriPasseggeri.add(comboBoxMese);
 
 		//anno di nascita
 		comboBoxAnno.removeAllItems();
 		comboBoxAnno.addItem("");
-		for(int i=2013;i>1900;i--){
+		int annoMax=2013;
+		int annoMin=1900;
+		for(int i=annoMax;i>annoMin;i--){
 			comboBoxAnno.addItem(""+i);
 		}
+		comboBoxAnno.setSelectedIndex(annoMax-annoMin);
 		comboBoxAnno.setBounds(190, 230, 55, 20);
 		panelPasseggeriPasseggeri.add(comboBoxAnno);
 
