@@ -1,6 +1,6 @@
 package guiPrenotazione;
 
- 
+
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -324,9 +324,9 @@ public class PrenotazioneView extends View {
 		labelAeroportoArrivo.setBounds(141, 160, 112, 14);
 		panelPasseggeriAeroporti.add(labelAeroportoArrivo);
 
-		comboPasseggeriAeroportoPartenza.setBounds(141, 127, 220, 30);
+		comboPasseggeriAeroportoPartenza.setBounds(141, 127, 220, 20);
 		comboPasseggeriAeroportoPartenza.addItem("");
-		comboPasseggeriAeroportoArrivo.setBounds(141, 177, 220, 30);
+		comboPasseggeriAeroportoArrivo.setBounds(141, 177, 220, 20);
 		comboPasseggeriAeroportoArrivo.addItem("");
 		Iterator<Aeroporto> i = aeroporti.iterator();
 		while(i.hasNext()) {
@@ -340,7 +340,7 @@ public class PrenotazioneView extends View {
 
 
 		buttonPasseggeriCercaVoli = new JButton("Cerca Voli");
-		buttonPasseggeriCercaVoli.setBounds(141, 215, 220, 30);
+		buttonPasseggeriCercaVoli.setBounds(141, 215, 220, 23);
 		panelPasseggeriAeroporti.add(buttonPasseggeriCercaVoli);
 
 		JLabel labelFondo = new JLabel("<html><span style='font-size:10px;font-weight:bold'>Passeggeri</span>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:red'>Selezione tratta</span><span style='font-size:16px'>&nbsp;&nbsp;&nbsp;→&nbsp;&nbsp;</span><span style='color:'>Ricerca volo</span><span style='font-size:16px'>&nbsp;&nbsp;→&nbsp;&nbsp;&nbsp;&nbsp;</span><span style='color:'>Inserimento anagrafica</span></html>");
@@ -366,7 +366,7 @@ public class PrenotazioneView extends View {
 		panelPasseggeriVoli.add(labelTipoPrenotazione);
 
 		comboVoliDisponibili.removeAllItems(); //rimuovo gli elementi scritti al passo prima
-		comboVoliDisponibili.setBounds(12, 50, 470, 30);
+		comboVoliDisponibili.setBounds(12, 50, 470, 23);
 		Iterator<Volo> v = voli.iterator();
 		while(v.hasNext()) {
 			Volo element = (Volo) v.next();
@@ -406,11 +406,11 @@ public class PrenotazioneView extends View {
 		panelPasseggeriVoli.add(labelPrezzoPasseggeri);
 
 		buttonPasseggeriConfermaVolo = new JButton("Conferma");
-		buttonPasseggeriConfermaVolo.setBounds(400, 287, 89, 30);
+		buttonPasseggeriConfermaVolo.setBounds(400, 287, 89, 23);
 		panelPasseggeriVoli.add(buttonPasseggeriConfermaVolo);
 
 		buttonPasseggeriAnnullaVolo = new JButton("Annulla");
-		buttonPasseggeriAnnullaVolo.setBounds(310, 287, 89, 30);
+		buttonPasseggeriAnnullaVolo.setBounds(310, 287, 89, 23);
 		panelPasseggeriVoli.add(buttonPasseggeriAnnullaVolo);
 		
 		
@@ -453,11 +453,11 @@ public class PrenotazioneView extends View {
 		labelPasseggeriCognome.setBounds(20, 164, 46, 14);
 		panelPasseggeriPasseggeri.add(labelPasseggeriCognome);
 
-		textPasseggeriNome.setBounds(80, 134, 205, 20);
+		textPasseggeriNome.setBounds(80, 134, 163, 20);
 		panelPasseggeriPasseggeri.add(textPasseggeriNome);
 		textPasseggeriNome.setColumns(10);
 
-		textPasseggeriCognome.setBounds(80, 161, 205, 20);
+		textPasseggeriCognome.setBounds(80, 161, 163, 20);
 		panelPasseggeriPasseggeri.add(textPasseggeriCognome);
 		textPasseggeriCognome.setColumns(10);
 
@@ -468,7 +468,7 @@ public class PrenotazioneView extends View {
 		rdbtnNewRadioButton_uomo.setBounds(80, 195, 72, 20);
 		buttonGroupSesso.add(rdbtnNewRadioButton_uomo);
 		panelPasseggeriPasseggeri.add(rdbtnNewRadioButton_uomo);
-		rdbtnNewRadioButton_donna.setBounds(150, 195, 90, 20);
+		rdbtnNewRadioButton_donna.setBounds(150, 195, 72, 20);
 		buttonGroupSesso.add(rdbtnNewRadioButton_donna);
 		panelPasseggeriPasseggeri.add(rdbtnNewRadioButton_donna);
 
@@ -482,7 +482,7 @@ public class PrenotazioneView extends View {
 		for(int i=1;i<31;i++){
 			comboBoxGiorno.addItem(""+i);
 		}
-		comboBoxGiorno.setBounds(80, 230, 62, 30);
+		comboBoxGiorno.setBounds(80, 230, 42, 20);
 		panelPasseggeriPasseggeri.add(comboBoxGiorno);
 
 		//mese di nascita
@@ -491,7 +491,7 @@ public class PrenotazioneView extends View {
 		for(int i=1;i<12;i++){
 			comboBoxMese.addItem(""+i);
 		}
-		comboBoxMese.setBounds(137, 230, 62, 30);
+		comboBoxMese.setBounds(137, 230, 42, 20);
 		panelPasseggeriPasseggeri.add(comboBoxMese);
 
 		//anno di nascita
@@ -500,40 +500,40 @@ public class PrenotazioneView extends View {
 		for(int i=2013;i>1900;i--){
 			comboBoxAnno.addItem(""+i);
 		}
-		comboBoxAnno.setBounds(195, 230, 90, 30);
+		comboBoxAnno.setBounds(190, 230, 55, 20);
 		panelPasseggeriPasseggeri.add(comboBoxAnno);
 
 
 
 		buttonPasseggeriPrecedente = new JButton("<");
 		buttonPasseggeriPrecedente.setFont(new Font("Tahoma", Font.PLAIN, 10));
-		buttonPasseggeriPrecedente.setBounds(206, 270, 40, 30);
+		buttonPasseggeriPrecedente.setBounds(165, 270, 40, 23);
 		buttonPasseggeriPrecedente.setForeground(Color.red);
 		panelPasseggeriPasseggeri.add(buttonPasseggeriPrecedente);
 
 		buttonPasseggeriProssimo = new JButton(">");
 		buttonPasseggeriProssimo.setFont(new Font("Tahoma", Font.PLAIN, 10));
-		buttonPasseggeriProssimo.setBounds(245, 270, 40, 30);
+		buttonPasseggeriProssimo.setBounds(207, 270, 40, 23);
 		buttonPasseggeriProssimo.setForeground(Color.red);
 		panelPasseggeriPasseggeri.add(buttonPasseggeriProssimo);
 
 
 		buttonPasseggeriAnnullaPrenotazione = new JButton("Annulla");
-		buttonPasseggeriAnnullaPrenotazione.setBounds(310, 287, 89, 30);
+		buttonPasseggeriAnnullaPrenotazione.setBounds(310, 287, 89, 23);
 		panelPasseggeriPasseggeri.add(buttonPasseggeriAnnullaPrenotazione);
 
 		buttonPasseggeriConfermaPrenotazione = new JButton("Conferma");
-		buttonPasseggeriConfermaPrenotazione.setBounds(400, 287, 89, 30);
+		buttonPasseggeriConfermaPrenotazione.setBounds(400, 287, 89, 23);
 		panelPasseggeriPasseggeri.add(buttonPasseggeriConfermaPrenotazione);
 
 
 		panelResoconto.setLayout(null);
-		panelResoconto.setBounds(287, 60, 205, 170);
+		panelResoconto.setBounds(277, 60, 205, 170);
 		panelPasseggeriPasseggeri.add(panelResoconto);
 
 
 		labelListaPasseggeri.setFont(new Font("Calibri", Font.PLAIN, 14));
-		labelListaPasseggeri.setBounds(287, 38, 482, 25);
+		labelListaPasseggeri.setBounds(277, 38, 482, 25);
 		panelPasseggeriPasseggeri.add(labelListaPasseggeri);
 
 		labelPrezzoTotale.setFont(new Font("Arial", Font.BOLD, 12));
@@ -606,7 +606,7 @@ public class PrenotazioneView extends View {
 
 
 		buttonPalletCercaVoli = new JButton("Cerca Voli");
-		buttonPalletCercaVoli.setBounds(141, 215, 220, 30);
+		buttonPalletCercaVoli.setBounds(141, 215, 220, 23);
 		panelPalletAeroporti.add(buttonPalletCercaVoli);
 
 
@@ -637,7 +637,7 @@ public class PrenotazioneView extends View {
 		panelPalletVoli.add(labelIstruzioni);
 
 		comboVoliDisponibili.removeAllItems(); //rimuovo gli elementi scritti al passo prima
-		comboVoliDisponibili.setBounds(12, 50, 470, 30);
+		comboVoliDisponibili.setBounds(12, 50, 470, 23);
 		Iterator<Volo> v = voli.iterator();
 		while(v.hasNext()) {
 			Volo element = (Volo) v.next();
@@ -681,11 +681,11 @@ public class PrenotazioneView extends View {
 
 
 		buttonPalletConfermaVolo = new JButton("Conferma");
-		buttonPalletConfermaVolo.setBounds(400, 287, 89, 30);
+		buttonPalletConfermaVolo.setBounds(400, 287, 89, 23);
 		panelPalletVoli.add(buttonPalletConfermaVolo);
 
 		buttonPalletAnnullaVolo = new JButton("Annulla");
-		buttonPalletAnnullaVolo.setBounds(310, 287, 89, 30);
+		buttonPalletAnnullaVolo.setBounds(310, 287, 89, 23);
 		panelPalletVoli.add(buttonPalletAnnullaVolo);
 
 
@@ -729,11 +729,11 @@ public class PrenotazioneView extends View {
 
 
 		buttonPalletConfermaPrenotazione = new JButton("Conferma");
-		buttonPalletConfermaPrenotazione.setBounds(400, 287, 89, 30);
+		buttonPalletConfermaPrenotazione.setBounds(400, 287, 89, 23);
 		panelPalletPallet.add(buttonPalletConfermaPrenotazione);
 
 		buttonPalletAnnullaPrenotazione = new JButton("Annulla");
-		buttonPalletAnnullaPrenotazione.setBounds(310, 287, 89, 30);
+		buttonPalletAnnullaPrenotazione.setBounds(310, 287, 89, 23);
 		panelPalletPallet.add(buttonPalletAnnullaPrenotazione);
 
 		JLabel labelFondo = new JLabel("<html><span style='font-size:10px;font-weight:bold'>Pallet</span>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>Selezione tratta</span><span style='font-size:16px'>&nbsp;&nbsp;&nbsp;→&nbsp;&nbsp;</span><span>Ricerca volo</span><span style='font-size:16px'>&nbsp;&nbsp;→&nbsp;&nbsp;&nbsp;&nbsp;</span><span style='color:red'>Inserimento dati pallet</span></html>");

@@ -2,13 +2,10 @@
  * 
  */
 package guiPrenotazione;
- 
+
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 /**Superclasse di tutte le viste, ognuna delle quali estende JFrame
  *
@@ -33,9 +30,7 @@ public abstract class View extends JFrame{
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();
 		} catch (UnsupportedLookAndFeelException e) {
-			//e.printStackTrace();
-			Logger log = LogManager.getLogger(View.class.getCanonicalName().toString());
-			log.warn(e.getMessage());
+			e.printStackTrace();
 		}
 	}
 }

@@ -1,5 +1,5 @@
 package guiPrenotazione;
- 
+
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.*;
@@ -51,31 +51,31 @@ public class LoginView extends View {
 
 		//tasto connettiti
 		Connect = new JButton("Connettiti");
-		Connect.setBounds(10, 73, 254, 30);
+		Connect.setBounds(10, 73, 254, 23);
 		contentPane.add(Connect);
 
 		//casella per l'ip
 		ip = new JTextField();
 		ip.setText("localhost");
-		ip.setBounds(82, 11, 184, 30);
+		ip.setBounds(82, 11, 184, 20);
 		contentPane.add(ip);
 		ip.setColumns(10);
 
 		//casella per la porta
 		port = new JTextField();
 		port.setText("1099");
-		port.setBounds(82, 42, 184, 30);
+		port.setBounds(82, 42, 184, 20);
 		contentPane.add(port);
 		port.setColumns(10);
 
 		//label ip
 		JLabel lblIp = new JLabel("IP");
-		lblIp.setBounds(10, 14, 46, 30);
+		lblIp.setBounds(10, 14, 46, 14);
 		contentPane.add(lblIp);
 
 		//label port
 		JLabel lblPort = new JLabel("Port");
-		lblPort.setBounds(10, 45, 46, 30);
+		lblPort.setBounds(10, 45, 46, 14);
 		contentPane.add(lblPort);
 
 	}
