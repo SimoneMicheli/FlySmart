@@ -90,6 +90,8 @@ public class Passeggero extends Model {
 		this.mese = mese;
 		this.anno = anno;
 		this.peso = setPeso();
+		System.out.println("costruttore pasee***********************");
+		System.out.println(peso);
 	}
 
 	/**
@@ -171,6 +173,8 @@ public class Passeggero extends Model {
 		}else{
 			eta = anni;
 		}
+		//aggiorno peso in base all'età
+		peso = setPeso();
 	}
 
 
