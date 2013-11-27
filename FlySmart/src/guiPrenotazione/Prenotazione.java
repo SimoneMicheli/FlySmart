@@ -41,8 +41,7 @@ public class Prenotazione {
 			//creo una vista di tipo login e la passo al controller
 			LoginView loginFS = new LoginView();
 			loginFS.setVisible(true);
-			@SuppressWarnings("unused")
-			LoginController c = new LoginController(loginFS); //controller
+			new LoginController(loginFS); //controller
 			
 		} catch(FileNotFoundException e){
 			System.err.println("Configuration file not found!!");
