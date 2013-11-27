@@ -5,8 +5,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
+import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 
 import org.bson.types.ObjectId;
@@ -101,13 +104,23 @@ public class PrenotazioneController extends Controller {
 					
 					//creare una nuova vista con un suo controller che ad ogni click cancella il passeggero
 					
-					/*
+					List<JCheckBox> lista = new ArrayList<JCheckBox>();
 					JCheckBox checkbox = new JCheckBox("Do not show this message again.");  
-					String message = "Are you sure you want to disconnect the selected products?";  
-					Object[] params = {message, checkbox};  
+					JCheckBox checkbox2 = new JCheckBox("Do not show this message again."); 
+					lista.add(checkbox);lista.add(checkbox2); 
+
+					Object[] params = new Object[lista.size()+1];
+					String message = "Are you sure you want to disconnect the selected products?";
+					params[0] = message;
+					int i=1;
+					for (JCheckBox j : lista){
+						params[i]=j;
+						i++;
+					}
+					
 					int n = JOptionPane.showConfirmDialog(null, params, "Disconnect Products", JOptionPane.YES_NO_OPTION);  
-					boolean dontShow = checkbox.isSelected();
-					*/
+					System.out.println(checkbox.isSelected()+""+checkbox2.isSelected());
+					
 
 				}else{ //eliminazione pallet
 					String option = JOptionPane.showInputDialog(null, "Inserire il codice della prenotazione", "Cancella prenotazione", JOptionPane.OK_CANCEL_OPTION);
