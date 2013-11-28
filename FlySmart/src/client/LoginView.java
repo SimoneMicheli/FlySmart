@@ -1,4 +1,5 @@
-package guiPrenotazione;
+package client;
+
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -17,10 +18,10 @@ public class LoginView extends View {
 	private JPanel contentPane;
 
 	/** ip del server a cui connettersi */
-	protected JTextField ip;
+	public JTextField ip;
 
 	/** porta del server */
-	protected JTextField port;
+	public JTextField port;
 
 	/** conferma la connessione */
 	public JButton Connect;

@@ -1,4 +1,4 @@
-package guiPrenotazione;
+package guiCheckIn;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -11,21 +11,24 @@ import java.rmi.RemoteException;
 
 import javax.swing.JOptionPane;
 
+import client.Controller;
+import client.LoginView;
+
 import network.ServerInterface;
 
 
-/**Il controller della form di login
+/**Il controller della form di login per il check in
  * @author Demarinis - Micheli - Scarpellini
  * 
  */
-public class LoginController extends Controller {
+public class LoginCheckInController extends Controller {
 
 
 	/** Riferimento alla vista */
 	LoginView view;
 
 	/** Il controller della nuova vista */
-	PrenotazioneController p;
+	CheckInController p;
 
 
 
@@ -35,7 +38,7 @@ public class LoginController extends Controller {
 	 *
 	 * @param v il riferimento alla vista
 	 */
-	public LoginController(LoginView v){
+	public LoginCheckInController(LoginView v){
 		this.view=v;
 		registraControllerLogin();
 	}
@@ -89,7 +92,7 @@ public class LoginController extends Controller {
 			try {
 				serv = (ServerInterface) Naming.lookup(url);
 				view.dispose();  //elimino la vecchia view
-				p = new PrenotazioneController(serv); //creo il nuovo controller (che creerà la nuova view)
+				p = new CheckInController(serv); //creo il nuovo controller (che creerà la nuova view)
 			} catch (MalformedURLException e) {
 				e.printStackTrace();
 			} catch (RemoteException e) {

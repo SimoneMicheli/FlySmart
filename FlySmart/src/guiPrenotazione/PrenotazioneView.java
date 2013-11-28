@@ -27,6 +27,8 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
+import client.View;
+
 import model.Aeroporto;
 import model.Pallet;
 import model.Passeggero;

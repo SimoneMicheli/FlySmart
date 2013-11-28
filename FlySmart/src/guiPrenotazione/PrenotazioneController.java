@@ -13,6 +13,8 @@ import javax.swing.JOptionPane;
 
 import org.bson.types.ObjectId;
 
+import client.Controller;
+
 import cancellazione.DeleteException;
 
 import prenotazione.FlightNotFoundException;

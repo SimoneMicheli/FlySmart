@@ -1,4 +1,4 @@
-package guiPrenotazione;
+package guiCheckIn;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -8,16 +8,16 @@ import java.util.Properties;
 import client.LoginView;
 
 
-/** FlySmart. Compagnia aerea
+/** FlySmart. Compagnia aerea. Client di Check-In
  *
  * @author Demarinis - Micheli - Scarpellini
  * 
  */
-public class Prenotazione {
+public class CheckIn {
 
 	
 	/**
-	 * Main. Programma principale dell'applicazione Prenotazione
+	 * Main. Programma principale dell'applicazione CheckIn
 	 */
 	public static void main(String args[]) {
 		
@@ -40,10 +40,15 @@ public class Prenotazione {
 			System.setProperty("javax.net.ssl.trustStore", opt.getProperty("trustStore")); //imposta trust store
 			System.setProperty("javax.net.ssl.trustStorePassword", opt.getProperty("trustStorePassword"));
 			
+			
+			
 			//creo una vista di tipo login e la passo al controller
 			LoginView loginFS = new LoginView();
 			loginFS.setVisible(true);
-			new LoginPrenotazioneController(loginFS); //controller
+			new LoginCheckInController(loginFS); //controller
+			
+			
+			
 			
 		} catch(FileNotFoundException e){
 			System.err.println("File di configurazione non trovato");
