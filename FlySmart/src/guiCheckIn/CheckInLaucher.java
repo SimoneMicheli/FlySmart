@@ -13,7 +13,7 @@ import client.LoginView;
  * @author Demarinis - Micheli - Scarpellini
  * 
  */
-public class CheckIn {
+public class CheckInLaucher {
 
 	
 	/**

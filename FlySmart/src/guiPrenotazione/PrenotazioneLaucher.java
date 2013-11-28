@@ -13,7 +13,7 @@ import client.LoginView;
  * @author Demarinis - Micheli - Scarpellini
  * 
  */
-public class Prenotazione {
+public class PrenotazioneLaucher {
 
 	
 	/**
