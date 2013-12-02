@@ -1,6 +1,16 @@
 package guiCheckIn;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.rmi.RemoteException;
+import java.util.Iterator;
+import java.util.List;
+
+import javax.swing.JOptionPane;
+
 import client.Controller;
+import model.Aeroporto;
+import model.Volo;
 import network.ServerInterface;
 
 
@@ -20,6 +30,68 @@ public class CheckInController extends Controller {
 	 */
 	public CheckInController(ServerInterface serv){
 		view= new CheckInView(); //creo la vista
+		this.serv=serv;
+		caricaAeroporti();
+		registraController();
+		view.setVisible(true);
+	}
+
+	public void caricaAeroporti(){
+		List<Aeroporto> aeroporti=null;
+		try {
+			aeroporti = serv.getAeroporti();
+		} catch (RemoteException e) {
+			JOptionPane.showMessageDialog(null, "Impossibile connettersi al server","Error", 0);
+			e.printStackTrace();
+		}
+		view.disegnaElementi(aeroporti);
+	}
+
+	public void registraController() {
+		view.comboAeroporto.addActionListener(new ActionListener() {
+
+			@SuppressWarnings("unchecked")
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				if(view.comboAeroporto.getSelectedIndex()!=0){
+					int p = ((Aeroporto)view.comboAeroporto.getSelectedItem()).getId();
+					List<Volo> voli=null;
+					try {
+						voli = serv.getVoli(p,2); //carico la lista dei voli   SISTEMAREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+						if(voli.size()!=0){
+							view.comboVoli.removeAllItems();
+							Iterator<Volo> v = voli.iterator();
+							while(v.hasNext()) {
+								Volo element = (Volo) v.next();
+								view.comboVoli.addItem(element);
+							}
+							view.comboVoli.setVisible(true);
+							view.buttonChiudiVolo.setVisible(true);
+						}else{
+							view.comboVoli.removeAllItems();
+							view.comboVoli.setVisible(false);
+							view.buttonChiudiVolo.setVisible(false);
+						}
+					} catch (RemoteException e) {
+						JOptionPane.showMessageDialog(null, "Impossibile connettersi al server","Error", 0);
+						e.printStackTrace();
+					};
+				}else{
+					view.comboVoli.removeAllItems();
+					view.comboVoli.setVisible(false);
+					view.buttonChiudiVolo.setVisible(false);
+				}
+			}
+		});
+
+
+		view.buttonChiudiVolo.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+
+				JOptionPane.showMessageDialog(null, "Check-In calcolato per il volo "+((Volo)view.comboVoli.getSelectedItem()).getId(),"Calcolato", 3);
+			}
+		});
 	}
 
 

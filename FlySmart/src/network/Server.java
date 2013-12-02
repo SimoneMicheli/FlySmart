@@ -84,6 +84,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 	 */
 	@Override
 	public List<Volo> getVoli(int idp, int ida) throws RemoteException {
+		//TODO se ida = -1 allora ottenere tutti i voli da idp a qualsiasi destinazione (che siano pero open)
 		log.entry();
 		List<Volo> voli = null;
 		

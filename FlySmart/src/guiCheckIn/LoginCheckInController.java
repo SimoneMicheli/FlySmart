@@ -41,6 +41,9 @@ public class LoginCheckInController extends Controller {
 	public LoginCheckInController(LoginView v){
 		this.view=v;
 		registraControllerLogin();
+		
+		//bypass
+		ok();
 	}
 
 	/**
