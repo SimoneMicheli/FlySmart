@@ -8,6 +8,10 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
+import org.bson.types.ObjectId;
+
+import prenotazione.FlightNotFoundException;
+
 import client.Controller;
 import model.Aeroporto;
 import model.Volo;
@@ -73,7 +77,7 @@ public class CheckInController extends Controller {
 							view.buttonChiudiVolo.setVisible(false);
 						}
 					} catch (RemoteException e) {
-						JOptionPane.showMessageDialog(null, "Impossibile connettersi al server","Error", 0);
+						JOptionPane.showMessageDialog(null, "Impossibile connettersi al server","Errore", 0);
 						e.printStackTrace();
 					};
 				}else{
@@ -88,7 +92,14 @@ public class CheckInController extends Controller {
 		view.buttonChiudiVolo.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-
+				ObjectId idVolo = ((Volo)view.comboVoli.getSelectedItem()).getId();
+				try {
+					serv.calcolaCheckin(idVolo);
+				} catch (FlightNotFoundException e) {
+					JOptionPane.showMessageDialog(null, "Volo non trovato","Errore", 0);
+				} catch (RemoteException e) {
+					JOptionPane.showMessageDialog(null, "Impossibile connettersi al server","Errore", 0);
+				}
 				JOptionPane.showMessageDialog(null, "Check-In calcolato per il volo "+((Volo)view.comboVoli.getSelectedItem()).getId(),"Calcolato", 3);
 			}
 		});
