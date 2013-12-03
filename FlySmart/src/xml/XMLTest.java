@@ -66,7 +66,6 @@ public class XMLTest {
 		
 		//check if file exixts
 		File f = new File(Options.aeroportiFileName);
-		
 		assertTrue("File XML Aeroporti non creato", !f.exists());
 		
 		//leggi da file e controlla
