@@ -48,4 +48,18 @@ public class VoloDAO extends BasicDAO<Volo, ObjectId> {
 				.order("dataOra")
 				.asList();
 	}
+	
+	/**
+	 * restituisce tutti i voli dall'aeroporto di partenza
+	 * @param p aeroporto partenza
+	 * @return elenco volo
+	 */
+	public List<Volo> getByPartenza(Integer p){
+		return ds.createQuery(Volo.class)
+				.filter("aeroportoPartenza =",p)
+				.filter("dataOra >", new Date())
+				.filter("stato =", StatoVolo.OPEN)
+				.order("dataOra")
+				.asList();
+	}
 }
