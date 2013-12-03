@@ -88,7 +88,10 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 		log.entry();
 		List<Volo> voli = null;
 		
-		voli = DBSession.getVoloDAO().getByPartenzaDestinazione(idp, ida);
+		if(ida == -1)
+			voli = DBSession.getVoloDAO().getByPartenza(idp);
+		else
+			voli = DBSession.getVoloDAO().getByPartenzaDestinazione(idp, ida);
 		
 		log.exit();
 		return voli;

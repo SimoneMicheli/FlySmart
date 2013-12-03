@@ -14,6 +14,7 @@ import db.Lock;
 import model.Gruppo;
 import model.Pallet;
 import model.Passeggero;
+import model.StatoVolo;
 import model.Volo;
 
 
@@ -50,7 +51,7 @@ public class SmartCheckin implements SmartAlgorithm{
 				throw new FlightNotFoundException(idVolo);
 
 			//chiudo il volo
-			//v.setStato(StatoVolo.CLOSED);
+			v.setStato(StatoVolo.CLOSED);
 			
 
 			//DBSession.getVoloDAO().save(v);

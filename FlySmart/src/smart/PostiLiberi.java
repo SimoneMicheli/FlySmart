@@ -119,10 +119,10 @@ public class PostiLiberi {
 			int[] posto = {colonnaCellaOttimaAss, rigaCellaOttimaAss}; //le ritorno in XY
 			System.out.println("trovato scelto: [x:"+colonnaCellaOttimaAss+" y:"+rigaCellaOttimaAss+"]"); 
 			return posto;
-		}else{
-			//se arrivo qui significa che la cella ottima è occupata
-			System.out.println("è occupato");
 		}
+		
+		//se arrivo qui significa che la cella ottima è occupata
+		System.out.println("è occupato");
 
 
 		//calcolo la distanza massima da verificare
