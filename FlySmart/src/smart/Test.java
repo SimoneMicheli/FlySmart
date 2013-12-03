@@ -49,7 +49,19 @@ public class Test {
 			e.printStackTrace();
 		}
 
-		c.calcolaCheckin();
+		CheckinStatus s = c.calcolaCheckin();
+		
+		for(Passeggero p : s.getPasseggeri()){
+			System.out.println(p);
+		}
+		
+		for(Pallet p : s.getPallets()){
+			System.out.println(p);
+		}
+		
+		double mom[] = s.getMom();
+		
+		System.out.println("mom: "+mom[0]+" "+mom[1]);
 
 	}
 

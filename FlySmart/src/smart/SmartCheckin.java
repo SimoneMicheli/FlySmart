@@ -65,7 +65,7 @@ public class SmartCheckin implements SmartAlgorithm{
 
 
 	@Override
-	public void calcolaCheckin() {
+	public CheckinStatus calcolaCheckin() {
 		//ottengo lista passeggeri e pallet
 		List<Passeggero> passeggeri = DBSession.getPasseggeroDAO().getByIdVolo(v.getId()).order("-peso").asList();
 		List<Pallet> pallets = DBSession.getPalletDAO().getByIdVolo(v.getId()).order("-peso").asList();
@@ -88,8 +88,10 @@ public class SmartCheckin implements SmartAlgorithm{
 		System.out.println("FINE");
 
 		//salva dati aggiornati nel db
-		//DBSession.getPasseggeroDAO().saveList(passeggeri);
-		//DBSession.getPalletDAO().saveList(pallets);
+		DBSession.getPasseggeroDAO().saveList(passeggeri);
+		DBSession.getPalletDAO().saveList(pallets);
+		
+		return new CheckinStatus(passeggeri, pallets, mom);
 
 	}
 
