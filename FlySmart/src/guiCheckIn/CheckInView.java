@@ -47,7 +47,7 @@ public class CheckInView extends View {
 	private void setGraphic(){
 		lookAndFeel();
 		setResizable(false);
-		setTitle("FlySmart: Chiusura volo");
+		setTitle("FlySmart: Check-In");
 		Toolkit mioTKit = Toolkit.getDefaultToolkit();
 		Dimension dimensioniSchermo = mioTKit.getScreenSize();
 		int xFrame = (dimensioniSchermo.width - dimensioneFinestra.width) / 2;

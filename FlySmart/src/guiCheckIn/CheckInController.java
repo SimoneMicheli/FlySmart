@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import org.bson.types.ObjectId;
 
 import prenotazione.FlightNotFoundException;
+import smart.CheckinStatus;
 
 import client.Controller;
 import model.Aeroporto;
@@ -61,7 +62,7 @@ public class CheckInController extends Controller {
 					int p = ((Aeroporto)view.comboAeroporto.getSelectedItem()).getId();
 					List<Volo> voli=null;
 					try {
-						voli = serv.getVoli(p,2); //carico la lista dei voli   SISTEMAREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+						voli = serv.getVoli(p,-1); //carico la lista dei voli
 						if(voli.size()!=0){
 							view.comboVoli.removeAllItems();
 							Iterator<Volo> v = voli.iterator();
@@ -94,7 +95,8 @@ public class CheckInController extends Controller {
 			public void actionPerformed(ActionEvent arg0) {
 				ObjectId idVolo = ((Volo)view.comboVoli.getSelectedItem()).getId();
 				try {
-					serv.calcolaCheckin(idVolo);
+					CheckinStatus s = serv.calcolaCheckin(idVolo);
+					System.out.println(s); //fare qualosa
 				} catch (FlightNotFoundException e) {
 					JOptionPane.showMessageDialog(null, "Volo non trovato","Errore", 0);
 				} catch (RemoteException e) {
