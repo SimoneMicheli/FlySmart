@@ -54,7 +54,7 @@ public class SmartCheckin implements SmartAlgorithm{
 			v.setStato(StatoVolo.CLOSED);
 			
 
-			//DBSession.getVoloDAO().save(v);
+			DBSession.getVoloDAO().save(v);
 			
 			posti = new PostiLiberi(v);
 		}finally{
@@ -90,7 +90,7 @@ public class SmartCheckin implements SmartAlgorithm{
 		//salva dati aggiornati nel db
 		DBSession.getPasseggeroDAO().saveList(passeggeri);
 		DBSession.getPalletDAO().saveList(pallets);
-		
+
 		return new CheckinReport(passeggeri, pallets, mom);
 
 	}
@@ -123,12 +123,12 @@ public class SmartCheckin implements SmartAlgorithm{
 		mom[0] = p.getPeso() * -0.5;
 		mom[1] = p.getPeso() * +0.5;
 		
-		System.out.println("momX: "+mom[1]);
-		System.out.println("momY: "+mom[0]);
+		System.out.println("momX: "+mom[0]);
+		System.out.println("momY: "+mom[1]);
 
 		//posizono il primo pallet
 		int[] pos = posti.postoLiberoPallet(-0.5,0.5);
-		System.out.println("Questo peso: di "+p.getPeso()+"kg va in [x:"+p.getColonna()+" y:"+p.getFila()+"] produce [momX:"+mom[1]+" momY: "+mom[0]+"]");
+		System.out.println("Questo peso: di "+p.getPeso()+"kg va in [x:"+p.getColonna()+" y:"+p.getFila()+"] produce [momX:"+mom[0]+" momY: "+mom[1]+"]");
 		
 		//calcolo posizione per i pallet successivi
 		int passo=1;
@@ -193,7 +193,7 @@ public class SmartCheckin implements SmartAlgorithm{
 			//aggiorno momento per prossima iterazione
 			mom[0] += momg[0];
 			mom[1] += momg[1];
-			System.out.println("######################## Questo peso: di "+g.getPesoTotale()+"kg lascia un mom di [momX:"+mom[0]+" momY: "+mom[1]+"]");
+			System.out.println("######################## Questo gruppo di "+g.getPesoTotale()+"kg lascia un mom di [momX:"+mom[0]+" momY: "+mom[1]+"]");
 			
 			
 		}
@@ -230,7 +230,7 @@ public class SmartCheckin implements SmartAlgorithm{
 			
 			mom[0] += p.getPeso() * coord.XRel(pos[0]); //sbilanciamento colonna
 			mom[1] += p.getPeso() * coord.YRel(pos[1]); //sbilanciamento riga
-			System.out.println("Questo passeggero: di "+p.getPeso()+"kg va in [x:"+p.getColonna()+" y:"+p.getFila()+"] e lascia un mom di [momX:"+mom[0]+" momY: "+mom[1]+"]");
+			System.out.println("Questo passeggero: di "+p.getPeso()+"kg va in [x:"+p.getColonna()+" y:"+p.getFila()+"] e lascia un mom totale del gruppo di [momX:"+mom[0]+" momY: "+mom[1]+"]");
 			
 		}
 		System.out.println("***************mom dopo gruppo [x:"+mom[0]+" y:"+mom[1]+"]");

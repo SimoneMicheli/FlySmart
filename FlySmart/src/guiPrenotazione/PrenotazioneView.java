@@ -213,6 +213,8 @@ public class PrenotazioneView extends View {
 	/** aeroporto di arrivo per i pallet*/
 	String aeroportoArrivoPallet=null;
 
+	int annoMax=2013;
+	int annoMin=1900;
 	/**
 	 * crea la vista prenotazione
 	 */
@@ -503,8 +505,6 @@ public class PrenotazioneView extends View {
 		//anno di nascita
 		comboBoxAnno.removeAllItems();
 		comboBoxAnno.addItem("");
-		int annoMax=2013;
-		int annoMin=1900;
 		for(int i=annoMax;i>annoMin;i--){
 			comboBoxAnno.addItem(""+i);
 		}
@@ -815,10 +815,7 @@ public class PrenotazioneView extends View {
 	 */
 	protected boolean controllaCampi(){
 		return !(textPasseggeriNome.getText().equals("") || 
-				textPasseggeriCognome.getText().equals("") || 
-				comboBoxGiorno.getSelectedIndex()==0 ||
-				comboBoxMese.getSelectedIndex()==0 ||
-				comboBoxAnno.getSelectedIndex()==0
+				textPasseggeriCognome.getText().equals("")
 				);
 	}
 
@@ -828,10 +825,7 @@ public class PrenotazioneView extends View {
 	 */
 	protected boolean campiVuoti(){
 		return (textPasseggeriNome.getText().equals("") && 
-				textPasseggeriCognome.getText().equals("") && 
-				comboBoxGiorno.getSelectedIndex()==0 &&
-				comboBoxMese.getSelectedIndex()==0 &&
-				comboBoxAnno.getSelectedIndex()==0
+				textPasseggeriCognome.getText().equals("")
 				);
 	}
 
@@ -867,11 +861,11 @@ public class PrenotazioneView extends View {
 				//lo azzero
 				textPasseggeriNome.setText("");
 				textPasseggeriCognome.setText("");
-				comboBoxGiorno.setSelectedIndex(0);
-				comboBoxMese.setSelectedIndex(0);
 				rdbtnNewRadioButton_uomo.setSelected(true);
 				rdbtnNewRadioButton_donna.setSelected(false);
-				comboBoxAnno.setSelectedIndex(0);
+				comboBoxAnno.setSelectedIndex(annoMax-annoMin);
+				comboBoxMese.setSelectedIndex(1);
+				comboBoxGiorno.setSelectedIndex(1);
 				passeggeroCorrente=null;
 			}else{
 				passeggeroCorrente = listaPasseggeri.get(currentIndex);

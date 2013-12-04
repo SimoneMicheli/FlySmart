@@ -8,9 +8,14 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
+import org.bson.types.ObjectId;
+
+import prenotazione.FlightNotFoundException;
+
 import client.Controller;
 import model.Aeroporto;
 import model.Volo;
+import smart.CheckinReport;
 import network.ServerInterface;
 
 
@@ -57,7 +62,7 @@ public class CheckInController extends Controller {
 					int p = ((Aeroporto)view.comboAeroporto.getSelectedItem()).getId();
 					List<Volo> voli=null;
 					try {
-						voli = serv.getVoli(p,2); //carico la lista dei voli   SISTEMAREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+						voli = serv.getVoli(p,-1); //carico la lista dei voli
 						if(voli.size()!=0){
 							view.comboVoli.removeAllItems();
 							Iterator<Volo> v = voli.iterator();
@@ -73,7 +78,7 @@ public class CheckInController extends Controller {
 							view.buttonChiudiVolo.setVisible(false);
 						}
 					} catch (RemoteException e) {
-						JOptionPane.showMessageDialog(null, "Impossibile connettersi al server","Error", 0);
+						JOptionPane.showMessageDialog(null, "Impossibile connettersi al server","Errore", 0);
 						e.printStackTrace();
 					};
 				}else{
@@ -88,7 +93,15 @@ public class CheckInController extends Controller {
 		view.buttonChiudiVolo.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-
+				ObjectId idVolo = ((Volo)view.comboVoli.getSelectedItem()).getId();
+				try {
+					CheckinReport s = serv.calcolaCheckin(idVolo);
+					System.out.println(s); //fare qualosa
+				} catch (FlightNotFoundException e) {
+					JOptionPane.showMessageDialog(null, "Volo non trovato","Errore", 0);
+				} catch (RemoteException e) {
+					JOptionPane.showMessageDialog(null, "Impossibile connettersi al server","Errore", 0);
+				}
 				JOptionPane.showMessageDialog(null, "Check-In calcolato per il volo "+((Volo)view.comboVoli.getSelectedItem()).getId(),"Calcolato", 3);
 			}
 		});
