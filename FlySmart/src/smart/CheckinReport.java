@@ -4,7 +4,6 @@
 package smart;
 
 import java.io.Serializable;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -20,21 +19,21 @@ import model.Passeggero;
 public class CheckinReport implements Serializable{
 	
 	/**
-	 * @return the passeggeri
+	 * @return l'elenco dei passeggeri
 	 */
 	public List<Passeggero> getPasseggeri() {
 		return passeggeri;
 	}
 
 	/**
-	 * @return the pallets
+	 * @return l'elenco dei pallet
 	 */
 	public List<Pallet> getPallets() {
 		return pallets;
 	}
 
 	/**
-	 * @return the mom
+	 * @return lo sbilanciamento finale dell'aereo
 	 */
 	public double[] getMom() {
 		return mom;

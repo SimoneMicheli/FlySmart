@@ -121,21 +121,6 @@ public class Passeggero extends Model {
 	 */
 	public Passeggero() {
 	}
-
-
-	/**
-	 * Istanza un nuovo passeggero.
-	 *
-	 * @param nome Nome del passeggero
-	 * @param cognome Cognome del passeggero
-	 * @param giorno Giorno di nascita
-	 * @param mese Mese di nascita
-	 * @param anno Anno di nascita
-	 * @param sesso Sesso del passeggero
-	 */
-	public Passeggero(String nome, String cognome,String giorno, String mese, String anno, Sesso sesso) {
-		this(null, nome,  cognome, sesso, null,  null, null, Integer.valueOf(giorno), Integer.valueOf(mese), Integer.valueOf(anno));
-	}
 	
 	
 	/**
@@ -337,9 +322,9 @@ public class Passeggero extends Model {
 	private int setPeso(){
 		int p = sesso.getPeso();
 		if (getEta() < 14){
-			p = (int) ((int) p*0.5);
+			p = (int) ((int) p*0.45);
 		} else if (getEta() < 18){
-			p = (int) ((int) p*0.8);
+			p = (int) ((int) p*0.85);
 		}
 		return p;
 	}
