@@ -1,6 +1,7 @@
 package model;
 
 import java.util.Calendar;
+import java.util.Date;
 
 import org.bson.types.ObjectId;
 
@@ -30,16 +31,19 @@ public class Passeggero extends Model {
 	private String cognome;
 	
 	/** età del passeggero (numero intero di anni) */
-	private Integer eta;
+	//private Integer eta;
 	
 	/** Giorno di nascita */
-	private Integer giorno;
+	//private Integer giorno;
 	
 	/** Mese di nascita */
-	private Integer mese;
+	//private Integer mese;
 	
 	/** Anno di nascita */
-	private Integer anno;
+	//private Integer anno;
+	
+	/** Data di nascita*/
+	Date nascita;
 	
 	/** Sesso del passeggero:
 	 * 'm' per maschio
@@ -67,31 +71,49 @@ public class Passeggero extends Model {
 	 * @param idGruppo Id del gruppo di passeggero
 	 * @param nome Nome del passeggero
 	 * @param cognome Cognome del passeggero
-	 * @param eta età del passeggero (numero intero di anni)
 	 * @param sesso Sesso del passeggero
 	 * @param pesoBagagli Peso dei bagagli del passeggero (in Kilogrammi)
 	 * @param idVolo Id del volo del passeggero 
 	 * @param fila numero di fila assegnata al passeggero
 	 * @param colonna numero id colonna assegnata al passeggero
-	 * @param giorno Giorno di nascita
-	 * @param mese Mese di nascita
-	 * @param anno Anno di nascita
+	 * @param nascita data di nascita
 	 */
-	public Passeggero(ObjectId idGruppo, String nome, String cognome, Integer eta, Sesso sesso, ObjectId idVolo, Integer fila, Integer colonna, Integer giorno, Integer mese, Integer anno) {
+	public Passeggero(ObjectId idGruppo, String nome, String cognome, Sesso sesso, ObjectId idVolo, Integer fila, Integer colonna, Date nascita) {
 		this.idGruppo = idGruppo;
 		this.nome = nome;
 		this.cognome = cognome;
-		this.eta = eta;
 		this.sesso = sesso;
 		this.idVolo = idVolo;
 		this.fila = fila;
 		this.colonna = colonna;
-		this.giorno = giorno;
-		this.mese = mese;
-		this.anno = anno;
+		this.nascita = nascita;
 		this.peso = setPeso();
-		System.out.println("costruttore pasee***********************");
-		System.out.println(peso);
+	}
+	
+	/**
+	 * Istanzia un nuovo passeggero (supercostruttore)
+	 *
+	 * @param idGruppo Id del gruppo di passeggero
+	 * @param nome Nome del passeggero
+	 * @param cognome Cognome del passeggero
+	 * @param sesso Sesso del passeggero
+	 * @param pesoBagagli Peso dei bagagli del passeggero (in Kilogrammi)
+	 * @param idVolo Id del volo del passeggero 
+	 * @param fila numero di fila assegnata al passeggero
+	 * @param colonna numero id colonna assegnata al passeggero
+	 */
+	public Passeggero(ObjectId idGruppo, String nome, String cognome, Sesso sesso, ObjectId idVolo, Integer fila, Integer colonna, int giorno, int mese, int anno) {
+		this.idGruppo = idGruppo;
+		this.nome = nome;
+		this.cognome = cognome;
+		this.sesso = sesso;
+		this.idVolo = idVolo;
+		this.fila = fila;
+		this.colonna = colonna;
+		Calendar c =  Calendar.getInstance();
+		c.set(anno, mese, giorno);
+		this.nascita = c.getTime();
+		this.peso = setPeso();
 	}
 
 	/**
@@ -112,7 +134,7 @@ public class Passeggero extends Model {
 	 * @param sesso Sesso del passeggero
 	 */
 	public Passeggero(String nome, String cognome,String giorno, String mese, String anno, Sesso sesso) {
-		this(null, nome,  cognome,  calcolaEta(giorno, mese, anno),  sesso, null,  null, null, Integer.parseInt(giorno), Integer.parseInt(mese), Integer.parseInt(anno));
+		this(null, nome,  cognome, sesso, null,  null, null, Integer.valueOf(giorno), Integer.valueOf(mese), Integer.valueOf(anno));
 	}
 	
 	
@@ -127,54 +149,17 @@ public class Passeggero extends Model {
 	 * @param sesso Sesso del passeggero
 	 */
 	public Passeggero(String nome, String cognome,int giorno, int mese, int anno, Sesso sesso) {
-		this(null, nome,  cognome,  calcolaEta(giorno, mese, anno),  sesso,  null,  null, null, giorno, mese, anno);
-	}
-
-	/**
-	 * Calcola eta del passeggero a partire dalla sua data di nascita
-	 *
-	 * @param g Giorno di nascita
-	 * @param m Mese di nascita
-	 * @param a Anno di nascita
-	 * @return età del passeggero (numero intero di anni)
-	 */
-	protected static int calcolaEta(String g, String m, String a){
-		return calcolaEta(Integer.parseInt(g), Integer.parseInt(m), Integer.parseInt(a));
-	}
-	
-	//calcola l'eta a partire da una data di nascita
-	/**
-	 * Calcola eta del passeggero a partire dalla sua data di nascita
-	 *
-	 * @param g Giorno di nascita
-	 * @param m Mese di nascita
-	 * @param a Anno di nascita
-	 * @return età del passeggero (numero intero di anni)
-	 */
-	protected static int calcolaEta(int g, int m, int a){
-		Calendar c = Calendar.getInstance();
-		int anni = c.get(Calendar.YEAR)-a;
-		if(m > 1+c.get(Calendar.MONTH) || (m == 1+c.get(Calendar.MONTH) && g >= c.get(Calendar.DAY_OF_MONTH))){ //1+ perche gennaio � lo zero
-			return anni-1;
-		}
-		return anni;
+		this(null, nome,  cognome, sesso,  null,  null, null, giorno, mese, anno);
 	}
 
 
 	/**
-	 * Calcola l'eta del passeggero
+	 * restituisce l'eta del passeggero
 	 *
 	 */
-	public void calcolaEta(){
-		Calendar c = Calendar.getInstance();
-		int anni = c.get(Calendar.YEAR)-anno;
-		if(mese>1+c.get(Calendar.MONTH) || (mese==1+c.get(Calendar.MONTH) && giorno>=c.get(Calendar.DAY_OF_MONTH))){ //1+ perche gennaio � lo zero
-			eta = anni-1;
-		}else{
-			eta = anni;
-		}
-		//aggiorno peso in base all'età
-		peso = setPeso();
+	@SuppressWarnings("deprecation")
+	public int getEta(){
+		return (new Date()).getYear() - nascita.getYear();
 	}
 
 
@@ -295,86 +280,12 @@ public class Passeggero extends Model {
 		this.cognome = cognome;
 	}
 
-
-	/**
-	 * Ottiene l' età del passeggero (numero intero di anni)
-	 *
-	 * @return età del passeggero (numero intero di anni)
-	 */
-	public Integer getEta() {
-		return eta;
-	}
-
-
-	/**
-	 * Set l'età del passeggero (numero intero di anni)
-	 *
-	 * @param eta età del passeggero (numero intero di anni)
-	 */
-	public void setEta(Integer eta) {
-		this.eta = eta;
-	}
-
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
 		return "Nome: "+ nome + " Cognome: " + cognome+ " Peso: "+getPeso();
-	}
-
-	/**
-	 * Gets Il mese di nascita
-	 *
-	 * @return Il mese di nascita
-	 */
-	public Integer getMese() {
-		return mese;
-	}
-
-	/**
-	 * Sets Il mese di nascita
-	 *
-	 * @param mese Il mese di nascita
-	 */
-	public void setMese(Integer mese) {
-		this.mese = mese;
-	}
-
-	/**
-	 * Ottiene il giorno di nascita
-	 *
-	 * @return il giorno di nascita
-	 */
-	public Integer getGiorno() {
-		return giorno;
-	}
-
-	/**
-	 * Set il giorno di nascita
-	 *
-	 * @param giorno il giorno di nascita
-	 */
-	public void setGiorno(Integer giorno) {
-		this.giorno = giorno;
-	}
-
-	/**
-	 * Ottiene l'anno di nascita
-	 *
-	 * @return l'anno di nascita
-	 */
-	public Integer getAnno() {
-		return anno;
-	}
-
-	/**
-	 * Set l'anno di nascita
-	 *
-	 * @param anno l'anno di nascita
-	 */
-	public void setAnno(Integer anno) {
-		this.anno = anno;
 	}
 
 	/**
@@ -404,15 +315,30 @@ public class Passeggero extends Model {
 	}
 	
 	/**
+	 * @return the nascita
+	 */
+	public Date getNascita() {
+		return nascita;
+	}
+
+	/**
+	 * @param nascita the nascita to set
+	 */
+	public void setNascita(Date nascita) {
+		this.nascita = nascita;
+		peso = setPeso();
+	}
+
+	/**
 	 * setta il peso in base al sesso e all'età
 	 * può essere chiamato solo dal costruttore dell'oggetto
 	 * @return peso da settare
 	 */
 	private int setPeso(){
 		int p = sesso.getPeso();
-		if (eta < 14){
+		if (getEta() < 14){
 			p = (int) ((int) p*0.5);
-		} else if (eta < 18){
+		} else if (getEta() < 18){
 			p = (int) ((int) p*0.8);
 		}
 		return p;
@@ -425,7 +351,7 @@ public class Passeggero extends Model {
 		if(!(obj instanceof Passeggero))
 			return false;
 		Passeggero p = (Passeggero) obj;
-		if(this.nome.equals(p.nome) && this.cognome.equals(p.cognome) && this.eta.equals(p.eta))
+		if(this.nome.equals(p.nome) && this.cognome.equals(p.cognome) && getEta() == p.getEta())
 			return true;
 		return false;
 	}

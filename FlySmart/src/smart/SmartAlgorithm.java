@@ -13,6 +13,6 @@ public interface SmartAlgorithm {
 	/**
 	 * calcola la posizione dei pallet e dei passeggeri sull'aereo
 	 */
-	public CheckinStatus calcolaCheckin();
+	public CheckinReport calcolaCheckin();
 
 }

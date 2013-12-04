@@ -49,7 +49,7 @@ public class Test {
 			e.printStackTrace();
 		}
 
-		CheckinStatus s = c.calcolaCheckin();
+		CheckinReport s = c.calcolaCheckin();
 		
 		for(Passeggero p : s.getPasseggeri()){
 			System.out.println(p);

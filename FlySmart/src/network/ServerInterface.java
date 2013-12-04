@@ -11,7 +11,7 @@ import cancellazione.DeleteException;
 
 import prenotazione.FlightNotFoundException;
 import prenotazione.SeatsSoldOutException;
-import smart.CheckinStatus;
+import smart.CheckinReport;
 
 
 import model.*;
@@ -68,7 +68,7 @@ public interface ServerInterface extends Remote {
 	 * @throws FlightNotFoundException
 	 * @throws RemoteException
 	 */
-	public CheckinStatus calcolaCheckin(ObjectId idVolo) throws RemoteException, FlightNotFoundException;
+	public CheckinReport calcolaCheckin(ObjectId idVolo) throws RemoteException, FlightNotFoundException;
 	
 	/**
 	 * fornendo l'id del gruppo restituisce l'elenco dei passeggeri nel gruppo

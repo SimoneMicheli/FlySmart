@@ -9,6 +9,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
@@ -796,10 +797,12 @@ public class PrenotazioneView extends View {
 		p.setNome(textPasseggeriNome.getText());
 		p.setCognome(textPasseggeriCognome.getText());
 		p.setSesso(Sesso.valueOf(sex));
-		p.setGiorno(Integer.parseInt(comboBoxGiorno.getSelectedItem().toString()));
-		p.setMese(Integer.parseInt(comboBoxMese.getSelectedItem().toString()));
-		p.setAnno(Integer.parseInt(comboBoxAnno.getSelectedItem().toString()));
-		p.calcolaEta();
+		int giorno = Integer.parseInt(comboBoxGiorno.getSelectedItem().toString());
+		int mese = Integer.parseInt(comboBoxMese.getSelectedItem().toString()) - 1;
+		int anno = Integer.parseInt(comboBoxAnno.getSelectedItem().toString());
+		Calendar c =  Calendar.getInstance();
+		c.set(anno, mese, giorno);
+		p.setNascita(c.getTime());
 		p.setIdVolo(voloSelezionatoPasseggeri.getId());
 
 	}
@@ -907,6 +910,7 @@ public class PrenotazioneView extends View {
 	 *
 	 * @param p the p
 	 */
+	@SuppressWarnings("deprecation")
 	protected void mostraPasseggero(Passeggero p){
 		textPasseggeriNome.setText(p.getNome());
 		textPasseggeriCognome.setText(p.getCognome());
@@ -917,14 +921,11 @@ public class PrenotazioneView extends View {
 			rdbtnNewRadioButton_uomo.setSelected(false);
 			rdbtnNewRadioButton_donna.setSelected(true);
 		}
-		comboBoxGiorno.setSelectedIndex(p.getGiorno());
-		comboBoxMese.setSelectedIndex(p.getMese());
-		comboBoxAnno.setSelectedIndex(2013-p.getAnno()+1);
+		comboBoxGiorno.setSelectedIndex(p.getNascita().getDate());
+		comboBoxMese.setSelectedIndex(p.getNascita().getMonth()+1);
+		comboBoxAnno.setSelectedIndex(2013-p.getNascita().getYear()+1);
 
 	}
-
-
-
 
 	/**
 	 * Dato un button group mi restituisce il testo del selezionato

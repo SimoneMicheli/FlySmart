@@ -17,7 +17,7 @@ import model.Passeggero;
  *
  */
 @SuppressWarnings("serial")
-public class CheckinStatus implements Serializable{
+public class CheckinReport implements Serializable{
 	
 	/**
 	 * @return the passeggeri
@@ -44,7 +44,7 @@ public class CheckinStatus implements Serializable{
 	private List<Pallet> pallets = new LinkedList<Pallet>();
 	private double mom[] ;
 	
-	public CheckinStatus(List<Passeggero> pass, List<Pallet> pall, double[] m) {
+	public CheckinReport(List<Passeggero> pass, List<Pallet> pall, double[] m) {
 		mom = m;
 		passeggeri.addAll(pass);
 		pallets.addAll(pall);

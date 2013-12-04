@@ -21,7 +21,7 @@ import prenotazione.PrenotazionePallet;
 import prenotazione.PrenotazionePasseggero;
 import prenotazione.SeatsSoldOutException;
 
-import smart.CheckinStatus;
+import smart.CheckinReport;
 import smart.SmartCheckin;
 import util.Options;
 import xml.XMLToObj;
@@ -125,13 +125,13 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 	}
 	
 	@Override
-	public CheckinStatus calcolaCheckin(ObjectId idVolo) throws FlightNotFoundException{
+	public CheckinReport calcolaCheckin(ObjectId idVolo) throws FlightNotFoundException{
 		log.entry();
 		SmartCheckin checkin = null;
 		
 		checkin = new SmartCheckin(idVolo);
 		
-		CheckinStatus rx = checkin.calcolaCheckin();
+		CheckinReport rx = checkin.calcolaCheckin();
 		log.exit();
 		return rx;
 	}
