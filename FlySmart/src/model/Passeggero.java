@@ -30,18 +30,6 @@ public class Passeggero extends Model {
 	/** Cognome del passeggero */
 	private String cognome;
 	
-	/** età del passeggero (numero intero di anni) */
-	//private Integer eta;
-	
-	/** Giorno di nascita */
-	//private Integer giorno;
-	
-	/** Mese di nascita */
-	//private Integer mese;
-	
-	/** Anno di nascita */
-	//private Integer anno;
-	
 	/** Data di nascita*/
 	Date nascita;
 	
@@ -64,15 +52,9 @@ public class Passeggero extends Model {
 
 	/**
 	 * Istanzia un nuovo passeggero (supercostruttore)
-	 *
-	
 	 * @param nome Nome del passeggero
 	 * @param cognome Cognome del passeggero
 	 * @param sesso Sesso del passeggero
-	
-	
-	
-	
 	 * @param nascita data di nascita
 	 */
 	public Passeggero(String nome, String cognome, Date nascita, Sesso sesso) {
@@ -85,14 +67,9 @@ public class Passeggero extends Model {
 	/**
 	 * Istanzia un nuovo passeggero (supercostruttore)
 	 *
-	
 	 * @param nome Nome del passeggero
 	 * @param cognome Cognome del passeggero
 	 * @param sesso Sesso del passeggero
-	
-	
-	
-	
 	 * @param giorno Giorno di nascita
 	 * @param mese Mese di nascita
 	 * @param anno Anno di nascita
