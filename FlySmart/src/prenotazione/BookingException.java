@@ -16,6 +16,10 @@ public class BookingException extends RuntimeException {
 	public BookingException() {
 	}
 	
+	/**
+	 * Constructor for BookingException.
+	 * @param id ObjectId
+	 */
 	public BookingException(ObjectId id){
 		super("Exception during booking process on flight id: "+ id.toString());
 	}

@@ -31,8 +31,8 @@ public class Aeroporto implements GetFields, Serializable{
 	}
 	
 	/**
-	 * @return the id
-	 */
+	
+	 * @return the id */
 	public Integer getId() {
 		return id;
 	}
@@ -40,8 +40,8 @@ public class Aeroporto implements GetFields, Serializable{
 	/**
 	 * Ottiene il nome dell'aeroporto
 	 *
-	 * @return Il nome dell'aeroporto
-	 */
+	
+	 * @return Il nome dell'aeroporto */
 	public String getNome() {
 		return nome;
 	}
@@ -63,6 +63,11 @@ public class Aeroporto implements GetFields, Serializable{
 		return nome;
 	}
 	
+	/**
+	 * Method equals.
+	 * @param obj Object
+	 * @return boolean
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -73,6 +78,11 @@ public class Aeroporto implements GetFields, Serializable{
 		return this.id.equals(a.id) && this.nome.equals(a.nome);
 	}
 
+	/**
+	 * Method getFields.
+	 * @return List<Field>
+	 * @see model.GetFields#getFields()
+	 */
 	@Override
 	public List<Field> getFields() {
 		Field[] currentFields = Aeroporto.class.getDeclaredFields();

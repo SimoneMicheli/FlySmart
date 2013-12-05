@@ -7,10 +7,16 @@ import model.TipoAereo;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ */
 public class CoordinataPalletTest {
 
 	Coordinata coord ;
 	
+	/**
+	 * Method setUpBefore.
+	 * @throws Exception
+	 */
 	@Before
 	public void setUpBefore() throws Exception {
 		coord = new CoordinataPallet(TipoAereo.S);

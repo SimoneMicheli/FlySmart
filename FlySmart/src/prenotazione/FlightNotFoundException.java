@@ -16,15 +16,27 @@ public class FlightNotFoundException extends BookingException {
 		super("Required flight NOT FOUND!");
 	}
 	
-	public FlightNotFoundException(ObjectId id){
+/**
+	 * Constructor for FlightNotFoundException.
+	 * @param id ObjectId
+	 */
+		public FlightNotFoundException(ObjectId id){
 		super("Required flight "+ id.toString() +"NOT FOUND!");
 	}
 	
-	public FlightNotFoundException(String message){
+/**
+	 * Constructor for FlightNotFoundException.
+	 * @param message String
+	 */
+		public FlightNotFoundException(String message){
 		super("Required flight NOT FOUND!" + message);
 	}
 	
-	public FlightNotFoundException(Throwable e){
+/**
+	 * Constructor for FlightNotFoundException.
+	 * @param e Throwable
+	 */
+		public FlightNotFoundException(Throwable e){
 		super(e);
 	}
 }

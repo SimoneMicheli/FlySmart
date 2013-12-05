@@ -15,11 +15,17 @@ import util.Options;
 
 import db.DBSession;
 
+/**
+ */
 public class CancellaPalletTest {
 
 	static Pallet  p1;
 	static Volo v;
 	
+	/**
+	 * Method setUpBeforeClass.
+	 * @throws Exception
+	 */
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		Options.initOptions();

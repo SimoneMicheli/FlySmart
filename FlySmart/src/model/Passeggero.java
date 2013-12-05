@@ -65,14 +65,14 @@ public class Passeggero extends Model {
 	/**
 	 * Istanzia un nuovo passeggero (supercostruttore)
 	 *
-	 * @param idGruppo Id del gruppo di passeggero
+	
 	 * @param nome Nome del passeggero
 	 * @param cognome Cognome del passeggero
 	 * @param sesso Sesso del passeggero
-	 * @param pesoBagagli Peso dei bagagli del passeggero (in Kilogrammi)
-	 * @param idVolo Id del volo del passeggero 
-	 * @param fila numero di fila assegnata al passeggero
-	 * @param colonna numero id colonna assegnata al passeggero
+	
+	
+	
+	
 	 * @param nascita data di nascita
 	 */
 	public Passeggero(String nome, String cognome, Date nascita, Sesso sesso) {
@@ -85,14 +85,17 @@ public class Passeggero extends Model {
 	/**
 	 * Istanzia un nuovo passeggero (supercostruttore)
 	 *
-	 * @param idGruppo Id del gruppo di passeggero
+	
 	 * @param nome Nome del passeggero
 	 * @param cognome Cognome del passeggero
 	 * @param sesso Sesso del passeggero
-	 * @param pesoBagagli Peso dei bagagli del passeggero (in Kilogrammi)
-	 * @param idVolo Id del volo del passeggero 
-	 * @param fila numero di fila assegnata al passeggero
-	 * @param colonna numero id colonna assegnata al passeggero
+	
+	
+	
+	
+	 * @param giorno Giorno di nascita
+	 * @param mese Mese di nascita
+	 * @param anno Anno di nascita
 	 */
 	public Passeggero(String nome, String cognome, int giorno, int mese, int anno, Sesso sesso) {
 		this.nome = nome;
@@ -112,6 +115,7 @@ public class Passeggero extends Model {
 	/**
 	 * restituisce l'eta del passeggero
 	 *
+	 * @return int eta
 	 */
 	@SuppressWarnings("deprecation")
 	public int getEta(){
@@ -122,8 +126,8 @@ public class Passeggero extends Model {
 	/**
 	 * Ottiene il sesso del passeggero
 	 *
-	 * @return Il sesso del passeggero
-	 */
+	
+	 * @return Il sesso del passeggero */
 	public Sesso getSesso() {
 		return sesso;
 	}
@@ -131,8 +135,8 @@ public class Passeggero extends Model {
 	/**
 	 * Ottiene l'Id del volo del passeggero 
 	 *
-	 * @return Id del volo del passeggero 
-	 */
+	
+	 * @return Id del volo del passeggero  */
 	public ObjectId getIdVolo() {
 		return idVolo;
 	}
@@ -150,8 +154,8 @@ public class Passeggero extends Model {
 	/**
 	 * Ottiene il numero di fila sul volo prenotato dal passeggero
 	 *
-	 * @return Il numero di fila sul volo prenotato dal passeggero
-	 */
+	
+	 * @return Il numero di fila sul volo prenotato dal passeggero */
 	public Integer getFila() {
 		return fila;
 	}
@@ -170,8 +174,8 @@ public class Passeggero extends Model {
 	/**
 	 * Ottiene il numero di colonna sul volo prenotato dal passeggero
 	 *
-	 * @return Il numero di colonna sul volo prenotato dal passeggero
-	 */
+	
+	 * @return Il numero di colonna sul volo prenotato dal passeggero */
 	public Integer getColonna() {
 		return colonna;
 	}
@@ -188,8 +192,8 @@ public class Passeggero extends Model {
 	/**
 	 * Ottiene il nome del passeggero
 	 *
-	 * @return Il nome del passeggero
-	 */
+	
+	 * @return Il nome del passeggero */
 	public String getNome() {
 		return nome;
 	}
@@ -198,8 +202,8 @@ public class Passeggero extends Model {
 	/**
 	 * Ottiene il cognome del passeggero
 	 *
-	 * @return Il cognome del passeggero
-	 */
+	
+	 * @return Il cognome del passeggero */
 	public String getCognome() {
 		return cognome;
 	}
@@ -215,8 +219,8 @@ public class Passeggero extends Model {
 	/**
 	 * Ottiene l'Id del gruppo di passeggeri
 	 *
-	 * @return Id del gruppo di passeggeri
-	 */
+	
+	 * @return Id del gruppo di passeggeri */
 	public ObjectId getIdGruppo() {
 		return idGruppo;
 	}
@@ -231,8 +235,8 @@ public class Passeggero extends Model {
 	}
 	
 	/**
-	 * @return the nascita
-	 */
+	 * Restituisce l'ogggetto di tipo Date rappresentante la data di nascita
+	 * @return data di nascita */
 	public Date getNascita() {
 		return nascita;
 	}
@@ -252,6 +256,11 @@ public class Passeggero extends Model {
 		return p;
 	}
 
+	/**
+	 * Method equals.
+	 * @param obj Object
+	 * @return boolean
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if(this == obj)

@@ -18,6 +18,7 @@ public class PrenotazioneLaucher {
 	
 	/**
 	 * Main. Programma principale dell'applicazione Prenotazione
+	 * @param args String[]
 	 */
 	public static void main(String args[]) {
 		

@@ -19,6 +19,10 @@ import com.google.code.morphia.query.Query;
  */
 public class PalletDAO extends BasicDAO<Pallet, ObjectId> {
 
+	/**
+	 * Constructor for PalletDAO.
+	 * @param ds Datastore
+	 */
 	public PalletDAO(Datastore ds){
 		super(Pallet.class, ds);
 	}
@@ -26,8 +30,8 @@ public class PalletDAO extends BasicDAO<Pallet, ObjectId> {
 	/**
 	 * ottiene l'elenco dei pallet di un certo volo
 	 * @param idVolo id del volo da cercare
-	 * @return elenco dei pallet del volo
-	 */
+	
+	 * @return elenco dei pallet del volo */
 	public Query<Pallet> getByIdVolo(ObjectId idVolo){
 		return ds.createQuery(Pallet.class).filter("idVolo =", idVolo);
 	}

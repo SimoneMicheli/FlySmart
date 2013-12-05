@@ -10,10 +10,18 @@ public enum Sesso {
 	
 	private int peso;
 	
+	/**
+	 * Constructor for Sesso.
+	 * @param p int
+	 */
 	Sesso(int p){
 		peso = p;
 	}
 	
+	/**
+	 * restituisce il peso standard in base al sesso.
+	 * @return int
+	 */
 	public int getPeso(){
 		return peso;
 	}

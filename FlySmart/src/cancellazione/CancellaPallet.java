@@ -20,8 +20,8 @@ public class CancellaPallet {
 	/**
 	 * ottene le informazioni sul pallet richiesto
 	 * @param id del pallet
-	 * @return pallet
-	 */
+	
+	 * @return pallet */
 	public Pallet getInfoPallet(ObjectId id){
 		return DBSession.getPalletDAO().get(id);
 	}

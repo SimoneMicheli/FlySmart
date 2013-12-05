@@ -12,8 +12,14 @@ import com.google.code.morphia.mapping.MappingException;
 
 import util.Options;
 
+/**
+ */
 public class DBSessionTest {
 
+	/**
+	 * Method setUp.
+	 * @throws Exception
+	 */
 	@BeforeClass
 	public void setUp() throws Exception {
 		Options.initOptions();

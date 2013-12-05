@@ -27,8 +27,8 @@ public abstract class Model implements Serializable{
 	/**
 	 * Ottiene l'id dell'oggetto
 	 *
-	 * @return Id dell'oggetto
-	 */
+	
+	 * @return Id dell'oggetto */
 	public ObjectId getId() {
 		return id;
 	}

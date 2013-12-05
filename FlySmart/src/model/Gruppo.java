@@ -32,6 +32,7 @@ public class Gruppo extends LinkedList<Passeggero> implements Comparable<Gruppo>
 	
 	/**
 	 * costruttore della classe, riceve l'id del gruppo
+	 * @param id ObjectId
 	 */
 	public Gruppo(ObjectId id) {
 		super();
@@ -42,12 +43,18 @@ public class Gruppo extends LinkedList<Passeggero> implements Comparable<Gruppo>
 	 * costruttore, riceve l'id del gruppo e una collezione di passeggeri
 	 * da aggiungere nel gruppo
 	 * @param c
+	 * @param id ObjectId
 	 */
 	public Gruppo(ObjectId id, Collection<? extends Passeggero> c) {
 		super(c);
 		this.id = id;
 	}
 
+	/**
+	 * Method add.
+	 * @param e Passeggero
+	 * @return boolean
+	 */
 	@Override
 	public boolean add(Passeggero e) {
 		peso += e.getPeso();
@@ -56,19 +63,24 @@ public class Gruppo extends LinkedList<Passeggero> implements Comparable<Gruppo>
 	
 	/**
 	 * restituisce il peso totale del gruppo
-	 * @return peso totale del gruppo
-	 */
+	
+	 * @return peso totale del gruppo */
 	public int getPesoTotale(){
 		return peso;
 	}
 
 	/**
-	 * @return restituisce l'id del gruppo
-	 */
+	
+	 * @return restituisce l'id del gruppo */
 	public ObjectId getId() {
 		return id;
 	}
 
+	/**
+	 * Method compareTo.
+	 * @param o Gruppo
+	 * @return int
+	 */
 	@Override
 	public int compareTo(Gruppo o) {
 		if (peso == o.getPesoTotale())
@@ -78,6 +90,10 @@ public class Gruppo extends LinkedList<Passeggero> implements Comparable<Gruppo>
 		return 1;
 	}
 	
+	/**
+	 * Method toString.
+	 * @return String
+	 */
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub

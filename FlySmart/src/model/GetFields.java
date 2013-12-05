@@ -12,7 +12,7 @@ public interface GetFields {
 	/**
 	 * Ottieni i campi della classe
 	 *
-	 * @return I campi della classe
-	 */
+	
+	 * @return I campi della classe */
 	public List<Field> getFields();
 }

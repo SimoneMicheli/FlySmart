@@ -57,6 +57,10 @@ public class CheckInView extends View {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
+	/**
+	 * Method disegnaElementi.
+	 * @param aeroporti List<Aeroporto>
+	 */
 	@SuppressWarnings("unchecked")
 	protected void disegnaElementi(List<Aeroporto> aeroporti){
 		

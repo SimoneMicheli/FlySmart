@@ -74,9 +74,9 @@ public class Volo extends Model{
 	 * @param prezzoPallet Prezzo del volo per ogni pallet (espresso in euro)
 	 * @param stato stato del volo
 	 * @param tipoAereo tipo di aereo usato per il volo
-	 * @param lastID ultimo id passeggeri assegnato
-	 * @param lastPalletID ultimo id pallet assegnato
-	 * @param lastGroupID ultimo id gruppo assegnato
+	
+	
+	
 	 */
 	public Volo(Date dataOra, Integer aeroportoPartenza, Integer aeroportoDestinazione, Integer postiDisponibili, Integer palletDisponibili, Double prezzoPasseggero, Double prezzoPallet, StatoVolo stato, TipoAereo tipoAereo) {
 		this.dataOra = dataOra;
@@ -118,8 +118,8 @@ public class Volo extends Model{
 	/**
 	 * Ottiene la Data del volo (in particolare la partenza)
 	 *
-	 * @return Data del volo (in particolare la partenza)
-	 */
+	
+	 * @return Data del volo (in particolare la partenza) */
 	public Date getDataOra() {
 		return dataOra;
 	}
@@ -127,8 +127,8 @@ public class Volo extends Model{
 
 	/**
 	 * restituisce la data e lora del volo in formato stringa
-	 * @return stringa contentente data e ora
-	 */
+	
+	 * @return stringa contentente data e ora */
 	public String getDataOraString(){
 		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy   hh:mm");
 		return format.format(dataOra);
@@ -139,8 +139,8 @@ public class Volo extends Model{
 	/**
 	 * Gets Id dell'aeroporto di partenza
 	 *
-	 * @return Id dell'aeroporto di partenza
-	 */
+	
+	 * @return Id dell'aeroporto di partenza */
 	public Integer getAeroportoPartenza() {
 		return aeroportoPartenza;
 	}
@@ -149,8 +149,8 @@ public class Volo extends Model{
 	/**
 	 * Ottiene Id dell'aeroporto di destinazione
 	 *
-	 * @return Id dell'aeroporto di destinazione
-	 */
+	
+	 * @return Id dell'aeroporto di destinazione */
 	public Integer getAeroportoDestinazione() {
 		return aeroportoDestinazione;
 	}
@@ -158,8 +158,8 @@ public class Volo extends Model{
 	/**
 	 * Ottiene il Numero di posti per passeggeri ancora disponibili sull'aereo
 	 *
-	 * @return Numero di posti per passeggeri ancora disponibili sull'aereo
-	 */
+	
+	 * @return Numero di posti per passeggeri ancora disponibili sull'aereo */
 	public Integer getPostiDisponibili() {
 		return postiDisponibili;
 	}
@@ -185,8 +185,8 @@ public class Volo extends Model{
 	/**
 	 * Ottiene il Numero di posti per pallet ancora disponibili sull'aereo
 	 *
-	 * @return Numero di posti per pallet ancora disponibili sull'aereo
-	 */
+	
+	 * @return Numero di posti per pallet ancora disponibili sull'aereo */
 	public Integer getPalletDisponibili() {
 		return palletDisponibili;
 	}
@@ -203,24 +203,24 @@ public class Volo extends Model{
 	/**
 	 * Ottiene il Prezzo del volo (espresso in euro)
 	 *
-	 * @return Prezzo del volo (espresso in euro)
-	 */
+	
+	 * @return Prezzo del volo (espresso in euro) */
 	public Double getPrezzoPasseggero() {
 		return prezzoPasseggero;
 	}
 	
 	/**
 	 * Restituisce il prezzo unitario per pallet 
-	 * @return prezzo unitario del pallet
-	 */
+	
+	 * @return prezzo unitario del pallet */
 	public Double getPrezzoPallet() {
 		return prezzoPallet;
 	}
 
 	/**
 	 * ottiene lo stato del volo
-	 * @return stato volo
-	 */
+	
+	 * @return stato volo */
 	public StatoVolo getStato() {
 		return stato;
 	}
@@ -235,32 +235,32 @@ public class Volo extends Model{
 
 	/**
 	 * ritorna il tipo di aereo utilizzato per il volo
-	 * @return tipo di aereo
-	 */
+	
+	 * @return tipo di aereo */
 	public TipoAereo getTipoAereo() {
 		return tipoAereo;
 	}
 	
 	/**
 	 * restituisce l'id del gruppo da prenotare
-	 * @return id degl gruppo
-	 */
+	
+	 * @return id degl gruppo */
 	public ObjectId getGroupNumber(){
 		return new ObjectId();
 	}
 
 	/**
 	 * restituisce l'elenco dei passeggeri del volo
-	 * @return the passeggeri
-	 */
+	
+	 * @return elenco passeggeri */
 	public List<Passeggero> getPasseggeri() {
 		return passeggeri;
 	}
 
 	/**
 	 * restituisce l'elenco dei pallet del volo
-	 * @return the pallet
-	 */
+	
+	 * @return elenco pallet */
 	public List<Pallet> getPallet() {
 		return pallet;
 	}

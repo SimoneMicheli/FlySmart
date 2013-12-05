@@ -19,6 +19,10 @@ import com.google.code.morphia.dao.BasicDAO;
  */
 public class VoloDAO extends BasicDAO<Volo, ObjectId> {
 
+	/**
+	 * Constructor for VoloDAO.
+	 * @param ds Datastore
+	 */
 	public VoloDAO(Datastore ds){
 		super(Volo.class, ds);
 	}
@@ -26,8 +30,8 @@ public class VoloDAO extends BasicDAO<Volo, ObjectId> {
 	/**
 	 * recupera un volo passando l'id come stringa
 	 * @param id stringa del'id del volo
-	 * @return volo richiesto se presente
-	 */
+	
+	 * @return volo richiesto se presente */
 	public Volo getById(String id){
 		return get(new ObjectId(id));
 	}
@@ -37,8 +41,8 @@ public class VoloDAO extends BasicDAO<Volo, ObjectId> {
 	 * ordinati per data decresente
 	 * @param p id aeroporto partenza
 	 * @param a id aeroporto arrivo
-	 * @return elenco voli
-	 */
+	
+	 * @return elenco voli */
 	public List<Volo> getByPartenzaDestinazione(Integer p, Integer a){
 		return ds.createQuery(Volo.class)
 				.filter("aeroportoPartenza =",p)
@@ -52,8 +56,8 @@ public class VoloDAO extends BasicDAO<Volo, ObjectId> {
 	/**
 	 * restituisce tutti i voli dall'aeroporto di partenza
 	 * @param p aeroporto partenza
-	 * @return elenco volo
-	 */
+	
+	 * @return elenco volo */
 	public List<Volo> getByPartenza(Integer p){
 		return ds.createQuery(Volo.class)
 				.filter("aeroportoPartenza =",p)

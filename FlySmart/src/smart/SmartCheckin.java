@@ -37,8 +37,8 @@ public class SmartCheckin implements SmartAlgorithm{
 	 * al momento della creazione dell'oggeto viene verificato che il volo esiste
 	 * e se è presente viene posto in stato di chiuso
 	 * @param idVolo su cui calcolare le posizioni
-	 * @throws FlightNotFoundException
-	 */
+n
+ * @throws FlightNotFoundException	 */
 	public SmartCheckin(ObjectId idVolo) throws FlightNotFoundException{
 
 		try{
@@ -64,7 +64,12 @@ public class SmartCheckin implements SmartAlgorithm{
 	}
 
 
-	@Override
+/**
+	 * Method calcolaCheckin.
+	 * @return CheckinReport
+	 * @see smart.SmartAlgorithm#calcolaCheckin()
+	 */
+		@Override
 	public CheckinReport calcolaCheckin() {
 		//ottengo lista passeggeri e pallet
 		List<Passeggero> passeggeri = DBSession.getPasseggeroDAO().getByIdVolo(v.getId()).order("-peso").asList();
@@ -99,7 +104,8 @@ public class SmartCheckin implements SmartAlgorithm{
 	 * calcola dove posizionare i pallet sul volo
 	 * mediante algoritmo greedy
 	 * @param lista lista di pallet da posizionare
-	 */
+ * @return double[] sbilanciamento al termine del posizionamento dei pallet
+		 */
 	protected double[] posizionaPallet(List<Pallet> lista){
 		double mom[] = new double[2];
 		Arrays.fill(mom,0);
@@ -158,7 +164,13 @@ public class SmartCheckin implements SmartAlgorithm{
 		}
 		posti.stampaOccupancyPallet(passo);
 		return mom;
-	} 
+	}/**
+	 * Method posizionaPasseggeri.
+	 * @param lista List<Passeggero> lista di passegger ida posizionare
+	 * @param mom double[] sbilanciamento ottenuto dal posizionamento dei pallet
+	 * @return double[] sbilanciamento al termine del posizionamento dei passeggeri
+	 */
+	 
 
 	protected double[] posizionaPasseggeri(List<Passeggero> lista, double mom[]){
 		//lista vuota
@@ -199,7 +211,14 @@ public class SmartCheckin implements SmartAlgorithm{
 		}
 		
 		return mom;
-	}
+	}/**
+	 * posiziona tutti ipasseggeri di uno stesso gruppo vicini alla posizione ottimale
+	 * @param colonnaScelta double posizione ottimale gruppo
+	 * @param rigaScelta double posizione ottimale gruppo
+	 * @param g Gruppo gruppo da posizionare
+	 * @return double[] sbilanciamento relativo lasciato dal gruppo
+	 */
+	
 	
 	protected double[] posizionaGruppo(double colonnaScelta, double rigaScelta, Gruppo g){
 		Coordinata coord = new CoordinataPasseggero(v.getTipoAereo());

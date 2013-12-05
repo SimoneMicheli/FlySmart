@@ -22,15 +22,16 @@ public class CancellaPasseggero {
 	/**
 	 * fornendo l'id del gruppo restituisce l'elenco dei passeggeri nel gruppo
 	 * @param idGruppo
-	 * @return elenco passeggeri
-	 */
+	
+	 * @return elenco passeggeri */
 	public List<Passeggero> getPasseggeriGruppo(ObjectId idGruppo){
 		return DBSession.getPasseggeroDAO().getByGroupId(idGruppo).asList();
 	}
 	
 	/**
 	 * cancella la prenotazione per il passeggero con un certo id
-	 * @param idPass id del passeggero da cancellare
+	
+	 * @param id ObjectId
 	 */
 	public void cancellaPasseggero(ObjectId id){
 		Passeggero p = DBSession.getPasseggeroDAO().get(id);

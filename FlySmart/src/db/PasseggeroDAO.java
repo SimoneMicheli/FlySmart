@@ -16,6 +16,10 @@ import com.google.code.morphia.query.Query;
  */
 public class PasseggeroDAO extends BasicDAO<Passeggero, ObjectId> {
 
+	/**
+	 * Constructor for PasseggeroDAO.
+	 * @param ds Datastore
+	 */
 	public PasseggeroDAO(Datastore ds){
 		super(Passeggero.class, ds);
 	}
@@ -23,8 +27,8 @@ public class PasseggeroDAO extends BasicDAO<Passeggero, ObjectId> {
 	/**
 	 * ottiene l'elenco dei passegeri di un certo volo
 	 * @param idVolo id del volo da cercare
-	 * @return elenco dei passeggeri del volo
-	 */
+	
+	 * @return elenco dei passeggeri del volo */
 	public Query<Passeggero> getByIdVolo(ObjectId idVolo){
 		return ds.createQuery(Passeggero.class).filter("idVolo =", idVolo);
 	}
@@ -42,8 +46,8 @@ public class PasseggeroDAO extends BasicDAO<Passeggero, ObjectId> {
 	/**
 	 * ritorna la query contenente i passeggeri di un certo gruppo
 	 * @param id del gruppo
-	 * @return query dei passeggeri
-	 */
+	
+	 * @return query dei passeggeri */
 	public Query<Passeggero> getByGroupId(ObjectId id){
 		return ds.createQuery(Passeggero.class).filter("idGruppo =", id);
 	}

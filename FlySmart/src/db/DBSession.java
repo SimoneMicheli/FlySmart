@@ -49,8 +49,8 @@ public final class DBSession{
 	/**
 	 * costruttore privato per singleton.
 	 *
-	 * @throws UnknownHostException the unknown host exception
-	 */
+	
+	 * @throws UnknownHostException the unknown host exception */
 	protected DBSession() throws UnknownHostException{
 		
 		log.info("Connessione a MongoDB");
@@ -86,8 +86,8 @@ public final class DBSession{
 	/**
 	 * ritorna l'istanza del datastore che permette di eseguire query sul DB.
 	 *
-	 * @return datastore
-	 */
+	
+	 * @return datastore */
 	public static Datastore getInstance() {
 		log.entry();
 		if(session == null)
@@ -103,8 +103,8 @@ public final class DBSession{
 	/**
 	 * ritorna un istanza di VoloDAO.
 	 *
-	 * @return VoloDAO
-	 */
+	
+	 * @return VoloDAO */
 	public static VoloDAO getVoloDAO(){
 		log.entry();
 		if(session == null)
@@ -122,8 +122,8 @@ public final class DBSession{
 	/**
 	 * ritorna un istanza di PasseggeroDAO.
 	 *
-	 * @return PasseggeroDAO
-	 */
+	
+	 * @return PasseggeroDAO */
 	public static PasseggeroDAO getPasseggeroDAO(){
 		log.entry();
 		if(session == null)
@@ -141,8 +141,8 @@ public final class DBSession{
 	/**
 	 * ritorna un istanza di PalletDAO.
 	 *
-	 * @return PalletDAO
-	 */
+	
+	 * @return PalletDAO */
 	public static PalletDAO getPalletDAO(){
 		log.entry();
 		if(session == null)

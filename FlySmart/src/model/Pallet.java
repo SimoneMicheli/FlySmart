@@ -33,7 +33,7 @@ public class Pallet extends Model {
 	/**
 	 * Istanzia un nuovo pallet (supercostruttore)
 	 *
-	 * @param id Id del pallet
+	
 	 * @param peso Il peso del pallet
 	 * @param targa La targa del pallet
 	 * @param idVolo Id del volo su cui si trova il pallet
@@ -68,8 +68,8 @@ public class Pallet extends Model {
 	/**
 	 * Ottiene peso
 	 *
-	 * @return Il peso del pallet
-	 */
+	
+	 * @return Il peso del pallet */
 	public Integer getPeso() {
 		return peso;
 	}
@@ -77,8 +77,8 @@ public class Pallet extends Model {
 	/**
 	 * Ottiene la targa del pallet
 	 *
-	 * @return La targa del pallet
-	 */
+	
+	 * @return La targa del pallet */
 	public String getTarga() {
 		return targa;
 	}
@@ -86,8 +86,8 @@ public class Pallet extends Model {
 	/**
 	 * Ottiene l'id del volo su cui si trova il pallet
 	 *
-	 * @return L'id del volo su cui si trova il pallet
-	 */
+	
+	 * @return L'id del volo su cui si trova il pallet */
 	public ObjectId getIdVolo() {
 		return idVolo;
 	}
@@ -102,32 +102,45 @@ public class Pallet extends Model {
 	}
 
 	
-	/** Restituisce la fila in cui posizionare del pallet*/
+	/** Restituisce la fila in cui posizionare del palle * @return Integer
+	t*/
 	public Integer getFila() {
 		return fila;
 	}
 
-	/** Setta la fila in cui posizionare del pallet*/
+	/** Setta la fila in cui posizionare del palle * @param fila Integer
+	t*/
 	public void setFila(Integer fila) {
 		this.fila = fila;
 	}
 
-	/** Restituisce la colonna in cui posizionare il pallet*/
+	/** Restituisce la colonna in cui posizionare il palle * @return Integer
+	t*/
 	public Integer getColonna() {
 		return colonna;
 	}
 
-	/** Setta la colonna in cui posizionare il pallet*/
+	/** Setta la colonna in cui posizionare il palle * @param colonna Integer
+	t*/
 	public void setColonna(Integer colonna) {
 		this.colonna = colonna;
 	}
 	
+	/**
+	 * Method toString.
+	 * @return String
+	 */
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
 		return "id: "+id+ " peso: "+peso+" targa: "+targa+" idVolo: "+idVolo;
 	}
 	
+	/**
+	 * Method equals.
+	 * @param obj Object
+	 * @return boolean
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if(this == obj)

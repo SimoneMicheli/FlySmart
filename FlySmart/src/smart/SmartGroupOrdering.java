@@ -23,9 +23,9 @@ public class SmartGroupOrdering {
 	/**
 	 * crea ed ordina i gruppi sulla base dei passeggeri
 	 * @param lista passeggeri da ordinare
-	 * @param numeroGruppi numero di gruppi da creare (dipende dal numero di prenotazioni)
-	 * @return lista ordinate per peso dei gruppi
-	 */
+	
+	
+	 * @return lista ordinate per peso dei gruppi */
 	public static Gruppo[] sortGroup(List<Passeggero> lista){
 		
 		//creo mappa hash contentente id gruppo e gruppo, dimensione iniziale pari al numero di passeggeri

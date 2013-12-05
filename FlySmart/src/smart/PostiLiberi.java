@@ -26,6 +26,10 @@ public class PostiLiberi {
 	 */
 	private boolean[][] occupancyPallet= null;
 
+	/**
+	 * Constructor for PostiLiberi.
+	 * @param v Volo
+	 */
 	public PostiLiberi(Volo v){
 		this.v = v;
 		//creo matrici
@@ -34,6 +38,12 @@ public class PostiLiberi {
 
 	}
 
+	/**
+	 * Method postoLiberoPasseggeri.
+	 * @param distX double
+	 * @param distY double
+	 * @return int[]
+	 */
 	public int[] postoLiberoPasseggeri(double distX, double distY){
 		Coordinata coord = new CoordinataPasseggero(v.getTipoAereo());
 		return controllaPosto(distX, distY, occupancyPasseggeri,coord);
@@ -44,8 +54,8 @@ public class PostiLiberi {
 	 * pallet secondo l'algoritmo greedy, le posizioni sono in valore assoluto
 	 * @param distX il punto X dove lo sbilanciamento sulle X risulterebbe 0
 	 * @param distY il punto Y dove lo sbilanciamento sulle Y risulterebbe 0
-	 * @return un vettore in cui la prima posizione indica la colonna (X) dove posizionare il pallet, e la seconda posizione indica la riga (Y)
-	 */
+	
+	 * @return un vettore in cui la prima posizione indica la colonna (X) dove posizionare il pallet, e la seconda posizione indica la riga (Y) */
 	public int[] postoLiberoPallet(double distX, double distY){
 		Coordinata coord = new CoordinataPallet(v.getTipoAereo());
 		return controllaPosto(distX, distY, occupancyPallet,coord);
@@ -56,7 +66,9 @@ public class PostiLiberi {
 	 * @param distX
 	 * @param distY
 	 * @param occupancy
-	 * @return
+	
+	 * @param coord Coordinata
+	 * @return int[] posti assegnati x,y
 	 */
 	private int[] controllaPosto(double distX, double distY, boolean occupancy[][],Coordinata coord){
 
@@ -253,7 +265,6 @@ public class PostiLiberi {
 		int[] postoNullo = {-1, -1};
 		System.out.println("Posto:"+postoNullo[1]+" "+postoNullo[0]);
 		return postoNullo;
-
 
 
 

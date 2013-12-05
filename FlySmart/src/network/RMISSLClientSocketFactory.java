@@ -14,6 +14,14 @@ public class RMISSLClientSocketFactory implements RMIClientSocketFactory, Serial
 
 	private static final long serialVersionUID = 5373789233449860363L;
 
+	/**
+	 * Method createSocket.
+	 * @param host String
+	 * @param port int
+	 * @return Socket
+	 * @throws IOException
+	 * @see java.rmi.server.RMIClientSocketFactory#createSocket(String, int)
+	 */
 	@Override
 	public Socket createSocket(String host, int port) throws IOException {
 		SocketFactory factory = SSLSocketFactory.getDefault();

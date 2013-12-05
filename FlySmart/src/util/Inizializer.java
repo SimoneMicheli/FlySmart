@@ -15,12 +15,14 @@ import db.DBSession;
 import xml.XMLCreate;
 import model.*;
 
+/**
+ */
 public class Inizializer {
 
 	/**
 	 * @param args
-	 * @throws IOException 
-	 */
+	
+	 * @throws IOException  */
 	public static void main(String[] args)  {
 		System.out.println("Avvio generazione dati");
 		try {
@@ -36,6 +38,10 @@ public class Inizializer {
 
 	}
 
+	/**
+	 * Method creaAeroporti.
+	 * @throws IOException
+	 */
 	public static void creaAeroporti() throws IOException{
 		List<Aeroporto> elencoAeroporti;
 		elencoAeroporti = new LinkedList<Aeroporto>();
@@ -74,6 +80,10 @@ public class Inizializer {
 		XMLAeroporti.printDocument(d,Options.aeroportiFileName);
 	}
 
+	/**
+	 * Method creaVoli.
+	 * @throws IOException
+	 */
 	public static void creaVoli() throws IOException{
 		List<Volo> voli = new LinkedList<Volo>();
 		Calendar c = Calendar.getInstance();

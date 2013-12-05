@@ -21,6 +21,13 @@ public enum TipoAereo {
 	private final int filePasseggeri;
 	private final int colonnePasseggeri;
 	
+	/**
+	 * Constructor for TipoAereo.
+	 * @param colonnePallet int
+	 * @param filePallet int
+	 * @param colonnePasseggeri int
+	 * @param filePasseggeri int
+	 */
 	TipoAereo(int colonnePallet,int filePallet,int colonnePasseggeri,int filePasseggeri){
 		this.filePallet = filePallet;
 		this.colonnePallet = colonnePallet;
@@ -30,32 +37,32 @@ public enum TipoAereo {
 
 	/**
 	 * restituisce il numero di file disponibili per i pallet sull'aereo
-	 * @return numero file pallet
-	 */
+	
+	 * @return numero file pallet */
 	public int getFilePallet() {
 		return filePallet;
 	}
 
 	/**
 	 * restituisce il numero di colonne disponibili per i pallet sull'aereo
-	 * @return numero colonne pallet
-	 */
+	
+	 * @return numero colonne pallet */
 	public int getColonnePallet() {
 		return colonnePallet;
 	}
 
 	/**
 	 * restituisce il numero di file disponibili per i passeggeri sull'aereo
-	 * @return numero file passeggeri
-	 */
+	
+	 * @return numero file passeggeri */
 	public int getFilePasseggeri() {
 		return filePasseggeri;
 	}
 
 	/**
 	 * restituisce il numero di colonne disponibili per i passeggeri sull'aereo
-	 * @return numero di colonne passeggeri
-	 */
+	
+	 * @return numero di colonne passeggeri */
 	public int getColonnePasseggeri() {
 		return colonnePasseggeri;
 	} 

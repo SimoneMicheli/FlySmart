@@ -18,6 +18,8 @@ import util.*;
 
 
 
+/**
+ */
 public class Test {
 
 	/**
@@ -65,6 +67,10 @@ public class Test {
 
 	}
 
+	/**
+	 * Method prenotaPallet.
+	 * @param v Volo
+	 */
 	public static void prenotaPallet(Volo v){
 
 		List<Pallet> l = new LinkedList<Pallet>();
@@ -97,6 +103,10 @@ public class Test {
 
 	}
 
+	/**
+	 * Method prenotaPass.
+	 * @param v Volo
+	 */
 	public static void prenotaPass(Volo v){
 
 		List<Passeggero> l = new LinkedList<Passeggero>();

@@ -18,6 +18,7 @@ public class CheckInLaucher {
 	
 	/**
 	 * Main. Programma principale dell'applicazione CheckIn
+	 * @param args String[]
 	 */
 	public static void main(String args[]) {
 		

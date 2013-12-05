@@ -16,12 +16,18 @@ import org.junit.Test;
 import util.Options;
 import db.DBSession;
 
+/**
+ */
 public class CancellaPasseggeroTest {
 	
 	static Volo v;
 	static Passeggero p1;
 	static ObjectId idGruppo;
 
+	/**
+	 * Method setUpBeforeClass.
+	 * @throws Exception
+	 */
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		Options.initOptions();

@@ -11,6 +11,13 @@ import javax.net.ssl.SSLServerSocketFactory;
  */
 public class RMISSLServerSocketFactory implements RMIServerSocketFactory {
 
+	/**
+	 * Method createServerSocket.
+	 * @param port int
+	 * @return ServerSocket
+	 * @throws IOException
+	 * @see java.rmi.server.RMIServerSocketFactory#createServerSocket(int)
+	 */
 	@Override
 	public ServerSocket createServerSocket(int port) throws IOException {
 		// TODO Auto-generated method stub
