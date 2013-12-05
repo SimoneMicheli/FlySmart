@@ -27,8 +27,4 @@ public class FlightNotFoundException extends BookingException {
 	public FlightNotFoundException(Throwable e){
 		super(e);
 	}
-	
-	public FlightNotFoundException(String message, Throwable e){
-		super(message,  e);
-	}
 }

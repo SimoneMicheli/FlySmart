@@ -26,8 +26,4 @@ public class SeatsSoldOutException extends BookingException {
 	public SeatsSoldOutException(Throwable e){
 		super(e);
 	}
-	
-	public SeatsSoldOutException(String message, Throwable e){
-		super(message,  e);
-	}
 }

@@ -75,30 +75,12 @@ public class Pallet extends Model {
 	}
 	
 	/**
-	 * Set del peso del pallet
-	 *
-	 * @param peso Il peso del pallet
-	 */
-	public void setPeso(Integer peso) {
-		this.peso = peso;
-	}
-	
-	/**
 	 * Ottiene la targa del pallet
 	 *
 	 * @return La targa del pallet
 	 */
 	public String getTarga() {
 		return targa;
-	}
-	
-	/**
-	 * Set la targa del pallet
-	 *
-	 * @param targa La targa del pallet
-	 */
-	public void setTarga(String targa) {
-		this.targa = targa;
 	}
 	
 	/**
