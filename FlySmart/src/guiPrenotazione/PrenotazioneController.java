@@ -121,7 +121,7 @@ public class PrenotazioneController extends Controller {
 		registraControllerPrenotazioneSecondaParte();
 
 	}
-	
+
 	public void registraControllerPrenotazioneSecondaParte() {
 		//cancella prenotazione pallet
 		view.mntmRimuoviPallet.addMouseListener(new MouseAdapter() {
@@ -177,7 +177,7 @@ public class PrenotazioneController extends Controller {
 			}
 
 		});
-		
+
 		view.buttonPalletCercaVoli.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
@@ -273,23 +273,21 @@ public class PrenotazioneController extends Controller {
 			}
 
 		});
-		registraControllerFase3BPasseggeri();
-	}
-	
-	private void registraControllerFase3BPasseggeri() { 
 
 		//conferma passeggeri:passeggeri
 		view.buttonPasseggeriConfermaPrenotazione.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				if( (view.controllaCampi() || (view.campiVuoti() && view.listaPasseggeri.size()!=0) && (JOptionPane.showConfirmDialog(null,"<html>Vuoi confermare la spesa di "+view.prezzoTotaleVolo+" &euro;?</html>","Conferma prenotazione passeggeri",JOptionPane.YES_NO_OPTION,JOptionPane.NO_OPTION) == JOptionPane.OK_OPTION))){ //se sono pieni oppure vuoti
+				if( (view.controllaCampi() || (view.campiVuoti() && view.listaPasseggeri.size()!=0))){ //se sono pieni oppure vuoti
 					view.passeggeroSuccessivo(); 
-					try {
-						ObjectId idGruppo = serv.prenotaPasseggero(view.listaPasseggeri, view.voloSelezionatoPasseggeri.getId())[0];
-						JOptionPane.showMessageDialog(null,"Prenotazione effettuata con successo;\n Codice prenotazione: "+idGruppo.toString()+" ","Conferma prenotazione", 1);
-						view.cardPasseggeri.show(view.panelPasseggeri,"panelPasseggeriAeroporti"); //torno alla schermata iniziale
-					} catch (SeatsSoldOutException | RemoteException e) {
-						JOptionPane.showMessageDialog(null,"Volo non trovato, ritentare","Errore", 0);
+					if((JOptionPane.showConfirmDialog(null,"<html>Vuoi confermare la spesa di "+view.prezzoTotaleVolo+" &euro;?</html>","Conferma prenotazione passeggeri",JOptionPane.YES_NO_OPTION,JOptionPane.NO_OPTION) == JOptionPane.OK_OPTION)){
+						try {
+							ObjectId idGruppo = serv.prenotaPasseggero(view.listaPasseggeri, view.voloSelezionatoPasseggeri.getId())[0];
+							JOptionPane.showMessageDialog(null,"Prenotazione effettuata con successo;\n Codice prenotazione: "+idGruppo.toString()+" ","Conferma prenotazione", 1);
+							view.cardPasseggeri.show(view.panelPasseggeri,"panelPasseggeriAeroporti"); //torno alla schermata iniziale
+						} catch (SeatsSoldOutException | RemoteException e) {
+							JOptionPane.showMessageDialog(null,"Volo non trovato, ritentare","Errore", 0);
+						}
 					}
 				}else{
 					JOptionPane.showMessageDialog(null,"Completare l'inserimento dei dati","Errore", 0);
@@ -361,6 +359,18 @@ public class PrenotazioneController extends Controller {
 	 * Aggiungo i listner agli oggetti della facciata pallet:pallet
 	 */
 
+
+	private boolean controllaInputPalletPallet(){
+		if(view.textFieldPesoPallet.getText().compareTo("")!=0 && view.textFieldTargaPallet.getText().compareTo("")!=0 && view.textFieldPesoPallet.getText().matches ("\\d+") && Integer.parseInt(view.textFieldPesoPallet.getText())>=600 && Integer.parseInt(view.textFieldPesoPallet.getText())<=1400){
+			if((JOptionPane.showConfirmDialog(null,"Vuoi confermare?","Conferma prenotazione pallet",JOptionPane.YES_NO_OPTION,JOptionPane.NO_OPTION) == JOptionPane.OK_OPTION)){
+				return true;
+			}
+		}else{
+			JOptionPane.showMessageDialog(null,"Errore nei dati","Errore", 0);
+		}
+		return false;
+	}
+
 	private void registraControllerFase3Pallet() { 
 
 
@@ -368,7 +378,7 @@ public class PrenotazioneController extends Controller {
 		view.buttonPalletConfermaPrenotazione.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				if(view.textFieldPesoPallet.getText().compareTo("")!=0 && view.textFieldTargaPallet.getText().compareTo("")!=0 && view.textFieldPesoPallet.getText().matches ("\\d+") && Integer.parseInt(view.textFieldPesoPallet.getText())>=600 && Integer.parseInt(view.textFieldPesoPallet.getText())<=1400 && (JOptionPane.showConfirmDialog(null,"Vuoi confermare?","Conferma prenotazione pallet",JOptionPane.YES_NO_OPTION,JOptionPane.NO_OPTION) == JOptionPane.OK_OPTION)){
+				if(controllaInputPalletPallet()){
 					view.listaPallet.add(new Pallet(Integer.parseInt(view.textFieldPesoPallet.getText()),view.textFieldTargaPallet.getText(),view.voloSelezionatoPallet.getId(),null,null));
 					try {
 						ObjectId idPallet = serv.prenotaPallet(view.listaPallet,view.voloSelezionatoPallet.getId())[0];
@@ -377,8 +387,6 @@ public class PrenotazioneController extends Controller {
 					} catch (SeatsSoldOutException | RemoteException e) {
 						JOptionPane.showMessageDialog(null,"Volo non trovato, ritentare","Errore", 0);
 					}
-				}else{
-					JOptionPane.showMessageDialog(null,"Errore nei dati inseriti","Errore", 0);
 				}
 			}
 		});
