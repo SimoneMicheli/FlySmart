@@ -2,7 +2,6 @@ package xml;
 
 import static org.junit.Assert.*;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
@@ -59,19 +58,15 @@ public class XMLTest {
 		Document d = XMLAeroporti.createFlySmartDocument(elencoAeroporti);
 		
 		try {
-			XMLAeroporti.printDocument(d,"FileElencoAeroporti.xml");
+			XMLAeroporti.printDocument(d,Options.aeroportiFileName);
 		} catch (IOException e) {
 			fail("Can't write XML to file");
 		}
 		
-		//check if file exixts
-		File f = new File(Options.aeroportiFileName);
-		assertTrue("File XML Aeroporti non creato", !f.exists());
-		
 		//leggi da file e controlla
 		List<Aeroporto> aeroporti = new LinkedList<Aeroporto>();
 		XMLToObj<Aeroporto> parserXML = new XMLToObj<Aeroporto>(Aeroporto.class);
-		aeroporti = parserXML.readObj("FileElencoAeroporti.xml");
+		aeroporti = parserXML.readObj(Options.aeroportiFileName);
 		
 		assertArrayEquals(elencoAeroporti.toArray(), aeroporti.toArray());
 	}
