@@ -9,8 +9,6 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
@@ -794,17 +792,6 @@ public class PrenotazioneView extends View {
 		String sex = null;
 		if(getSelectedButtonText(buttonGroupSesso).compareTo("Uomo")==0) sex="M"; 
 		else sex="F";
-
-		/*p.setNome(textPasseggeriNome.getText());
-		p.setCognome(textPasseggeriCognome.getText());
-		p.setSesso(Sesso.valueOf(sex));
-		int giorno = Integer.parseInt(comboBoxGiorno.getSelectedItem().toString());
-		int mese = Integer.parseInt(comboBoxMese.getSelectedItem().toString()) - 1;
-		int anno = Integer.parseInt(comboBoxAnno.getSelectedItem().toString());
-		Calendar c =  Calendar.getInstance();
-		c.set(anno, mese, giorno);
-		p.setNascita(c.getTime());
-		p.setIdVolo(voloSelezionatoPasseggeri.getId());*/
 		
 		String nome = textPasseggeriNome.getText();
 		String cognome = textPasseggeriCognome.getText();
@@ -813,11 +800,7 @@ public class PrenotazioneView extends View {
 		int mese = Integer.parseInt(comboBoxMese.getSelectedItem().toString()) - 1;
 		int anno = Integer.parseInt(comboBoxAnno.getSelectedItem().toString());
 		
-		System.out.println(anno);
 		Passeggero p = new Passeggero(nome, cognome, giorno, mese, anno, sesso);
-		
-		anno = p.getNascita().getYear();
-		System.out.println(anno);
 
 		return p;
 	}
