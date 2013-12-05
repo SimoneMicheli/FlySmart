@@ -59,8 +59,9 @@ public class XMLCreate<E extends GetFields> {
 					{
 						String attributeName = f.getName();
 						String attributeType = f.getType().toString();
-						String [] split = attributeType.split("\\.");
-						attributeType = split[split.length-1];
+						//String [] split = attributeType.split("\\.");
+						//attributeType = split[split.length-1];
+						attributeType=attributeType.split("\\.")[attributeType.split("\\.").length-1];
 						String attributeNameMaiusc = attributeName.substring(0, 1).toUpperCase() + attributeName.substring(1);
 						Method m = elem.getClass().getMethod("get"+attributeNameMaiusc); // Ottengo il Metodo 
 						String s;
@@ -76,15 +77,7 @@ public class XMLCreate<E extends GetFields> {
 						root.appendChild(childToAdd);
 					}
 				}
-				catch (SecurityException e) {
-					e.printStackTrace();
-				} catch (IllegalArgumentException e) {
-					e.printStackTrace();
-				} catch (NoSuchMethodException e) {
-					e.printStackTrace();
-				} catch (IllegalAccessException e) {
-					e.printStackTrace();
-				}catch (InvocationTargetException e) {
+				catch (SecurityException | IllegalArgumentException | NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
 					e.printStackTrace();
 				}
 				
