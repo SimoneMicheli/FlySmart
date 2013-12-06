@@ -18,7 +18,24 @@ import model.Passeggero;
 @SuppressWarnings("serial")
 public class CheckinReport implements Serializable{
 	
+	
+
+	private List<Passeggero> passeggeri = new LinkedList<Passeggero>();
+	private List<Pallet> pallets = new LinkedList<Pallet>();
+	private double mom[] ;
+	
 	/**
+	 * Constructor for CheckinReport.
+	 * @param pass List<Passeggero> lista di passeggeri nel volo
+	 * @param pall List<Pallet> lista di pallet nel volo
+	 * @param m double[] sbilanciamento del volo
+	 */
+	public CheckinReport(List<Passeggero> pass, List<Pallet> pall, double[] m) {
+		mom = m;
+		passeggeri.addAll(pass);
+		pallets.addAll(pall);
+	}
+/**
 	
 	 * @return l'elenco dei passeggeri */
 	public List<Passeggero> getPasseggeri() {
@@ -38,23 +55,6 @@ public class CheckinReport implements Serializable{
 	public double[] getMom() {
 		return mom;
 	}
-
-	private List<Passeggero> passeggeri = new LinkedList<Passeggero>();
-	private List<Pallet> pallets = new LinkedList<Pallet>();
-	private double mom[] ;
-	
-	/**
-	 * Constructor for CheckinReport.
-	 * @param pass List<Passeggero> lista di passeggeri nel volo
-	 * @param pall List<Pallet> lista di pallet nel volo
-	 * @param m double[] sbilanciamento del volo
-	 */
-	public CheckinReport(List<Passeggero> pass, List<Pallet> pall, double[] m) {
-		mom = m;
-		passeggeri.addAll(pass);
-		pallets.addAll(pall);
-	}
-	
 	
 
 }

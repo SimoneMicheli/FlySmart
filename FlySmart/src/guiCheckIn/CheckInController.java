@@ -6,6 +6,7 @@ import java.rmi.RemoteException;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import org.bson.types.ObjectId;
@@ -97,12 +98,14 @@ public class CheckInController extends Controller {
 				try {
 					CheckinReport s = serv.calcolaCheckin(idVolo);
 					System.out.println(s); //fare qualosa
+					JOptionPane.showMessageDialog(null, "Check-In calcolato per il volo "+((Volo)view.comboVoli.getSelectedItem()).getId(),"Calcolato", 3);
+					@SuppressWarnings("unused")
+					JFrame frame = new Report(s,(Volo)view.comboVoli.getSelectedItem());
 				} catch (FlightNotFoundException e) {
 					JOptionPane.showMessageDialog(null, "Volo non trovato","Errore", 0);
 				} catch (RemoteException e) {
 					JOptionPane.showMessageDialog(null, "Impossibile connettersi al server","Errore", 0);
 				}
-				JOptionPane.showMessageDialog(null, "Check-In calcolato per il volo "+((Volo)view.comboVoli.getSelectedItem()).getId(),"Calcolato", 3);
 			}
 		});
 	}
