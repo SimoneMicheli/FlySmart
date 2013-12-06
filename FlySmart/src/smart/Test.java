@@ -1,5 +1,6 @@
 package smart;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -39,7 +40,7 @@ public class Test {
 
 		System.out.println(v);
 
-		
+		//testNuovoAlg(v);
 		prenotaPallet(v);
 		prenotaPass(v);
 
@@ -65,6 +66,16 @@ public class Test {
 		
 		System.out.println("mom: "+mom[0]+" "+mom[1]);
 
+	}
+	
+	public static void testNuovoAlg(Volo v){
+		
+		PostiLiberi p = new PostiLiberi(v);
+		
+		Posto pl[] = p.postoPasseggeri(0, 0, 3);
+		
+		System.out.println("------------");
+		System.out.println(Arrays.deepToString(pl));
 	}
 
 	/**

@@ -35,7 +35,7 @@ public class SmartCheckin implements SmartAlgorithm{
 
 	/**
 	 * al momento della creazione dell'oggeto viene verificato che il volo esiste
-	 * e se è presente viene posto in stato di chiuso
+	 * e se �� presente viene posto in stato di chiuso
 	 * @param idVolo su cui calcolare le posizioni
 n
  * @throws FlightNotFoundException	 */
@@ -150,15 +150,15 @@ n
 			dist[1] = -mom[1] / p.getPeso();
 			System.out.println("Calcolato: x:"+dist[0] +" y:"+dist[1]);
 
-			pos = posti.postoLiberoPallet(dist[0],dist[1]); //ritorno in modo XY quindi prima posizione è la colonna
+			pos = posti.postoLiberoPallet(dist[0],dist[1]); //ritorno in modo XY quindi prima posizione �� la colonna
 
 			p.setColonna(pos[0]); 
 			p.setFila(pos[1]);
 
 			//sbilanciamento effettivo
 			System.out.println("Calcolo lo sbilanciamento effettivo, nuovo");
-			mom[0] = mom[0] + p.getPeso() * coord.XRel(pos[0]); //sbilanciamento sulle x è la colonna
-			mom[1] = mom[1] + p.getPeso() * coord.YRel(pos[1]); //sbilanciamento sulle y è la fila
+			mom[0] = mom[0] + p.getPeso() * coord.XRel(pos[0]); //sbilanciamento sulle x �� la colonna
+			mom[1] = mom[1] + p.getPeso() * coord.YRel(pos[1]); //sbilanciamento sulle y �� la fila
 			System.out.println("Questo peso: di "+p.getPeso()+"kg va in [x:"+p.getColonna()+" y:"+p.getFila()+"] e lascia un mom di [momX:"+mom[0]+" momY: "+mom[1]+"]");
 		
 		}
@@ -225,32 +225,28 @@ n
 		
 		double[] mom = new double[2];
 		
-		//solo per test
+		//ottengo posti in cui mettere i passeggeri
+		//Posto postiLiberi[] = posti.postoPasseggeri(colonnaScelta, rigaScelta, g.size());
+		
 		int i=0;
-		
-		
 		for(Passeggero p : g){
+			Posto postiLiberi[] = posti.postoPasseggeri(colonnaScelta, rigaScelta, 1);
 			
-			
-			//test
-			i++;
-			
-			
-			//cerco posizione effettiva
-			int[] pos = posti.postoLiberoPasseggeri(colonnaScelta, rigaScelta);
 			//assegno posizioni effettive
-			p.setFila(pos[1]);
-			p.setColonna(pos[0]);
-			colonnaScelta = coord.XRel(pos[0]);
-			rigaScelta = coord.YRel(pos[1]);
+			p.setFila(postiLiberi[0].y);
+			p.setColonna(postiLiberi[0].x);
+			colonnaScelta = coord.XRel(postiLiberi[0].x);
+			rigaScelta = coord.YRel(postiLiberi[0].y);
 			
 			//calcolo sbilanciamento effettivo rispetto all'ottimo
 			System.out.println("Calcolo lo sbilanciamento effettivo, nuovo per passeggero "+i);
 			
-			mom[0] += p.getPeso() * coord.XRel(pos[0]); //sbilanciamento colonna
-			mom[1] += p.getPeso() * coord.YRel(pos[1]); //sbilanciamento riga
+			mom[0] += p.getPeso() * colonnaScelta; //sbilanciamento colonna
+			mom[1] += p.getPeso() * rigaScelta; //sbilanciamento riga
 			System.out.println("Questo passeggero: di "+p.getPeso()+"kg va in [x:"+p.getColonna()+" y:"+p.getFila()+"] e lascia un mom totale del gruppo di [momX:"+mom[0]+" momY: "+mom[1]+"]");
 			
+			
+			i++;
 		}
 		System.out.println("***************mom dopo gruppo [x:"+mom[0]+" y:"+mom[1]+"]");
 		

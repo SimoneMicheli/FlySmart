@@ -34,7 +34,7 @@ public class SmartGroupOrdering {
 		
 		Iterator<Passeggero> i = lista.iterator();
 		
-		//inserisco passeggeri nei rispettivi gruppi con complessità n (simile ad ordinamento lineare)
+		//inserisco passeggeri nei rispettivi gruppi con complessit�� n (simile ad ordinamento lineare)
 		while (i.hasNext()) {
 			Passeggero passeggero = (Passeggero) i.next();
 			ObjectId groupId = passeggero.getIdGruppo();

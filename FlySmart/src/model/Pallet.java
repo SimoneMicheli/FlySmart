@@ -133,7 +133,7 @@ public class Pallet extends Model {
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return "id: "+id+ " peso: "+peso+" targa: "+targa+" idVolo: "+idVolo;
+		return "id: "+id+ " peso: "+peso+" targa: "+targa+" idVolo: "+idVolo+" fila: "+fila+" colonna: "+colonna;
 	}
 	
 	/**
