@@ -230,7 +230,7 @@ n
 		
 		int i=0;
 		for(Passeggero p : g){
-			Posto postoLibero = posti.postoPasseggeri(colonnaScelta, rigaScelta);
+			Posto postoLibero = posti.postoLiberoPasseggeri(colonnaScelta, rigaScelta);
 			
 			//assegno posizioni effettive
 			p.setFila(postoLibero.y);

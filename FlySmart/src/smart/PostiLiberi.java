@@ -24,13 +24,11 @@ public class PostiLiberi {
 	 * indica i posti liberi ed occupati sull'aereo per i passeggeri
 	 */
 	private boolean[][] occupancyPasseggeri= null;
+	
 	/**
 	 * indica i posti liberi ed occupati sull'aereo per i pallet
 	 */
 	private boolean[][] occupancyPallet= null;
-	
-	private int maxRighe;
-	private int maxColonne;
 
 	/**
 	 * Constructor for PostiLiberi.
@@ -41,25 +39,19 @@ public class PostiLiberi {
 		//creo matrici
 		occupancyPallet = new boolean[v.getTipoAereo().getFilePallet()][v.getTipoAereo().getColonnePallet()];
 		occupancyPasseggeri = new boolean[v.getTipoAereo().getFilePasseggeri()][v.getTipoAereo().getColonnePasseggeri()];
-		maxRighe = v.getTipoAereo().getFilePasseggeri();
-		maxColonne = v.getTipoAereo().getColonnePasseggeri();
 	}
-
+	
 	/**
-	 * Method postoLiberoPasseggeri.
-	 * @param distX double
-	 * @param distY double
-	 * @return int[]
+	 * restituisce il primo posto libero vicino a quello richiesto
+	 * @param ottimoX colonna posto richiesto
+	 * @param ottimoY riga posto richiesto
+	 * @return posto disponibile
 	 */
-	public int[] postoLiberoPasseggeri(double distX, double distY){
+	public Posto postoLiberoPasseggeri(double ottimoX, double ottimoY){
 		Coordinata coord = new CoordinataPasseggero(v.getTipoAereo());
-		return controllaPosto(distX, distY, occupancyPasseggeri,coord);
-	}
-	
-	
-	
-	public Posto postoPasseggeri(double ottimoX, double ottimoY){
-		Coordinata coord = new CoordinataPasseggero(v.getTipoAereo());
+		
+		int maxRighe = v.getTipoAereo().getFilePasseggeri();
+		int maxColonne = v.getTipoAereo().getColonnePasseggeri();
 		
 		//discretizzo posizione (intervallo 1 shift 0.5) la x
 		if(ottimoX <=0 && ottimoX>=-0.5)
@@ -72,8 +64,6 @@ public class PostiLiberi {
 		else
 			ottimoY = 0.5 + (int)(ottimoY - 0.5);
 
-
-		//System.out.println("Discretizzato: x:"+ottimoX +" y:"+ottimoY);
 		int postoX = coord.XAbs(ottimoX);
 		int postoY = coord.YAbs(ottimoY);
 
@@ -87,9 +77,6 @@ public class PostiLiberi {
 			postoY = maxRighe-1;
 		if(postoY <0 )
 			postoY = 0;
-
-		//System.out.println("interno aereo: x:"+postoX +" y:"+postoY);
-		//nuova sezione algoritmo
 		
 		LinkedList<Posto> posti = new LinkedList<Posto>();
 		
@@ -99,21 +86,23 @@ public class PostiLiberi {
 				if(occupancyPasseggeri[r][c] == false)
 					posti.add(new Posto(c, r, postoX, postoY));
 
-		//System.out.println("------------");
 		//ordinamento posti
-		Posto postiOrdinati = ordinaPostiLiberi(posti);
-		//System.out.println("------------");
-		//System.out.println(Arrays.deepToString(postiOrdinati));
-		
+		Posto postiOrdinati = ordinaPostiLiberi(posti, maxRighe);
+	
 		//contrassegno posto come occupati
 		occupancyPasseggeri[postiOrdinati.y][postiOrdinati.x] = true;
-		
 		
 		return postiOrdinati;
 
 	}
 	
-	public Posto ordinaPostiLiberi(List<Posto> posti){
+	/**
+	 * ritorna il posto più vicino a quello richiesto
+	 * eseguendo un ordinamento lineare tra i posti disponibili 
+	 * @param posti disponibili
+	 * @return posto più vicino
+	 */
+	protected Posto ordinaPostiLiberi(List<Posto> posti, int maxRighe){
 			
 		List<Posto> ordinata[] =  new List[((4+maxRighe)*2)+1];
 		
