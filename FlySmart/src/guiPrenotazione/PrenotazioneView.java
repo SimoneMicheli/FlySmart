@@ -90,8 +90,10 @@ public class PrenotazioneView extends View {
 	//opzioni
 	/** opzione esci. */
 	protected JMenuItem mntmExit = new JMenuItem("Esci",new ImageIcon("./img/exit.gif"));
-	/** opzione rimuovi prenotazione. */
-	protected JMenuItem mntmRimuovi = new JMenuItem("Elimina prenotazione",new ImageIcon("./img/trash.gif"));
+	/** opzione rimuovi prenotazione passeggero. */
+	protected JMenuItem mntmRimuoviPasseggero = new JMenuItem("Rimuovi prenotazione passeggeri",new ImageIcon("./img/trash.gif"));
+	/** opzione rimuovi prenotazione pallet. */
+	protected JMenuItem mntmRimuoviPallet = new JMenuItem("Elimina prenotazione pallet",new ImageIcon("./img/trash.gif"));
 	/** opzione switch. */
 	protected JMenuItem mntmSwitch = new JMenuItem("Prenotazioni pallet",new ImageIcon("./img/folder.gif"));
 	/** opzione about flysmart. */
@@ -252,7 +254,8 @@ public class PrenotazioneView extends View {
 		menuBar.add(mnInfo);
 		mnFile.add(mntmExit);
 		mnModifica.add(mntmSwitch);
-		mnModifica.add(mntmRimuovi);
+		mnModifica.add(mntmRimuoviPasseggero);
+		mnModifica.add(mntmRimuoviPallet);
 		mnInfo.add(mntmAboutFlySmart);
 	}
 
