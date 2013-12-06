@@ -4,6 +4,9 @@ package smart;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.bson.types.ObjectId;
 import prenotazione.FlightNotFoundException;
 import util.Coordinata;
@@ -32,15 +35,19 @@ public class SmartCheckin implements SmartAlgorithm{
 	 * puntatore all'oggetto che gestisce i posti liberi
 	 */
 	private PostiLiberi posti;
+	
+	Logger log;
 
 	/**
 	 * al momento della creazione dell'oggeto viene verificato che il volo esiste
-	 * e se �� presente viene posto in stato di chiuso
+	 * e se è presente viene posto in stato di chiuso
 	 * @param idVolo su cui calcolare le posizioni
-n
+
  * @throws FlightNotFoundException	 */
 	public SmartCheckin(ObjectId idVolo) throws FlightNotFoundException{
-
+		log = LogManager.getLogger(SmartCheckin.class.getCanonicalName().toString());
+		System.out.println(SmartCheckin.class.getCanonicalName().toString());
+		
 		try{
 			Lock.getInstance().acquireLock(idVolo);
 
@@ -64,12 +71,12 @@ n
 	}
 
 
-/**
+	/**
 	 * Method calcolaCheckin.
 	 * @return CheckinReport
 	 * @see smart.SmartAlgorithm#calcolaCheckin()
 	 */
-		@Override
+	@Override
 	public CheckinReport calcolaCheckin() {
 		//ottengo lista passeggeri e pallet
 		List<Passeggero> passeggeri = DBSession.getPasseggeroDAO().getByIdVolo(v.getId()).order("-peso").asList();
@@ -86,11 +93,9 @@ n
 		
 		//fino a qui va
 		
-		System.out.println("ordinamento passeggeri---------------------");
+		log.debug("ordinamento passeggeri---------------------");
 		
 		mom = posizionaPasseggeri(passeggeri, mom);
-
-		System.out.println("FINE");
 
 		//salva dati aggiornati nel db
 		DBSession.getPasseggeroDAO().saveList(passeggeri);
@@ -118,7 +123,7 @@ n
 		Iterator<Pallet> i = lista.iterator();
 		Coordinata coord = new CoordinataPallet(v.getTipoAereo());
 		
-		System.out.println("Primo pallet");
+		
 		//ottengo primo pallet
 		Pallet p = i.next();
 
@@ -129,25 +134,23 @@ n
 		mom[0] = p.getPeso() * -0.5;
 		mom[1] = p.getPeso() * +0.5;
 		
-		System.out.println("momX: "+mom[0]);
-		System.out.println("momY: "+mom[1]);
+		log.debug("momX: "+mom[0]);
+		log.debug("momY: "+mom[1]);
 
 		//posizono il primo pallet
 		Posto pos = posti.postoLiberoPallet(-0.5,0.5);
-		System.out.println("Questo peso: di "+p.getPeso()+"kg va in [x:"+p.getColonna()+" y:"+p.getFila()+"] produce [momX:"+mom[0]+" momY: "+mom[1]+"]");
+		log.debug("Questo peso: di "+p.getPeso()+"kg va in [x:"+p.getColonna()+" y:"+p.getFila()+"] produce [momX:"+mom[0]+" momY: "+mom[1]+"]");
 		
 		//calcolo posizione per i pallet successivi
-		int passo=1;
 		while(i.hasNext()){
-			passo++;
 			p = i.next();
 
-			System.out.println("Prossimo peso di "+p.getPeso());
+			log.debug("Pallet di peso: "+p.getPeso());
 			//posizione ideale per annullare il momento
 			double dist[] = new double[2];
 			dist[0] = -mom[0] / p.getPeso();
 			dist[1] = -mom[1] / p.getPeso();
-			System.out.println("Calcolato: x:"+dist[0] +" y:"+dist[1]);
+			log.debug("Posto calcolato: x:"+dist[0] +" y:"+dist[1]);
 
 			pos = posti.postoLiberoPallet(dist[0],dist[1]); //ritorno in modo XY quindi prima posizione è la colonna
 
@@ -155,21 +158,21 @@ n
 			p.setFila(pos.y);
 
 			//sbilanciamento effettivo
-			System.out.println("Calcolo lo sbilanciamento effettivo, nuovo");
 			mom[0] = mom[0] + p.getPeso() * coord.XRel(pos.x); //sbilanciamento sulle x è la colonna
 			mom[1] = mom[1] + p.getPeso() * coord.YRel(pos.y); //sbilanciamento sulle y è la fila
-			System.out.println("Questo peso: di "+p.getPeso()+"kg va in [x:"+p.getColonna()+" y:"+p.getFila()+"] e lascia un mom di [momX:"+mom[0]+" momY: "+mom[1]+"]");
+			log.debug("Questo pallet di peso: "+p.getPeso()+"kg va in [x:"+p.getColonna()+" y:"+p.getFila()+"] e lascia un mom di [momX:"+mom[0]+" momY: "+mom[1]+"]");
 		
 		}
 		return mom;
-	}/**
+	}
+	
+	
+	/**
 	 * Method posizionaPasseggeri.
 	 * @param lista List<Passeggero> lista di passegger ida posizionare
 	 * @param mom double[] sbilanciamento ottenuto dal posizionamento dei pallet
 	 * @return double[] sbilanciamento al termine del posizionamento dei passeggeri
 	 */
-	 
-
 	protected double[] posizionaPasseggeri(List<Passeggero> lista, double mom[]){
 		//lista vuota
 		if(lista == null || lista.size() == 0)
@@ -177,8 +180,6 @@ n
 			
 		//genero elenco gruppi ordinati per peso
 		Gruppo[] gruppi = SmartGroupOrdering.sortGroup(lista);
-		
-		System.out.println(Arrays.deepToString(gruppi));
 		
 		Gruppo g = null;
 		
@@ -191,11 +192,11 @@ n
 		for(int i = 0; i < gruppi.length ; i++){
 			g = gruppi[i];
 
-			System.out.println("Prossimo gruppo che pesa "+ g.getPesoTotale());
+			log.debug("Prossimo gruppo che pesa "+ g.getPesoTotale());
 			//calcolo posizione ideale gruppo
 			pos[0] = -mom[0] / g.getPesoTotale();
 			pos[1] = -mom[1] / g.getPesoTotale();
-			System.out.println("Calcolato: x:"+pos[0] +" y:"+pos[1]);
+			log.debug("posto calcolato: x:"+pos[0] +" y:"+pos[1]);
 			
 			//posiziono il gruppo e mo faccio dare il momento rispetto a quello ideale
 			double momg[] = posizionaGruppo(pos[0], pos[1], g);
@@ -203,30 +204,27 @@ n
 			//aggiorno momento per prossima iterazione
 			mom[0] += momg[0];
 			mom[1] += momg[1];
-			System.out.println("######################## Questo gruppo di "+g.getPesoTotale()+"kg lascia un mom di [momX:"+mom[0]+" momY: "+mom[1]+"]");
+			log.debug("######################## Questo gruppo di "+g.getPesoTotale()+"kg lascia un mom di [momX:"+mom[0]+" momY: "+mom[1]+"]");
 			
 			
 		}
 		
 		return mom;
-	}/**
+	}
+	
+	
+	/**
 	 * posiziona tutti ipasseggeri di uno stesso gruppo vicini alla posizione ottimale
 	 * @param colonnaScelta double posizione ottimale gruppo
 	 * @param rigaScelta double posizione ottimale gruppo
 	 * @param g Gruppo gruppo da posizionare
 	 * @return double[] sbilanciamento relativo lasciato dal gruppo
 	 */
-	
-	
 	protected double[] posizionaGruppo(double colonnaScelta, double rigaScelta, Gruppo g){
 		Coordinata coord = new CoordinataPasseggero(v.getTipoAereo());
 		
 		double[] mom = new double[2];
 		
-		//ottengo posti in cui mettere i passeggeri
-		//Posto postiLiberi[] = posti.postoPasseggeri(colonnaScelta, rigaScelta, g.size());
-		
-		int i=0;
 		for(Passeggero p : g){
 			Posto postoLibero = posti.postoLiberoPasseggeri(colonnaScelta, rigaScelta);
 			
@@ -237,16 +235,11 @@ n
 			rigaScelta = coord.YRel(postoLibero.y);
 			
 			//calcolo sbilanciamento effettivo rispetto all'ottimo
-			System.out.println("Calcolo lo sbilanciamento effettivo, nuovo per passeggero "+i);
-			
 			mom[0] += p.getPeso() * colonnaScelta; //sbilanciamento colonna
 			mom[1] += p.getPeso() * rigaScelta; //sbilanciamento riga
-			System.out.println("Questo passeggero: di "+p.getPeso()+"kg va in [x:"+p.getColonna()+" y:"+p.getFila()+"] e lascia un mom totale del gruppo di [momX:"+mom[0]+" momY: "+mom[1]+"]");
-			
-			
-			i++;
+			log.debug("Questo passeggero: di "+p.getPeso()+"kg va in [x:"+p.getColonna()+" y:"+p.getFila()+"] e lascia un mom totale del gruppo di [momX:"+mom[0]+" momY: "+mom[1]+"]");
 		}
-		System.out.println("***************mom dopo gruppo [x:"+mom[0]+" y:"+mom[1]+"]");
+		log.debug("***************mom dopo gruppo [x:"+mom[0]+" y:"+mom[1]+"]");
 		
 		return mom;
 	}

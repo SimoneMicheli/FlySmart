@@ -72,7 +72,7 @@ public class PrenotazionePasseggero implements Prenotazione<Passeggero> {
 			}
 			//salvo volo
 			DBSession.getVoloDAO().save(v);
-			log.info("Prenotazione effettuata con successo per il gruppo: "+idGruppo[0]+" + di: "+listToAdd.size()+" passeggeri sul volo id: "+idVolo);
+			log.info("Prenotazione effettuata con successo per il gruppo: "+idGruppo[0]+" di: "+listToAdd.size()+" passeggeri sul volo id: "+idVolo);
 		} finally  {
 			//rilascio il lock
 			Lock.getInstance().releaseLock(idVolo);
