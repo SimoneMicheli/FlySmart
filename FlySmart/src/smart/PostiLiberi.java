@@ -3,15 +3,12 @@
  */
 package smart;
 
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
 import util.Coordinata;
 import util.CoordinataPallet;
 import util.CoordinataPasseggero;
-import model.Gruppo;
 import model.Volo;
 
 /**
@@ -61,7 +58,7 @@ public class PostiLiberi {
 	
 	
 	
-	public Posto[] postoPasseggeri(double ottimoX, double ottimoY, int numPosti){
+	public Posto postoPasseggeri(double ottimoX, double ottimoY){
 		Coordinata coord = new CoordinataPasseggero(v.getTipoAereo());
 		
 		//discretizzo posizione (intervallo 1 shift 0.5) la x
@@ -104,22 +101,19 @@ public class PostiLiberi {
 
 		//System.out.println("------------");
 		//ordinamento posti
-		Posto postiOrdinati[] = ordinaPostiLiberi(posti);
+		Posto postiOrdinati = ordinaPostiLiberi(posti);
 		//System.out.println("------------");
 		//System.out.println(Arrays.deepToString(postiOrdinati));
 		
-		//contrassegno posti come occupati si può spostare
-		//per essere più efficienti
-		for(int i=0; i<numPosti; i++){
-			occupancyPasseggeri[postiOrdinati[i].y][postiOrdinati[i].x] = true;
-		}
+		//contrassegno posto come occupati
+		occupancyPasseggeri[postiOrdinati.y][postiOrdinati.x] = true;
 		
 		
-		return Arrays.copyOf(postiOrdinati, numPosti);
+		return postiOrdinati;
 
 	}
 	
-	public Posto[] ordinaPostiLiberi(List<Posto> posti){
+	public Posto ordinaPostiLiberi(List<Posto> posti){
 			
 		List<Posto> ordinata[] =  new List[((4+maxRighe)*2)+1];
 		
@@ -129,7 +123,6 @@ public class PostiLiberi {
 			int dist = p.getDistanza();
 			
 			//verifico se esiste già
-			//System.out.println(p);
 			List<Posto> l = ordinata[dist];
 			if(l==null){
 				//creo la lista non ancora inserita
@@ -140,28 +133,25 @@ public class PostiLiberi {
 			l.add(p);
 		}
 		
-		//linearizzo struttura
-		//il numero di posti ritornato è uguale al numero di posti passato
-		Posto postiOrdinati[] = new Posto[posti.size()];
-		
-		int last=0;
+		//ritorno solo il primo posto libero (quello a distanza minore)
+		Posto postoLibero = null;
+
 		for(int i=0; i< ((4+maxRighe)*2)+1; i++){
 			List<Posto> l = ordinata[i];
 			
 			//nessun posto a distanza l
 			if(l==null)
+				//cerco a distanza l+1
 				continue;
 			
-			//copio i posti nel vettore
-			for(Posto p : l){
-				postiOrdinati[last] = p;
-				last++;
-			}
+			//ottengo il primo posto in modo efficiente perchè non scansiono la lista
+			postoLibero = l.get(0);
+			//ottenuto il primo interrompo la ricerca
+			break;
 			
 		}
 		
-		//System.out.println("ultimo inserito: "+last+" dimi: "+posti.size());
-		return postiOrdinati;
+		return postoLibero;
 	}
 
 	/**

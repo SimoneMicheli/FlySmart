@@ -1,6 +1,5 @@
 package smart;
 
-import java.util.Arrays;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -44,6 +43,8 @@ public class Test {
 		prenotaPallet(v);
 		prenotaPass(v);
 
+		long start = System.currentTimeMillis();
+		
 		SmartCheckin c = null;
 		try {
 			c = new SmartCheckin(v.getId());
@@ -53,6 +54,8 @@ public class Test {
 		}
 
 		CheckinReport s = c.calcolaCheckin();
+		
+		long end = System.currentTimeMillis();
 		
 		for(Passeggero p : s.getPasseggeri()){
 			System.out.println(p);
@@ -65,6 +68,8 @@ public class Test {
 		double mom[] = s.getMom();
 		
 		System.out.println("mom: "+mom[0]+" "+mom[1]);
+		
+		System.out.println("Execution time was "+(end-start)+" ms.");
 
 	}
 	
@@ -72,10 +77,10 @@ public class Test {
 		
 		PostiLiberi p = new PostiLiberi(v);
 		
-		Posto pl[] = p.postoPasseggeri(0, 0, 3);
+		Posto pl = p.postoPasseggeri(0, 0);
 		
 		System.out.println("------------");
-		System.out.println(Arrays.deepToString(pl));
+		System.out.println(pl);
 	}
 
 	/**

@@ -230,13 +230,13 @@ n
 		
 		int i=0;
 		for(Passeggero p : g){
-			Posto postiLiberi[] = posti.postoPasseggeri(colonnaScelta, rigaScelta, 1);
+			Posto postoLibero = posti.postoPasseggeri(colonnaScelta, rigaScelta);
 			
 			//assegno posizioni effettive
-			p.setFila(postiLiberi[0].y);
-			p.setColonna(postiLiberi[0].x);
-			colonnaScelta = coord.XRel(postiLiberi[0].x);
-			rigaScelta = coord.YRel(postiLiberi[0].y);
+			p.setFila(postoLibero.y);
+			p.setColonna(postoLibero.x);
+			colonnaScelta = coord.XRel(postoLibero.x);
+			rigaScelta = coord.YRel(postoLibero.y);
 			
 			//calcolo sbilanciamento effettivo rispetto all'ottimo
 			System.out.println("Calcolo lo sbilanciamento effettivo, nuovo per passeggero "+i);
