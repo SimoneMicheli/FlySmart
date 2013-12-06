@@ -133,13 +133,12 @@ n
 		System.out.println("momY: "+mom[1]);
 
 		//posizono il primo pallet
-		int[] pos = posti.postoLiberoPallet(-0.5,0.5);
+		Posto pos = posti.postoLiberoPallet(-0.5,0.5);
 		System.out.println("Questo peso: di "+p.getPeso()+"kg va in [x:"+p.getColonna()+" y:"+p.getFila()+"] produce [momX:"+mom[0]+" momY: "+mom[1]+"]");
 		
 		//calcolo posizione per i pallet successivi
 		int passo=1;
 		while(i.hasNext()){
-			posti.stampaOccupancyPallet(passo);
 			passo++;
 			p = i.next();
 
@@ -150,19 +149,18 @@ n
 			dist[1] = -mom[1] / p.getPeso();
 			System.out.println("Calcolato: x:"+dist[0] +" y:"+dist[1]);
 
-			pos = posti.postoLiberoPallet(dist[0],dist[1]); //ritorno in modo XY quindi prima posizione �� la colonna
+			pos = posti.postoLiberoPallet(dist[0],dist[1]); //ritorno in modo XY quindi prima posizione è la colonna
 
-			p.setColonna(pos[0]); 
-			p.setFila(pos[1]);
+			p.setColonna(pos.x); 
+			p.setFila(pos.y);
 
 			//sbilanciamento effettivo
 			System.out.println("Calcolo lo sbilanciamento effettivo, nuovo");
-			mom[0] = mom[0] + p.getPeso() * coord.XRel(pos[0]); //sbilanciamento sulle x �� la colonna
-			mom[1] = mom[1] + p.getPeso() * coord.YRel(pos[1]); //sbilanciamento sulle y �� la fila
+			mom[0] = mom[0] + p.getPeso() * coord.XRel(pos.x); //sbilanciamento sulle x è la colonna
+			mom[1] = mom[1] + p.getPeso() * coord.YRel(pos.y); //sbilanciamento sulle y è la fila
 			System.out.println("Questo peso: di "+p.getPeso()+"kg va in [x:"+p.getColonna()+" y:"+p.getFila()+"] e lascia un mom di [momX:"+mom[0]+" momY: "+mom[1]+"]");
 		
 		}
-		posti.stampaOccupancyPallet(passo);
 		return mom;
 	}/**
 	 * Method posizionaPasseggeri.
