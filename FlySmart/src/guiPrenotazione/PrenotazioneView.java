@@ -93,7 +93,7 @@ public class PrenotazioneView extends View {
 	/** opzione rimuovi prenotazione passeggero. */
 	protected JMenuItem mntmRimuoviPasseggero = new JMenuItem("Rimuovi prenotazione passeggeri",new ImageIcon("./img/trash.gif"));
 	/** opzione rimuovi prenotazione pallet. */
-	protected JMenuItem mntmRimuoviPallet = new JMenuItem("Elimina prenotazione pallet",new ImageIcon("./img/trash.gif"));
+	protected JMenuItem mntmRimuoviPallet = new JMenuItem("Rimuovi prenotazione pallet",new ImageIcon("./img/trash.gif"));
 	/** opzione switch. */
 	protected JMenuItem mntmSwitch = new JMenuItem("Prenotazioni pallet",new ImageIcon("./img/folder.gif"));
 	/** opzione about flysmart. */
