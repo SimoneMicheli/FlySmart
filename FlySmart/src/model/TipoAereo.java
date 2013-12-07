@@ -12,9 +12,9 @@ public enum TipoAereo {
 	/**Aereo piccolo*/
 	S (2,4,6,12), 
 	/**Aereo medio*/
-	M (2,12,6,36), 
+	M (2,8,6,24), 
 	/**Aereo grande*/
-	L (2,24,6,72);
+	L (2,12,6,36);
 	
 	private final int filePallet;
 	private final int colonnePallet;

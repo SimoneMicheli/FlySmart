@@ -39,7 +39,7 @@ public class Report extends View {
 		this.volo=v;
 		sbilanciamento = Math.sqrt(Math.pow(cr.getMom()[0],2) + Math.pow(cr.getMom()[1],2));
 		setTitle("Report per il volo "+v.getId());
-		Dimension dimensioneFinestra = new Dimension(1200,800);
+		Dimension dimensioneFinestra = new Dimension(1200,750);
 		Toolkit mioTKit = Toolkit.getDefaultToolkit();
 		Dimension dimensioniSchermo = mioTKit.getScreenSize();
 		int xFrame = (dimensioniSchermo.width - dimensioneFinestra.width) / 2;
@@ -152,10 +152,10 @@ class Example extends JPanel{
 			for(int c=0;c<colonne;c++){
 				if(matrix[r][c]){
 					g.setColor(Color.YELLOW);
-					g.fillRect(5+20*c,10+20*r,15,15);
+					g.fillRect(5+17*c,5+17*r,13,13);
 					g.setColor(Color.LIGHT_GRAY);
 				}else{
-					g.fillRect(5+20*c,10+20*r,15,15);
+					g.fillRect(5+17*c,5+17*r,13,13);
 				}
 			}
 		}

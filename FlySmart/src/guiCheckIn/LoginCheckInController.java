@@ -98,6 +98,7 @@ public class LoginCheckInController extends Controller {
 			} catch (RemoteException e) {
 				e.printStackTrace();
 				JOptionPane.showMessageDialog(null, "Impossibile connettersi al server","Error", 0);
+				System.exit(0);
 			} catch (NotBoundException e) {
 				e.printStackTrace();
 			}

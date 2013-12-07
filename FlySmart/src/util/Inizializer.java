@@ -126,17 +126,10 @@ public class Inizializer {
 		c.set(2014, 0, 20, 14, 0);
 		voli.add(new Volo(c.getTime() , 1, 2, 15.0, 2.0, StatoVolo.OPEN, TipoAereo.S));
 		c.set(2014, 4, 10, 4, 10);
-		voli.add(new Volo(c.getTime() , 1, 3, 5.0, 10.0, StatoVolo.OPEN, TipoAereo.S));
+		voli.add(new Volo(c.getTime() , 1, 2, 5.0, 10.0, StatoVolo.OPEN, TipoAereo.M));
 		c.set(2014, 11, 25, 13, 0);
-		voli.add(new Volo(c.getTime() , 1, 2, 25.0, 7.0, StatoVolo.OPEN, TipoAereo.S));
+		voli.add(new Volo(c.getTime() , 1, 2, 25.0, 7.0, StatoVolo.OPEN, TipoAereo.L));
 		c.set(2014, 11, 29, 2, 0);
-		voli.add(new Volo(c.getTime() , 1, 4, 45.0, 6.0, StatoVolo.OPEN, TipoAereo.S));
-		c.set(2013, 4, 29, 2, 0);
-		voli.add(new Volo(c.getTime() , 1, 2, 45.0, 6.0, StatoVolo.OPEN, TipoAereo.S));
-		
-		
-		c.set(2015, 4, 29, 2, 0);
-		voli.add(new Volo(c.getTime() , 1, 2, 450.0, 6.0, StatoVolo.OPEN, TipoAereo.M));
 		 
 		Datastore ds = DBSession.getInstance();
 		ds.save(voli);
