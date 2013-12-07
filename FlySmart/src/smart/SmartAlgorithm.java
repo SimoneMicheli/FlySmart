@@ -16,4 +16,5 @@ public interface SmartAlgorithm {
 	 */
 	public CheckinReport calcolaCheckin();
 
+
 }
