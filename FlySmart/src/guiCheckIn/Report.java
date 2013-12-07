@@ -2,8 +2,11 @@ package guiCheckIn;
 
 
 
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Toolkit;
 import java.util.List;
 
@@ -33,7 +36,7 @@ public class Report extends View {
 		pallet = cr.getPallets();
 		this.volo=v;
 		setTitle("Report per il volo "+v.getId());
-		Dimension dimensioneFinestra = new Dimension(508,240);
+		Dimension dimensioneFinestra = new Dimension(700,500);
 		Toolkit mioTKit = Toolkit.getDefaultToolkit();
 		Dimension dimensioniSchermo = mioTKit.getScreenSize();
 		int xFrame = (dimensioniSchermo.width - dimensioneFinestra.width) / 2;
@@ -42,7 +45,6 @@ public class Report extends View {
 		setSize(dimensioneFinestra.width, dimensioneFinestra.height);
 		setVisible(true);
 		contentPane = getContentPane();
-		contentPane.setLayout(null);
 		funzione();
 	}
 	
@@ -51,15 +53,43 @@ public class Report extends View {
 		
 		//preparo i dati che mi servono
 		//int colonne = volo.getTipoAereo().getColonnePasseggeri();
+		
+		
+		JTextArea testo=new JTextArea();
+	    testo.setLineWrap(true);
+	    testo.setWrapStyleWord(true);
 
-		JTextArea pass = new JTextArea();
-		pass.setBounds(0, 0, 480, 220);
-		contentPane.add(pass);
-		
-		
+	    JScrollPane scroll=new JScrollPane(testo);
+	    contentPane.add(scroll,BorderLayout.CENTER);
+	     
+	   
+	    JLabel labelFlySmart = new JLabel("<html><span style='color:green'>Fly</span><span style='color:blue'>Smart</span><span style='font-size:15px;color:#666666'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Prenotazione pallet</span></html>");
+		labelFlySmart.setFont(new Font("Calibri", Font.BOLD, 50));
+		labelFlySmart.setForeground(Color.black);
+		contentPane.add(labelFlySmart,BorderLayout.SOUTH);
+	    
+	   
 		for (Passeggero p : passeggeri){
-			pass.append("("+ p.getColonna()+ ";" + p.getFila()+") "+p.getCognome()+ " " +p.getNome() + " \n");
+			testo.append("("+ p.getColonna()+ ";" + p.getFila()+") "+p.getCognome()+ " " +p.getNome() + " \n");
 		}
+		
+		
+		
+		JPanel destra = new JPanel();
+		destra.setLayout(new BorderLayout(10,10));
+		destra.setBackground(Color.red);
+		contentPane.add(destra,BorderLayout.EAST);
+		
+		JButton buttonCopia = new JButton("Copia asdsad a");
+		destra.add(buttonCopia,BorderLayout.CENTER);
+		
+		
+		JButton buttonCopia3 = new JButton("Copiae44444");
+		destra.add(buttonCopia3,BorderLayout.NORTH);
+		
+		
+	    
+		
 		
 	}
 }

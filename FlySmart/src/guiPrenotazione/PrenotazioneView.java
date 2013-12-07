@@ -588,11 +588,6 @@ public class PrenotazioneView extends View {
 		labelFlySmart.setBounds(8, 0, 482, 70);
 		panelPalletAeroporti.add(labelFlySmart);
 
-		/*JLabel labelIstruzioni = new JLabel("Selezionare aeroporto di partenza e di arrivo");
-		labelIstruzioni.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		labelIstruzioni.setBounds(8, 58, 482, 25);
-		panelPalletAeroporti.add(labelIstruzioni);*/
-
 		JLabel labelAeroportoPartenza = new JLabel("Aereporto Partenza");
 		labelAeroportoPartenza.setBounds(141, 110, 112, 14);
 		panelPalletAeroporti.add(labelAeroportoPartenza);
