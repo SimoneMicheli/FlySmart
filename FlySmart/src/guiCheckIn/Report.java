@@ -54,8 +54,6 @@ public class Report extends View {
 	/** The sbilanciamento di beccheggio in percentuale. */
 	double sbilanciamentoY;
 	
-	/** The sbilanciamento globale percentuale. */
-	double sbilanciamento;
 
 	/**
 	 * Instantiates a new report.
@@ -72,9 +70,6 @@ public class Report extends View {
 		momX = cr.getMom()[0];
 		momY = cr.getMom()[1];
 		pesoTotale=0;
-		//sbilanciamentoX = Math.floor(cr.getMom()[0]/v.getTipoAereo().getColonnePasseggeri()*100)/100.0;
-		//sbilanciamentoY = Math.floor(cr.getMom()[1]/v.getTipoAereo().getFilePallet()*100)/100.0;
-		//sbilanciamento = Math.floor(Math.sqrt(Math.pow(sbilanciamentoX,2) + Math.pow(sbilanciamentoY,2))*100)/100.0;
 		setTitle("Report per il volo "+v.getId());
 		Dimension dimensioneFinestra = new Dimension(800,750);
 		Toolkit mioTKit = Toolkit.getDefaultToolkit();
@@ -126,10 +121,19 @@ public class Report extends View {
 		sbilanciamentoY = Math.abs(Math.floor((momY/pesoTotale)/((volo.getTipoAereo().getFilePasseggeri()+1)*1000)/2)/10);
 		
 		//informazioni in basso
-		JLabel labelFlySmart = new JLabel("Rollio: "+sbilanciamentoX+" %    Beccheggio: "+sbilanciamentoY+" %");
-		labelFlySmart.setFont(new Font("Arial", Font.PLAIN, 28));
-		labelFlySmart.setForeground(Color.black);
-		contentPane.add(labelFlySmart,BorderLayout.SOUTH);
+		JPanel sotto = new JPanel();
+		sotto.setLayout(new BorderLayout());
+		contentPane.add(sotto,BorderLayout.SOUTH);
+		
+		JLabel labelInfo = new JLabel("  Sbilanciamento");
+		labelInfo.setFont(new Font("Arial", Font.PLAIN, 22));
+		labelInfo.setForeground(Color.black);
+		sotto.add(labelInfo,BorderLayout.CENTER);
+		
+		JLabel labelSbilanciamento = new JLabel("    Rollio: "+sbilanciamentoX+" %    Beccheggio: "+sbilanciamentoY+" %");
+		labelSbilanciamento.setFont(new Font("Arial", Font.PLAIN, 16));
+		labelSbilanciamento.setForeground(Color.black);
+		sotto.add(labelSbilanciamento,BorderLayout.SOUTH);
 
 		
 		//pannello di sinistra
