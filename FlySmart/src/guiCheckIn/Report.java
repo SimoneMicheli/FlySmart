@@ -38,6 +38,15 @@ public class Report extends View {
 	/** il pannello contenitore. */
 	Container contentPane;
 	
+	/** il momento di rollio */
+	double momX;
+	
+	/** il momento di beccheggio */
+	double momY;
+	
+	/** il peso totale imbarcato*/
+	int pesoTotale;
+	
 
 	/** The sbilanciamento di rollio in percentuale. */
 	double sbilanciamentoX;
@@ -60,11 +69,14 @@ public class Report extends View {
 		passeggeri = cr.getPasseggeri();
 		pallet = cr.getPallets();
 		this.volo=v;
-		sbilanciamentoX = Math.floor(cr.getMom()[0]/v.getTipoAereo().getColonnePasseggeri()*100)/100.0;
-		sbilanciamentoY = Math.floor(cr.getMom()[1]/v.getTipoAereo().getFilePallet()*100)/100.0;
-		sbilanciamento = Math.floor(Math.sqrt(Math.pow(sbilanciamentoX,2) + Math.pow(sbilanciamentoY,2))*100)/100.0;
+		momX = cr.getMom()[0];
+		momY = cr.getMom()[1];
+		pesoTotale=0;
+		//sbilanciamentoX = Math.floor(cr.getMom()[0]/v.getTipoAereo().getColonnePasseggeri()*100)/100.0;
+		//sbilanciamentoY = Math.floor(cr.getMom()[1]/v.getTipoAereo().getFilePallet()*100)/100.0;
+		//sbilanciamento = Math.floor(Math.sqrt(Math.pow(sbilanciamentoX,2) + Math.pow(sbilanciamentoY,2))*100)/100.0;
 		setTitle("Report per il volo "+v.getId());
-		Dimension dimensioneFinestra = new Dimension(1200,750);
+		Dimension dimensioneFinestra = new Dimension(800,750);
 		Toolkit mioTKit = Toolkit.getDefaultToolkit();
 		Dimension dimensioniSchermo = mioTKit.getScreenSize();
 		int xFrame = (dimensioniSchermo.width - dimensioneFinestra.width) / 2;
@@ -97,15 +109,22 @@ public class Report extends View {
 		for (Pallet p : pallet){
 			reportTextArea.append("("+ p.getColonna()+ ";" + p.getFila()+") "+p.getTarga()+ " " +p.getPeso() + "kg \n");
 			occupancyPallet[p.getFila()][p.getColonna()]=true;
+			pesoTotale+=p.getPeso();
 		}
+		
 		reportTextArea.append("\n\nPASSEGGERI\n");
 		for (Passeggero p : passeggeri){
-			reportTextArea.append("("+ p.getColonna()+ ";" + p.getFila()+") "+p.getCognome()+ " " +p.getNome()+ " " +p.getNome()+ " \n");
+			reportTextArea.append("("+ p.getColonna()+ ";" + p.getFila()+") "+p.getCognome()+ " " +p.getNome()+ " \n");
 			occupancyPasseggeri[p.getFila()][p.getColonna()]=true;
+			pesoTotale+=p.getPeso();
 		}
 		JScrollPane scrollPasseggeri=new JScrollPane(reportTextArea);
 		contentPane.add(scrollPasseggeri,BorderLayout.CENTER);
 
+		//divido il mom per il peso totale e lo divido per la massima distanza (-0.5 da ognuna delle due parti quindi -1, /2 perchè è metà aereo)
+		sbilanciamentoX = Math.abs(Math.floor((momX/pesoTotale)/((volo.getTipoAereo().getColonnePasseggeri()-1)/2)*1000)/10);
+		sbilanciamentoY = Math.abs(Math.floor((momY/pesoTotale)/((volo.getTipoAereo().getFilePasseggeri()+1)*1000)/2)/10);
+		
 		//informazioni in basso
 		JLabel labelFlySmart = new JLabel("Rollio: "+sbilanciamentoX+" %    Beccheggio: "+sbilanciamentoY+" %");
 		labelFlySmart.setFont(new Font("Arial", Font.PLAIN, 28));

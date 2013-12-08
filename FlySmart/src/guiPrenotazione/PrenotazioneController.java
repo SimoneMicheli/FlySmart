@@ -227,13 +227,16 @@ public class PrenotazioneController extends Controller {
 							JOptionPane.showMessageDialog(null, "Impossibile connettersi al server","Error", 0);
 							e.printStackTrace();
 						}
-						view.aeroportoPartenzaPallet=((Aeroporto)view.comboPalletAeroportoPartenza.getSelectedItem()).getNome();
-						view.aeroportoArrivoPallet=((Aeroporto)view.comboPalletAeroportoArrivo.getSelectedItem()).getNome();
-						annullaListener(); //tolgo i listener che ho aggiunto la prima volta che ho eseguito questa funzione
-						view.setPalletVoli(voli);  //carico gli oggetti nella facciata pallet:voli
-						registraControllerFase2Pallet(); //registro i listner della facciata pallet:voli
-						view.cardPallet.show(view.panelPallet,"panelPalletVoli"); //visualizzo il pannello pallet:voli passandogli la lista dei voli
-
+						if(voli.size()==0){
+							JOptionPane.showMessageDialog(null, "Nessun volo trovato","Errore", 0);
+						}else{
+							view.aeroportoPartenzaPallet=((Aeroporto)view.comboPalletAeroportoPartenza.getSelectedItem()).getNome();
+							view.aeroportoArrivoPallet=((Aeroporto)view.comboPalletAeroportoArrivo.getSelectedItem()).getNome();
+							annullaListener(); //tolgo i listener che ho aggiunto la prima volta che ho eseguito questa funzione
+							view.setPalletVoli(voli);  //carico gli oggetti nella facciata pallet:voli
+							registraControllerFase2Pallet(); //registro i listner della facciata pallet:voli
+							view.cardPallet.show(view.panelPallet,"panelPalletVoli"); //visualizzo il pannello pallet:voli passandogli la lista dei voli
+						}
 					}
 				}
 
