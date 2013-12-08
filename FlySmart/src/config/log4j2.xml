@@ -9,8 +9,16 @@
         <pattern>%d %-5p [%t] %C{2} (%F:%L) - %m%n</pattern>
       </PatternLayout>
     </File>
+    <File name="FileAlgorithm" fileName="FlySmartAlgorithm.log">
+      <PatternLayout>
+        <pattern>%d %-5p (%L) - %m%n</pattern>
+      </PatternLayout>
+    </File>
   </Appenders>
   <Loggers>
+	<Logger name="smart.SmartCheckin" level="DEBUG">
+		<AppenderRef ref="FileAlgorithm"/>
+	</Logger>
     <Root level="INFO">
       <AppenderRef ref="STDOUT"/>
       <AppenderRef ref="File" level="INFO"/>

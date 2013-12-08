@@ -39,10 +39,12 @@ public class Test {
 
 		System.out.println(v);
 
-		
+		//testNuovoAlg(v);
 		prenotaPallet(v);
 		prenotaPass(v);
 
+		long start = System.currentTimeMillis();
+		
 		SmartCheckin c = null;
 		try {
 			c = new SmartCheckin(v.getId());
@@ -52,6 +54,8 @@ public class Test {
 		}
 
 		CheckinReport s = c.calcolaCheckin();
+		
+		long end = System.currentTimeMillis();
 		
 		for(Passeggero p : s.getPasseggeri()){
 			System.out.println(p);
@@ -64,7 +68,19 @@ public class Test {
 		double mom[] = s.getMom();
 		
 		System.out.println("mom: "+mom[0]+" "+mom[1]);
+		
+		System.out.println("Execution time was "+(end-start)+" ms.");
 
+	}
+	
+	public static void testNuovoAlg(Volo v){
+		
+		PostiLiberi p = new PostiLiberi(v);
+		
+		Posto pl = p.postoLiberoPasseggeri(0, 0);
+		
+		System.out.println("------------");
+		System.out.println(pl);
 	}
 
 	/**

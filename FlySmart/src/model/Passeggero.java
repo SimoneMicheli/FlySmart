@@ -190,7 +190,7 @@ public class Passeggero extends Model {
 	 */
 	@Override
 	public String toString() {
-		return "Nome: "+ nome + " Cognome: " + cognome+ " Peso: "+getPeso();
+		return "Nome: "+ nome + " Cognome: " + cognome+ " Peso: "+getPeso()+ " Fila: "+fila+ " colonna: "+colonna;
 	}
 
 	/**
@@ -219,8 +219,8 @@ public class Passeggero extends Model {
 	}
 
 	/**
-	 * setta il peso in base al sesso e all'età
-	 * può essere chiamato solo dal costruttore dell'oggetto
+	 * setta il peso in base al sesso e all'et��
+	 * pu�� essere chiamato solo dal costruttore dell'oggetto
 	 * @return peso da settare
 	 */
 	public int getPeso(){
