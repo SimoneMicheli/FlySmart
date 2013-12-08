@@ -91,9 +91,7 @@ public class PrenotazioneView extends View {
 	/** opzione esci. */
 	protected JMenuItem mntmExit = new JMenuItem("Esci",new ImageIcon("./img/exit.gif"));
 	/** opzione rimuovi prenotazione. */
-	protected JMenuItem mntmRimuoviPasseggero = new JMenuItem("Elimina prenotazione passeggero",new ImageIcon("./img/trash.gif"));
-	/** opzione rimuovi prenotazione. */
-	protected JMenuItem mntmRimuoviPallet = new JMenuItem("Elimina prenotazione pallet",new ImageIcon("./img/trash.gif"));
+	protected JMenuItem mntmRimuovi = new JMenuItem("Elimina prenotazione",new ImageIcon("./img/trash.gif"));
 	/** opzione switch. */
 	protected JMenuItem mntmSwitch = new JMenuItem("Prenotazioni pallet",new ImageIcon("./img/folder.gif"));
 	/** opzione about flysmart. */
@@ -254,8 +252,7 @@ public class PrenotazioneView extends View {
 		menuBar.add(mnInfo);
 		mnFile.add(mntmExit);
 		mnModifica.add(mntmSwitch);
-		mnModifica.add(mntmRimuoviPasseggero);
-		mnModifica.add(mntmRimuoviPallet);
+		mnModifica.add(mntmRimuovi);
 		mnInfo.add(mntmAboutFlySmart);
 	}
 
@@ -312,7 +309,7 @@ public class PrenotazioneView extends View {
 	public void setPasseggeriAeroporti(List<Aeroporto> aeroporti){
 		
 		
-		JLabel labelFlySmart = new JLabel("<html><span style='color:green'>Fly</span><span style='color:blue'>Smart</span><span style='font-size:15px;color:#666666'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Passeggeri</span></html>");
+		JLabel labelFlySmart = new JLabel("<html><span style='color:green'>Fly</span><span style='color:blue'>Smart</span><span style='font-size:15px;color:#666666'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Prenotazione passeggeri</span></html>");
 		labelFlySmart.setFont(new Font("Calibri", Font.BOLD, 50));
 		labelFlySmart.setForeground(Color.black);
 		labelFlySmart.setBounds(8, 0, 482, 70);
@@ -582,7 +579,7 @@ public class PrenotazioneView extends View {
 	@SuppressWarnings("unchecked")
 	public void setPalletAeroporti(List<Aeroporto> aeroporti){
 		
-		JLabel labelFlySmart = new JLabel("<html><span style='color:green'>Fly</span><span style='color:blue'>Smart</span><span style='font-size:15px;color:#666666'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pallet</span></html>");
+		JLabel labelFlySmart = new JLabel("<html><span style='color:green'>Fly</span><span style='color:blue'>Smart</span><span style='font-size:15px;color:#666666'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Prenotazione pallet</span></html>");
 		labelFlySmart.setFont(new Font("Calibri", Font.BOLD, 50));
 		labelFlySmart.setForeground(Color.black);
 		labelFlySmart.setBounds(8, 0, 482, 70);
@@ -730,7 +727,7 @@ public class PrenotazioneView extends View {
 		panelPalletPallet.add(textFieldTargaPallet);
 		textFieldTargaPallet.setColumns(10);
 
-		JLabel lblPeso = new JLabel("Peso complessivo [min 600, max 1400]");
+		JLabel lblPeso = new JLabel("Peso complessivo [600-1400]");
 		lblPeso.setBounds(141, 160, 212, 14);
 		panelPalletPallet.add(lblPeso);
 

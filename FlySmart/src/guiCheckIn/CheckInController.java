@@ -1,6 +1,3 @@
-/*
- * 
- */
 package guiCheckIn;
 
 import java.awt.event.ActionEvent;
@@ -55,45 +52,40 @@ public class CheckInController extends Controller {
 		view.disegnaElementi(aeroporti);
 	}
 
-
-	/**
-	 * Mostra componenti grafici relativi al volo
-	 *
-	 * @param x dice se mostrare o meno i componenti grafici
-	 */
-	private void mostraComponenti(boolean x){
-		if(x){
-			view.comboVoli.setVisible(true);
-			view.buttonChiudiVolo.setVisible(true);
-		}else{
-			view.comboVoli.removeAllItems();
-			view.comboVoli.setVisible(false);
-			view.buttonChiudiVolo.setVisible(false);
-		}
-
-	}
-
 	public void registraController() {
 		view.comboAeroporto.addActionListener(new ActionListener() {
 
 			@SuppressWarnings("unchecked")
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				try {
+				if(view.comboAeroporto.getSelectedIndex()!=0){
 					int p = ((Aeroporto)view.comboAeroporto.getSelectedItem()).getId();
-					List<Volo> voli = serv.getVoli(p,-1); //carico la lista dei voli con destinazione qualsiasi
+					List<Volo> voli=null;
+					try {
+						voli = serv.getVoli(p,-1); //carico la lista dei voli
+						if(voli.size()!=0){
+							view.comboVoli.removeAllItems();
+							Iterator<Volo> v = voli.iterator();
+							while(v.hasNext()) {
+								Volo element = (Volo) v.next();
+								view.comboVoli.addItem(element);
+							}
+							view.comboVoli.setVisible(true);
+							view.buttonChiudiVolo.setVisible(true);
+						}else{
+							view.comboVoli.removeAllItems();
+							view.comboVoli.setVisible(false);
+							view.buttonChiudiVolo.setVisible(false);
+						}
+					} catch (RemoteException e) {
+						JOptionPane.showMessageDialog(null, "Impossibile connettersi al server","Errore", 0);
+						e.printStackTrace();
+					};
+				}else{
 					view.comboVoli.removeAllItems();
-					Iterator<Volo> v = voli.iterator();
-					while(v.hasNext()) {
-						Volo element = (Volo) v.next();
-						view.comboVoli.addItem(element);
-					}
-					mostraComponenti(voli.size()!=0); //se la lista è vuota non mostro i componenti
-				} catch (RemoteException e) {
-					JOptionPane.showMessageDialog(null, "Impossibile connettersi al server","Errore", 0);
-				} catch (ClassCastException e) {
-					mostraComponenti(false);
-				};
+					view.comboVoli.setVisible(false);
+					view.buttonChiudiVolo.setVisible(false);
+				}
 			}
 		});
 

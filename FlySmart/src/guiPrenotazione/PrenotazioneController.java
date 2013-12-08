@@ -7,11 +7,17 @@ import java.awt.event.MouseEvent;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
+
 import org.bson.types.ObjectId;
+
 import client.Controller;
+
 import cancellazione.DeleteException;
+
+import prenotazione.FlightNotFoundException;
 import prenotazione.SeatsSoldOutException;
 import model.Aeroporto;
 import model.Pallet;
@@ -31,6 +37,7 @@ public class PrenotazioneController extends Controller {
 
 	/**
 	 * Crea un controller per la fase di prenotazione
+	 *
 	 * @param serv l'oggetto che la login mi passa per la connessione con il server
 	 */
 	public PrenotazioneController(ServerInterface serv){
@@ -50,12 +57,11 @@ public class PrenotazioneController extends Controller {
 			aeroporti = serv.getAeroporti();
 		} catch (RemoteException e) {
 			JOptionPane.showMessageDialog(null, "Impossibile connettersi al server","Error", 0);
+			e.printStackTrace();
 		}
 		view.setPasseggeriAeroporti(aeroporti); //carico gli oggetti nella vista passeggeri:aeroporti
 		view.setPalletAeroporti(aeroporti); //carico gli oggetti nella vista pallet:aeroporti
 	}
-
-
 
 
 	/**
@@ -91,58 +97,92 @@ public class PrenotazioneController extends Controller {
 
 		});
 
-		//cancella prenotazione passeggero
-		view.mntmRimuoviPasseggero.addMouseListener(new MouseAdapter() {
+
+		//cancella prenotazione
+		view.mntmRimuovi.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				String option = JOptionPane.showInputDialog(null, "Inserire il codice della prenotazione", "Cancella prenotazione", JOptionPane.OK_CANCEL_OPTION); //ottengo il codice della prenotazione
-				try {
-					List<Passeggero>  myList = serv.getPasseggeriGruppo((new ObjectId(option))); //ottengo la lista dei passeggeri del volo selezionato
-					List<JCheckBox> listaCB = new ArrayList<JCheckBox>();
-					for (Passeggero p : myList){
-						listaCB.add(new JCheckBox(p.getCognome()+" "+p.getNome()));
+				if(view.passeggeri){ //se sono su passeggeri
+
+					//ottengo il codice della prenotazione
+					String option = JOptionPane.showInputDialog(null, "Inserire il codice della prenotazione", "Cancella prenotazione", JOptionPane.OK_CANCEL_OPTION);
+					if (option != null){
+						List<Passeggero> myList = new ArrayList<Passeggero>();
+						try {
+							myList = serv.getPasseggeriGruppo((new ObjectId(option))); //ottengo la lista dei passeggeri del volo selezionato
+						} catch (RemoteException e) {
+							JOptionPane.showMessageDialog(null, "Impossibile connettersi al server","Errore", 0);
+						}
+						if(myList.size()>0){
+							List<JCheckBox> listaCB = new ArrayList<JCheckBox>();
+							for (Passeggero p : myList){
+								listaCB.add(new JCheckBox(p.getCognome()+" "+p.getNome()));
+							}
+							Object[] params = new Object[listaCB.size()+1];
+							String message = "Selezionare i passeggeri da rimuovere";
+							params[0] = message;
+							int i=1;
+							for (JCheckBox j : listaCB){
+								params[i]=j;
+								i++;
+							}
+							if (JOptionPane.showConfirmDialog(null, params, "Rimozione passeggeri", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) { 
+								int passo=0;
+								for (JCheckBox cb : listaCB){
+									if(!cb.isSelected()){
+										myList.remove(passo); //rimuovo dalla lista quelli da tenere
+									}else{
+										passo++; //quando rimuovo non devo andare avanti con il passo
+									}
+
+								}
+								if(passo!=0){ //ne ho selezionato almeno uno
+									String pass = "";
+									for (Passeggero p : myList){
+										pass += "\n"+p.getCognome()+" " +p.getNome();
+									}
+									boolean ok = false; //tutto ok?
+									try {
+										ok = serv.cancellaPasseggeri(myList);
+									} catch (RemoteException e) {
+										JOptionPane.showMessageDialog(null, "Impossibile connettersi al server","Errore", 0);
+									} catch (DeleteException e) {
+										JOptionPane.showMessageDialog(null, "Errore durante la cancellazione","Errore", 0);
+									}
+									if(ok){
+										JOptionPane.showMessageDialog(null, "Dalla prenotazione "+ option +" sono stati rimossi i passeggeri:"+pass,"Prenotazione eliminata", 1);
+									}
+								}
+							}
+						}else{
+							JOptionPane.showMessageDialog(null, "La prenotazione non esiste più","Errore", 0);
+						}
 					}
-					Object[] params = new Object[listaCB.size()+1];
-					params[0] = (String)"Selezionare i passeggeri da rimuovere";
-					int i=1;
-					for (JCheckBox j : listaCB){
-						params[i]=j;
-						i++;
+
+
+				}else{ //eliminazione pallet
+					String option = JOptionPane.showInputDialog(null, "Inserire il codice della prenotazione", "Cancella prenotazione", JOptionPane.OK_CANCEL_OPTION);
+					if (option != null){
+						if (JOptionPane.showConfirmDialog(null,"<html>Vuoi confermare la cancellazione della prenotazione "+ option +" ?</html>","Conferma eliminazione prenotazione",JOptionPane.YES_NO_OPTION,JOptionPane.NO_OPTION) == JOptionPane.OK_OPTION) {
+							boolean ok = false; //tutto ok?
+							try {
+								ok = serv.cancellaPallet(new ObjectId(option));
+							} catch (RemoteException e) {
+								JOptionPane.showMessageDialog(null, "Impossibile connettersi al server","Errore", 0);
+							} catch (DeleteException e) {
+								JOptionPane.showMessageDialog(null, "Errore durante la cancellazione","Errore", 0);
+							} catch (IllegalArgumentException exc){
+								JOptionPane.showMessageDialog(null, "Codice non valido","Errore", 0);
+							}
+							if(ok){
+								JOptionPane.showMessageDialog(null, "La prenotazione "+ option +" è stata rimossa","Prenotazione eliminata", 0);
+							}
+						}
 					}
-					selezionePasseggeriDaEliminare(params,listaCB,myList,option);
-				} catch (RemoteException e) {
-					JOptionPane.showMessageDialog(null, "Impossibile connettersi al server","Errore", 0);
-				} catch (IllegalArgumentException e) {
-					JOptionPane.showMessageDialog(null, "Codice errato","Errore", 0);
 				}
 			}
 
 		});
-		registraControllerPrenotazioneSecondaParte();
-
-	}
-	
-	public void registraControllerPrenotazioneSecondaParte() {
-		//cancella prenotazione pallet
-		view.mntmRimuoviPallet.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseReleased(MouseEvent arg0) {
-				String option = JOptionPane.showInputDialog(null, "Inserire il codice della prenotazione", "Cancella prenotazione", JOptionPane.OK_CANCEL_OPTION);
-				if (JOptionPane.showConfirmDialog(null,"<html>Vuoi confermare la cancellazione della prenotazione "+ option +" ?</html>","Conferma eliminazione prenotazione",JOptionPane.YES_NO_OPTION,JOptionPane.NO_OPTION) == JOptionPane.OK_OPTION) {
-					try {
-						serv.cancellaPallet(new ObjectId(option));
-						JOptionPane.showMessageDialog(null, "La prenotazione "+ option +" è stata rimossa","Prenotazione eliminata", 0);
-					} catch (RemoteException e) {
-						JOptionPane.showMessageDialog(null, "Impossibile connettersi al server","Errore", 0);
-					} catch (DeleteException e) {
-						JOptionPane.showMessageDialog(null, "Errore durante la cancellazione","Errore", 0);
-					} catch (IllegalArgumentException exc){
-						JOptionPane.showMessageDialog(null, "Codice non valido","Errore", 0);
-					}
-				}
-			}
-		});
-
 
 		//info->Chi siamo
 		view.mntmAboutFlySmart.addMouseListener(new MouseAdapter() {
@@ -150,6 +190,7 @@ public class PrenotazioneController extends Controller {
 			public void mouseReleased(MouseEvent arg0) {
 				JOptionPane.showMessageDialog(null,"FlySmart\nVersion: 2.0.0\n(c) Copyright FlySmart contributors and others 2000, 2014.\nAll rights reserved.\n Visit http://www.flysmart.it/","About FlySmart", 3);
 			}
+
 		});
 
 
@@ -164,23 +205,44 @@ public class PrenotazioneController extends Controller {
 				}catch(Exception e){
 					JOptionPane.showMessageDialog(null,"Selezionare gli aeroporti","Errore", 1);
 				}
-				if(p!=0 && a!=0 && p!=a){
-					List<Volo> voli=null;
-					try {
-						voli = serv.getVoli(p,a); //carico la lista dei voli
-					} catch (RemoteException e) {
-						JOptionPane.showMessageDialog(null, "Impossibile connettersi al server","Errore", 0);
+				if(p!=0 && a!=0){
+					if(p==a){ //scelta destinazione=partenza e il try ha funzionato
+						JOptionPane.showMessageDialog(null,"Sei gia arrivato!","Complimenti!", 1);
+					}else{
+						List<Volo> voli=null;
+						try {
+							voli = serv.getVoli(p,a); //carico la lista dei voli
+						} catch (RemoteException e) {
+							JOptionPane.showMessageDialog(null, "Impossibile connettersi al server","Errore", 0);
+							e.printStackTrace();
+						}
+						if(voli.size()==0){
+							JOptionPane.showMessageDialog(null, "Nessun volo trovato","Errore", 0);
+						}else{
+							view.aeroportoPartenzaPasseggeri=((Aeroporto)view.comboPasseggeriAeroportoPartenza.getSelectedItem()).getNome();
+							view.aeroportoArrivoPasseggeri=((Aeroporto)view.comboPasseggeriAeroportoArrivo.getSelectedItem()).getNome();
+							annullaListener(); //tolgo i listener che ho aggiunto la prima volta che ho eseguito questa funzione
+							view.setPasseggeriVoli(voli);  //carico gli oggetti nella facciata passeggeri:voli
+							registraControllerFase2Passeggeri(); //registro i listner della facciata passeggeri:voli
+							view.cardPasseggeri.show(view.panelPasseggeri,"panelPasseggeriVoli"); //visualizzo il pannello passeggeri:voli passandogli la lista dei voli
+
+
+						}
 					}
-					passaAdElencoVoli(voli,0);
 				}
 
 			}
 
 		});
-		
+
+		//conferma di pallet:aeroporti
+
 		view.buttonPalletCercaVoli.addMouseListener(new MouseAdapter() {
+
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
+
+
 				int p=0,a=0;
 				try{
 					p = ((Aeroporto)view.comboPalletAeroportoPartenza.getSelectedItem()).getId();  //codice aeroporto di partenza
@@ -188,15 +250,33 @@ public class PrenotazioneController extends Controller {
 				}catch(Exception e){
 					JOptionPane.showMessageDialog(null,"Selezionare gli aeroporti","Errore", 1);
 				}
-				if(p!=0 && a!=0 && p!=a){
-					List<Volo> voli=null;
-					try {
-						voli = serv.getVoli(p,a); //carico la lista dei voli
-					} catch (RemoteException e) {
-						JOptionPane.showMessageDialog(null, "Impossibile connettersi al server","Error", 0);
+				if(p!=0 && a!=0){
+					if(p==a){ //scelta destinazione=partenza e il try ha funzionato
+						JOptionPane.showMessageDialog(null,"Sei gia arrivato!","Complimenti!", 1);
+					}else{
+						List<Volo> voli=null;
+						try {
+							voli = serv.getVoli(p,a); //carico la lista dei voli
+						} catch (RemoteException e) {
+							JOptionPane.showMessageDialog(null, "Impossibile connettersi al server","Error", 0);
+							e.printStackTrace();
+						}
+						view.aeroportoPartenzaPallet=((Aeroporto)view.comboPalletAeroportoPartenza.getSelectedItem()).getNome();
+						view.aeroportoArrivoPallet=((Aeroporto)view.comboPalletAeroportoArrivo.getSelectedItem()).getNome();
+						annullaListener(); //tolgo i listener che ho aggiunto la prima volta che ho eseguito questa funzione
+						view.setPalletVoli(voli);  //carico gli oggetti nella facciata pallet:voli
+						registraControllerFase2Pallet(); //registro i listner della facciata pallet:voli
+						view.cardPallet.show(view.panelPallet,"panelPalletVoli"); //visualizzo il pannello pallet:voli passandogli la lista dei voli
+
 					}
-					passaAdElencoVoli(voli,1);
 				}
+
+
+
+
+
+
+
 			}
 		});
 
@@ -223,7 +303,7 @@ public class PrenotazioneController extends Controller {
 			public void mouseReleased(MouseEvent arg0) {
 				view.voloSelezionatoPasseggeri = ((Volo)view.comboVoliDisponibili.getSelectedItem());
 				view.setPasseggeriPasseggeri();
-				registraControllerFase3APasseggeri();
+				registraControllerFase3Passeggeri();
 				view.cardPasseggeri.show(view.panelPasseggeri,"panelPasseggeriPasseggeri");
 			}
 		});
@@ -252,18 +332,20 @@ public class PrenotazioneController extends Controller {
 	/**
 	 * Aggiungo i listner agli oggetti della facciata passeggeri:passeggeri
 	 */
-	private void registraControllerFase3APasseggeri() { 
+	private void registraControllerFase3Passeggeri() { 
+
 
 		// prossimo passeggero
 		view.buttonPasseggeriProssimo.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
 				view.passeggeroSuccessivo(); 
+
 			}
 
 		});
 
-		// passeggero precedente
+		// passeggerp precedente
 		view.buttonPasseggeriPrecedente.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
@@ -273,27 +355,33 @@ public class PrenotazioneController extends Controller {
 			}
 
 		});
-		registraControllerFase3BPasseggeri();
-	}
-	
-	private void registraControllerFase3BPasseggeri() { 
+
 
 		//conferma passeggeri:passeggeri
 		view.buttonPasseggeriConfermaPrenotazione.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				if( (view.controllaCampi() || (view.campiVuoti() && view.listaPasseggeri.size()!=0) && (JOptionPane.showConfirmDialog(null,"<html>Vuoi confermare la spesa di "+view.prezzoTotaleVolo+" &euro;?</html>","Conferma prenotazione passeggeri",JOptionPane.YES_NO_OPTION,JOptionPane.NO_OPTION) == JOptionPane.OK_OPTION))){ //se sono pieni oppure vuoti
+				if(view.controllaCampi() || (view.campiVuoti() && view.listaPasseggeri.size()!=0)){ //se sono pieni oppure vuoti
 					view.passeggeroSuccessivo(); 
-					try {
-						ObjectId idGruppo = serv.prenotaPasseggero(view.listaPasseggeri, view.voloSelezionatoPasseggeri.getId())[0];
-						JOptionPane.showMessageDialog(null,"Prenotazione effettuata con successo;\n Codice prenotazione: "+idGruppo.toString()+" ","Conferma prenotazione", 1);
-						view.cardPasseggeri.show(view.panelPasseggeri,"panelPasseggeriAeroporti"); //torno alla schermata iniziale
-					} catch (SeatsSoldOutException | RemoteException e) {
-						JOptionPane.showMessageDialog(null,"Volo non trovato, ritentare","Errore", 0);
+					if (JOptionPane.showConfirmDialog(null,"<html>Vuoi confermare la spesa di "+view.prezzoTotaleVolo+" &euro;?</html>","Conferma prenotazione passeggeri",JOptionPane.YES_NO_OPTION,JOptionPane.NO_OPTION) == JOptionPane.OK_OPTION) {
+						try {
+							ObjectId idGruppo = serv.prenotaPasseggero(view.listaPasseggeri, view.voloSelezionatoPasseggeri.getId())[0];
+							JOptionPane.showMessageDialog(null,"Prenotazione effettuata con successo;\n Codice prenotazione: "+idGruppo.toString()+" ","Conferma prenotazione", 1);
+							view.cardPasseggeri.show(view.panelPasseggeri,"panelPasseggeriAeroporti"); //torno alla schermata iniziale
+						} catch (RemoteException e) {
+							JOptionPane.showMessageDialog(null,"Connessione persa","Errore", 1);
+							System.exit(0);
+						} catch (FlightNotFoundException e) {
+							JOptionPane.showMessageDialog(null,"Volo non trovato, ritentare","Errore", 0);
+						} catch (SeatsSoldOutException e) {
+							JOptionPane.showMessageDialog(null,"I posti non sono pi�� disponibili","Errore", 0);
+						}
 					}
 				}else{
 					JOptionPane.showMessageDialog(null,"Completare l'inserimento dei dati","Errore", 0);
+
 				}
+
 			}
 		});
 
@@ -333,7 +421,9 @@ public class PrenotazioneController extends Controller {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
 				view.cardPallet.show(view.panelPallet,"panelPalletAeroporti");
+
 			}
+
 		});
 
 
@@ -368,19 +458,31 @@ public class PrenotazioneController extends Controller {
 		view.buttonPalletConfermaPrenotazione.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				if(view.textFieldPesoPallet.getText().compareTo("")!=0 && view.textFieldTargaPallet.getText().compareTo("")!=0 && view.textFieldPesoPallet.getText().matches ("\\d+") && Integer.parseInt(view.textFieldPesoPallet.getText())>=600 && Integer.parseInt(view.textFieldPesoPallet.getText())<=1400 && (JOptionPane.showConfirmDialog(null,"Vuoi confermare?","Conferma prenotazione pallet",JOptionPane.YES_NO_OPTION,JOptionPane.NO_OPTION) == JOptionPane.OK_OPTION)){
-					view.listaPallet.add(new Pallet(Integer.parseInt(view.textFieldPesoPallet.getText()),view.textFieldTargaPallet.getText(),view.voloSelezionatoPallet.getId(),null,null));
-					try {
-						ObjectId idPallet = serv.prenotaPallet(view.listaPallet,view.voloSelezionatoPallet.getId())[0];
-						JOptionPane.showMessageDialog(null,"Prenotazione effettuata con successo;\n Codice prenotazione: "+idPallet.toString()+" ","Conferma prenotazione", 1);
-						view.cardPallet.show(view.panelPallet,"panelPalletAeroporti"); //torno alla schermata iniziale
-					} catch (SeatsSoldOutException | RemoteException e) {
-						JOptionPane.showMessageDialog(null,"Volo non trovato, ritentare","Errore", 0);
+				if(view.textFieldPesoPallet.getText().compareTo("")!=0 && view.textFieldTargaPallet.getText().compareTo("")!=0 && view.textFieldPesoPallet.getText().matches ("\\d+") ){
+					if(Integer.parseInt(view.textFieldPesoPallet.getText())>=600 && Integer.parseInt(view.textFieldPesoPallet.getText())<=1400){
+						view.listaPallet.add(new Pallet(Integer.parseInt(view.textFieldPesoPallet.getText()),view.textFieldTargaPallet.getText(),view.voloSelezionatoPallet.getId(),null,null));
+						if (JOptionPane.showConfirmDialog(null,"Vuoi confermare?","Conferma prenotazione pallet",JOptionPane.YES_NO_OPTION,JOptionPane.NO_OPTION) == JOptionPane.OK_OPTION) {
+							try {
+								ObjectId idPallet = serv.prenotaPallet(view.listaPallet,view.voloSelezionatoPallet.getId())[0];
+								JOptionPane.showMessageDialog(null,"Prenotazione effettuata con successo;\n Codice prenotazione: "+idPallet.toString()+" ","Conferma prenotazione", 1);
+								view.cardPallet.show(view.panelPallet,"panelPalletAeroporti"); //torno alla schermata iniziale
+							} catch (RemoteException e) {
+								JOptionPane.showMessageDialog(null,"Connessione persa","Errore", 1);
+								System.exit(0);
+							} catch (FlightNotFoundException e) {
+								JOptionPane.showMessageDialog(null,"Volo non trovato, ritentare","Errore", 0);
+							} catch (SeatsSoldOutException e) {
+								JOptionPane.showMessageDialog(null,"I posti non sono più disponibili","Errore", 0);
+							}
+						}
+					}else{
+						JOptionPane.showMessageDialog(null,"Peso troppo elevato","Errore", 0);
 					}
 				}else{
 					JOptionPane.showMessageDialog(null,"Errore nei dati inseriti","Errore", 0);
 				}
 			}
+
 		});
 
 		//annullo pallet:pallet
@@ -394,74 +496,13 @@ public class PrenotazioneController extends Controller {
 	}
 
 
-
-
 	/**
-	 * selezionePasseggeriDaEliminare
-	 *
-	 * @param params oggetti da visualizzare nella confirm dialog tra cui un messaggio e le varie checkbox
-	 * @param listaCB la lista delle check box
-	 * @param listaPasseggeri la lista dei passeggeri
+	 * Annulla i listener actionListeners
 	 */
-	private void selezionePasseggeriDaEliminare(Object[] params,List<JCheckBox> listaCB,List<Passeggero> listaPasseggeri,String codicePrenotazione){
-		if (JOptionPane.showConfirmDialog(null, params, "Rimozione passeggeri", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) { 
-			int passo=0;
-			for (JCheckBox cb : listaCB){
-				if(!cb.isSelected()){
-					listaPasseggeri.remove(passo); //rimuovo dalla lista quelli da tenere
-				}else{
-					passo++; //quando rimuovo non devo andare avanti con il passo
-				}
-			}
-			if(passo!=0){ //ne ho selezionato almeno uno
-				String pass = "";
-				for (Passeggero p : listaPasseggeri){
-					pass += "\n"+p.getCognome()+" " +p.getNome();
-				}
-				boolean ok = false;
-				try {
-					ok = serv.cancellaPasseggeri(listaPasseggeri);
-				} catch (RemoteException e) {
-					JOptionPane.showMessageDialog(null, "Impossibile connettersi al server","Errore", 0);
-				} catch (DeleteException e) {
-					JOptionPane.showMessageDialog(null, "Errore durante la cancellazione","Errore", 0);
-				}
-				if(ok){
-					JOptionPane.showMessageDialog(null, "Dalla prenotazione "+ codicePrenotazione +" sono stati rimossi i passeggeri:"+pass,"Prenotazione eliminata", 1);
-				}
-			}
+	private void annullaListener(){
+		for( ActionListener al : view.comboVoliDisponibili.getActionListeners() ) {
+			view.comboVoliDisponibili.removeActionListener( al );
 		}
 	}
 
-	/**
-	 * Passa ad elenco voli.
-	 *
-	 * @param voli the voli
-	 * @param tipo 0 per passeggeri 1 per pallet
-	 */
-	private void passaAdElencoVoli(List<Volo> voli,int tipo){
-		if(voli.size()==0){
-			JOptionPane.showMessageDialog(null, "Nessun volo trovato","Errore", 0);
-		}else{
-			if(tipo==0){
-				view.aeroportoPartenzaPasseggeri=((Aeroporto)view.comboPasseggeriAeroportoPartenza.getSelectedItem()).getNome();
-				view.aeroportoArrivoPasseggeri=((Aeroporto)view.comboPasseggeriAeroportoArrivo.getSelectedItem()).getNome();
-				for( ActionListener al : view.comboVoliDisponibili.getActionListeners() ) {
-					view.comboVoliDisponibili.removeActionListener( al );
-				}
-				view.setPasseggeriVoli(voli);  //carico gli oggetti nella facciata passeggeri:voli
-				registraControllerFase2Passeggeri(); //registro i listner della facciata passeggeri:voli
-				view.cardPasseggeri.show(view.panelPasseggeri,"panelPasseggeriVoli"); //visualizzo il pannello passeggeri:voli passandogli la lista dei voli
-			}else{
-				view.aeroportoPartenzaPallet=((Aeroporto)view.comboPalletAeroportoPartenza.getSelectedItem()).getNome();
-				view.aeroportoArrivoPallet=((Aeroporto)view.comboPalletAeroportoArrivo.getSelectedItem()).getNome();
-				for( ActionListener al : view.comboVoliDisponibili.getActionListeners() ) {
-					view.comboVoliDisponibili.removeActionListener( al );
-				}
-				view.setPalletVoli(voli);  //carico gli oggetti nella facciata pallet:voli
-				registraControllerFase2Pallet(); //registro i listner della facciata pallet:voli
-				view.cardPallet.show(view.panelPallet,"panelPalletVoli"); //visualizzo il pannello pallet:voli passandogli la lista dei voli
-			}
-		}
-	}
 }
