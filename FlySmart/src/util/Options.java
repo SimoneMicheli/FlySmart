@@ -1,5 +1,6 @@
 package util;
 
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.Properties;
 
@@ -32,22 +33,32 @@ public abstract class Options {
 	/**server options*/
 	public static Properties opt;
 	
-	public static void initOptions(){
+	/**
+	 * inizializza le opzioni ricevendo il percorso del file di configurazione
+	 * @param name
+	 */
+	public static void initOptions(String name){
 		log = LogManager.getLogger(ServerLauncher.class.getName());
-		loadConfigurationFile();
+		loadConfigurationFile(name);
+	}
+	
+	/**
+	 * inizializza le opzioni con il file di configurazione di default
+	 */
+	public static void initOptions(){
+		initOptions("./src/config/appConfig.xml");
 	}
 	
 	/**
 	 * carica il file di configurazione "appConfig.xml" contenente
 	 * le opzioni da settare
 	 */
-	protected static void loadConfigurationFile(){
-		log.debug("Loading app configuration file");
+	protected static void loadConfigurationFile(String name){
+		log.info("Loading app configuration file: "+name);
 		opt = new Properties();
 		
-		InputStream file = ServerLauncher.class.getClassLoader().getResourceAsStream("appConfig.xml");
-		
 		try {
+			InputStream file = new FileInputStream(name);
 			opt.loadFromXML(file);
 			Options.aeroportiFileName = opt.getProperty("aeroportiFileName");
 			Options.mongoHost = opt.getProperty("mongoHost");
@@ -57,7 +68,6 @@ public abstract class Options {
 			Options.keyStorePassword =  opt.getProperty("keyStorePassword");
 			
 		}catch (Exception e) {
-			log.catching(e);
 			log.warn("Configuration file not found, Using default options");
 
 			LoadDefaultOptions();

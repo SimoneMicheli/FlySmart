@@ -78,7 +78,10 @@ public final class ServerLauncher {
 		
 		configureLogger();
 		
-		Options.initOptions();
+		if(args.length > 0)
+			Options.initOptions(args[0]);
+		else
+			Options.initOptions();
 		
 		configureSSL();
 		
