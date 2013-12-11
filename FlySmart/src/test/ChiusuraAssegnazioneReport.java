@@ -4,12 +4,14 @@ import guiCheckIn.Report;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.Date;
+import java.util.InvalidPropertiesFormatException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
@@ -38,8 +40,10 @@ public class ChiusuraAssegnazioneReport {
 
 	/**
 	 * @param args
+	 * @throws IOException 
+	 * @throws InvalidPropertiesFormatException 
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InvalidPropertiesFormatException, IOException {
 
 		Options.initOptions();
 		

@@ -1,7 +1,10 @@
 package util;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
+import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
 import org.apache.logging.log4j.LogManager;
@@ -36,30 +39,47 @@ public abstract class Options {
 	/**
 	 * inizializza le opzioni ricevendo il percorso del file di configurazione
 	 * @param name
+	 * @throws IOException 
+	 * @throws InvalidPropertiesFormatException 
 	 */
-	public static void initOptions(String name){
+	public static void initOptions(String name) throws InvalidPropertiesFormatException, IOException{
 		log = LogManager.getLogger(ServerLauncher.class.getName());
-		loadConfigurationFile(name);
+		
+		InputStream file = new FileInputStream(name);
+		
+		loadConfigurationFile(file);
 	}
 	
 	/**
 	 * inizializza le opzioni con il file di configurazione di default
+	 * @throws IOException 
+	 * @throws InvalidPropertiesFormatException 
 	 */
-	public static void initOptions(){
-		initOptions("./src/config/appConfig.xml");
+	public static void initOptions() throws InvalidPropertiesFormatException, IOException{
+		log = LogManager.getLogger(ServerLauncher.class.getName());
+		log.warn("Configuration file not configured, Using default options");
+		InputStream file = ServerLauncher.class.getClassLoader().getResourceAsStream("appConfig.xml");
+		
+		if(file == null)
+			throw new FileNotFoundException("Default configuration file not found");
+		
+		loadConfigurationFile(file);
 	}
 	
 	/**
 	 * carica il file di configurazione "appConfig.xml" contenente
 	 * le opzioni da settare
+	 * @throws IOException 
+	 * @throws InvalidPropertiesFormatException 
 	 */
-	protected static void loadConfigurationFile(String name){
-		log.info("Loading app configuration file: "+name);
+	protected static void loadConfigurationFile(InputStream file) throws InvalidPropertiesFormatException, IOException{
+		log.info("Caricamento file di configurazione");
 		opt = new Properties();
 		
-		try {
-			InputStream file = new FileInputStream(name);
+		
+			
 			opt.loadFromXML(file);
+			
 			Options.aeroportiFileName = opt.getProperty("aeroportiFileName");
 			Options.mongoHost = opt.getProperty("mongoHost");
 			Options.mongoPort = Integer.parseInt(opt.getProperty("mongoPort"));
@@ -67,25 +87,9 @@ public abstract class Options {
 			Options.keyStore = opt.getProperty("keyStore");
 			Options.keyStorePassword =  opt.getProperty("keyStorePassword");
 			
-		}catch (Exception e) {
-			log.warn("Configuration file not found, Using default options");
-
-			LoadDefaultOptions();
-		}
+		
 		
 	}
 	
-	/**
-	 * inizializza le opzioni con i valori di default se richiesto
-	 */
-	protected static void LoadDefaultOptions(){
-		Options.aeroportiFileName = "data/xml/aeroporti.xml";
-		
-		Options.mongoHost = "127.0.0.1";
-		
-		Options.mongoPort = 27017;
-		
-		Options.mongoDBName = "FlySmart";
-	}
 
 }

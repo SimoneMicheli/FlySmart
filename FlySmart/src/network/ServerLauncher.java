@@ -1,8 +1,10 @@
 package network;
 
+import java.io.IOException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.InvalidPropertiesFormatException;
 
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
@@ -73,8 +75,10 @@ public final class ServerLauncher {
 	/**
 	 * configura ed avvia il server RMI
 	 * @param args
+	 * @throws IOException 
+	 * @throws InvalidPropertiesFormatException 
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InvalidPropertiesFormatException, IOException {
 		
 		configureLogger();
 		

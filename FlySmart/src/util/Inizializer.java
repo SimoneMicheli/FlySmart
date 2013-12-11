@@ -26,7 +26,7 @@ public class Inizializer {
 	public static void main(String[] args)  {
 		System.out.println("Avvio generazione dati");
 		try {
-			Options.LoadDefaultOptions();
+			Options.initOptions();
 			//create folder
 			new File("data/xml/").mkdirs();
 			creaAeroporti();

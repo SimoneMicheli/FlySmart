@@ -1,6 +1,8 @@
 package smart;
 
+import java.io.IOException;
 import java.util.Date;
+import java.util.InvalidPropertiesFormatException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -24,8 +26,10 @@ public class Test {
 
 	/**
 	 * @param args
+	 * @throws IOException 
+	 * @throws InvalidPropertiesFormatException 
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InvalidPropertiesFormatException, IOException {
 
 		Options.initOptions();
 		Inizializer.main(args);
