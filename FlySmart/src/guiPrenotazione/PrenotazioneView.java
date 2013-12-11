@@ -312,7 +312,7 @@ public class PrenotazioneView extends View {
 	public void setPasseggeriAeroporti(List<Aeroporto> aeroporti){
 		
 		
-		JLabel labelFlySmart = new JLabel("<html><span style='color:green'>Fly</span><span style='color:blue'>Smart</span><span style='font-size:15px;color:#666666'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Prenotazione passeggeri</span></html>");
+		JLabel labelFlySmart = new JLabel("<html><span style='color:green'>Fly</span><span style='color:blue'>Smart</span><span style='font-size:15px;color:#666666'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Passeggeri</span></html>");
 		labelFlySmart.setFont(new Font("Calibri", Font.BOLD, 50));
 		labelFlySmart.setForeground(Color.black);
 		labelFlySmart.setBounds(8, 0, 482, 70);
@@ -582,7 +582,7 @@ public class PrenotazioneView extends View {
 	@SuppressWarnings("unchecked")
 	public void setPalletAeroporti(List<Aeroporto> aeroporti){
 		
-		JLabel labelFlySmart = new JLabel("<html><span style='color:green'>Fly</span><span style='color:blue'>Smart</span><span style='font-size:15px;color:#666666'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Prenotazione pallet</span></html>");
+		JLabel labelFlySmart = new JLabel("<html><span style='color:green'>Fly</span><span style='color:blue'>Smart</span><span style='font-size:15px;color:#666666'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pallet</span></html>");
 		labelFlySmart.setFont(new Font("Calibri", Font.BOLD, 50));
 		labelFlySmart.setForeground(Color.black);
 		labelFlySmart.setBounds(8, 0, 482, 70);

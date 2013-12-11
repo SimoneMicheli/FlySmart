@@ -1,45 +1,77 @@
 package guiCheckIn;
 
-
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
 import javax.swing.*;
-
 import client.View;
 import model.Pallet;
 import model.Volo;
 import model.Passeggero;
-
 import smart.CheckinReport;
 
+
+// TODO: Auto-generated Javadoc
+/**
+ * Genera il report per un volo
+ */
 public class Report extends View {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 2209345127490320486L;
 
+	/** La lista dei passeggeri del volo */
 	List<Passeggero> passeggeri;
+	
+	/** La lista dei pallet del volo */
 	List<Pallet> pallet;
+	
+	/** Il riferimento all'oggetto volo */
 	Volo volo;
+	
+	/** il pannello contenitore. */
 	Container contentPane;
-	double sbilanciamento;
+	
+	/** il momento di rollio */
+	double momX;
+	
+	/** il momento di beccheggio */
+	double momY;
+	
+	/** il peso totale imbarcato*/
+	int pesoTotale;
+	
 
+	/** The sbilanciamento di rollio in percentuale. */
+	double sbilanciamentoX;
+
+	/** The sbilanciamento di beccheggio in percentuale. */
+	double sbilanciamentoY;
+	
+
+	/**
+	 * Instantiates a new report.
+	 *
+	 * @param cr l'oggetto checkinreport generato dall'applicazione di checkin
+	 * @param v the il volo di riferimento
+	 */
 	public Report(CheckinReport cr,Volo v) {
 		lookAndFeel();
 		setResizable(false);
 		passeggeri = cr.getPasseggeri();
 		pallet = cr.getPallets();
 		this.volo=v;
-		sbilanciamento = Math.sqrt(Math.pow(cr.getMom()[0],2) + Math.pow(cr.getMom()[1],2));
+		momX = cr.getMom()[0];
+		momY = cr.getMom()[1];
+		pesoTotale=0;
 		setTitle("Report per il volo "+v.getId());
-		Dimension dimensioneFinestra = new Dimension(1200,750);
+		Dimension dimensioneFinestra = new Dimension(800,750);
 		Toolkit mioTKit = Toolkit.getDefaultToolkit();
 		Dimension dimensioniSchermo = mioTKit.getScreenSize();
 		int xFrame = (dimensioniSchermo.width - dimensioneFinestra.width) / 2;
@@ -48,116 +80,108 @@ public class Report extends View {
 		setSize(dimensioneFinestra.width, dimensioneFinestra.height);
 		setVisible(true);
 		contentPane = getContentPane();
-		funzione();
+		creaReport();
 	}
 
-	private void funzione(){
+	/**
+	 * Crea il report grafico
+	 */
+	private void creaReport(){
+		
+		int colonnePasseggeri = volo.getTipoAereo().getColonnePasseggeri();
+		int righePasseggeri = volo.getTipoAereo().getFilePasseggeri();
+		int colonnePallet = volo.getTipoAereo().getColonnePallet();
+		int righePallet = volo.getTipoAereo().getFilePallet();
+		boolean[][] occupancyPasseggeri = new boolean[righePasseggeri][colonnePasseggeri];
+		boolean[][] occupancyPallet = new boolean[righePallet][colonnePallet];
 
-
-		int colonne = volo.getTipoAereo().getColonnePasseggeri();
-		int righe = volo.getTipoAereo().getFilePasseggeri();
-		boolean[][] occupancyPasseggeri = new boolean[righe][colonne];
-
-		JTextArea reportPallet=new JTextArea();
-		reportPallet.setLineWrap(false);
-		reportPallet.setWrapStyleWord(false);
-		JScrollPane scrollPallet=new JScrollPane(reportPallet);
-		contentPane.add(scrollPallet,BorderLayout.WEST);
+		
+		//text area centrale
+		JTextArea reportTextArea=new JTextArea();
+		reportTextArea.setLineWrap(false);
+		reportTextArea.setWrapStyleWord(false);
+		reportTextArea.append("PALLET\n");
 		for (Pallet p : pallet){
-			reportPallet.append("("+ p.getColonna()+ ";" + p.getFila()+") "+p.getTarga()+ " " +p.getPeso() + "kg \n");
+			reportTextArea.append("("+ p.getColonna()+ ";" + p.getFila()+") "+p.getTarga()+ " " +p.getPeso() + "kg \n");
+			occupancyPallet[p.getFila()][p.getColonna()]=true;
+			pesoTotale+=p.getPeso();
 		}
-
-
-		JTextArea reportPasseggeri=new JTextArea();
-		reportPasseggeri.setLineWrap(true);
-		reportPasseggeri.setWrapStyleWord(true);
+		
+		reportTextArea.append("\n\nPASSEGGERI\n");
 		for (Passeggero p : passeggeri){
-			reportPasseggeri.append("("+ p.getColonna()+ ";" + p.getFila()+") "+p.getCognome()+ " " +p.getNome() + " \n");
+			reportTextArea.append("("+ p.getColonna()+ ";" + p.getFila()+") "+p.getCognome()+ " " +p.getNome()+ " \n");
 			occupancyPasseggeri[p.getFila()][p.getColonna()]=true;
+			pesoTotale+=p.getPeso();
 		}
-		JScrollPane scrollPasseggeri=new JScrollPane(reportPasseggeri);
+		JScrollPane scrollPasseggeri=new JScrollPane(reportTextArea);
 		contentPane.add(scrollPasseggeri,BorderLayout.CENTER);
 
+		//divido il mom per il peso totale e lo divido per la massima distanza (-0.5 da ognuna delle due parti quindi -1, /2 perchè è metà aereo)
+		sbilanciamentoX = Math.abs(Math.floor((momX/pesoTotale)/((volo.getTipoAereo().getColonnePasseggeri()-1)/2)*1000)/10);
+		sbilanciamentoY = Math.abs(Math.floor((momY/pesoTotale)/((volo.getTipoAereo().getFilePasseggeri()+1)*1000)/2)/10);
+		
+		//informazioni in basso
+		JPanel sotto = new JPanel();
+		sotto.setLayout(new BorderLayout());
+		contentPane.add(sotto,BorderLayout.SOUTH);
+		
+		JLabel labelInfo = new JLabel("  Sbilanciamento");
+		labelInfo.setFont(new Font("Arial", Font.PLAIN, 22));
+		labelInfo.setForeground(Color.black);
+		sotto.add(labelInfo,BorderLayout.CENTER);
+		
+		JLabel labelSbilanciamento = new JLabel("    Rollio: "+sbilanciamentoX+" %    Beccheggio: "+sbilanciamentoY+" %");
+		labelSbilanciamento.setFont(new Font("Arial", Font.PLAIN, 16));
+		labelSbilanciamento.setForeground(Color.black);
+		sotto.add(labelSbilanciamento,BorderLayout.SOUTH);
 
-		JLabel labelFlySmart = new JLabel("Sbilanciamento: "+sbilanciamento);
-		labelFlySmart.setFont(new Font("Calibri", Font.PLAIN, 30));
-		labelFlySmart.setForeground(Color.black);
-		contentPane.add(labelFlySmart,BorderLayout.SOUTH);
-
-
-
-
-
-
-		JPanel destra = new JPanel();
-		destra.setLayout(new BorderLayout());
-		reportPasseggeri.setLineWrap(false);
-		reportPasseggeri.setWrapStyleWord(false);
-		contentPane.add(destra,BorderLayout.EAST);
-
-		JButton buttonEsci = new JButton("Esci dal programma");
-		destra.add(buttonEsci,BorderLayout.SOUTH);
+		
+		//pannello di sinistra
+		JPanel sinistra = new JPanel();
+		sinistra.setLayout(new BorderLayout());
+		contentPane.add(sinistra,BorderLayout.WEST);
+		
+		JButton buttonEsci = new JButton("Chiudi Report");
+		sinistra.add(buttonEsci,BorderLayout.SOUTH);
 		buttonEsci.addMouseListener(new MouseAdapter() {
-			public void mouseReleased(MouseEvent arg0) {
-				System.exit(0);
-			}
-		});
-
-		JButton buttonChiudi = new JButton("Chiudi il report");
-		destra.add(buttonChiudi,BorderLayout.NORTH);
-		buttonChiudi.addMouseListener(new MouseAdapter() {
 			public void mouseReleased(MouseEvent arg0) {
 				dispose();
 			}
 		});
+		//pannello centrale a sinistra
+		JPanel centroSinistra = new JPanel();
+		centroSinistra.setLayout(new BorderLayout());
+		sinistra.add(centroSinistra,BorderLayout.CENTER);
 
+		SchemaAereo schemaPallet = new SchemaAereo(righePallet, colonnePallet,occupancyPallet);
+		schemaPallet.setVisible(true);
+		centroSinistra.add(schemaPallet);
+		
+		
+		
+		//pannello di destra
+		JPanel destra = new JPanel();
+		destra.setLayout(new BorderLayout());
+		contentPane.add(destra,BorderLayout.EAST);
 
-		JPanel centro = new JPanel();
-		centro.setLayout(new BorderLayout());
-		destra.add(centro,BorderLayout.CENTER);
+		JButton buttonChiudi = new JButton("Chiudi applicazione Checkin");
+		destra.add(buttonChiudi,BorderLayout.SOUTH);
+		buttonChiudi.addMouseListener(new MouseAdapter() {
+			public void mouseReleased(MouseEvent arg0) {
+				System.exit(0);
+			}
+		});
+		
+		//pannello centrale a destra
+		JPanel centroDestra = new JPanel();
+		centroDestra.setLayout(new BorderLayout());
+		destra.add(centroDestra,BorderLayout.CENTER);
 
-		Example e = new Example(righe, colonne,occupancyPasseggeri);
-		e.setVisible(true);
-		centro.add(e);
-
-
-
+		SchemaAereo schemaPasseggeri = new SchemaAereo(righePasseggeri, colonnePasseggeri,occupancyPasseggeri);
+		schemaPasseggeri.setVisible(true);
+		centroDestra.add(schemaPasseggeri);
+		
 	}
 }
 
 
-class Example extends JPanel{
-	private static final long serialVersionUID = 5194450620033074168L;
-	private int righe;
-	private int colonne;
-	private boolean[][] matrix;
-
-	Example(int righe, int colonne,boolean[][] o){
-		this.righe=righe;
-		this.colonne=colonne;
-		matrix=new boolean[righe][colonne];
-		for(int i=0;i<righe;i++){
-			for(int j=0;j<colonne;j++){
-				matrix[i][j]=o[i][j];
-			}
-		}
-	}
-
-
-
-	public void paintComponent(Graphics g){
-		super.paintComponent(g);
-		g.setColor(Color.LIGHT_GRAY);
-		for(int r=0;r<righe;r++){
-			for(int c=0;c<colonne;c++){
-				if(matrix[r][c]){
-					g.setColor(Color.YELLOW);
-					g.fillRect(5+17*c,5+17*r,13,13);
-					g.setColor(Color.LIGHT_GRAY);
-				}else{
-					g.fillRect(5+17*c,5+17*r,13,13);
-				}
-			}
-		}
-	}
-}
