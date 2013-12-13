@@ -113,6 +113,8 @@ public class Report extends View {
 			occupancyPasseggeri[p.getFila()][p.getColonna()]=true;
 			pesoTotale+=p.getPeso();
 		}
+		
+		reportTextArea.setEditable(false);
 		JScrollPane scrollPasseggeri=new JScrollPane(reportTextArea);
 		contentPane.add(scrollPasseggeri,BorderLayout.CENTER);
 
