@@ -1,184 +1,105 @@
 package network;
 
-import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.rmi.Remote;
 import java.rmi.RemoteException;
-import java.rmi.server.*;
-import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.bson.types.ObjectId;
 
-import comparator.AeroportoComparator;
+import checkin.CheckinReport;
 
-import cancellazione.CancellaPallet;
-import cancellazione.CancellaPasseggero;
 import cancellazione.DeleteException;
 
 import prenotazione.FlightNotFoundException;
-import prenotazione.Prenotazione;
-import prenotazione.PrenotazionePallet;
-import prenotazione.PrenotazionePasseggero;
 import prenotazione.SeatsSoldOutException;
 
-import smart.CheckinReport;
-import smart.SmartCheckin;
-import util.Options;
-import xml.XMLToObj;
-import db.DBSession;
+
 import model.*;
 
-/** Implementa i metodi definiti nell'interfaccia del server
+/**Interfaccia server, definisce i metodi eseguibili dai client
  * @author Demarinis - Micheli - Scarpellini
  * 
  *
  */
-public class Server extends UnicastRemoteObject implements ServerInterface {
-	private static final long serialVersionUID = -1112973689097758070L;
-	
-	/** logger*/
-	Logger log;
-	
-	Prenotazione<Passeggero> prenotaPass = null;
-	Prenotazione<Pallet> prenotaPall = null;
+public interface Server extends Remote {
 	
 	/**
-	 * costruttore dell'oggetto server, crea i lock necessari a garantire l'accesso
-	 * ai file xml
-	 * @param clientFactory
-	 * @param serverFactory
+	 * @return l'elenco areoporti al client
 	 * @throws RemoteException
-	 * @throws FileNotFoundException 
 	 */
-	protected Server(RMISSLClientSocketFactory clientFactory, RMISSLServerSocketFactory serverFactory) throws RemoteException {
-		super(0, clientFactory, serverFactory);
-		
-		log = LogManager.getLogger(Server.class.getCanonicalName().toString());
-		prenotaPass = new PrenotazionePasseggero();
-		prenotaPall = new PrenotazionePallet();
-		
-		log.info("Creazione oggetto Server");
-	}
+	public List<Aeroporto> getAeroporti() throws RemoteException;
 	
-	/* (non-Javadoc)
-	 * @see network.ServerInterface#getAeroporti()
+	/**
+	 * passando gli id degli aeroporti di partenza e arrivo restituisce
+	 * l'elenco dei voli disponibili
+	 * @param idp id aeroporto di partenza
+	 * @param ida id aeroporto arrivo
+	 * @return elenco voli disponibili
+	 * @throws RemoteException
 	 */
-	@Override
-	public List<Aeroporto> getAeroporti() throws RemoteException {
-		
-		log.entry();
-		List<Aeroporto> aeroporti = new LinkedList<Aeroporto>();
-		XMLToObj<Aeroporto> parserXML = new XMLToObj<Aeroporto>(Aeroporto.class);
+	public List<Volo> getVoli(int idp, int ida) throws RemoteException;
 	
-		//parse xml data lock non richiesto perchè file usato in sola lettura
-		aeroporti = parserXML.readObj(Options.aeroportiFileName);
-		//ordina eroport in base al nome
-		Collections.sort(aeroporti, AeroportoComparator.NAME_ORDER);
-		
-		//restituisce elnco aeroporti al client
-		log.exit();
-		return aeroporti;
-	}
-
-	/* (non-Javadoc)
-	 * @see network.ServerInterface#getVoli(int, int)
+	/**
+	 * consente la prenotazione di un volo da parte di una lista di passeggeri
+	 * @param listToAdd elnco passeggeri da prenotare
+	 * @param idVolo id del volo da prenotare
+	 * @return id del gruppo (posizione 0 dell'array)
+	 * @throws RemoteException
+	 * @throws FlightNotFoundException 
+	 * @throws SeatsSoldOutException 
 	 */
-	@Override
-	public List<Volo> getVoli(int idp, int ida) throws RemoteException {
-		//TODO se ida = -1 allora ottenere tutti i voli da idp a qualsiasi destinazione (che siano pero open)
-		log.entry();
-		List<Volo> voli = null;
-		
-		if(ida == -1)
-			voli = DBSession.getVoloDAO().getByPartenza(idp);
-		else
-			voli = DBSession.getVoloDAO().getByPartenzaDestinazione(idp, ida);
-		
-		log.exit();
-		return voli;
-	}
-
-	/* (non-Javadoc)
-	 * @see network.ServerInterface#prenotaPasseggero(java.util.List, int)
-	 */
-	@Override
-	public ObjectId[] prenotaPasseggero(List<Passeggero> listToAdd, ObjectId idVolo) throws FlightNotFoundException, SeatsSoldOutException {
-		log.entry();
-		ObjectId[] id = prenotaPass.prenota(listToAdd, idVolo);
-		log.exit(id);
-
-		return id;
-	}
-
-	/* (non-Javadoc)
-	 * @see network.ServerInterface#prenotaPallet(java.util.List, int)
-	 */
-	@Override
-	public ObjectId[] prenotaPallet(List<Pallet> listToAdd, ObjectId idVolo) throws FlightNotFoundException, SeatsSoldOutException {
-		log.entry();
-		
-		ObjectId[] id = prenotaPall.prenota(listToAdd, idVolo);
-				
-		log.exit(id);
-		
-		return id;
-	}
+	public ObjectId[] prenotaPasseggero(List<Passeggero> listToAdd, ObjectId idVolo) throws RemoteException, FlightNotFoundException, SeatsSoldOutException;
 	
-	@Override
-	public CheckinReport calcolaCheckin(ObjectId idVolo) throws FlightNotFoundException{
-		log.entry();
-		SmartCheckin checkin = null;
-		
-		checkin = new SmartCheckin(idVolo);
-		
-		CheckinReport rx = checkin.calcolaCheckin();
-		log.exit();
-		return rx;
-	}
-
-	@Override
-	public List<Passeggero> getPasseggeriGruppo(ObjectId idGruppo)
-			throws RemoteException {
-		log.entry();
-		log.info("Ottengo lista passeggeri gruppo: "+idGruppo);
-		CancellaPasseggero cp = new CancellaPasseggero();
-		log.exit();
-		return cp.getPasseggeriGruppo(idGruppo);
-	}
-
-	@Override
-	public boolean cancellaPallet(ObjectId idPallet) throws RemoteException,
-			DeleteException {
-		log.entry();
-		CancellaPallet cp = new CancellaPallet();
-		log.info("Cancello pallet: "+idPallet);
-		cp.cancellaPallet(idPallet);
-		log.exit();
-		return true;
-	}
-
-	@Override
-	public boolean cancellaPasseggeri(List<Passeggero> list) throws RemoteException, DeleteException {
-		log.entry();
-		CancellaPasseggero cp = new CancellaPasseggero();
-		
-		for(Passeggero p : list){
-			log.info("Cancello passeggero: "+p.toString());
-			cp.cancellaPasseggero(p.getId());
-		}
-		log.exit();
-		return true;
-	}
-
-	@Override
-	public Pallet getInfoPallet(ObjectId id) throws RemoteException {
-		log.entry();
-		CancellaPallet cp = new CancellaPallet();
-		log.exit();
-		return cp.getInfoPallet(id);
-	}
-
+	/**
+	 * consente la prenotazione di un volo da parte di una lista di pallet
+	 * @param listToAdd elnco pallet da prenotare
+	 * @param idVolo id del volo da prenotare
+	 * @return id dei pallet prenotati
+	 * @throws RemoteException
+	 * @throws IOException 
+	 * @throws FlightNotFoundException 
+	 * @throws SeatsSoldOutException 
+	 */
+	public ObjectId[] prenotaPallet(List<Pallet> listToAdd, ObjectId idVolo) throws RemoteException, FlightNotFoundException, SeatsSoldOutException;
 	
+	/**
+	 * chiude il volo richiesto e calcola la posizione dei passeggeri e dei pallet
+	 * @param idVolo
+	 * @throws FlightNotFoundException
+	 * @throws RemoteException
+	 */
+	public CheckinReport calcolaCheckin(ObjectId idVolo) throws RemoteException, FlightNotFoundException;
+	
+	/**
+	 * fornendo l'id del gruppo restituisce l'elenco dei passeggeri nel gruppo
+	 * @param idGruppo
+	 * @return elenco passeggeri del gruppo
+	 * @throws RemoteException
+	 */
+	public List<Passeggero> getPasseggeriGruppo(ObjectId idGruppo) throws RemoteException;
+	
+	/**
+	 * cancella la prenotazione per una lista di passeggeri
+	 * @param list lista di passeggeri da cancellare
+	 * @throws RemoteException
+	 * @throws DeleteException
+	 */
+	public boolean cancellaPasseggeri(List<Passeggero> list) throws RemoteException,  DeleteException;
+	
+	/**
+	 * ottene le informazioni sul pallet richiesto
+	 * @param id del pallet
+	 * @return pallet
+	 */
+	public Pallet getInfoPallet(ObjectId id) throws RemoteException;
+	
+	/**
+	 * cancella il pallet richiesto
+	 * @param idPallet del pallet da cancellare
+	 * @return 
+	 * @throws RemoteException
+	 * @throws DeleteException
+	 */
+	public boolean cancellaPallet(ObjectId idPallet) throws RemoteException, DeleteException;
 }

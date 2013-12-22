@@ -13,11 +13,11 @@ import org.bson.types.ObjectId;
 
 import prenotazione.FlightNotFoundException;
 
+import checkin.CheckinReport;
 import client.Controller;
 import model.Aeroporto;
 import model.Volo;
-import smart.CheckinReport;
-import network.ServerInterface;
+import network.Server;
 
 
 /**Il controller della vista di check in
@@ -34,7 +34,7 @@ public class CheckInController extends Controller {
 	 *
 	 * @param serv l'oggetto che la login mi passa per la connessione con il server
 	 */
-	public CheckInController(ServerInterface serv){
+	public CheckInController(Server serv){
 		view= new CheckInView(); //creo la vista
 		this.serv=serv;
 		caricaAeroporti();

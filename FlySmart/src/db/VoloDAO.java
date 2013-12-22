@@ -1,41 +1,35 @@
-/**
- * 
- */
 package db;
 
-import java.util.Date;
 import java.util.List;
-
-import model.StatoVolo;
-import model.Volo;
 
 import org.bson.types.ObjectId;
 
-import com.google.code.morphia.Datastore;
-import com.google.code.morphia.dao.BasicDAO;
+import com.google.code.morphia.Key;
 
-/**
- *Implementa il paradigma DAO (Data Access Object) di java per la classe Volo
- */
-public class VoloDAO extends BasicDAO<Volo, ObjectId> {
+import model.Volo;
 
+public interface VoloDAO {
+	
 	/**
-	 * Constructor for VoloDAO.
-	 * @param ds Datastore
+	 * ritorna il volo con l'id cercato
+	 * @param id id volo
+	 * @return Volo
 	 */
-	public VoloDAO(Datastore ds){
-		super(Volo.class, ds);
-	}
+	public abstract Volo get(ObjectId id);
+	
+	/**
+	 * salva il volo
+	 * @param v volo da salvare
+	 * @return Key
+	 */
+	public abstract Key<Volo> save(Volo v);
 
 	/**
 	 * recupera un volo passando l'id come stringa
 	 * @param id stringa del'id del volo
-	
 	 * @return volo richiesto se presente */
-	public Volo getById(String id){
-		return get(new ObjectId(id));
-	}
-	
+	public abstract Volo getById(String id);
+
 	/**
 	 * restituisce l'elenco dei voli che partono da un aeroporto (id partenza) ed arrivano ad un'altro (id arrivo)
 	 * ordinati per data decresente
@@ -43,27 +37,13 @@ public class VoloDAO extends BasicDAO<Volo, ObjectId> {
 	 * @param a id aeroporto arrivo
 	
 	 * @return elenco voli */
-	public List<Volo> getByPartenzaDestinazione(Integer p, Integer a){
-		return ds.createQuery(Volo.class)
-				.filter("aeroportoPartenza =",p)
-				.filter("aeroportoDestinazione =", a)
-				.filter("dataOra >", new Date())
-				.filter("stato =", StatoVolo.OPEN)
-				.order("dataOra")
-				.asList();
-	}
-	
+	public abstract List<Volo> getByPartenzaDestinazione(Integer p, Integer a);
+
 	/**
 	 * restituisce tutti i voli dall'aeroporto di partenza
 	 * @param p aeroporto partenza
 	
 	 * @return elenco volo */
-	public List<Volo> getByPartenza(Integer p){
-		return ds.createQuery(Volo.class)
-				.filter("aeroportoPartenza =",p)
-				.filter("dataOra >", new Date())
-				.filter("stato =", StatoVolo.OPEN)
-				.order("dataOra")
-				.asList();
-	}
+	public abstract List<Volo> getByPartenza(Integer p);
+
 }

@@ -1,48 +1,49 @@
-/**
- * 
- */
 package db;
 
 import java.util.List;
 
-import org.bson.types.ObjectId;
-
 import model.Pallet;
 
-import com.google.code.morphia.Datastore;
-import com.google.code.morphia.dao.BasicDAO;
+import org.bson.types.ObjectId;
+
+import com.google.code.morphia.Key;
 import com.google.code.morphia.query.Query;
+import com.mongodb.WriteResult;
 
-/**
- * Implementa il paradigma DAO (Data Access Object) di java per la classe Pallet
- *
- */
-public class PalletDAO extends BasicDAO<Pallet, ObjectId> {
-
-	/**
-	 * Constructor for PalletDAO.
-	 * @param ds Datastore
-	 */
-	public PalletDAO(Datastore ds){
-		super(Pallet.class, ds);
-	}
+public interface PalletDAO {
 	
+	/**
+	 * ritorna il pallet con l'id cercato
+	 * @param id id pallet
+	 * @return Passeggero
+	 */
+	public abstract Pallet get(ObjectId id);
+	
+	/**
+	 * salva il pallet
+	 * @param p pallet da salvare
+	 * @return Key
+	 */
+	public abstract Key<Pallet> save(Pallet p);
+	
+	/**
+	 * cancella il pallet richiesto
+	 * @param id id pallet da cancellare
+	 * @return WriteResult
+	 */
+	public abstract WriteResult deleteById(ObjectId id);
+
 	/**
 	 * ottiene l'elenco dei pallet di un certo volo
 	 * @param idVolo id del volo da cercare
 	
 	 * @return elenco dei pallet del volo */
-	public Query<Pallet> getByIdVolo(ObjectId idVolo){
-		return ds.createQuery(Pallet.class).filter("idVolo =", idVolo);
-	}
-	
+	public abstract Query<Pallet> getByIdVolo(ObjectId idVolo);
+
 	/**
 	 * salva una lista di pallet
 	 * @param list lista di pallet da salvare
 	 */
-	public void saveList(List<Pallet> list){
-		for(Pallet p : list){
-			this.save(p);
-		}
-	}
+	public abstract void saveList(List<Pallet> list);
+
 }

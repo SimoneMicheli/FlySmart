@@ -1,14 +1,14 @@
 /**
  * 
  */
-package smart;
+package checkin;
 
 /**
  * definisce i metodi da implementare per le classi che realizzano
  * gli algoritmi spatr di imbarco
  *
  */
-public interface SmartAlgorithm {
+public interface Checkin {
 	
 	/**
 	 * calcola la posizione dei pallet e dei passeggeri sull'aereo

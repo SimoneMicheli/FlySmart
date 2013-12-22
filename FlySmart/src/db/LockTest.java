@@ -29,7 +29,7 @@ public class LockTest {
 
 	@Test
 	public final void testGetInstance() {
-		Lock l = Lock.getInstance();
+		LockImpl l = LockImpl.getInstance();
 		assertNotNull(l);
 	}
 

@@ -25,5 +25,5 @@ public interface Prenotazione<T extends Model> {
 	 * @throws FlightNotFoundException volo non trovato
 	 * @throws SeatsSoldOutException volo pieno
 	 */
-	public ObjectId[] prenota(List<T> listToAdd, ObjectId idVolo) throws FlightNotFoundException, SeatsSoldOutException;
+	public abstract ObjectId[] prenota(List<T> listToAdd, ObjectId idVolo) throws FlightNotFoundException, SeatsSoldOutException;
 }

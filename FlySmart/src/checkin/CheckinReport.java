@@ -1,7 +1,7 @@
 /**
  * 
  */
-package smart;
+package checkin;
 
 import java.io.Serializable;
 import java.util.LinkedList;

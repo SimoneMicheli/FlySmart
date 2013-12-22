@@ -11,7 +11,7 @@ import org.apache.logging.log4j.Logger;
 import org.bson.types.ObjectId;
 
 import db.DBSession;
-import db.Lock;
+import db.LockImpl;
 
 
 import model.Pallet;
@@ -37,7 +37,7 @@ public class PrenotazionePallet implements Prenotazione<Pallet> {
 		
 		try {
 			//accesso esclusivo al volo
-			Lock.getInstance().acquireLock(idVolo);
+			LockImpl.getInstance().acquireLock(idVolo);
 			
 			Volo v = DBSession.getVoloDAO().get(idVolo);
 			
@@ -72,7 +72,7 @@ public class PrenotazionePallet implements Prenotazione<Pallet> {
 			log.info("Prenotazione effettuata con successo per i pallet sul volo id: "+idVolo);
 		} finally {
 			//rilascio il lock
-			Lock.getInstance().releaseLock(idVolo);
+			LockImpl.getInstance().releaseLock(idVolo);
 		}
 	
 		return ids;

@@ -38,13 +38,13 @@ public final class DBSession{
 	private static DBSession session = null;
 	
 	/** The v dao. */
-	private static VoloDAO vDAO=null;
+	private static VoloDAOImpl vDAO=null;
 	
 	/** The pass dao. */
-	private static PasseggeroDAO passDAO=null;
+	private static PasseggeroDAOImpl passDAO=null;
 	
 	/** The pall dao. */
-	private static PalletDAO pallDAO=null;
+	private static PalletDAOImpl pallDAO=null;
 	
 	/**
 	 * costruttore privato per singleton.
@@ -114,7 +114,7 @@ public final class DBSession{
 				log.catching(e);
 			}
 		if(vDAO == null)
-			vDAO = new VoloDAO(ds);
+			vDAO = new VoloDAOImpl(ds);
 		log.exit(vDAO);
 		return vDAO;
 	}
@@ -133,7 +133,7 @@ public final class DBSession{
 				log.catching(e);
 			}
 		if(passDAO == null)
-			passDAO = new PasseggeroDAO(ds);
+			passDAO = new PasseggeroDAOImpl(ds);
 		log.exit(passDAO);
 		return passDAO;
 	}
@@ -152,7 +152,7 @@ public final class DBSession{
 				log.catching(e);
 			}
 		if(pallDAO == null)
-			pallDAO = new PalletDAO(ds);
+			pallDAO = new PalletDAOImpl(ds);
 		log.exit(pallDAO);
 		return pallDAO;
 	}

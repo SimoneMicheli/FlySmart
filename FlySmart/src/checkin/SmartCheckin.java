@@ -1,4 +1,4 @@
-package smart;
+package checkin;
 
 
 import java.util.Arrays;
@@ -13,7 +13,7 @@ import util.Coordinata;
 import util.CoordinataPallet;
 import util.CoordinataPasseggero;
 import db.DBSession;
-import db.Lock;
+import db.LockImpl;
 import model.Gruppo;
 import model.Pallet;
 import model.Passeggero;
@@ -24,7 +24,7 @@ import model.Volo;
 /**
  *
  */
-public class SmartCheckin implements SmartAlgorithm{
+public class SmartCheckin implements Checkin{
 
 	/**
 	 * volo su cui calcolare i dati
@@ -49,7 +49,7 @@ public class SmartCheckin implements SmartAlgorithm{
 		System.out.println(SmartCheckin.class.getCanonicalName().toString());
 		
 		try{
-			Lock.getInstance().acquireLock(idVolo);
+			LockImpl.getInstance().acquireLock(idVolo);
 
 			v = DBSession.getVoloDAO().get(idVolo);
 
@@ -65,7 +65,7 @@ public class SmartCheckin implements SmartAlgorithm{
 			
 			posti = new PostiLiberi(v);
 		}finally{
-			Lock.getInstance().releaseLock(idVolo);
+			LockImpl.getInstance().releaseLock(idVolo);
 		}
 
 	}
@@ -74,7 +74,7 @@ public class SmartCheckin implements SmartAlgorithm{
 	/**
 	 * Method calcolaCheckin.
 	 * @return CheckinReport
-	 * @see smart.SmartAlgorithm#calcolaCheckin()
+	 * @see checkin.Checkin#calcolaCheckin()
 	 */
 	@Override
 	public CheckinReport calcolaCheckin() {

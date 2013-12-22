@@ -13,6 +13,7 @@ import com.google.code.morphia.Datastore;
 import db.DBSession;
 
 import xml.XMLCreate;
+import xml.XMLCreateImpl;
 import model.*;
 
 /**
@@ -75,7 +76,7 @@ public class Inizializer {
 		elencoAeroporti.add(new Aeroporto(28, "Verona"));
 		elencoAeroporti.add(new Aeroporto(29, "Vicenza"));
 
-		XMLCreate<Aeroporto> XMLAeroporti = new XMLCreate<Aeroporto>();
+		XMLCreate<Aeroporto> XMLAeroporti = new XMLCreateImpl<Aeroporto>();
 		Document d = XMLAeroporti.createFlySmartDocument(elencoAeroporti);
 		XMLAeroporti.printDocument(d,Options.aeroportiFileName);
 	}

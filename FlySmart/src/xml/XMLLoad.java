@@ -20,7 +20,7 @@ public class XMLLoad {
 	 * 
 	 */
 	
-	public Document loadDocument(String path) {
+	protected Document loadDocument(String path) {
 		// Si crea un'istanza di DocumentBuilderFactory usando il metodo statico newInstance()
 		DocumentBuilderFactory f = DocumentBuilderFactory.newInstance();
 		// Si impostano le caratteristiche desiderate per il DOM

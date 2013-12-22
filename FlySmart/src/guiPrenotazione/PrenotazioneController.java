@@ -24,7 +24,7 @@ import model.Aeroporto;
 import model.Pallet;
 import model.Passeggero;
 import model.Volo;
-import network.ServerInterface;
+import network.Server;
 
 
 /**Il controller della vista di prenotazione
@@ -41,7 +41,7 @@ public class PrenotazioneController extends Controller {
 	 *
 	 * @param serv l'oggetto che la login mi passa per la connessione con il server
 	 */
-	public PrenotazioneController(ServerInterface serv){
+	public PrenotazioneController(Server serv){
 		view= new PrenotazioneView(); //creo la vista
 		view.setVisible(true);
 		this.serv=serv;

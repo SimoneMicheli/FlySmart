@@ -32,7 +32,7 @@ public class ServerTest {
 	}
 
 	/**
-	 * Test method for {@link network.Server#getAeroporti()}.
+	 * Test method for {@link network.ServerImpl#getAeroporti()}.
 	 */
 	@Test
 	public final void testGetAeroporti() {
@@ -40,7 +40,7 @@ public class ServerTest {
 	}
 
 	/**
-	 * Test method for {@link network.Server#getVoli(int, int)}.
+	 * Test method for {@link network.ServerImpl#getVoli(int, int)}.
 	 */
 	@Test
 	public final void testGetVoli() {
@@ -48,7 +48,7 @@ public class ServerTest {
 	}
 
 	/**
-	 * Test method for {@link network.Server#prenotaPallet(java.util.List, org.bson.types.ObjectId)}.
+	 * Test method for {@link network.ServerImpl#prenotaPallet(java.util.List, org.bson.types.ObjectId)}.
 	 */
 	@Test
 	public final void testPrenotaPallet() {

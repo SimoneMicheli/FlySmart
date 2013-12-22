@@ -6,7 +6,7 @@ package cancellazione;
 import org.bson.types.ObjectId;
 
 import db.DBSession;
-import db.Lock;
+import db.LockImpl;
 
 import model.Pallet;
 import model.Volo;
@@ -15,7 +15,7 @@ import model.Volo;
  * la classe implementa i metodi che permettono di cancellare un pallet
  *
  */
-public class CancellaPallet {
+public class CancellaPallet implements Cancella{
 
 	/**
 	 * ottene le informazioni sul pallet richiesto
@@ -30,13 +30,13 @@ public class CancellaPallet {
 	 * cancella il pallet richiesto
 	 * @param id del pallet da cancellare
 	 */
-	public void cancellaPallet(ObjectId id){
+	public void cancella(ObjectId id){
 		Pallet p = DBSession.getPalletDAO().get(id);
 		if(p != null){
 			
 			try {
 				//accesso esclusivo al volo
-				Lock.getInstance().acquireLock(p.getIdVolo());
+				LockImpl.getInstance().acquireLock(p.getIdVolo());
 				
 				Volo v = DBSession.getVoloDAO().get(p.getIdVolo());
 				v.setPalletDisponibili(v.getPalletDisponibili() +1);
@@ -45,7 +45,7 @@ public class CancellaPallet {
 				DBSession.getPalletDAO().deleteById(id);
 				DBSession.getVoloDAO().save(v);
 			} finally{
-				Lock.getInstance().releaseLock(p.getIdVolo());
+				LockImpl.getInstance().releaseLock(p.getIdVolo());
 			}
 		} else {
 			throw new DeleteException("Can't find pallet with id: "+id);

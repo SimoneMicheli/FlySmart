@@ -43,7 +43,7 @@ public class XMLTest {
 
 	@Test
 	public final void testCreateFlySmartDocumentListOfE() {
-		XMLCreate<Aeroporto> XMLAeroporti = new XMLCreate<Aeroporto>();
+		XMLCreate<Aeroporto> XMLAeroporti = new XMLCreateImpl<Aeroporto>();
 		
 		assertNotNull("Impossibile creare l'oggetto XML Creator", XMLAeroporti);
 		
@@ -54,7 +54,7 @@ public class XMLTest {
 
 	@Test
 	public final void testPrintDocumentAndRead() {
-		XMLCreate<Aeroporto> XMLAeroporti = new XMLCreate<Aeroporto>();
+		XMLCreate<Aeroporto> XMLAeroporti = new XMLCreateImpl<Aeroporto>();
 		Document d = XMLAeroporti.createFlySmartDocument(elencoAeroporti);
 		
 		try {
@@ -65,7 +65,7 @@ public class XMLTest {
 		
 		//leggi da file e controlla
 		List<Aeroporto> aeroporti = new LinkedList<Aeroporto>();
-		XMLToObj<Aeroporto> parserXML = new XMLToObj<Aeroporto>(Aeroporto.class);
+		XMLToObj<Aeroporto> parserXML = new XMLToObjImpl<Aeroporto>(Aeroporto.class);
 		aeroporti = parserXML.readObj(Options.aeroportiFileName);
 		
 		assertArrayEquals(elencoAeroporti.toArray(), aeroporti.toArray());

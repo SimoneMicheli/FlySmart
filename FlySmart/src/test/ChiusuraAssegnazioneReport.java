@@ -19,15 +19,16 @@ import java.util.Properties;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-import network.ServerInterface;
+import checkin.CheckinReport;
+import checkin.PostiLiberi;
+import checkin.PostoLibero;
+import checkin.SmartCheckin;
+
+import network.Server;
 
 import prenotazione.FlightNotFoundException;
 import prenotazione.PrenotazionePallet;
 import prenotazione.PrenotazionePasseggero;
-import smart.CheckinReport;
-import smart.PostiLiberi;
-import smart.PostoLibero;
-import smart.SmartCheckin;
 import util.Options;
 
 import model.Pallet;
@@ -109,10 +110,10 @@ public class ChiusuraAssegnazioneReport {
 		}
 		
 		
-		ServerInterface serv;
+		Server serv;
 		String url = "rmi://localhost:1099/FlySmartServer";
 		try {
-			serv = (ServerInterface) Naming.lookup(url);
+			serv = (Server) Naming.lookup(url);
 			CheckinReport cr = serv.calcolaCheckin(v.getId());
 			JFrame frame = new Report(cr,v);
 			frame.setVisible(true);

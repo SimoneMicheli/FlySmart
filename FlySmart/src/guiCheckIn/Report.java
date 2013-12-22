@@ -15,11 +15,11 @@ import javax.swing.*;
 import comparator.PasseggeroComparator;
 import comparator.PostoComparator;
 
+import checkin.CheckinReport;
 import client.View;
 import model.Pallet;
 import model.Volo;
 import model.Passeggero;
-import smart.CheckinReport;
 
 
 // TODO: Auto-generated Javadoc

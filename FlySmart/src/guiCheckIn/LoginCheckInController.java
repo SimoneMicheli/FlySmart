@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
 import client.Controller;
 import client.LoginView;
 
-import network.ServerInterface;
+import network.Server;
 
 
 /**Il controller della form di login per il check in
@@ -90,7 +90,7 @@ public class LoginCheckInController extends Controller {
 		}else{ 
 			String url = "rmi://"+ view.ip.getText().toString() +":"+ view.port.getText().toString() +"/FlySmartServer";
 			try {
-				serv = (ServerInterface) Naming.lookup(url);
+				serv = (Server) Naming.lookup(url);
 				view.dispose();  //elimino la vecchia view
 				p = new CheckInController(serv); //creo il nuovo controller (che creerà la nuova view)
 			} catch (MalformedURLException e) {

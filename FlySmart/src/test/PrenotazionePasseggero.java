@@ -13,7 +13,7 @@ import java.util.Properties;
 
 import javax.swing.JOptionPane;
 
-import network.ServerInterface;
+import network.Server;
 import model.*;
 
 public class PrenotazionePasseggero {
@@ -58,10 +58,10 @@ public class PrenotazionePasseggero {
 		}
 		
 		
-		ServerInterface serv;
+		Server serv;
 		String url = "rmi://localhost:1099/FlySmartServer";
 			try {
-				serv = (ServerInterface) Naming.lookup(url);
+				serv = (Server) Naming.lookup(url);
 				List<Passeggero> l = new LinkedList<Passeggero>();
 				
 				l.add(new Passeggero("Alberto", "Bianchi", 10, 10, 1960, Sesso.M)); //80

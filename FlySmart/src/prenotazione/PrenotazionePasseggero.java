@@ -13,7 +13,7 @@ import model.StatoVolo;
 import model.Volo;
 
 import db.DBSession;
-import db.Lock;
+import db.LockImpl;
 
 /**
  * la classe gestisce la prenotazione di un passeggero
@@ -34,7 +34,7 @@ public class PrenotazionePasseggero implements Prenotazione<Passeggero> {
 		
 		try {
 			//accesso esclusivo al volo
-			Lock.getInstance().acquireLock(idVolo);
+			LockImpl.getInstance().acquireLock(idVolo);
 			
 			//recupero volo da DB
 			Volo v = DBSession.getVoloDAO().get(idVolo);
@@ -75,7 +75,7 @@ public class PrenotazionePasseggero implements Prenotazione<Passeggero> {
 			log.info("Prenotazione effettuata con successo per il gruppo: "+idGruppo[0]+" di: "+listToAdd.size()+" passeggeri sul volo id: "+idVolo);
 		} finally  {
 			//rilascio il lock
-			Lock.getInstance().releaseLock(idVolo);
+			LockImpl.getInstance().releaseLock(idVolo);
 		}
 		
 		return idGruppo;

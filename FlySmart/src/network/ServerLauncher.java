@@ -56,7 +56,7 @@ public final class ServerLauncher {
 
 		try {
 			//crea l'oggetto server
-			Server s = new Server(clientfactory, serverfactory);
+			ServerImpl s = new ServerImpl(clientfactory, serverfactory);
 
 			//crea il registro RMI sulla porta di default 1099
 			Registry r = LocateRegistry.createRegistry(1099);

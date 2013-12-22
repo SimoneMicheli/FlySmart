@@ -1,7 +1,7 @@
 /**
  * 
  */
-package smart;
+package checkin;
 
 import static org.junit.Assert.*;
 

@@ -1,4 +1,4 @@
-package smart;
+package checkin;
 
 import java.io.IOException;
 import java.util.Date;

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package smart;
+package checkin;
 
 import java.util.LinkedList;
 import java.util.List;

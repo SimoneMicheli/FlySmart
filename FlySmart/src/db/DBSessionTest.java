@@ -50,21 +50,21 @@ public class DBSessionTest {
 	public final void testGetVoloDAO() {
 		Object v = DBSession.getVoloDAO();
 		assertNotNull(v);
-		assertTrue("Tipo errato",v instanceof VoloDAO);
+		assertTrue("Tipo errato",v instanceof VoloDAOImpl);
 	}
 
 	@Test
 	public final void testGetPasseggeroDAO() {
 		Object v = DBSession.getPasseggeroDAO();
 		assertNotNull(v);
-		assertTrue("Tipo errato",v instanceof PasseggeroDAO);
+		assertTrue("Tipo errato",v instanceof PasseggeroDAOImpl);
 	}
 
 	@Test
 	public final void testGetPalletDAO() {
 		Object v = DBSession.getPalletDAO();
 		assertNotNull(v);
-		assertTrue("Tipo errato",v instanceof PalletDAO);
+		assertTrue("Tipo errato",v instanceof PalletDAOImpl);
 	}
 
 }

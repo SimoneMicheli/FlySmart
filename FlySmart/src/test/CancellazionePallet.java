@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
 
 import org.bson.types.ObjectId;
 
-import network.ServerInterface;
+import network.Server;
 import model.*;
 
 public class CancellazionePallet {
@@ -60,10 +60,10 @@ public class CancellazionePallet {
 		}
 		
 		
-		ServerInterface serv;
+		Server serv;
 		String url = "rmi://localhost:1099/FlySmartServer";
 			try {
-				serv = (ServerInterface) Naming.lookup(url);
+				serv = (Server) Naming.lookup(url);
 				List<Pallet> l = new LinkedList<Pallet>();
 				List<Volo> v = serv.getVoli(1, 2);		
 				l.add(new Pallet(800,"rthfdg", v.get(0).getId()));

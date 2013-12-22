@@ -1,7 +1,7 @@
 /**
  * 
  */
-package smart;
+package checkin;
 
 /**
  * la classe rappresenta un posto libero sull'aereo non assegnato

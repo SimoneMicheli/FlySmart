@@ -64,7 +64,7 @@ public class CancellaPasseggeroTest {
 		
 		int posti = DBSession.getVoloDAO().get(p1.getIdVolo()).getPostiDisponibili();
 		
-		cp.cancellaPasseggero(p1.getId());
+		cp.cancella(p1.getId());
 		int posti2 = DBSession.getVoloDAO().get(p1.getIdVolo()).getPostiDisponibili();
 		
 		assertEquals(posti + 1, posti2);
@@ -74,7 +74,7 @@ public class CancellaPasseggeroTest {
 	@Test (expected = DeleteException.class)
 	public void testCancellaPasseggeroException(){
 		CancellaPasseggero cp = new CancellaPasseggero();
-		cp.cancellaPasseggero(new ObjectId());
+		cp.cancella(new ObjectId());
 	}
 
 }

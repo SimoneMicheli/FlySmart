@@ -8,7 +8,7 @@ import java.util.List;
 import org.bson.types.ObjectId;
 
 import db.DBSession;
-import db.Lock;
+import db.LockImpl;
 
 import model.Passeggero;
 import model.Volo;
@@ -17,12 +17,11 @@ import model.Volo;
  * la classe implementa i metodi che permettono di cancellare un passeggero
  *
  */
-public class CancellaPasseggero {
+public class CancellaPasseggero implements Cancella{
 
 	/**
 	 * fornendo l'id del gruppo restituisce l'elenco dei passeggeri nel gruppo
 	 * @param idGruppo
-	
 	 * @return elenco passeggeri */
 	public List<Passeggero> getPasseggeriGruppo(ObjectId idGruppo){
 		return DBSession.getPasseggeroDAO().getByGroupId(idGruppo).asList();
@@ -33,12 +32,12 @@ public class CancellaPasseggero {
 	
 	 * @param id ObjectId
 	 */
-	public void cancellaPasseggero(ObjectId id){
+	public void cancella(ObjectId id){
 		Passeggero p = DBSession.getPasseggeroDAO().get(id);
 		
 		if(p != null){
 			//accesso esclusivo al volo
-			Lock.getInstance().acquireLock(p.getIdVolo());
+			LockImpl.getInstance().acquireLock(p.getIdVolo());
 			
 			try {
 				Volo v = DBSession.getVoloDAO().get(p.getIdVolo());
@@ -47,7 +46,7 @@ public class CancellaPasseggero {
 				DBSession.getPasseggeroDAO().deleteById(id);
 				DBSession.getVoloDAO().save(v);
 			} finally {
-				Lock.getInstance().releaseLock(p.getIdVolo());
+				LockImpl.getInstance().releaseLock(p.getIdVolo());
 			}
 		} else {
 			throw new DeleteException("Can't find passenger with id: "+id);

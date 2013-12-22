@@ -58,7 +58,7 @@ public class CancellaPalletTest {
 		
 		int posti = DBSession.getVoloDAO().get(p1.getIdVolo()).getPalletDisponibili();
 		
-		cp.cancellaPallet(p1.getId());
+		cp.cancella(p1.getId());
 		int posti2 = DBSession.getVoloDAO().get(p1.getIdVolo()).getPalletDisponibili();
 		
 		assertEquals(posti + 1, posti2);
@@ -70,7 +70,7 @@ public class CancellaPalletTest {
 	@Test(expected = DeleteException.class)
 	public void testCancellaPalletException(){
 		CancellaPallet cp = new CancellaPallet();
-		cp.cancellaPallet(new ObjectId());
+		cp.cancella(new ObjectId());
 	}
 
 }

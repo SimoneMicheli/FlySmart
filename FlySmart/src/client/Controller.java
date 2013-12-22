@@ -1,6 +1,6 @@
 package client;
 
-import network.ServerInterface;
+import network.Server;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -10,5 +10,5 @@ import network.ServerInterface;
 public abstract class Controller {
 	
 	/** L'oggetto per la connessione con il server. */
-	protected ServerInterface serv;
+	protected Server serv;
 }
