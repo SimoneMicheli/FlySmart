@@ -81,7 +81,7 @@ public class Test {
 		
 		PostiLiberi p = new PostiLiberi(v);
 		
-		Posto pl = p.postoLiberoPasseggeri(0, 0);
+		PostoLibero pl = p.postoLiberoPasseggeri(0, 0);
 		
 		System.out.println("------------");
 		System.out.println(pl);

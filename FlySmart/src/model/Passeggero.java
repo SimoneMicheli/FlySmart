@@ -18,7 +18,7 @@ import com.google.code.morphia.annotations.Indexed;
  */
 @SuppressWarnings("serial")
 @Entity
-public class Passeggero extends Model {
+public class Passeggero extends Posto{
 	
 	/** Id del gruppo di passeggero */
 	@Indexed
@@ -43,12 +43,6 @@ public class Passeggero extends Model {
 	/** Id del volo del passeggero */
 	@Indexed
 	private ObjectId idVolo;
-	
-	/** Fila del posto del passeggero */
-	private Integer fila;
-	
-	/** Colonna del posto del passeggero */
-	private Integer colonna;
 
 	/**
 	 * Istanzia un nuovo passeggero (supercostruttore)
@@ -128,43 +122,9 @@ public class Passeggero extends Model {
 	}
 
 
-	/**
-	 * Ottiene il numero di fila sul volo prenotato dal passeggero
-	 *
+
+
 	
-	 * @return Il numero di fila sul volo prenotato dal passeggero */
-	public Integer getFila() {
-		return fila;
-	}
-
-
-	/**
-	 * Setta il numero di fila sul volo prenotato dal passeggero
-	 *
-	 * @param fila Il numero di fila sul volo prenotato dal passeggero
-	 */
-	public void setFila(Integer fila) {
-		this.fila = fila;
-	}
-
-
-	/**
-	 * Ottiene il numero di colonna sul volo prenotato dal passeggero
-	 *
-	
-	 * @return Il numero di colonna sul volo prenotato dal passeggero */
-	public Integer getColonna() {
-		return colonna;
-	}
-
-	/**
-	 * Setta il numero di colonna sul volo prenotato dal passeggero
-	 *
-	 * @param colonna Il numero di colonna sul volo prenotato dal passeggero
-	 */
-	public void setColonna(Integer colonna) {
-		this.colonna = colonna;
-	}
 
 	/**
 	 * Ottiene il nome del passeggero

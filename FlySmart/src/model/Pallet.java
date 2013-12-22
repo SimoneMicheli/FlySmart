@@ -11,7 +11,7 @@ import com.google.code.morphia.annotations.Indexed;
  */
 @SuppressWarnings("serial")
 @Entity
-public class Pallet extends Model {
+public class Pallet extends Posto{
 	
 	/** Il peso del pallet */
 	@Indexed
@@ -23,12 +23,6 @@ public class Pallet extends Model {
 	/** Id del volo su cui si trova il pallet */
 	@Indexed
 	private ObjectId idVolo;
-	
-	/** Indica la fila in cui posizionare il pallet*/
-	private Integer fila;
-	
-	/** Indica la colonna in cui posizionare il pallet*/
-	private Integer colonna;
 	
 	/**
 	 * Istanzia un nuovo pallet (supercostruttore)
@@ -99,31 +93,6 @@ public class Pallet extends Model {
 	 */
 	public void setIdVolo(ObjectId idVolo) {
 		this.idVolo = idVolo;
-	}
-
-	
-	/** Restituisce la fila in cui posizionare del palle * @return Integer
-	t*/
-	public Integer getFila() {
-		return fila;
-	}
-
-	/** Setta la fila in cui posizionare del palle * @param fila Integer
-	t*/
-	public void setFila(Integer fila) {
-		this.fila = fila;
-	}
-
-	/** Restituisce la colonna in cui posizionare il palle * @return Integer
-	t*/
-	public Integer getColonna() {
-		return colonna;
-	}
-
-	/** Setta la colonna in cui posizionare il palle * @param colonna Integer
-	t*/
-	public void setColonna(Integer colonna) {
-		this.colonna = colonna;
 	}
 	
 	/**

@@ -26,7 +26,7 @@ import prenotazione.PrenotazionePallet;
 import prenotazione.PrenotazionePasseggero;
 import smart.CheckinReport;
 import smart.PostiLiberi;
-import smart.Posto;
+import smart.PostoLibero;
 import smart.SmartCheckin;
 import util.Options;
 
@@ -135,7 +135,7 @@ public class ChiusuraAssegnazioneReport {
 		
 		PostiLiberi p = new PostiLiberi(v);
 		
-		Posto pl = p.postoLiberoPasseggeri(0, 0);
+		PostoLibero pl = p.postoLiberoPasseggeri(0, 0);
 		
 		System.out.println("------------");
 		System.out.println(pl);

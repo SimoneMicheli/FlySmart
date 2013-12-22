@@ -11,6 +11,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.bson.types.ObjectId;
 
+import comparator.AeroportoComparator;
+
 import cancellazione.CancellaPallet;
 import cancellazione.CancellaPasseggero;
 import cancellazione.DeleteException;

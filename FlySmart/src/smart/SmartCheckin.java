@@ -138,7 +138,7 @@ public class SmartCheckin implements SmartAlgorithm{
 		log.debug("momY: "+mom[1]);
 
 		//posizono il primo pallet
-		Posto pos = posti.postoLiberoPallet(-0.5,0.5);
+		PostoLibero pos = posti.postoLiberoPallet(-0.5,0.5);
 		log.debug("Questo peso: di "+p.getPeso()+"kg va in [x:"+p.getColonna()+" y:"+p.getFila()+"] produce [momX:"+mom[0]+" momY: "+mom[1]+"]");
 		
 		//calcolo posizione per i pallet successivi
@@ -226,7 +226,7 @@ public class SmartCheckin implements SmartAlgorithm{
 		double[] mom = new double[2];
 		
 		for(Passeggero p : g){
-			Posto postoLibero = posti.postoLiberoPasseggeri(colonnaScelta, rigaScelta);
+			PostoLibero postoLibero = posti.postoLiberoPasseggeri(colonnaScelta, rigaScelta);
 			
 			//assegno posizioni effettive
 			p.setFila(postoLibero.y);

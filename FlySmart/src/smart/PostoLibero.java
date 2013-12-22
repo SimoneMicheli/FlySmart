@@ -7,7 +7,7 @@ package smart;
  * la classe rappresenta un posto libero sull'aereo non assegnato
  *
  */
-public class Posto {
+public class PostoLibero {
 
 	/**
 	 * variabili x,y che indicano la pposizione del posto sull'aereo
@@ -25,7 +25,7 @@ public class Posto {
 	 * @param y fila del posto
 	 * @param dist distanza dal posto ottimo
 	 */
-	Posto(int x, int y, int dist){
+	PostoLibero(int x, int y, int dist){
 		this.x = x;
 		this.y = y;
 		distanza = dist;
@@ -38,7 +38,7 @@ public class Posto {
 	 * @param ottimoX colonna del posto ottimo
 	 * @param ottimoY fila del posto ottimo
 	 */
-	Posto(int x, int y, int ottimoX, int ottimoY){
+	PostoLibero(int x, int y, int ottimoX, int ottimoY){
 		this.x = x;
 		this.y = y;
 		

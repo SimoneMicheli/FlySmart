@@ -1,11 +1,14 @@
-package model;
+package comparator;
 
 import static org.junit.Assert.*;
+
+import model.Passeggero;
+import model.Sesso;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class PasseggeroComparatorTest {
+public class PasseggeroPostoComparatorTest {
 	private static Passeggero p1, p2 ,p3,p4;
 	
 	@BeforeClass
@@ -29,19 +32,19 @@ public class PasseggeroComparatorTest {
 
 	@Test
 	public final void testPostiComparator() {
-		int cmp = PasseggeroComparator.POSTO_ORDER.compare(p1, p2);
+		int cmp = PostoComparator.POSTO_ORDER.compare(p1, p2);
 		assertTrue("p1 prima di p2", cmp < 0);
 		
-		cmp = PasseggeroComparator.POSTO_ORDER.compare(p2, p1);
+		cmp = PostoComparator.POSTO_ORDER.compare(p2, p1);
 		assertTrue("p1 prima di p2", cmp > 0);
 		
-		cmp = PasseggeroComparator.POSTO_ORDER.compare(p2, p3);
+		cmp = PostoComparator.POSTO_ORDER.compare(p2, p3);
 		assertTrue("p2 prima di p3", cmp < 0);
 		
-		cmp = PasseggeroComparator.POSTO_ORDER.compare(p3, p2);
+		cmp = PostoComparator.POSTO_ORDER.compare(p3, p2);
 		assertTrue("p2 prima di p3", cmp > 0);
 		
-		cmp = PasseggeroComparator.POSTO_ORDER.compare(p1, p4);
+		cmp = PostoComparator.POSTO_ORDER.compare(p1, p4);
 		assertTrue("p1 prima di p4", cmp > 0);
 	}
 	

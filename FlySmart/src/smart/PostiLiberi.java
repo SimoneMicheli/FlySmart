@@ -47,7 +47,7 @@ public class PostiLiberi {
 	 * @param ottimoY riga posto richiesto
 	 * @return posto in cui posizionare il passeggero
 	 */
-	public Posto postoLiberoPasseggeri(double ottimoX, double ottimoY){
+	public PostoLibero postoLiberoPasseggeri(double ottimoX, double ottimoY){
 		Coordinata coord = new CoordinataPasseggero(v.getTipoAereo());
 		int maxRighe = v.getTipoAereo().getFilePasseggeri();
 		int maxColonne = v.getTipoAereo().getColonnePasseggeri();
@@ -62,7 +62,7 @@ public class PostiLiberi {
 	
 	 * @return posto in cui posizionare il pallet 
 	 */
-	public Posto postoLiberoPallet(double distX, double distY){
+	public PostoLibero postoLiberoPallet(double distX, double distY){
 		Coordinata coord = new CoordinataPallet(v.getTipoAereo());
 		int maxRighe = v.getTipoAereo().getFilePallet();
 		int maxColonne = v.getTipoAereo().getColonnePallet();
@@ -80,7 +80,7 @@ public class PostiLiberi {
 	 * @param maxColonne numero di colonne sull'aereo richiesto
 	 * @return
 	 */
-	protected Posto postoLibero(double ottimoX, double ottimoY,boolean[][] occupancy, Coordinata coord, int maxRighe, int maxColonne){
+	protected PostoLibero postoLibero(double ottimoX, double ottimoY,boolean[][] occupancy, Coordinata coord, int maxRighe, int maxColonne){
 		//discretizzo posizione (intervallo 1 shift 0.5) la x
 		if(ottimoX <=0 && ottimoX>=-0.5)
 			ottimoX = -0.5;
@@ -106,16 +106,16 @@ public class PostiLiberi {
 		if(postoY <0 )
 			postoY = 0;
 		
-		LinkedList<Posto> posti = new LinkedList<Posto>();
+		LinkedList<PostoLibero> posti = new LinkedList<PostoLibero>();
 		
 		//preparo posti liberi
 		for(int r=0; r<maxRighe; r++)
 			for(int c=0; c<maxColonne; c++)
 				if(occupancy[r][c] == false)
-					posti.add(new Posto(c, r, postoX, postoY));
+					posti.add(new PostoLibero(c, r, postoX, postoY));
 
 		//ordinamento posti
-		Posto postiOrdinati = ordinaPostiLiberi(posti, maxRighe);
+		PostoLibero postiOrdinati = ordinaPostiLiberi(posti, maxRighe);
 	
 		//contrassegno posto come occupati
 		occupancy[postiOrdinati.y][postiOrdinati.x] = true;
@@ -130,21 +130,21 @@ public class PostiLiberi {
 	 * @param posti disponibili
 	 * @return posto più vicino
 	 */
-	protected Posto ordinaPostiLiberi(List<Posto> posti, int maxRighe){
+	protected PostoLibero ordinaPostiLiberi(List<PostoLibero> posti, int maxRighe){
 			
 		@SuppressWarnings("unchecked")
-		List<Posto> ordinata[] =  new List[((4+maxRighe)*2)+1];
+		List<PostoLibero> ordinata[] =  new List[((4+maxRighe)*2)+1];
 		
 		//per ogni posto libero
-		for(Posto p : posti){
+		for(PostoLibero p : posti){
 			
 			int dist = p.getDistanza();
 			
 			//verifico se esiste già
-			List<Posto> l = ordinata[dist];
+			List<PostoLibero> l = ordinata[dist];
 			if(l==null){
 				//creo la lista non ancora inserita
-				l = new LinkedList<Posto>();
+				l = new LinkedList<PostoLibero>();
 				ordinata[dist] = l;
 			}
 			//inserisco il posto nella lista di posti a distanza dist
@@ -152,10 +152,10 @@ public class PostiLiberi {
 		}
 		
 		//ritorno solo il primo posto libero (quello a distanza minore)
-		Posto postoLibero = null;
+		PostoLibero postoLibero = null;
 
 		for(int i=0; i< ((4+maxRighe)*2)+1; i++){
-			List<Posto> l = ordinata[i];
+			List<PostoLibero> l = ordinata[i];
 			
 			//nessun posto a distanza l
 			if(l==null)

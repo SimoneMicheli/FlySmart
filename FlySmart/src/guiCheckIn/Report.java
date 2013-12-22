@@ -11,9 +11,12 @@ import java.awt.event.MouseEvent;
 import java.util.Collections;
 import java.util.List;
 import javax.swing.*;
+
+import comparator.PasseggeroComparator;
+import comparator.PostoComparator;
+
 import client.View;
 import model.Pallet;
-import model.PasseggeroComparator;
 import model.Volo;
 import model.Passeggero;
 import smart.CheckinReport;
@@ -103,6 +106,8 @@ public class Report extends View {
 		reportTextArea.setLineWrap(false);
 		reportTextArea.setWrapStyleWord(false);
 		reportTextArea.append("PALLET\n");
+		//ordino pallet per posto
+		Collections.sort(pallet, PostoComparator.POSTO_ORDER);
 		for (Pallet p : pallet){
 			reportTextArea.append("("+ p.getColonna()+ ";" + p.getFila()+") "+p.getTarga()+ " " +p.getPeso() + "kg \n");
 			occupancyPallet[p.getFila()][p.getColonna()]=true;
@@ -110,7 +115,7 @@ public class Report extends View {
 		}
 		
 		//ordino passeggeri per posto
-		Collections.sort(passeggeri, PasseggeroComparator.POSTO_ORDER);
+		Collections.sort(passeggeri, PasseggeroComparator.NAME_ORDER);
 		reportTextArea.append("\n\nPASSEGGERI\n");
 		for (Passeggero p : passeggeri){
 			reportTextArea.append("("+ p.getColonna()+ ";" + p.getFila()+") "+p.getCognome()+ " " +p.getNome()+ " \n");
