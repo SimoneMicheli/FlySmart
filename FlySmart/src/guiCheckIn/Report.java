@@ -8,10 +8,12 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Collections;
 import java.util.List;
 import javax.swing.*;
 import client.View;
 import model.Pallet;
+import model.PasseggeroComparator;
 import model.Volo;
 import model.Passeggero;
 import smart.CheckinReport;
@@ -107,6 +109,8 @@ public class Report extends View {
 			pesoTotale+=p.getPeso();
 		}
 		
+		//ordino passeggeri per posto
+		Collections.sort(passeggeri, PasseggeroComparator.POSTO_ORDER);
 		reportTextArea.append("\n\nPASSEGGERI\n");
 		for (Passeggero p : passeggeri){
 			reportTextArea.append("("+ p.getColonna()+ ";" + p.getFila()+") "+p.getCognome()+ " " +p.getNome()+ " \n");
