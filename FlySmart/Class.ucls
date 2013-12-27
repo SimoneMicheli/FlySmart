@@ -3,7 +3,7 @@
   realizations="true" associations="true" dependencies="false" nesting-relationships="true">  
   <interface id="1" language="java" name="network.Server" project="FlySmart" file="/FlySmart/src/network/Server.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="254" y="267"/>    
+    <position height="-1" width="-1" x="322" y="273"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -12,7 +12,7 @@
   </interface>  
   <class id="2" language="java" name="network.ServerImpl" project="FlySmart" 
     file="/FlySmart/src/network/ServerImpl.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="314" width="408" x="579" y="37"/>    
+    <position height="-1" width="-1" x="323" y="648"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -22,7 +22,7 @@
   <interface id="3" language="java" name="java.rmi.Remote" project="FlySmart" 
     file="/Library/Java/JavaVirtualMachines/jdk1.7.0_45.jdk/Contents/Home/jre/lib/rt.jar" binary="true" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="243" y="48"/>    
+    <position height="-1" width="-1" x="323" y="48"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -31,7 +31,7 @@
   </interface>  
   <interface id="4" language="java" name="prenotazione.Prenotazione" project="FlySmart" 
     file="/FlySmart/src/prenotazione/Prenotazione.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="80" width="218" x="213" y="487"/>    
+    <position height="-1" width="-1" x="1664" y="95"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -40,7 +40,7 @@
   </interface>  
   <class id="5" language="java" name="prenotazione.PrenotazionePallet" project="FlySmart" 
     file="/FlySmart/src/prenotazione/PrenotazionePallet.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="143" y="698"/>    
+    <position height="-1" width="-1" x="1485" y="266"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -49,7 +49,7 @@
   </class>  
   <class id="6" language="java" name="prenotazione.PrenotazionePasseggero" project="FlySmart" 
     file="/FlySmart/src/prenotazione/PrenotazionePasseggero.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="460" y="704"/>    
+    <position height="-1" width="-1" x="1802" y="272"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -58,7 +58,7 @@
   </class>  
   <interface id="7" language="java" name="cancellazione.Cancella" project="FlySmart" 
     file="/FlySmart/src/cancellazione/Cancella.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="297" y="885"/>    
+    <position height="-1" width="-1" x="1645" y="441"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -67,7 +67,7 @@
   </interface>  
   <class id="8" language="java" name="cancellazione.CancellaPallet" project="FlySmart" 
     file="/FlySmart/src/cancellazione/CancellaPallet.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="202" y="1094"/>    
+    <position height="-1" width="-1" x="1466" y="646"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -76,7 +76,7 @@
   </class>  
   <class id="9" language="java" name="cancellazione.CancellaPasseggero" project="FlySmart" 
     file="/FlySmart/src/cancellazione/CancellaPasseggero.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="459" y="1095"/>    
+    <position height="-1" width="-1" x="1819" y="653"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -85,7 +85,7 @@
   </class>  
   <interface id="10" language="java" name="checkin.Checkin" project="FlySmart" file="/FlySmart/src/checkin/Checkin.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1457" y="158"/>    
+    <position height="-1" width="-1" x="289" y="1476"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -94,7 +94,7 @@
   </interface>  
   <class id="11" language="java" name="checkin.SmartCheckin" project="FlySmart" 
     file="/FlySmart/src/checkin/SmartCheckin.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1458" y="368"/>    
+    <position height="-1" width="-1" x="289" y="1746"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -103,7 +103,7 @@
   </class>  
   <class id="12" language="java" name="checkin.PostiLiberi" project="FlySmart" 
     file="/FlySmart/src/checkin/PostiLiberi.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1956" y="360"/>    
+    <position height="-1" width="-1" x="289" y="2064"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -112,7 +112,7 @@
   </class>  
   <class id="13" language="java" name="model.ModelImpl" project="FlySmart" file="/FlySmart/src/model/ModelImpl.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1680" y="814"/>    
+    <position height="-1" width="-1" x="2214" y="1274"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -122,7 +122,7 @@
   <interface id="14" language="java" name="java.io.Serializable" project="FlySmart" 
     file="/Library/Java/JavaVirtualMachines/jdk1.7.0_45.jdk/Contents/Home/jre/lib/rt.jar" binary="true" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1892" y="542"/>    
+    <position height="-1" width="-1" x="2438" y="898"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -131,7 +131,7 @@
   </interface>  
   <class id="15" language="java" name="model.Posto" project="FlySmart" file="/FlySmart/src/model/Posto.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1686" y="1082"/>    
+    <position height="-1" width="-1" x="2558" y="1570"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -140,7 +140,7 @@
   </class>  
   <class id="16" language="java" name="model.Aeroporto" project="FlySmart" file="/FlySmart/src/model/Aeroporto.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="2082" y="878"/>    
+    <position height="-1" width="-1" x="2848" y="1308"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -149,7 +149,7 @@
   </class>  
   <class id="17" language="java" name="model.Pallet" project="FlySmart" file="/FlySmart/src/model/Pallet.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1682" y="1482"/>    
+    <position height="-1" width="-1" x="2446" y="1990"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -158,7 +158,7 @@
   </class>  
   <class id="18" language="java" name="model.Passeggero" project="FlySmart" file="/FlySmart/src/model/Passeggero.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="2106" y="1522"/>    
+    <position height="-1" width="-1" x="2848" y="1908"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -167,273 +167,378 @@
   </class>  
   <class id="19" language="java" name="model.Volo" project="FlySmart" file="/FlySmart/src/model/Volo.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1172" y="1316"/>    
+    <position height="-1" width="-1" x="2044" y="1828"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="20" language="java" name="db.DBSession" project="FlySmart" file="/FlySmart/src/db/DBSession.java" 
-    binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="355" y="1385"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
-      visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <interface id="21" language="java" name="db.Lock" project="FlySmart" file="/FlySmart/src/db/Lock.java" binary="false" 
+  <interface id="20" language="java" name="db.Lock" project="FlySmart" file="/FlySmart/src/db/Lock.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="768" y="1070"/>    
+    <position height="-1" width="-1" x="758" y="948"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="22" language="java" name="db.LockImpl" project="FlySmart" file="/FlySmart/src/db/LockImpl.java" 
+  <class id="21" language="java" name="db.LockImpl" project="FlySmart" file="/FlySmart/src/db/LockImpl.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="775" y="1295"/>    
+    <position height="-1" width="-1" x="761" y="1183"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="23" language="java" name="db.PalletDAO" project="FlySmart" file="/FlySmart/src/db/PalletDAO.java" 
+  <interface id="22" language="java" name="db.PalletDAO" project="FlySmart" file="/FlySmart/src/db/PalletDAO.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="142" y="1778"/>    
+    <position height="-1" width="-1" x="670" y="2168"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="24" language="java" name="db.PalletDAOImpl" project="FlySmart" file="/FlySmart/src/db/PalletDAOImpl.java" 
+  <class id="23" language="java" name="db.PalletDAOImpl" project="FlySmart" file="/FlySmart/src/db/PalletDAOImpl.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="144" y="1994"/>    
+    <position height="-1" width="-1" x="670" y="2420"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="25" language="java" name="xml.XMLCreate" project="FlySmart" file="/FlySmart/src/xml/XMLCreate.java" 
+  <interface id="24" language="java" name="xml.XMLCreate" project="FlySmart" file="/FlySmart/src/xml/XMLCreate.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1772" y="1752"/>    
+    <position height="-1" width="-1" x="1574" y="952"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="26" language="java" name="xml.XMLCreateImpl" project="FlySmart" file="/FlySmart/src/xml/XMLCreateImpl.java" 
+  <class id="25" language="java" name="xml.XMLCreateImpl" project="FlySmart" file="/FlySmart/src/xml/XMLCreateImpl.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1784" y="1992"/>    
+    <position height="-1" width="-1" x="1574" y="1192"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="27" language="java" name="xml.XMLToObj" project="FlySmart" file="/FlySmart/src/xml/XMLToObj.java" 
+  <interface id="26" language="java" name="xml.XMLToObj" project="FlySmart" file="/FlySmart/src/xml/XMLToObj.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1330" y="1764"/>    
+    <position height="-1" width="-1" x="1122" y="942"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="28" language="java" name="xml.XMLToObjImpl" project="FlySmart" file="/FlySmart/src/xml/XMLToObjImpl.java" 
+  <class id="27" language="java" name="xml.XMLToObjImpl" project="FlySmart" file="/FlySmart/src/xml/XMLToObjImpl.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1336" y="1956"/>    
+    <position height="-1" width="-1" x="1122" y="1134"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="29" language="java" name="util.Coordinata" project="FlySmart" file="/FlySmart/src/util/Coordinata.java" 
+  <interface id="28" language="java" name="util.Coordinata" project="FlySmart" file="/FlySmart/src/util/Coordinata.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1124" y="606"/>    
+    <position height="-1" width="-1" x="302" y="972"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="30" language="java" name="util.CoordinataPallet" project="FlySmart" 
+  <class id="29" language="java" name="util.CoordinataPallet" project="FlySmart" 
     file="/FlySmart/src/util/CoordinataPallet.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="170" width="183" x="889" y="735"/>    
+    <position height="-1" width="-1" x="178" y="1260"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="31" language="java" name="util.CoordinataPasseggero" project="FlySmart" 
+  <class id="30" language="java" name="util.CoordinataPasseggero" project="FlySmart" 
     file="/FlySmart/src/util/CoordinataPasseggero.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1282" y="816"/>    
+    <position height="-1" width="-1" x="432" y="1260"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="32" language="java" name="model.Model" project="FlySmart" file="/FlySmart/src/model/Model.java" 
+  <interface id="31" language="java" name="model.Model" project="FlySmart" file="/FlySmart/src/model/Model.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1886" y="682"/>    
+    <position height="-1" width="-1" x="2440" y="1066"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <interface id="33" language="java" name="db.PasseggeroDAO" project="FlySmart" 
+  <interface id="32" language="java" name="db.PasseggeroDAO" project="FlySmart" 
     file="/FlySmart/src/db/PasseggeroDAO.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="420" y="1784"/>    
+    <position height="-1" width="-1" x="1026" y="2178"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="34" language="java" name="db.PasseggeroDAOImpl" project="FlySmart" 
+  <class id="33" language="java" name="db.PasseggeroDAOImpl" project="FlySmart" 
     file="/FlySmart/src/db/PasseggeroDAOImpl.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="428" y="2004"/>    
+    <position height="-1" width="-1" x="1022" y="2462"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="35" language="java" name="db.VoloDAO" project="FlySmart" file="/FlySmart/src/db/VoloDAO.java" 
+  <interface id="34" language="java" name="db.VoloDAO" project="FlySmart" file="/FlySmart/src/db/VoloDAO.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="824" y="1782"/>    
+    <position height="-1" width="-1" x="1482" y="2180"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="36" language="java" name="db.VoloDAOImpl" project="FlySmart" file="/FlySmart/src/db/VoloDAOImpl.java" 
+  <class id="35" language="java" name="db.VoloDAOImpl" project="FlySmart" file="/FlySmart/src/db/VoloDAOImpl.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="824" y="2016"/>    
+    <position height="-1" width="-1" x="1486" y="2456"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <association id="37">    
+  <class id="36" language="java" name="prenotazione.BookingException" project="FlySmart" 
+    file="/FlySmart/src/prenotazione/BookingException.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="2298" y="386"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="37" language="java" name="prenotazione.FlightNotFoundException" project="FlySmart" 
+    file="/FlySmart/src/prenotazione/FlightNotFoundException.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="2222" y="622"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="38" language="java" name="prenotazione.SeatsSoldOutException" project="FlySmart" 
+    file="/FlySmart/src/prenotazione/SeatsSoldOutException.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="2540" y="618"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="39" language="java" name="java.lang.RuntimeException" project="FlySmart" 
+    file="/Library/Java/JavaVirtualMachines/jdk1.7.0_45.jdk/Contents/Home/jre/lib/rt.jar" binary="true" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="2594" y="152"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="40" language="java" name="cancellazione.DeleteException" project="FlySmart" 
+    file="/FlySmart/src/cancellazione/DeleteException.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="2704" y="400"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="41" language="java" name="com.google.code.morphia.dao.DAO" project="FlySmart" 
+    file="/FlySmart/src/lib/morphia-0.99.jar" binary="true" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1034" y="1688"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="42" language="java" name="db.DBSession" project="FlySmart" file="/FlySmart/src/db/DBSession.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1021" y="183"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="43" language="java" name="util.Options" project="FlySmart" file="/FlySmart/src/util/Options.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1030" y="640"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="44" language="java" name="network.ServerLauncher" project="FlySmart" 
+    file="/FlySmart/src/network/ServerLauncher.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="720" y="412"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <association id="45">    
     <end type="SOURCE" refId="11" navigable="false">      
-      <attribute id="38" name="posti"/>      
-      <multiplicity id="39" minimum="0" maximum="1"/>    
+      <attribute id="46" name="posti"/>      
+      <multiplicity id="47" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="12" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <realization id="40">    
+  <realization id="48">    
+    <end type="SOURCE" refId="29"/>    
+    <end type="TARGET" refId="28"/>  
+  </realization>  
+  <realization id="49">    
     <end type="SOURCE" refId="30"/>    
-    <end type="TARGET" refId="29"/>  
+    <end type="TARGET" refId="28"/>  
   </realization>  
-  <realization id="41">    
-    <end type="SOURCE" refId="31"/>    
-    <end type="TARGET" refId="29"/>  
-  </realization>  
-  <realization id="42">    
+  <realization id="50">    
     <end type="SOURCE" refId="6"/>    
     <end type="TARGET" refId="4"/>  
   </realization>  
-  <realization id="43">    
+  <realization id="51">    
     <end type="SOURCE" refId="2"/>    
     <end type="TARGET" refId="1"/>  
   </realization>  
-  <dependency id="44">    
-    <end type="SOURCE" refId="20"/>    
-    <end type="TARGET" refId="33"/>  
-  </dependency>  
-  <realization id="45">    
+  <realization id="52">    
     <end type="SOURCE" refId="9"/>    
     <end type="TARGET" refId="7"/>  
   </realization>  
-  <realization id="46">    
-    <end type="SOURCE" refId="36"/>    
-    <end type="TARGET" refId="35"/>  
+  <dependency id="53">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="43"/>  
+  </dependency>  
+  <generalization id="54">    
+    <end type="SOURCE" refId="32"/>    
+    <end type="TARGET" refId="41"/>  
+  </generalization>  
+  <realization id="55">    
+    <end type="SOURCE" refId="35"/>    
+    <end type="TARGET" refId="34"/>  
   </realization>  
-  <generalization id="47">    
+  <generalization id="56">    
     <end type="SOURCE" refId="19"/>    
     <end type="TARGET" refId="13"/>  
   </generalization>  
-  <realization id="48">    
+  <realization id="57">    
     <end type="SOURCE" refId="11"/>    
     <end type="TARGET" refId="10"/>  
   </realization>  
-  <generalization id="49">    
-    <end type="SOURCE" refId="32"/>    
-    <end type="TARGET" refId="14"/>  
+  <generalization id="58">    
+    <end type="SOURCE" refId="34"/>    
+    <end type="TARGET" refId="41"/>  
   </generalization>  
-  <generalization id="50">    
+  <generalization id="59">    
+    <end type="SOURCE" refId="37"/>    
+    <end type="TARGET" refId="36"/>  
+  </generalization>  
+  <generalization id="60">    
     <end type="SOURCE" refId="15"/>    
     <end type="TARGET" refId="13"/>  
   </generalization>  
-  <dependency id="51">    
-    <end type="SOURCE" refId="20"/>    
-    <end type="TARGET" refId="35"/>  
-  </dependency>  
-  <realization id="52">    
-    <end type="SOURCE" refId="28"/>    
-    <end type="TARGET" refId="27"/>  
+  <generalization id="61">    
+    <end type="SOURCE" refId="31"/>    
+    <end type="TARGET" refId="14"/>  
+  </generalization>  
+  <realization id="62">    
+    <end type="SOURCE" refId="27"/>    
+    <end type="TARGET" refId="26"/>  
   </realization>  
-  <realization id="53">    
-    <end type="SOURCE" refId="34"/>    
-    <end type="TARGET" refId="33"/>  
+  <realization id="63">    
+    <end type="SOURCE" refId="33"/>    
+    <end type="TARGET" refId="32"/>  
   </realization>  
-  <generalization id="54">    
+  <generalization id="64">    
     <end type="SOURCE" refId="18"/>    
     <end type="TARGET" refId="15"/>  
   </generalization>  
-  <realization id="55">    
+  <realization id="65">    
     <end type="SOURCE" refId="5"/>    
     <end type="TARGET" refId="4"/>  
   </realization>  
-  <generalization id="56">    
+  <generalization id="66">    
     <end type="SOURCE" refId="1"/>    
     <end type="TARGET" refId="3"/>  
   </generalization>  
-  <realization id="57">    
+  <realization id="67">    
     <end type="SOURCE" refId="8"/>    
     <end type="TARGET" refId="7"/>  
   </realization>  
-  <generalization id="58">    
+  <generalization id="68">    
+    <end type="SOURCE" refId="22"/>    
+    <end type="TARGET" refId="41"/>  
+  </generalization>  
+  <dependency id="69">    
+    <end type="SOURCE" refId="44"/>    
+    <end type="TARGET" refId="43"/>  
+  </dependency>  
+  <generalization id="70">    
     <end type="SOURCE" refId="17"/>    
     <end type="TARGET" refId="15"/>  
   </generalization>  
-  <realization id="59">    
-    <end type="SOURCE" refId="22"/>    
-    <end type="TARGET" refId="21"/>  
-  </realization>  
-  <realization id="60">    
-    <end type="SOURCE" refId="24"/>    
-    <end type="TARGET" refId="23"/>  
-  </realization>  
-  <realization id="61">    
-    <end type="SOURCE" refId="13"/>    
-    <end type="TARGET" refId="32"/>  
-  </realization>  
-  <dependency id="62">    
-    <end type="SOURCE" refId="20"/>    
-    <end type="TARGET" refId="23"/>  
+  <dependency id="71">    
+    <end type="SOURCE" refId="44"/>    
+    <end type="TARGET" refId="2"/>  
   </dependency>  
-  <realization id="63">    
-    <end type="SOURCE" refId="16"/>    
-    <end type="TARGET" refId="32"/>  
+  <dependency id="72">    
+    <end type="SOURCE" refId="42"/>    
+    <end type="TARGET" refId="43"/>  
+  </dependency>  
+  <realization id="73">    
+    <end type="SOURCE" refId="21"/>    
+    <end type="TARGET" refId="20"/>  
   </realization>  
-  <realization id="64">    
-    <end type="SOURCE" refId="26"/>    
-    <end type="TARGET" refId="25"/>  
+  <realization id="74">    
+    <end type="SOURCE" refId="23"/>    
+    <end type="TARGET" refId="22"/>  
+  </realization>  
+  <generalization id="75">    
+    <end type="SOURCE" refId="36"/>    
+    <end type="TARGET" refId="39"/>  
+  </generalization>  
+  <realization id="76">    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="31"/>  
+  </realization>  
+  <generalization id="77">    
+    <end type="SOURCE" refId="40"/>    
+    <end type="TARGET" refId="39"/>  
+  </generalization>  
+  <generalization id="78">    
+    <end type="SOURCE" refId="38"/>    
+    <end type="TARGET" refId="36"/>  
+  </generalization>  
+  <realization id="79">    
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="31"/>  
+  </realization>  
+  <realization id="80">    
+    <end type="SOURCE" refId="25"/>    
+    <end type="TARGET" refId="24"/>  
   </realization>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     accessors="true" visibility="true">    

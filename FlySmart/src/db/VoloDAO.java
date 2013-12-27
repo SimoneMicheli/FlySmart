@@ -4,25 +4,11 @@ import java.util.List;
 
 import org.bson.types.ObjectId;
 
-import com.google.code.morphia.Key;
+import com.google.code.morphia.dao.DAO;
 
 import model.Volo;
 
-public interface VoloDAO {
-	
-	/**
-	 * ritorna il volo con l'id cercato
-	 * @param id id volo
-	 * @return Volo
-	 */
-	public abstract Volo get(ObjectId id);
-	
-	/**
-	 * salva il volo
-	 * @param v volo da salvare
-	 * @return Key
-	 */
-	public abstract Key<Volo> save(Volo v);
+public interface VoloDAO extends DAO<Volo, ObjectId>{
 
 	/**
 	 * recupera un volo passando l'id come stringa

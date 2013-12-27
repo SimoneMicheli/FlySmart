@@ -6,32 +6,10 @@ import model.Passeggero;
 
 import org.bson.types.ObjectId;
 
-import com.google.code.morphia.Key;
+import com.google.code.morphia.dao.DAO;
 import com.google.code.morphia.query.Query;
-import com.mongodb.WriteResult;
 
-public interface PasseggeroDAO {
-	
-	/**
-	 * ritorna il passeggero con l'id cercato
-	 * @param id id passeggero
-	 * @return Passeggero
-	 */
-	public abstract Passeggero get(ObjectId id);
-	
-	/**
-	 * salva il passeggero
-	 * @param p passeggero da salvare
-	 * @return Key
-	 */
-	public abstract Key<Passeggero> save(Passeggero p);
-	
-	/**
-	 * cancella il passeggero richiesto
-	 * @param id id passeggero da cancellare
-	 * @return WriteResult
-	 */
-	public abstract WriteResult deleteById(ObjectId id);
+public interface PasseggeroDAO extends DAO<Passeggero, ObjectId> {
 
 	/**
 	 * ottiene l'elenco dei passegeri di un certo volo

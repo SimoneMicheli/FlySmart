@@ -34,8 +34,8 @@ public final class DBSession{
 	/** gestisce lo scambio di dati da e per il DB. */
 	protected static Datastore ds = null;
 
-	/** The session. */
-	private static DBSession session = null;
+	/** The DBSession. */
+	private static DBSession DBSession = null;
 	
 	/** The v dao. */
 	private static VoloDAOImpl vDAO=null;
@@ -90,9 +90,9 @@ public final class DBSession{
 	 * @return datastore */
 	public static Datastore getInstance() {
 		log.entry();
-		if(session == null)
+		if(DBSession == null)
 			try {
-				session = new DBSession();
+				DBSession = new DBSession();
 			} catch (UnknownHostException e) {
 				log.catching(e);
 			}
@@ -107,9 +107,9 @@ public final class DBSession{
 	 * @return VoloDAO */
 	public static VoloDAO getVoloDAO(){
 		log.entry();
-		if(session == null)
+		if(DBSession == null)
 			try {
-				session = new DBSession();
+				DBSession = new DBSession();
 			} catch (UnknownHostException e) {
 				log.catching(e);
 			}
@@ -126,9 +126,9 @@ public final class DBSession{
 	 * @return PasseggeroDAO */
 	public static PasseggeroDAO getPasseggeroDAO(){
 		log.entry();
-		if(session == null)
+		if(DBSession == null)
 			try {
-				session = new DBSession();
+				DBSession = new DBSession();
 			} catch (UnknownHostException e) {
 				log.catching(e);
 			}
@@ -145,9 +145,9 @@ public final class DBSession{
 	 * @return PalletDAO */
 	public static PalletDAO getPalletDAO(){
 		log.entry();
-		if(session == null)
+		if(DBSession == null)
 			try {
-				session = new DBSession();
+				DBSession = new DBSession();
 			} catch (UnknownHostException e) {
 				log.catching(e);
 			}

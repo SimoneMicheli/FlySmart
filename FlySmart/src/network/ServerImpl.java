@@ -16,7 +16,6 @@ import checkin.SmartCheckin;
 
 import comparator.AeroportoComparator;
 
-import cancellazione.Cancella;
 import cancellazione.CancellaPallet;
 import cancellazione.CancellaPasseggero;
 import cancellazione.DeleteException;
