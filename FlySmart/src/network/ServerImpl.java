@@ -16,6 +16,7 @@ import checkin.SmartCheckin;
 
 import comparator.AeroportoComparator;
 
+import cancellazione.Cancella;
 import cancellazione.CancellaPallet;
 import cancellazione.CancellaPasseggero;
 import cancellazione.DeleteException;
@@ -45,6 +46,9 @@ public class ServerImpl extends UnicastRemoteObject implements Server {
 	
 	Prenotazione<Passeggero> prenotaPass = null;
 	Prenotazione<Pallet> prenotaPall = null;
+	CancellaPallet cancellaPallet = null;
+	CancellaPasseggero cancellaPasseggeri = null;
+	
 	
 	/**
 	 * costruttore dell'oggetto server, crea i lock necessari a garantire l'accesso
@@ -60,6 +64,8 @@ public class ServerImpl extends UnicastRemoteObject implements Server {
 		log = LogManager.getLogger(ServerImpl.class.getCanonicalName().toString());
 		prenotaPass = new PrenotazionePasseggero();
 		prenotaPall = new PrenotazionePallet();
+		cancellaPasseggeri = new CancellaPasseggero();
+		cancellaPallet = new CancellaPallet();
 		
 		log.info("Creazione oggetto Server");
 	}
@@ -145,18 +151,16 @@ public class ServerImpl extends UnicastRemoteObject implements Server {
 			throws RemoteException {
 		log.entry();
 		log.info("Ottengo lista passeggeri gruppo: "+idGruppo);
-		CancellaPasseggero cp = new CancellaPasseggero();
 		log.exit();
-		return cp.getPasseggeriGruppo(idGruppo);
+		return cancellaPasseggeri.getPasseggeriGruppo(idGruppo);
 	}
 
 	@Override
 	public boolean cancellaPallet(ObjectId idPallet) throws RemoteException,
 			DeleteException {
 		log.entry();
-		CancellaPallet cp = new CancellaPallet();
 		log.info("Cancello pallet: "+idPallet);
-		cp.cancella(idPallet);
+		cancellaPallet.cancella(idPallet);
 		log.exit();
 		return true;
 	}
@@ -164,11 +168,9 @@ public class ServerImpl extends UnicastRemoteObject implements Server {
 	@Override
 	public boolean cancellaPasseggeri(List<Passeggero> list) throws RemoteException, DeleteException {
 		log.entry();
-		CancellaPasseggero cp = new CancellaPasseggero();
-		
 		for(Passeggero p : list){
 			log.info("Cancello passeggero: "+p.toString());
-			cp.cancella(p.getId());
+			cancellaPasseggeri.cancella(p.getId());
 		}
 		log.exit();
 		return true;
@@ -177,9 +179,8 @@ public class ServerImpl extends UnicastRemoteObject implements Server {
 	@Override
 	public Pallet getInfoPallet(ObjectId id) throws RemoteException {
 		log.entry();
-		CancellaPallet cp = new CancellaPallet();
 		log.exit();
-		return cp.getInfoPallet(id);
+		return cancellaPallet.getInfoPallet(id);
 	}
 
 	

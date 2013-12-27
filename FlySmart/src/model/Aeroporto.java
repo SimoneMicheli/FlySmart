@@ -1,6 +1,5 @@
 package model;
 
-import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.LinkedList;
 import java.util.List;
@@ -10,7 +9,7 @@ import java.util.List;
  * 
  */
 @SuppressWarnings("serial")
-public class Aeroporto implements GetFields, Serializable{
+public class Aeroporto implements GetFields, Model{
 	
 	/**id Aeroporto*/
 	private Integer id;

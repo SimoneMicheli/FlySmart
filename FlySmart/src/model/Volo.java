@@ -20,7 +20,7 @@ import com.google.code.morphia.annotations.Reference;
  */
 @SuppressWarnings("serial")
 @Entity
-public class Volo extends Model{
+public class Volo extends ModelImpl{
 	
 	/** Data del volo (in particolare la partenza) */
 	@Indexed
