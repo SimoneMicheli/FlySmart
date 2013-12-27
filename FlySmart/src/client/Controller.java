@@ -2,10 +2,8 @@ package client;
 
 import network.Server;
 
-// TODO: Auto-generated Javadoc
 /**
- * Interfaccia controller
- * @author Demarinis - Micheli - Scarpellini
+ * rappresenta la superclasse controller per la GUI
  */
 public abstract class Controller {
 	

@@ -29,7 +29,6 @@ public class CancellaPasseggero implements Cancella{
 	
 	/**
 	 * cancella la prenotazione per il passeggero con un certo id
-	
 	 * @param id ObjectId
 	 */
 	public void cancella(ObjectId id){

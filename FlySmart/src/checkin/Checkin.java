@@ -5,7 +5,7 @@ package checkin;
 
 /**
  * definisce i metodi da implementare per le classi che realizzano
- * gli algoritmi spatr di imbarco
+ * gli algoritmi smart di imbarco
  *
  */
 public interface Checkin {

@@ -23,8 +23,6 @@ public class SmartGroupOrdering {
 	/**
 	 * crea ed ordina i gruppi sulla base dei passeggeri
 	 * @param lista passeggeri da ordinare
-	
-	
 	 * @return lista ordinate per peso dei gruppi */
 	public static Gruppo[] sortGroup(List<Passeggero> lista){
 		
@@ -34,7 +32,7 @@ public class SmartGroupOrdering {
 		
 		Iterator<Passeggero> i = lista.iterator();
 		
-		//inserisco passeggeri nei rispettivi gruppi con complessit�� n (simile ad ordinamento lineare)
+		//inserisco passeggeri nei rispettivi gruppi con complessià n (simile ad ordinamento lineare)
 		while (i.hasNext()) {
 			Passeggero passeggero = (Passeggero) i.next();
 			ObjectId groupId = passeggero.getIdGruppo();
