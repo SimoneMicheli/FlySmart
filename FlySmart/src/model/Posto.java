@@ -9,7 +9,7 @@ package model;
  *
  */
 @SuppressWarnings("serial")
-public abstract class Posto extends ModelImpl{
+public abstract class Posto extends ModelDB{
 	
 	/** Fila del posto del passeggero */
 	protected Integer fila;

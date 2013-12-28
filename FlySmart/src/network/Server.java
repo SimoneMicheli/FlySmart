@@ -68,6 +68,7 @@ public interface Server extends Remote {
 	 * @param idVolo
 	 * @throws FlightNotFoundException
 	 * @throws RemoteException
+	 * @return {@link CheckinReport}
 	 */
 	public CheckinReport calcolaCheckin(ObjectId idVolo) throws RemoteException, FlightNotFoundException;
 	
@@ -84,6 +85,7 @@ public interface Server extends Remote {
 	 * @param list lista di passeggeri da cancellare
 	 * @throws RemoteException
 	 * @throws DeleteException
+	 * @return true se l cancellazione è andata a buon fine
 	 */
 	public boolean cancellaPasseggeri(List<Passeggero> list) throws RemoteException,  DeleteException;
 	

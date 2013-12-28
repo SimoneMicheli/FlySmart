@@ -16,7 +16,7 @@ import com.google.code.morphia.annotations.Id;
 
 @SuppressWarnings("serial")
 @Entity
-public abstract class ModelImpl implements Model{
+public abstract class ModelDB implements Model{
 
 	/** Id dell'oggetto della classe */
 	@Id

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<class-diagram version="1.1.4" icons="true" automaticImage="JPEG" always-add-relationships="true" generalizations="true" 
+<class-diagram version="1.1.4" icons="true" automaticImage="PNG" always-add-relationships="true" generalizations="true" 
   realizations="true" associations="true" dependencies="false" nesting-relationships="true">  
   <interface id="1" language="java" name="network.Server" project="FlySmart" file="/FlySmart/src/network/Server.java" 
     binary="false" corner="BOTTOM_RIGHT">    
@@ -22,7 +22,7 @@
   <interface id="3" language="java" name="java.rmi.Remote" project="FlySmart" 
     file="/Library/Java/JavaVirtualMachines/jdk1.7.0_45.jdk/Contents/Home/jre/lib/rt.jar" binary="true" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="323" y="48"/>    
+    <position height="-1" width="-1" x="321" y="48"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -110,7 +110,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="13" language="java" name="model.ModelImpl" project="FlySmart" file="/FlySmart/src/model/ModelImpl.java" 
+  <class id="13" language="java" name="model.ModelDB" project="FlySmart" file="/FlySmart/src/model/ModelDB.java" 
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="2214" y="1274"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -400,146 +400,146 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <association id="45">    
+  <realization id="45">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="4"/>  
+  </realization>  
+  <generalization id="46">    
+    <end type="SOURCE" refId="40"/>    
+    <end type="TARGET" refId="39"/>  
+  </generalization>  
+  <dependency id="47">    
+    <end type="SOURCE" refId="44"/>    
+    <end type="TARGET" refId="43"/>  
+  </dependency>  
+  <generalization id="48">    
+    <end type="SOURCE" refId="37"/>    
+    <end type="TARGET" refId="36"/>  
+  </generalization>  
+  <generalization id="49">    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="13"/>  
+  </generalization>  
+  <realization id="50">    
+    <end type="SOURCE" refId="35"/>    
+    <end type="TARGET" refId="34"/>  
+  </realization>  
+  <realization id="51">    
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="31"/>  
+  </realization>  
+  <realization id="52">    
+    <end type="SOURCE" refId="23"/>    
+    <end type="TARGET" refId="22"/>  
+  </realization>  
+  <realization id="53">    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="31"/>  
+  </realization>  
+  <association id="54">    
     <end type="SOURCE" refId="11" navigable="false">      
-      <attribute id="46" name="posti"/>      
-      <multiplicity id="47" minimum="0" maximum="1"/>    
+      <attribute id="55" name="posti"/>      
+      <multiplicity id="56" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="12" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <realization id="48">    
-    <end type="SOURCE" refId="29"/>    
-    <end type="TARGET" refId="28"/>  
-  </realization>  
-  <realization id="49">    
-    <end type="SOURCE" refId="30"/>    
-    <end type="TARGET" refId="28"/>  
-  </realization>  
-  <realization id="50">    
+  <generalization id="57">    
+    <end type="SOURCE" refId="38"/>    
+    <end type="TARGET" refId="36"/>  
+  </generalization>  
+  <realization id="58">    
     <end type="SOURCE" refId="6"/>    
     <end type="TARGET" refId="4"/>  
   </realization>  
-  <realization id="51">    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="1"/>  
+  <realization id="59">    
+    <end type="SOURCE" refId="21"/>    
+    <end type="TARGET" refId="20"/>  
   </realization>  
-  <realization id="52">    
-    <end type="SOURCE" refId="9"/>    
-    <end type="TARGET" refId="7"/>  
-  </realization>  
-  <dependency id="53">    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="43"/>  
-  </dependency>  
-  <generalization id="54">    
-    <end type="SOURCE" refId="32"/>    
-    <end type="TARGET" refId="41"/>  
-  </generalization>  
-  <realization id="55">    
-    <end type="SOURCE" refId="35"/>    
-    <end type="TARGET" refId="34"/>  
-  </realization>  
-  <generalization id="56">    
-    <end type="SOURCE" refId="19"/>    
-    <end type="TARGET" refId="13"/>  
-  </generalization>  
-  <realization id="57">    
-    <end type="SOURCE" refId="11"/>    
-    <end type="TARGET" refId="10"/>  
-  </realization>  
-  <generalization id="58">    
+  <generalization id="60">    
     <end type="SOURCE" refId="34"/>    
     <end type="TARGET" refId="41"/>  
-  </generalization>  
-  <generalization id="59">    
-    <end type="SOURCE" refId="37"/>    
-    <end type="TARGET" refId="36"/>  
-  </generalization>  
-  <generalization id="60">    
-    <end type="SOURCE" refId="15"/>    
-    <end type="TARGET" refId="13"/>  
   </generalization>  
   <generalization id="61">    
     <end type="SOURCE" refId="31"/>    
     <end type="TARGET" refId="14"/>  
   </generalization>  
   <realization id="62">    
-    <end type="SOURCE" refId="27"/>    
-    <end type="TARGET" refId="26"/>  
+    <end type="SOURCE" refId="25"/>    
+    <end type="TARGET" refId="24"/>  
   </realization>  
-  <realization id="63">    
-    <end type="SOURCE" refId="33"/>    
-    <end type="TARGET" refId="32"/>  
-  </realization>  
-  <generalization id="64">    
-    <end type="SOURCE" refId="18"/>    
-    <end type="TARGET" refId="15"/>  
+  <generalization id="63">    
+    <end type="SOURCE" refId="32"/>    
+    <end type="TARGET" refId="41"/>  
   </generalization>  
-  <realization id="65">    
-    <end type="SOURCE" refId="5"/>    
-    <end type="TARGET" refId="4"/>  
+  <realization id="64">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="7"/>  
   </realization>  
+  <generalization id="65">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="13"/>  
+  </generalization>  
   <generalization id="66">    
     <end type="SOURCE" refId="1"/>    
     <end type="TARGET" refId="3"/>  
   </generalization>  
-  <realization id="67">    
-    <end type="SOURCE" refId="8"/>    
-    <end type="TARGET" refId="7"/>  
-  </realization>  
-  <generalization id="68">    
-    <end type="SOURCE" refId="22"/>    
-    <end type="TARGET" refId="41"/>  
-  </generalization>  
-  <dependency id="69">    
-    <end type="SOURCE" refId="44"/>    
-    <end type="TARGET" refId="43"/>  
-  </dependency>  
-  <generalization id="70">    
-    <end type="SOURCE" refId="17"/>    
-    <end type="TARGET" refId="15"/>  
-  </generalization>  
-  <dependency id="71">    
-    <end type="SOURCE" refId="44"/>    
-    <end type="TARGET" refId="2"/>  
-  </dependency>  
-  <dependency id="72">    
+  <dependency id="67">    
     <end type="SOURCE" refId="42"/>    
     <end type="TARGET" refId="43"/>  
   </dependency>  
-  <realization id="73">    
-    <end type="SOURCE" refId="21"/>    
-    <end type="TARGET" refId="20"/>  
+  <realization id="68">    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="10"/>  
   </realization>  
-  <realization id="74">    
-    <end type="SOURCE" refId="23"/>    
-    <end type="TARGET" refId="22"/>  
+  <generalization id="69">    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="15"/>  
+  </generalization>  
+  <realization id="70">    
+    <end type="SOURCE" refId="33"/>    
+    <end type="TARGET" refId="32"/>  
   </realization>  
-  <generalization id="75">    
+  <realization id="71">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="1"/>  
+  </realization>  
+  <dependency id="72">    
+    <end type="SOURCE" refId="44"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <dependency id="73">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="43"/>  
+  </dependency>  
+  <generalization id="74">    
+    <end type="SOURCE" refId="22"/>    
+    <end type="TARGET" refId="41"/>  
+  </generalization>  
+  <realization id="75">    
+    <end type="SOURCE" refId="29"/>    
+    <end type="TARGET" refId="28"/>  
+  </realization>  
+  <generalization id="76">    
     <end type="SOURCE" refId="36"/>    
     <end type="TARGET" refId="39"/>  
   </generalization>  
-  <realization id="76">    
-    <end type="SOURCE" refId="13"/>    
-    <end type="TARGET" refId="31"/>  
+  <realization id="77">    
+    <end type="SOURCE" refId="27"/>    
+    <end type="TARGET" refId="26"/>  
   </realization>  
-  <generalization id="77">    
-    <end type="SOURCE" refId="40"/>    
-    <end type="TARGET" refId="39"/>  
-  </generalization>  
-  <generalization id="78">    
-    <end type="SOURCE" refId="38"/>    
-    <end type="TARGET" refId="36"/>  
-  </generalization>  
+  <realization id="78">    
+    <end type="SOURCE" refId="30"/>    
+    <end type="TARGET" refId="28"/>  
+  </realization>  
   <realization id="79">    
-    <end type="SOURCE" refId="16"/>    
-    <end type="TARGET" refId="31"/>  
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="7"/>  
   </realization>  
-  <realization id="80">    
-    <end type="SOURCE" refId="25"/>    
-    <end type="TARGET" refId="24"/>  
-  </realization>  
+  <generalization id="80">    
+    <end type="SOURCE" refId="17"/>    
+    <end type="TARGET" refId="15"/>  
+  </generalization>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     accessors="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="true" static="true"/>    

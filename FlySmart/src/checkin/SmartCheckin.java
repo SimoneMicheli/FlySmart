@@ -42,8 +42,7 @@ public class SmartCheckin implements Checkin{
 	 * al momento della creazione dell'oggeto viene verificato che il volo esiste
 	 * e se è presente viene posto in stato di chiuso
 	 * @param idVolo su cui calcolare le posizioni
-
- * @throws FlightNotFoundException	 */
+	 * @throws FlightNotFoundException	 */
 	public SmartCheckin(ObjectId idVolo) throws FlightNotFoundException{
 		log = LogManager.getLogger(SmartCheckin.class.getCanonicalName().toString());
 		System.out.println(SmartCheckin.class.getCanonicalName().toString());
@@ -81,17 +80,10 @@ public class SmartCheckin implements Checkin{
 		//ottengo lista passeggeri e pallet
 		List<Passeggero> passeggeri = DBSession.getPasseggeroDAO().getByIdVolo(v.getId()).order("-peso").asList();
 		List<Pallet> pallets = DBSession.getPalletDAO().getByIdVolo(v.getId()).order("-peso").asList();
-		
-
-		for(Pallet p : pallets)
-			System.out.println(p);
 
 		//calcola disposizione
 		double mom[] = new double[2];
-		mom = posizionaPallet(pallets);
-		
-		
-		//fino a qui va
+		mom = posizionaPallet(pallets);	
 		
 		log.debug("ordinamento passeggeri---------------------");
 		
