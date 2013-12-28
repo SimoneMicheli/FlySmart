@@ -8,6 +8,7 @@ import java.util.List;
 import org.bson.types.ObjectId;
 
 import checkin.CheckinReport;
+import checkin.CheckinReportImpl;
 
 import cancellazione.DeleteException;
 
@@ -68,7 +69,7 @@ public interface Server extends Remote {
 	 * @param idVolo
 	 * @throws FlightNotFoundException
 	 * @throws RemoteException
-	 * @return {@link CheckinReport}
+	 * @return {@link CheckinReportImpl}
 	 */
 	public CheckinReport calcolaCheckin(ObjectId idVolo) throws RemoteException, FlightNotFoundException;
 	

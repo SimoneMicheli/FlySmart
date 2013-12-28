@@ -93,7 +93,7 @@ public class SmartCheckin implements Checkin{
 		DBSession.getPasseggeroDAO().saveList(passeggeri);
 		DBSession.getPalletDAO().saveList(pallets);
 
-		return new CheckinReport(passeggeri, pallets, mom);
+		return new CheckinReportImpl(passeggeri, pallets, mom);
 
 	}
 
