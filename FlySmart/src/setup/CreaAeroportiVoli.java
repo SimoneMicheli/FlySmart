@@ -1,4 +1,4 @@
-package util;
+package setup;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,13 +12,14 @@ import com.google.code.morphia.Datastore;
 
 import db.DBSession;
 
+import util.Options;
 import xml.XMLCreate;
 import xml.XMLCreateImpl;
 import model.*;
 
 /**
  */
-public class Inizializer {
+public class CreaAeroportiVoli {
 
 	/**
 	 * @param args
@@ -123,15 +124,28 @@ public class Inizializer {
 			}
 		}*/
 
+		
+		
+		
+		
+		
+		
+		//ALAN: replica queste due righe
+		
 		//attenzione conteggio mesi da 0 a 11-----------------------------------------
-		c.set(2014, 0, 20, 14, 0);
-		voli.add(new Volo(c.getTime() , 1, 2, 15.0, 2.0, StatoVolo.OPEN, TipoAereo.S));
-		c.set(2014, 4, 10, 4, 10);
-		voli.add(new Volo(c.getTime() , 1, 2, 5.0, 10.0, StatoVolo.OPEN, TipoAereo.M));
-		c.set(2014, 11, 25, 13, 0);
-		voli.add(new Volo(c.getTime() , 1, 2, 25.0, 7.0, StatoVolo.OPEN, TipoAereo.L));
-		c.set(2014, 11, 29, 2, 0);
-		 
+		c.set(2014, 0, 20, 20, 45);  //ogni volta da rifare per settare la nuova dataora, attenzione gennaio=0  anno mese giorno ore minuti (secondi, facoltativo)
+		//COSTRUTTORE DI VOLO:  dataora,aeroportoPartenza,aeroportoArrivo,prezzoPasseggero,prezzoPallet, StatoVolo.OPEN, TipoAereo.S (oppure M o L)
+		voli.add(new Volo(c.getTime() , 3, 12, 79.0, 2.0, StatoVolo.OPEN, TipoAereo.S)); //ho fatto bergamo-lecce se non sbaglio
+		//nota per i prezzi: prezzi per le persone ranges; prezzi per i pallet, sono al kg, quindi non so.. tra 1 e 3
+		//altra nota.. sono double ma non ho mai provato a non mettere .0   Se vuoi provare altrimenti lascia tutti .0 che l'e stes 
+		
+		
+		
+		//ALAN quando hai finito e tutto funziona, elimina tutti i commenti inutili, anche quelli con cui generavamo i voli random..
+		
+		
+		
+	    // 2 righe da non cancellare
 		Datastore ds = DBSession.getInstance();
 		ds.save(voli);
 	}
