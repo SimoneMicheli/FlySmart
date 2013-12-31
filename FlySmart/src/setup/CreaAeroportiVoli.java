@@ -5,13 +5,9 @@ import java.io.IOException;
 import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
-
 import org.w3c.dom.Document;
-
 import com.google.code.morphia.Datastore;
-
 import db.DBSession;
-
 import util.Options;
 import xml.XMLCreate;
 import xml.XMLCreateImpl;
@@ -90,62 +86,53 @@ public class CreaAeroportiVoli {
 		List<Volo> voli = new LinkedList<Volo>();
 		Calendar c = Calendar.getInstance();
 
-		/*for(int i = 1; i<30; i++)
-		{
-			for(int j = 1; j<30; j++)
-			{
-				if(i!=j)
-					for(int n = 0; n < (int) (Math.random()*(7-2)+2); n++)
-					{
-						int rMese = (int) (Math.random()*(12-0)+0);
-						boolean repeat = true;
-						int rGiorno = 1;
-						while(repeat)
-						{
-							rGiorno = (int) (Math.random()*(32-1)+1);
-							repeat= false;
-							if(rMese == 1)
-								if(rGiorno>28)
-									repeat = true;
-							if(rMese == 3 || rMese == 5 || rMese == 8 || rMese == 10 )
-								if(rGiorno>31)
-									repeat=true;
-						}
-						c.set(2014,(int) rMese, rGiorno, (int) (Math.random()*(23-0)+1), (int) (Math.random()*(59-0)+1));
-						double prezzoPasseggeri =  (Math.random()*(110-40)+40)*100;
-						prezzoPasseggeri = Math.round(prezzoPasseggeri);
-						prezzoPasseggeri = prezzoPasseggeri/100;
-						double prezzoPallet =  (Math.random()*(5-0.7)+0.7)*100;
-						prezzoPallet = Math.round(prezzoPallet);
-						prezzoPallet = prezzoPallet/100;
-						voli.add(new Volo(c.getTime(), i, j, (int) (Math.random()*(100-1)+1), prezzoPasseggeri, prezzoPallet, StatoVolo.OPEN, TipoAereo.M));
-					
-					}
-			}
-		}*/
-
+		c.set(2014, 0, 20, 20, 45); 
+		voli.add(new Volo(c.getTime() , 3, 12, 79.0, 2.0, StatoVolo.OPEN, TipoAereo.S));
+		c.set(2014,0,22,22,45);
+		voli.add(new Volo(c.getTime() , 3, 7, 89.0, 3.0, StatoVolo.OPEN, TipoAereo.M));
+		c.set(2014,1,10,8,10);
+		voli.add(new Volo(c.getTime() , 3, 22, 59.0, 1.0, StatoVolo.OPEN, TipoAereo.L));
+		c.set(2014,1,15,20,25);
+		voli.add(new Volo(c.getTime() , 3, 16, 129.0, 6.0, StatoVolo.OPEN, TipoAereo.S));
+		c.set(2014,1,4,16,45);
+		voli.add(new Volo(c.getTime() , 3, 6, 89.0, 2.0, StatoVolo.OPEN, TipoAereo.M));
+		c.set(2014,1,21,3,15);
+		voli.add(new Volo(c.getTime() , 1, 18, 99.0, 3.0, StatoVolo.OPEN, TipoAereo.S));
+		c.set(2014,2,2,2,20);
+		voli.add(new Volo(c.getTime() , 1, 19, 89.0, 4.0, StatoVolo.OPEN, TipoAereo.L));
+		c.set(2014,2,18,15,35);
+		voli.add(new Volo(c.getTime() , 1, 2, 79.0, 2.0, StatoVolo.OPEN, TipoAereo.M));
+		c.set(2014,3,1,15,15);
+		voli.add(new Volo(c.getTime() , 2, 22, 69.0, 3.0, StatoVolo.OPEN, TipoAereo.S));
+		c.set(2014,3,13,20,5);
+		voli.add(new Volo(c.getTime() , 2, 1, 69.0, 4.0, StatoVolo.OPEN, TipoAereo.M));
+		c.set(2014,4,20,13,15);
+		voli.add(new Volo(c.getTime() , 2, 25, 59.0, 2.0, StatoVolo.OPEN, TipoAereo.L));
+		c.set(2014,5,13,12,25);
+		voli.add(new Volo(c.getTime() , 4, 6, 79.0, 2.0, StatoVolo.OPEN, TipoAereo.S));
+		c.set(2014,5,22,18,55);
+		voli.add(new Volo(c.getTime() , 4, 23, 109.0, 3.0, StatoVolo.OPEN, TipoAereo.S));
+		c.set(2014,6,25,19,55);
+		voli.add(new Volo(c.getTime() , 4, 12, 99.0, 3.0, StatoVolo.OPEN, TipoAereo.M));
+		c.set(2014,6,23,15,45);
+		voli.add(new Volo(c.getTime() , 5, 1, 89.0, 2.0, StatoVolo.OPEN, TipoAereo.L));
+		c.set(2014,7,6,20,45);
+		voli.add(new Volo(c.getTime() , 5, 2, 49.0, 4.0, StatoVolo.OPEN, TipoAereo.S));
+		c.set(2014,8,7,22,35);
+		voli.add(new Volo(c.getTime() , 6, 3, 59.0, 4.0, StatoVolo.OPEN, TipoAereo.M));
+		c.set(2014,9,1,23,25);
+		voli.add(new Volo(c.getTime() , 6, 5, 69.0, 2.0, StatoVolo.OPEN, TipoAereo.S));
+		c.set(2014,9,26,24,15);
+		voli.add(new Volo(c.getTime() , 7, 6, 79.0, 3.0, StatoVolo.OPEN, TipoAereo.M));
+		c.set(2014,10,29,25,5);
+		voli.add(new Volo(c.getTime() , 7, 9, 79.0, 5.0, StatoVolo.OPEN, TipoAereo.L));
+		c.set(2014,10,20,21,55);
+		voli.add(new Volo(c.getTime() , 8, 11, 99.0, 2.0, StatoVolo.OPEN, TipoAereo.S));
+		c.set(2014,11,13,12,20);
+		voli.add(new Volo(c.getTime() , 8, 13, 79.0, 5.0, StatoVolo.OPEN, TipoAereo.S));
+		c.set(2014,11,12,12,35);
+		voli.add(new Volo(c.getTime() , 9, 20, 69.0, 7.0, StatoVolo.OPEN, TipoAereo.M));
 		
-		
-		
-		
-		
-		
-		//ALAN: replica queste due righe
-		
-		//attenzione conteggio mesi da 0 a 11-----------------------------------------
-		c.set(2014, 0, 20, 20, 45);  //ogni volta da rifare per settare la nuova dataora, attenzione gennaio=0  anno mese giorno ore minuti (secondi, facoltativo)
-		//COSTRUTTORE DI VOLO:  dataora,aeroportoPartenza,aeroportoArrivo,prezzoPasseggero,prezzoPallet, StatoVolo.OPEN, TipoAereo.S (oppure M o L)
-		voli.add(new Volo(c.getTime() , 3, 12, 79.0, 2.0, StatoVolo.OPEN, TipoAereo.S)); //ho fatto bergamo-lecce se non sbaglio
-		//nota per i prezzi: prezzi per le persone ranges; prezzi per i pallet, sono al kg, quindi non so.. tra 1 e 3
-		//altra nota.. sono double ma non ho mai provato a non mettere .0   Se vuoi provare altrimenti lascia tutti .0 che l'e stes 
-		
-		
-		
-		//ALAN quando hai finito e tutto funziona, elimina tutti i commenti inutili, anche quelli con cui generavamo i voli random..
-		
-		
-		
-	    // 2 righe da non cancellare
 		Datastore ds = DBSession.getInstance();
 		ds.save(voli);
 	}
