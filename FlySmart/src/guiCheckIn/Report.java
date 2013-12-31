@@ -105,7 +105,7 @@ public class Report extends View {
 		JTextArea reportTextArea=new JTextArea();
 		reportTextArea.setLineWrap(false);
 		reportTextArea.setWrapStyleWord(false);
-		reportTextArea.append("PALLET\n");
+		reportTextArea.append("PALLET  (colonna, fila)\n");
 		//ordino pallet per posto
 		Collections.sort(pallet, PostoComparator.POSTO_ORDER);
 		for (Pallet p : pallet){
@@ -116,7 +116,7 @@ public class Report extends View {
 		
 		//ordino passeggeri per posto
 		Collections.sort(passeggeri, PasseggeroComparator.NAME_ORDER);
-		reportTextArea.append("\n\nPASSEGGERI\n");
+		reportTextArea.append("\n\nPASSEGGERI  (colonna, fila)\n");
 		for (Passeggero p : passeggeri){
 			reportTextArea.append("("+ p.getColonna()+ ";" + p.getFila()+") "+p.getCognome()+ " " +p.getNome()+ " \n");
 			occupancyPasseggeri[p.getFila()][p.getColonna()]=true;
