@@ -55,7 +55,7 @@ public class RiempiAereo {
 
 		
 		
-		l.add(new Pallet(1396, "AR432T", v.getId()));
+		//l.add(new Pallet(1396, "AR432T", v.getId()));
 		l.add(new Pallet(699, "TR606U", v.getId()));
 		l.add(new Pallet(677, "RR870I", v.getId()));
 		l.add(new Pallet(656, "KK123R", v.getId()));
@@ -133,6 +133,7 @@ public class RiempiAereo {
 		l.add(new Passeggero("Lucia", "Castellano", 15, 5, 1970, Sesso.F)); 
 		l.add(new Passeggero("Roberta", "Gavazzeni", 16, 3, 1970, Sesso.F)); 
 		l.add(new Passeggero("Giacomo", "Checchi", 22, 3, 1971, Sesso.M)); 
+		prenotaz.prenota(l, v.getId()); l.clear();
 	}
 
 }

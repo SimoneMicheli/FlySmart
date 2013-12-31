@@ -86,14 +86,14 @@ public class CreaAeroportiVoli {
 		List<Volo> voli = new LinkedList<Volo>();
 		Calendar c = Calendar.getInstance();
 
-		c.set(2014, 0, 20, 20, 45); 
-		voli.add(new Volo(c.getTime() , 3, 12, 79.0, 2.0, StatoVolo.OPEN, TipoAereo.S));
-		c.set(2014,0,22,22,45);
+		c.set(2014, 0, 29, 20, 45); 
+		voli.add(new Volo(c.getTime() , 3, 12, 79.0, 1.0, StatoVolo.OPEN, TipoAereo.S));
+		c.set(2014,1,22,22,45);
 		voli.add(new Volo(c.getTime() , 3, 7, 89.0, 3.0, StatoVolo.OPEN, TipoAereo.M));
 		c.set(2014,1,10,8,10);
 		voli.add(new Volo(c.getTime() , 3, 22, 59.0, 1.0, StatoVolo.OPEN, TipoAereo.L));
 		c.set(2014,1,15,20,25);
-		voli.add(new Volo(c.getTime() , 3, 16, 129.0, 6.0, StatoVolo.OPEN, TipoAereo.S));
+		voli.add(new Volo(c.getTime() , 3, 16, 129.0, 3.0, StatoVolo.OPEN, TipoAereo.S));
 		c.set(2014,1,4,16,45);
 		voli.add(new Volo(c.getTime() , 3, 6, 89.0, 2.0, StatoVolo.OPEN, TipoAereo.M));
 		c.set(2014,1,21,3,15);
